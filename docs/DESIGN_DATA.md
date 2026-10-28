@@ -1,13 +1,14 @@
 # 统一设计数据格式 V0.1（讨论草案）
 
-> 供 A、C、D、E 对齐接口，待 B 补充工艺依据。本文不规定任何未经验证的尺寸、竹条规格或可编织阈值。实时预览使用 SVG，不依赖 Grasshopper。
+> 供 A、C、D、E 对齐接口，待 B 补充工艺依据。本文不规定任何未经验证的尺寸、竹条规格或可编织阈值。实时预览使用 SVG，不依赖 Grasshopper。C 与 D 的职责边界、待验证时的展示方式已由产品负责人确认；具体字段约束仍待各组逐项评审。
 
 ## 核心约定
 
-- 一份 `Design` 是唯一当前数据源。C 生成初稿，D 修改设计，SVG 预览读取设计，E 检查同一版本并生成材料、编号和教程。
-- 坐标与尺寸使用毫米（`mm`）。SVG 用 `viewBox` 映射设计坐标，页面缩放不改变设计数据。
+- 一份 `Design` 是唯一当前数据源。A 将已选载体上下文传给 C；C 输出与编法无关的结构化初稿；用户确认后，D 根据结果、所选编法与参数生成网格、竹条及交织数据并绘制 SVG；E 检查同一设计版本。
+- 设计坐标与工艺尺寸使用毫米（`mm`）。D 通过明确的 `mmToSvg`、SVG 原点和轴方向映射到 `viewBox`；页面缩放不改变设计数据，E 不使用视图映射计算材料。
 - 扇面生成 `surfacePattern`（表面图样）；自定义形状生成 `carrierShape`（几何载体形状）。两者不能互换。
-- 每次改变形状、图样、编法或工艺参数，都递增 `revision`，将旧检查与教程标为过期。仅缩放、平移等视图状态不递增。
+- C 每次重新生成递增 `generationRevision`；形状、图样、编法或工艺参数变化时递增 `designRevision`。检查、材料和教程记录 `generatedFromRevision`；不等于当前 `designRevision` 时立即过期。仅缩放、平移等视图状态不递增。
+- 工艺状态独立于用户确认状态。检查依据不足时，仅允许查看明确标注为“演示内容”的预览或页面，不生成或导出正式材料清单与制作教程。
 - 所有工艺参数范围、编法适用性和计算公式由 B 提供依据后填入规则表；当前字段可存在，值与结论不得伪造。
 
 ## V0.1 数据对象
@@ -15,32 +16,32 @@
 | 字段 | 类型与含义 | 写入方 | 读取方 |
 | --- | --- | --- | --- |
 | `schemaVersion` | 字符串，数据格式版本 | A | 全员 |
-| `designId`, `revision` | 设计标识、递增整数版本 | A / D | 全员 |
+| `designId`, `designRevision`, `generationRevision` | 稳定设计标识、设计编辑版本、C 的重新生成版本 | A / C / D | 全员 |
 | `carrier.type` | `fan` 或 `custom` | A | C / D / E |
-| `carrier.geometry` | 载体边界的闭合路径及尺寸；扇面可由标准案例提供，自定义由 C 生成 | C / 标准样例 | D / E |
+| `carrier.geometry` | 毫米坐标几何；自定义形状含 `components`、`outerBoundary`、按需的 `holes`，以及闭合和填充规则 | C / 标准样例 | D / E |
 | `input.channel`, `input.sourceRef` | `referenceImage`、`text`、`drawing`；原始内容或资源引用 | A / C | C / D |
-| `generation.kind` | `surfacePattern` 或 `carrierShape`，与载体类型匹配 | C | A / D / E |
+| `generation.resultType` | 互斥的 `surface_pattern` 或 `carrier_shape`，由 A 传入的载体类型决定 | C | A / D / E |
 | `generation.confirmed` | 用户是否确认当前生成结果 | A | D / E |
-| `pattern` | 扇面图样：颜色索引网格、位置与比例；自定义形状可为 `null` | C / D | SVG / E |
+| `surfacePattern` / `carrierShape` | C 的编法无关结果；扇面为结构化表面图样，自定义为几何载体形状，两者互斥。C 不负责最终竹条网格 | C | A / D |
 | `weave.methodId` | 编法标识；实际允许值待 B 确认 | A / D | SVG / E |
 | `parameters` | 疏密、竹条宽度、图样大小、配色等用户可调值；单位逐项注明 | D | SVG / E |
-| `strips` | 竹条编号、方向、几何路径、宽度、颜色、交织顺序；可由预览计算器从设计派生 | D 的计算模块 | SVG / E |
-| `check` | 检查所依据的 `revision`、状态、问题位置与建议 | E | A / D |
-| `guide` | 教程所依据的 `revision`、材料、竹条编号和步骤 | E | A |
+| `strips` / `interlace.crossings` | D 派生的竹条唯一编号、方向、路径、宽度、颜色及带稳定 ID 的交织关系 | D | SVG / E |
+| `validation` | `generatedFromRevision`、检查状态、问题位置、依据与建议 | E | A / D |
+| `guide` | `generatedFromRevision`、材料、沿用 D 编号的竹条表和步骤；仅检查通过后作为正式资料生成 | E | A |
 
-`carrier.geometry` 和 `strips` 的路径建议统一为设计坐标中的点列或 SVG path 数据；**路径只表达几何，不代表工艺可行**。若使用 SVG path，需记录其坐标系和闭合状态。图片原件只保留资源引用，不直接塞进设计 JSON。
+`carrier.geometry` 和 `strips` 的路径应能还原毫米坐标；**路径只表达几何，不代表工艺可行**。自定义形状的开口、自交、多部件或复杂轮廓应有结构化问题记录；能否继续编辑仍待 B、D、E 确认。图片原件只保留资源引用，不直接塞进设计 JSON。`weaveModel` 的公式文本只能作说明，不作为跨模块可执行代码。
 
 ## SVG 实时预览约定
 
-1. D 根据 `carrier.geometry` 创建 SVG `viewBox` 和载体裁剪区域。
-2. 扇面将 `pattern` 映射到有效区域；自定义形状直接显示已确认的几何载体。
-3. D 根据编法和参数计算 `strips`，在 SVG 中按竹条方向、颜色和交织层次绘制；调参时重新计算并更新 SVG。
+1. D 根据毫米坐标的载体几何，定义 `viewTransform`（`mmToSvg`、`originSvg`、`yAxis`）并创建 SVG `viewBox` 与裁剪区域。
+2. 扇面将 C 的编法无关表面图样映射到有效区域；自定义形状使用 C 的几何载体形状。D 在选编法后负责网格化或重采样，具体规则由 C、D 对齐。
+3. D 根据编法和参数计算 `strips` 与 `interlace.crossings`，在 SVG 中按竹条方向、颜色和交织层次绘制；调参时重新计算并更新 SVG。竹条 ID 由 D 分配，E 沿用。
 4. 同一份更新后的 `Design` 交给 E。E 不从 SVG 像素反推材料或工艺数据。
-5. 若编法规则或竹条计算尚缺 B 的依据，SVG 可显示**演示预览**，检查状态标为 `unverified`，不可称为可制作方案。
+5. 若编法规则或竹条计算尚缺 B 的依据，SVG 可显示**演示预览**，检查状态标为待验证；只能展示明确标注的演示内容，不生成或导出正式制作资料。
 
 ## 最小状态规则
 
-`check.status` 取 `notRun`、`pass`、`warning`、`fail`、`unverified`。`check.designRevision !== revision` 时检查过期。`guide.designRevision !== revision` 时教程过期；重新检查前不得将旧教程标为当前有效。检查问题至少记录严重度、位置、规则标识、原因、建议及规则验证状态。
+`validation.status` 暂用 `unchecked`、`pending`、`passed`、`failed`；`pending` 必须注明是检查中还是缺少工艺依据。检查问题至少记录严重度、位置、规则标识、原因、建议、依据引用和验证状态。`validation.generatedFromRevision !== designRevision` 或 `guide.generatedFromRevision !== designRevision` 时对应结果过期。用户确认生成结果不等于工艺检查通过。
 
 ## 待共同确认
 
