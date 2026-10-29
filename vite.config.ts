@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
 
-export default defineConfig({
-  base: "/haining-AI-work/",
-});
+export default defineConfig(({ command }) => ({
+  base: command === "build" ? "/haining-AI-work/" : "/",
+}));
