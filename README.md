@@ -23,3 +23,5 @@
 安装 Node.js 20.19+ 后，在仓库根目录执行 `pnpm install`、`pnpm dev`。构建命令为 `pnpm build`。团队接入点、当前占位能力和共同案例见 [集成说明](docs/INTEGRATION.md)。
 
 依赖已安装，并已通过 TypeScript 检查和 Vite 生产构建。演示边界见 [DEMO_FAN_BOUNDARY_V0.1](docs/DEMO_FAN_BOUNDARY_V0.1.md)。
+
+**坐标更新提示：** B 目前仅确认 A4 纸样最大包络 210 × 297 mm。当前页面的 260 × 150 仍是旧版视觉占位，不能用于 C→D 的新毫米样例或工艺结论；A、C、D 正在确认新的页面坐标上下文。
