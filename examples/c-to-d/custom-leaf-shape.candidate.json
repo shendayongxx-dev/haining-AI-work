@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "0.2",
+  "designId": "design-custom-leaf-001",
+  "designRevision": 0,
+  "carrier": {
+    "id": "CUSTOM-CANDIDATE-001",
+    "type": "custom",
+    "coordinateSpace": {
+      "unit": "mm",
+      "width": 210,
+      "height": 297,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    }
+  },
+  "input": {
+    "inputVersionId": "input-custom-leaf-001",
+    "inputRevision": 1,
+    "channel": "text",
+    "text": "生成一个单一闭合、不自交、无孔洞的叶片形载体",
+    "language": "zh-CN"
+  },
+  "generation": {
+    "generationId": "generation-custom-leaf-001",
+    "generationRevision": 1,
+    "inputVersionId": "input-custom-leaf-001",
+    "status": "succeeded",
+    "generatorVersion": "c-generator-v0.2",
+    "result": {
+      "resultType": "carrier_shape",
+      "shapeId": "shape-custom-leaf-001",
+      "coordinateSpace": {
+        "unit": "mm",
+        "width": 210,
+        "height": 297,
+        "origin": "topLeft",
+        "xAxis": "right",
+        "yAxis": "down"
+      },
+      "fillRule": "evenodd",
+      "components": [{
+        "componentId": "component-leaf-001",
+        "outerBoundary": {
+          "closed": true,
+          "pointsMm": [
+            { "x": 24, "y": 148.5 },
+            { "x": 66, "y": 62 },
+            { "x": 144, "y": 66 },
+            { "x": 186, "y": 148.5 },
+            { "x": 144, "y": 231 },
+            { "x": 66, "y": 235 },
+            { "x": 24, "y": 148.5 }
+          ]
+        },
+        "holes": []
+      }]
+    },
+    "issues": []
+  }
+}

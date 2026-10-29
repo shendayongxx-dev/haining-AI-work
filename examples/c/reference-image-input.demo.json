@@ -1,0 +1,25 @@
+{
+  "notice": "演示资源引用；assetId 需要由 A 的上传服务生成。",
+  "inputVersionId": "input-image-demo-001",
+  "inputRevision": 1,
+  "channel": "referenceImage",
+  "source": {
+    "channel": "referenceImage",
+    "assetRef": {
+      "assetId": "asset-demo-001",
+      "mimeType": "image/png",
+      "pixelSize": {
+        "width": 1200,
+        "height": 800
+      },
+      "byteSize": 240000
+    },
+    "crop": {
+      "x": 0.1,
+      "y": 0.1,
+      "width": 0.8,
+      "height": 0.8,
+      "unit": "normalized"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "0.2",
+  "designId": "design-fan-green-triangle-001",
+  "designRevision": 0,
+  "carrier": {
+    "id": "A4-PAGE-DEMO",
+    "type": "fan",
+    "coordinateSpace": {
+      "unit": "mm",
+      "width": 210,
+      "height": 297,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    },
+    "notice": "A4 页面演示坐标；不是正式扇面边界，有效图样区域待 B 验证。"
+  },
+  "input": {
+    "inputVersionId": "input-fan-green-triangle-001",
+    "inputRevision": 1,
+    "channel": "drawing",
+    "captureMethod": "pointer",
+    "drawingSpace": {
+      "unit": "normalized",
+      "width": 1,
+      "height": 1,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    },
+    "strokes": [{
+      "id": "stroke-green-triangle-001",
+      "color": "#315F3A",
+      "closed": true,
+      "points": [
+        { "x": 0.333333, "y": 0.680135 },
+        { "x": 0.5, "y": 0.319865 },
+        { "x": 0.666667, "y": 0.680135 },
+        { "x": 0.333333, "y": 0.680135 }
+      ]
+    }]
+  },
+  "generation": {
+    "generationId": "generation-fan-green-triangle-001",
+    "generationRevision": 1,
+    "inputVersionId": "input-fan-green-triangle-001",
+    "status": "succeeded",
+    "generatorVersion": "c-generator-v0.2",
+    "result": {
+      "resultType": "surface_pattern",
+      "patternId": "pattern-fan-green-triangle-001",
+      "coordinateSpace": {
+        "unit": "mm",
+        "width": 210,
+        "height": 297,
+        "origin": "topLeft",
+        "xAxis": "right",
+        "yAxis": "down"
+      },
+      "palette": [{ "paletteId": "green-01", "color": "#315F3A" }],
+      "elements": [{
+        "elementId": "element-green-triangle-001",
+        "sourceInputId": "stroke-green-triangle-001",
+        "kind": "polygon",
+        "paletteId": "green-01",
+        "zIndex": 1,
+        "pointsMm": [
+          { "x": 70, "y": 202 },
+          { "x": 105, "y": 95 },
+          { "x": 140, "y": 202 },
+          { "x": 70, "y": 202 }
+        ]
+      }],
+      "transform": { "scale": 1, "rotationDeg": 0, "offsetMm": { "x": 0, "y": 0 } }
+    },
+    "issues": []
+  }
+}
+
