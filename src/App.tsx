@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { Candidate, Carrier, DEMO_FAN_BOUNDARY_V0_1, InputChannel, Point, Step, makeCandidate } from './model';
+import { Candidate, Carrier, DEMO_FAN_BOUNDARY_V0_1, InputChannel, Point, Step } from './model';
+import Fan from './modules/d/FanPreview';
+import { generateCandidate } from './modules/c/generateCandidate';
+import { validateDemo } from './modules/e/validation';
 
 const steps: { id: Step; label: string }[] = [
   { id: 'carrier', label: '选择载体' }, { id: 'input', label: '输入创意' }, { id: 'generating', label: '生成中' },
@@ -7,19 +10,6 @@ const steps: { id: Step; label: string }[] = [
   { id: 'check', label: '工艺检查' }, { id: 'materials', label: '制作资料' },
 ];
 type Stroke = Point[];
-
-function Fan({ candidate, grid = false, density = 65, stripWidth = 3, color, weave = 'plain-demo', scale = 100 }: { candidate?: Candidate | null; grid?: boolean; density?: number; stripWidth?: number; color?: string; weave?: string; scale?: number }) {
-  const custom = candidate?.resultType === 'carrier_shape';
-  const spacing = Math.max(6, Math.round(18 - density / 8));
-  const lines = Array.from({ length: Math.ceil(260 / spacing) + 1 }, (_, i) => i * spacing);
-  return <svg className="fan" viewBox="0 0 260 170" role="img" aria-label="演示扇面">
-    <defs><clipPath id="fanClip"><path d="M8 145 Q130 -100 252 145 L130 145 Z"/></clipPath></defs>
-    {!custom && <path d="M8 145 Q130 -100 252 145 L130 145 Z" fill="#ead8b5" stroke="#ba8750" strokeWidth="4"/>}
-    {!custom && <g clipPath="url(#fanClip)" opacity={grid ? .85 : .3}>{lines.map((x,i) => <g key={i}><path d={`M${x} 0 V170`} stroke="#aa8359" strokeWidth={stripWidth * .65}/><path d={weave==='diagonal-demo'?`M0 ${x} L260 ${x-70}`:`M0 ${x} H260`} stroke="#fff6de" strokeWidth={stripWidth * .65}/></g>)}</g>}
-    {candidate && <polygon points={candidate.pointsMm.map(p => `${130+(p.x-130)*scale/100},${75+(p.y-75)*scale/100}`).join(' ')} fill={color ?? candidate.color} stroke="#14543b" strokeWidth="2"/>}
-    {!custom && <><path d="M8 145 Q130 -100 252 145" fill="none" stroke="#dfae6e" strokeWidth="5"/><circle cx="130" cy="145" r="8" fill="#b17e4c"/></>}
-  </svg>;
-}
 
 function Drawing({ strokes, onChange }: { strokes: Stroke[]; onChange: (s: Stroke[]) => void }) {
   const active = useRef<Stroke | null>(null);
@@ -54,7 +44,11 @@ export default function App() {
     if(channel==='text'&&!text.trim())return setNotice('请输入创意描述。');
     if(channel==='referenceImage'&&!file)return setNotice('请选择参考图。');
     const inputId=crypto.randomUUID();go('generating');
-    timer.current=setTimeout(()=>{setCandidate(makeCandidate(carrier,channel,inputId));setStep('confirm');},1300);
+    timer.current=setTimeout(()=>{
+      void generateCandidate({ carrier, channel, inputVersionId: inputId, text, file, strokes })
+        .then(result => { setCandidate(result); setStep('confirm'); })
+        .catch(() => { setNotice('生成失败，请修改输入后重试。当前已确认设计保持不变。'); setStep('input'); });
+    },1300);
   }
   function confirm(){if(!candidate)return;setConfirmed(candidate);setRevision(n=>n+1);setWeave('');go('weave');}
   function update(fn:(v:number)=>void,v:number){fn(v);setRevision(n=>n+1);}
@@ -76,7 +70,7 @@ export default function App() {
         <section className="studio-main"><div className="studio-title"><h2>实时预览</h2><span>演示预览 · 待 B 验证</span><small>版本 {revision}</small></div><div className="preview"><Fan candidate={confirmed} grid density={density} stripWidth={width} color={color} weave={weave} scale={size}/><small>参数与配色实时反映在 SVG · D 的正式网格和竹条计算待接入</small></div></section>
         <aside className="controls"><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(65);setWidth(3);setSize(100);setColor('#0e6652');setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整设计后旧检查与教程失效。</p><label>编织疏密 <b>{density}</b><input type="range" min="20" max="90" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="5" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><div className="palette"><b>配色方案</b><div>{[['#e7cda9','竹本色'],['#0e6652','墨竹青'],['#75a78d','青玉绿']].map(([hex,name])=><button key={hex} className={color===hex?'active':''} style={{background:hex}} title={name} aria-label={name} onClick={()=>{if(color!==hex){setColor(hex);setRevision(n=>n+1);}}}/>)}</div></div><div className="actions"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
       </div>}
-      {step==='check'&&<div className="end"><p className="kicker">05 / 工艺检查</p><div className="end-icon">!</div><h1>工艺状态：待验证</h1><p>当前设计版本 {revision} 尚缺 B 确认的尺寸、编法适用性与实物试编依据；E 检查模块尚未接入。</p><div className="warning">不能宣称可制作，也不能生成正式材料清单或教程。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button className="primary" onClick={()=>go('materials')}>查看演示资料页 →</button></div></div>}
+      {step==='check'&&<div className="end"><p className="kicker">05 / 工艺检查</p><div className="end-icon">!</div><h1>工艺状态：{validateDemo(revision).status==='pending'?'待验证':validateDemo(revision).status}</h1><p>当前设计版本 {revision}：{validateDemo(revision).pendingReason}</p><div className="warning">不能宣称可制作，也不能生成正式材料清单或教程。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button className="primary" onClick={()=>go('materials')}>查看演示资料页 →</button></div></div>}
       {step==='materials'&&<div className="end"><p className="kicker">06 / 制作资料</p><div className="end-icon">▤</div><h1>制作资料等待验证</h1><p>材料清单、竹条编号和图文教程必须对应通过检查的当前设计版本。</p><div className="warning">演示页面，未经工艺验证 · 正式生成与导出暂不可用</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button onClick={()=>go('check')}>查看检查状态</button></div></div>}
     </main><footer>{DEMO_FAN_BOUNDARY_V0_1.id} · {DEMO_FAN_BOUNDARY_V0_1.label} · DESIGN_DATA V0.2</footer>
   </div>;

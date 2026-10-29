@@ -17,12 +17,14 @@ pnpm build
 | 负责人 | 接入点 | 输入与交付 |
 | --- | --- | --- |
 | A | `src/App.tsx` 的页面状态和候选确认 | 管理载体、输入版本、候选、确认结果及 `designRevision`；新候选确认前保留旧正式设计。 |
-| C | 替换 `src/model.ts` 的 `makeCandidate` 和 `src/App.tsx` 的 `generate` 演示流程 | 三通道生成；扇面输出 `surface_pattern`，自定义形状输出 `carrier_shape`；C→D 坐标为 mm。 |
-| D | 替换 `src/App.tsx` 的 `Fan` 演示 SVG 预览 | 确认结果和编法后生成网格、竹条、交织结构、SVG 及同版本 D→E 快照。 |
-| E | 替换 `check` 和 `materials` 页的占位内容 | 按 D 快照及 B 的依据输出检查、材料、编号和教程；版本变化时使旧结果失效。 |
+| C | `src/modules/c/generateCandidate.ts` | 三通道生成；扇面输出 `surface_pattern`，自定义形状输出 `carrier_shape`；C→D 坐标为 mm。输入页布局与状态仍由 A 维护。 |
+| D | `src/modules/d/FanPreview.tsx` | 确认结果和编法后生成网格、竹条、交织结构、SVG 及同版本 D→E 快照。编辑页布局与版本状态仍由 A 维护。 |
+| E | `src/modules/e/validation.ts` | 按 D 快照及 B 的依据输出检查、材料、编号和教程；版本变化时使旧结果失效。检查与资料页布局仍由 A 维护。 |
 | B | `docs/CRAFT_RULES.md`（待补）及标准案例 | 提供有来源、经实物验证的尺寸、编法和工艺规则。 |
 
 公共字段及单位遵循 [`DESIGN_DATA.md`](DESIGN_DATA.md) V0.2。接口调整应先说明受影响模块并共同评审。
+
+模块负责人优先在对应 `src/modules/<字母>/` 下开发。需要新增公共类型、改变 A 管理的状态，或改动 `src/App.tsx` 时，先与 A 对齐再提交 PR。视觉、Logo、页面布局仍由 A 迭代，不应作为模块接入的前置条件。
 
 ## 当前可用与限制
 
