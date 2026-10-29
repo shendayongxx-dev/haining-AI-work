@@ -13,6 +13,7 @@ export type SurfacePattern = {
   palette: { paletteId: string; color: string }[];
   elements: {
     elementId: string;
+    sourceInputId: string;
     kind: 'polygon' | 'polyline';
     paletteId: string;
     zIndex: number;
@@ -27,11 +28,21 @@ export type FanStructureInput = {
   designId: string;
   designRevision: number;
   confirmedGenerationId: string;
+  carrier: {
+    id: 'FAN-ROUND-170-V1';
+    boundaryId: 'BOUNDARY-ROUND-170-V1';
+    effectivePatternBoundaryId: 'PATTERN-ROUND-150-V1';
+    centerMm: PointMm;
+    radiusMm: 85;
+    effectivePatternRadiusMm: 75;
+    craftRuleVersion: 'CROSS-1X1-V1';
+  };
   pattern: SurfacePattern;
+  generationIssues: { code: string; severity: 'info' | 'warning' | 'blocking'; message: string }[];
   parameters: {
     density: number;
     stripWidthMm: number;
-    weaveId: 'plain-demo';
+    weaveId: 'CROSS-1X1-V1';
     baseColor: string;
   };
 };
@@ -48,6 +59,7 @@ export type ColorSegment = {
   paletteId: string;
   color: string;
   sourceElementId?: string;
+  sourceInputId?: string;
 };
 
 export type Strip = {
@@ -56,6 +68,8 @@ export type Strip = {
   index: number;
   axisMm: number;
   widthMm: number;
+  startMm: PointMm;
+  endMm: PointMm;
   geometryLengthMm: number;
   colorSegments: ColorSegment[];
 };
@@ -77,17 +91,23 @@ export type StructureSnapshot = {
   designRevision: number;
   generatedFromRevision: number;
   confirmedGenerationId: string;
+  sourcePattern: {
+    patternId: string;
+    generationIssues: FanStructureInput['generationIssues'];
+  };
   status: { usage: 'demo'; label: '演示数据，待 B 验证' };
   carrier: {
     type: 'fan';
     unit: 'mm';
-    boundaryId: 'A4-PAGE-DEMO';
+    carrierId: 'FAN-ROUND-170-V1';
+    boundaryId: 'BOUNDARY-ROUND-170-V1';
+    effectivePatternBoundaryId: 'PATTERN-ROUND-150-V1';
     widthMm: 210;
     heightMm: 297;
-    boundaryVerification: 'pending';
+    boundaryVerification: 'provided-by-b';
   };
-  activeArea: { type: 'polygon'; pointsMm: PointMm[] };
-  weave: { id: 'plain-demo'; rule: 'over-under-1-1'; verified: false };
+  activeArea: { type: 'circle'; centerMm: PointMm; radiusMm: 85 };
+  weave: { id: 'CROSS-1X1-V1'; rule: 'over-under-1-1'; verified: false };
   parameters: FanStructureInput['parameters'];
   grid: { warpSpacingMm: number; weftSpacingMm: number; warpCount: number; weftCount: number };
   strips: { list: Strip[] };

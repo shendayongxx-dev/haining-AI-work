@@ -3,19 +3,15 @@ import type { Crossing, FanStructureInput, PointMm, Strip, StructureSnapshot, Su
 const DEMO_LABEL = '演示数据，待 B 验证' as const;
 const WIDTH_MM = 210;
 const HEIGHT_MM = 297;
-const ACTIVE_AREA: PointMm[] = [
-  { x: 0, y: 0 }, { x: WIDTH_MM, y: 0 },
-  { x: WIDTH_MM, y: HEIGHT_MM }, { x: 0, y: HEIGHT_MM },
-];
 
 const round = (value: number) => Math.round(value * 100) / 100;
 const pad = (value: number) => String(value).padStart(3, '0');
 
-function rotateScale(point: PointMm, pattern: SurfacePattern): PointMm {
+function rotateScale(point: PointMm, pattern: SurfacePattern, center: PointMm): PointMm {
   const { scale, rotationDeg, offsetMm } = pattern.transform;
   const angle = rotationDeg * Math.PI / 180;
-  const cx = WIDTH_MM / 2;
-  const cy = HEIGHT_MM / 2;
+  const cx = center.x;
+  const cy = center.y;
   const x = (point.x - cx) * scale;
   const y = (point.y - cy) * scale;
   return {
@@ -36,33 +32,45 @@ function pointInPolygon(point: PointMm, polygon: PointMm[]): boolean {
   return inside;
 }
 
-function insideFan(point: PointMm): boolean {
-  return point.x >= 0 && point.x <= WIDTH_MM && point.y >= 0 && point.y <= HEIGHT_MM;
-}
-
-function samplePattern(pattern: SurfacePattern, point: PointMm, baseColor: string) {
+function samplePattern(pattern: SurfacePattern, point: PointMm, baseColor: string, center: PointMm) {
   const palette = new Map(pattern.palette.map(entry => [entry.paletteId, entry.color]));
   const hit = [...pattern.elements]
     .sort((a, b) => b.zIndex - a.zIndex || a.elementId.localeCompare(b.elementId))
     .find(element => element.kind === 'polygon'
-      && pointInPolygon(point, element.pointsMm.map(value => rotateScale(value, pattern))));
-  if (!hit) return { paletteId: 'd-base', color: baseColor, sourceElementId: undefined };
-  return { paletteId: hit.paletteId, color: palette.get(hit.paletteId) ?? baseColor, sourceElementId: hit.elementId };
+      && pointInPolygon(point, element.pointsMm.map(value => rotateScale(value, pattern, center))));
+  if (!hit) return { paletteId: 'd-base', color: baseColor, sourceElementId: undefined, sourceInputId: undefined };
+  return {
+    paletteId: hit.paletteId,
+    color: palette.get(hit.paletteId) ?? baseColor,
+    sourceElementId: hit.elementId,
+    sourceInputId: hit.sourceInputId,
+  };
 }
 
 function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, widthMm: number,
-  spacingMm: number, pattern: SurfacePattern, baseColor: string): Strip | null {
-  const samples: { position: number; paletteId: string; color: string; sourceElementId?: string }[] = [];
-  const limit = direction === 'warp' ? HEIGHT_MM : WIDTH_MM;
-  for (let position = 0; position <= limit; position += spacingMm) {
-    const point = direction === 'warp' ? { x: axisMm, y: position } : { x: position, y: axisMm };
-    if (insideFan(point)) samples.push({ position, ...samplePattern(pattern, point, baseColor) });
-  }
-  if (!samples.length) return null;
+  spacingMm: number, pattern: SurfacePattern, baseColor: string, center: PointMm, radiusMm: number): Strip {
+  const offset = axisMm - (direction === 'warp' ? center.x : center.y);
+  const halfChord = Math.sqrt(Math.max(0, radiusMm * radiusMm - offset * offset));
+  const startMm = direction === 'warp'
+    ? { x: axisMm, y: center.y - halfChord }
+    : { x: center.x - halfChord, y: axisMm };
+  const endMm = direction === 'warp'
+    ? { x: axisMm, y: center.y + halfChord }
+    : { x: center.x + halfChord, y: axisMm };
+  const limit = halfChord * 2;
+  const samplePositions = Array.from({ length: Math.ceil(limit / spacingMm) + 1 }, (_, sampleIndex) =>
+    Math.min(limit, sampleIndex * spacingMm));
+  const samples = samplePositions.map(position => {
+    const point = direction === 'warp'
+      ? { x: axisMm, y: startMm.y + position }
+      : { x: startMm.x + position, y: axisMm };
+    return { position, ...samplePattern(pattern, point, baseColor, center) };
+  });
   const colorSegments: Strip['colorSegments'] = [];
   for (const sample of samples) {
     const last = colorSegments.at(-1);
-    if (last && last.paletteId === sample.paletteId && last.sourceElementId === sample.sourceElementId) {
+    if (last && last.paletteId === sample.paletteId && last.sourceElementId === sample.sourceElementId
+      && last.sourceInputId === sample.sourceInputId) {
       last.toMm = round(Math.min(limit, sample.position + spacingMm / 2));
     } else {
       colorSegments.push({
@@ -71,6 +79,7 @@ function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, w
         paletteId: sample.paletteId,
         color: sample.color,
         sourceElementId: sample.sourceElementId,
+        sourceInputId: sample.sourceInputId,
       });
     }
   }
@@ -81,27 +90,29 @@ function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, w
     index,
     axisMm: round(axisMm),
     widthMm,
-    geometryLengthMm: round(samples.at(-1)!.position - samples[0].position),
+    startMm: { x: round(startMm.x), y: round(startMm.y) },
+    endMm: { x: round(endMm.x), y: round(endMm.y) },
+    geometryLengthMm: round(limit),
     colorSegments,
   };
 }
 
 export function calculateFanStructure(input: FanStructureInput): StructureSnapshot {
   const count = Math.max(2, Math.round(input.parameters.density));
-  const warpSpacingMm = WIDTH_MM / (count - 1);
-  const weftSpacingMm = HEIGHT_MM / (count - 1);
+  const { centerMm, radiusMm } = input.carrier;
+  // CROSS-1X1-V1 联调采用圆内接正方形的 21×21 轴线，确保全部 441 个交点位于圆内。
+  const gridHalfSpan = radiusMm / Math.sqrt(2);
+  const warpSpacingMm = gridHalfSpan * 2 / (count - 1);
+  const weftSpacingMm = warpSpacingMm;
   const warps = Array.from({ length: count }, (_, index) =>
-    buildStrip('warp', index, index * warpSpacingMm, input.parameters.stripWidthMm,
-      weftSpacingMm, input.pattern, input.parameters.baseColor))
-    .filter((strip): strip is Strip => Boolean(strip));
+    buildStrip('warp', index, centerMm.x - gridHalfSpan + index * warpSpacingMm,
+      input.parameters.stripWidthMm, weftSpacingMm, input.pattern, input.parameters.baseColor, centerMm, radiusMm));
   const wefts = Array.from({ length: count }, (_, index) =>
-    buildStrip('weft', index, index * weftSpacingMm, input.parameters.stripWidthMm,
-      warpSpacingMm, input.pattern, input.parameters.baseColor))
-    .filter((strip): strip is Strip => Boolean(strip));
+    buildStrip('weft', index, centerMm.y - gridHalfSpan + index * weftSpacingMm,
+      input.parameters.stripWidthMm, warpSpacingMm, input.pattern, input.parameters.baseColor, centerMm, radiusMm));
   const crossings: Crossing[] = [];
   for (const warp of warps) for (const weft of wefts) {
     const positionMm = { x: warp.axisMm, y: weft.axisMm };
-    if (!insideFan(positionMm)) continue;
     crossings.push({
       id: `X-${warp.id}-${weft.id}`,
       warpId: warp.id,
@@ -119,13 +130,15 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
     designRevision: input.designRevision,
     generatedFromRevision: input.designRevision,
     confirmedGenerationId: input.confirmedGenerationId,
+    sourcePattern: { patternId: input.pattern.patternId, generationIssues: input.generationIssues },
     status: { usage: 'demo', label: DEMO_LABEL },
     carrier: {
-      type: 'fan', unit: 'mm', boundaryId: 'A4-PAGE-DEMO', widthMm: WIDTH_MM,
-      heightMm: HEIGHT_MM, boundaryVerification: 'pending',
+      type: 'fan', unit: 'mm', carrierId: input.carrier.id, boundaryId: input.carrier.boundaryId,
+      effectivePatternBoundaryId: input.carrier.effectivePatternBoundaryId,
+      widthMm: WIDTH_MM, heightMm: HEIGHT_MM, boundaryVerification: 'provided-by-b',
     },
-    activeArea: { type: 'polygon', pointsMm: ACTIVE_AREA },
-    weave: { id: 'plain-demo', rule: 'over-under-1-1', verified: false },
+    activeArea: { type: 'circle', centerMm, radiusMm },
+    weave: { id: 'CROSS-1X1-V1', rule: 'over-under-1-1', verified: false },
     parameters: input.parameters,
     grid: {
       warpSpacingMm: round(warpSpacingMm), weftSpacingMm: round(weftSpacingMm),
@@ -139,7 +152,7 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
       designId: input.designId,
       generatedFromRevision: input.designRevision,
       status: 'pending',
-      pendingReason: '当前仅使用 A4 页面演示包络；正式扇面边界、竹条规格和编法规则尚待 B 验证',
+      pendingReason: '已读取 B 的正式圆扇边界与 CROSS-1X1-V1 标识；竹条参数和实际制作仍待完整规则及试编验证',
     },
   };
 }
