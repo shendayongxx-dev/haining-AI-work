@@ -3,8 +3,10 @@
   "designId": "design-fan-green-triangle-001",
   "designRevision": 0,
   "carrier": {
-    "id": "A4-PAGE-DEMO",
+    "id": "FAN-ROUND-170-V1",
     "type": "fan",
+    "boundaryId": "BOUNDARY-ROUND-170-V1",
+    "effectivePatternBoundaryId": "PATTERN-ROUND-150-V1",
     "coordinateSpace": {
       "unit": "mm",
       "width": 210,
@@ -13,7 +15,7 @@
       "xAxis": "right",
       "yAxis": "down"
     },
-    "notice": "A4 页面演示坐标；不是正式扇面边界，有效图样区域待 B 验证。"
+    "notice": "B组正式载体V1；图样计算使用精确圆心和半径。"
   },
   "input": {
     "inputVersionId": "input-fan-green-triangle-001",
@@ -33,10 +35,10 @@
       "color": "#315F3A",
       "closed": true,
       "points": [
-        { "x": 0.333333, "y": 0.680135 },
-        { "x": 0.5, "y": 0.319865 },
-        { "x": 0.666667, "y": 0.680135 },
-        { "x": 0.333333, "y": 0.680135 }
+        { "x": 0.5, "y": 0.218855 },
+        { "x": 0.333333, "y": 0.488215 },
+        { "x": 0.666667, "y": 0.488215 },
+        { "x": 0.5, "y": 0.218855 }
       ]
     }]
   },
@@ -65,10 +67,10 @@
         "paletteId": "green-01",
         "zIndex": 1,
         "pointsMm": [
-          { "x": 70, "y": 202 },
-          { "x": 105, "y": 95 },
-          { "x": 140, "y": 202 },
-          { "x": 70, "y": 202 }
+          { "x": 105, "y": 65 },
+          { "x": 70, "y": 145 },
+          { "x": 140, "y": 145 },
+          { "x": 105, "y": 65 }
         ]
       }],
       "transform": { "scale": 1, "rotationDeg": 0, "offsetMm": { "x": 0, "y": 0 } }
@@ -76,4 +78,3 @@
     "issues": []
   }
 }
-

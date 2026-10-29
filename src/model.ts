@@ -52,12 +52,3 @@ export type Candidate = {
   color: string;
 };
 
-// Interface fixture only. B has not validated this geometry or any craft thresholds.
-export const DEMO_FAN_BOUNDARY_V0_1 = {
-  id: 'DEMO_FAN_BOUNDARY_V0.1',
-  unit: 'mm' as const,
-  width: 260,
-  height: 150,
-  label: '演示尺寸，待 B 实物验证',
-};
-

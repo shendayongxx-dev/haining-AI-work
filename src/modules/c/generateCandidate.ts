@@ -1,4 +1,5 @@
 import type { Candidate, Carrier, CarrierShape, GenerationIssue, InputChannel, Point, SurfacePattern } from '../../model';
+import { clampToEffectivePatternBoundary, distanceFromFanCenter, FORMAL_FAN_CARRIER_V1, pointInHandleReserve } from '../../data/formalFanCarrier';
 
 export type GenerationInput = {
   carrier: Carrier;
@@ -11,10 +12,7 @@ export type GenerationInput = {
 };
 
 const GENERATOR_VERSION = 'c-generator-v0.2';
-const COORDINATE_SPACE = {
-  unit: 'mm' as const, width: 210, height: 297,
-  origin: 'topLeft' as const, xAxis: 'right' as const, yAxis: 'down' as const,
-};
+const COORDINATE_SPACE = FORMAL_FAN_CARRIER_V1.coordinateSpace;
 const GREEN = '#315F3A';
 
 /** Direct drawing is real translation. Text/image use an honest demo adapter until A injects the model service. */
@@ -36,7 +34,7 @@ function sourceGeometry(input: GenerationInput) {
   if (input.channel === 'drawing') {
     const stroke = input.strokes?.at(-1) ?? [];
     return {
-      pointsMm: stroke.map(point => ({ x: round(point.x / 260 * 210), y: round(point.y / 150 * 297) })),
+      pointsMm: stroke.map(point => ({ x: round(point.x), y: round(point.y) })),
       sourceInputId: `drawing-${input.inputVersionId}`,
       issues: [] as GenerationIssue[],
     };
@@ -58,7 +56,19 @@ function sourceGeometry(input: GenerationInput) {
 
 function fanCandidate(input: GenerationInput, id: string, revision: number, pointsMm: Point[], sourceId: string, issues: GenerationIssue[]): Candidate {
   if (pointsMm.length < 2) issues.push(issue('GENERATION_FAILED', 'blocking', 'input', '没有可以转译的有效笔迹。'));
-  const points = pointsMm.length >= 2 ? pointsMm : demoTriangle();
+  const sourcePoints = pointsMm.length >= 2 ? pointsMm : demoTriangle();
+  const fanRadius = FORMAL_FAN_CARRIER_V1.boundary.radiusMm;
+  if (!shapeIntersectsCircle(sourcePoints, fanRadius)) {
+    issues.push(issue('PATTERN_OUTSIDE_FAN', 'blocking', 'geometry', '图样完全位于正式扇面之外，请移入扇面后重试。'));
+  }
+  const clipped = sourcePoints.some(point => distanceFromFanCenter(point) > FORMAL_FAN_CARRIER_V1.effectivePatternBoundary.radiusMm);
+  const points = clipped ? sourcePoints.map(clampToEffectivePatternBoundary) : sourcePoints;
+  if (clipped) {
+    issues.push(issue('PATTERN_CLIPPED_TO_EFFECTIVE_REGION', 'warning', 'geometry', '超出150 mm有效图样区域的点已收回到区域边界，请检查图样形状。'));
+  }
+  if (polylineIntersectsHandleReserve(points)) {
+    issues.push(issue('HANDLE_RESERVE_OVERLAP', 'warning', 'geometry', '图样进入扇柄连接保留区；背景纹理可保留，关键主体应移动。'));
+  }
   const result: SurfacePattern = {
     patternId: `${id}-pattern`, coordinateSpace: COORDINATE_SPACE,
     palette: [{ paletteId: 'green-01', color: GREEN }],
@@ -112,7 +122,7 @@ function label(input: GenerationInput) {
   return input.carrier === 'fan' ? '参考图表面图样候选（接口演示）' : '参考图载体形状候选（接口演示）';
 }
 
-function demoTriangle(): Point[] { return [{ x: 70, y: 202 }, { x: 105, y: 95 }, { x: 140, y: 202 }, { x: 70, y: 202 }]; }
+function demoTriangle(): Point[] { return [{ x: 105, y: 65 }, { x: 70, y: 145 }, { x: 140, y: 145 }, { x: 105, y: 65 }]; }
 function demoLeaf(): Point[] { return [{ x: 24, y: 148.5 }, { x: 66, y: 62 }, { x: 144, y: 66 }, { x: 186, y: 148.5 }, { x: 144, y: 231 }, { x: 66, y: 235 }, { x: 24, y: 148.5 }]; }
 function issue(code: string, severity: GenerationIssue['severity'], stage: GenerationIssue['stage'], message: string): GenerationIssue {
   return { id: `issue-${code.toLowerCase()}`, code, severity, stage, message, generatorVersion: GENERATOR_VERSION };
@@ -129,4 +139,41 @@ function hasSelfIntersection(points: Point[]) {
   return false;
 }
 function segmentsIntersect(a: Point, b: Point, c: Point, d: Point) { const cross = (p: Point, q: Point, r: Point) => (q.x - p.x) * (r.y - p.y) - (q.y - p.y) * (r.x - p.x); return cross(a, b, c) * cross(a, b, d) < 0 && cross(c, d, a) * cross(c, d, b) < 0; }
+function shapeIntersectsCircle(points: Point[], radius: number) {
+  if (points.some(point => distanceFromFanCenter(point) <= radius)) return true;
+  const center = FORMAL_FAN_CARRIER_V1.boundary.centerMm;
+  for (let index = 0; index < points.length - 1; index += 1) {
+    if (distanceToSegment(center, points[index], points[index + 1]) <= radius) return true;
+  }
+  return isClosed(points) && pointInPolygon(center, points);
+}
+function polylineIntersectsHandleReserve(points: Point[]) {
+  const zone = FORMAL_FAN_CARRIER_V1.handleReserve;
+  if (points.some(pointInHandleReserve)) return true;
+  const corners = [
+    { x: zone.x, y: zone.y }, { x: zone.x + zone.width, y: zone.y },
+    { x: zone.x + zone.width, y: zone.y + zone.height }, { x: zone.x, y: zone.y + zone.height },
+  ];
+  for (let index = 0; index < points.length - 1; index += 1) {
+    for (let edge = 0; edge < corners.length; edge += 1) {
+      if (segmentsIntersect(points[index], points[index + 1], corners[edge], corners[(edge + 1) % corners.length])) return true;
+    }
+  }
+  return isClosed(points) && pointInPolygon(corners[0], points);
+}
+function distanceToSegment(point: Point, start: Point, end: Point) {
+  const dx = end.x - start.x; const dy = end.y - start.y;
+  if (dx === 0 && dy === 0) return Math.hypot(point.x - start.x, point.y - start.y);
+  const t = Math.max(0, Math.min(1, ((point.x - start.x) * dx + (point.y - start.y) * dy) / (dx * dx + dy * dy)));
+  return Math.hypot(point.x - (start.x + t * dx), point.y - (start.y + t * dy));
+}
+function pointInPolygon(point: Point, points: Point[]) {
+  const ring = isClosed(points) ? points.slice(0, -1) : points;
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i, i += 1) {
+    const a = ring[i]; const b = ring[j];
+    if ((a.y > point.y) !== (b.y > point.y) && point.x < ((b.x - a.x) * (point.y - a.y)) / (b.y - a.y) + a.x) inside = !inside;
+  }
+  return inside;
+}
 function round(value: number) { return Math.round(value * 1000) / 1000; }
