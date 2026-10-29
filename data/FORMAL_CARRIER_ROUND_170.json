@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "CARRIER-v1.0",
+  "carrierId": "FAN-ROUND-170-V1",
+  "carrierName": "圆形／月圆式竹编团扇",
+  "coordinateSpace": {
+    "unit": "mm",
+    "width": 210,
+    "height": 297,
+    "origin": "top_left",
+    "xDirection": "right",
+    "yDirection": "down"
+  },
+  "boundary": {
+    "boundaryId": "BOUNDARY-ROUND-170-V1",
+    "type": "circle",
+    "centerMm": [105, 110],
+    "radiusMm": 85,
+    "bboxMm": { "x": 20, "y": 25, "width": 170, "height": 170 },
+    "boundaryPointsMm": [
+      [105,25],[137.5,31.5],[165.1,49.9],[183.5,77.5],
+      [190,110],[183.5,142.5],[165.1,170.1],[137.5,188.5],
+      [105,195],[72.5,188.5],[44.9,170.1],[26.5,142.5],
+      [20,110],[26.5,77.5],[44.9,49.9],[72.5,31.5],[105,25]
+    ]
+  },
+  "effectivePatternBoundary": {
+    "boundaryId": "PATTERN-ROUND-150-V1",
+    "type": "circle",
+    "centerMm": [105, 110],
+    "radiusMm": 75,
+    "bboxMm": { "x": 30, "y": 35, "width": 150, "height": 150 },
+    "effectivePatternBoundaryPointsMm": [
+      [105,35],[133.7,40.7],[158,57],[174.3,81.3],
+      [180,110],[174.3,138.7],[158,163],[133.7,179.3],
+      [105,185],[76.3,179.3],[52,163],[35.7,138.7],
+      [30,110],[35.7,81.3],[52,57],[76.3,40.7],[105,35]
+    ],
+    "excludedZones": [
+      {
+        "id": "HANDLE-RESERVE-20X25-V1",
+        "type": "rect",
+        "x": 95,
+        "y": 170,
+        "width": 20,
+        "height": 25,
+        "restriction": "no_critical_pattern"
+      }
+    ]
+  },
+  "edgeBand": {
+    "innerRadiusMm": 75,
+    "outerRadiusMm": 85,
+    "radialWidthMm": 10
+  },
+  "rawWeaveBlank": {
+    "bboxMm": { "x": 10.5, "y": 15.5, "width": 189, "height": 189 },
+    "warpCount": 21,
+    "weftCount": 21,
+    "stripWidthMm": 9
+  },
+  "version": "1.0",
+  "formalExportAllowed": true
+}
+
