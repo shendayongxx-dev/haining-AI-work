@@ -1,13 +1,13 @@
 # D 模块：编辑预览与结构快照
 
-本模块读取已经确认的 C 组 `surface_pattern`、A 管理的正式设计版本和演示编法参数，以同一次计算生成 SVG 预览所需结构及 D→E 快照。
+本模块正式读取 A 管理的完整 confirmed Design，从其中取得已确认的 C 组 `surface_pattern`、设计版本和演示编法参数，以同一次计算生成 SVG 预览所需结构及 D→E 快照。
 
 ## 导出接口
 
 ```ts
-import { adaptConfirmedCandidateFile, calculateFanStructure, StructurePreview } from './modules/d';
+import { adaptConfirmedDesign, calculateFanStructure, StructurePreview } from './modules/d';
 
-const input = adaptConfirmedCandidateFile(candidateFile, confirmation, options);
+const input = adaptConfirmedDesign(confirmedDesign, options);
 const snapshot = calculateFanStructure(input);
 <StructurePreview snapshot={snapshot} />;
 ```
@@ -26,12 +26,11 @@ const snapshot = calculateFanStructure(input);
 
 D 不读取旧页面兼容字段 `candidate.pointsMm` 或 `candidate.color`。
 
-真实联调输入来自：
+正式联调输入来自：
 
-- `examples/c-to-d/fan-green-triangle.candidate.json`；
-- `examples/c-to-d/fan-green-triangle.confirmed-by-a.json`。
+- `examples/a-to-d/fan-green-triangle.confirmed-design.json`。
 
-适配器会核对生成状态、阻断问题、确认 ID 和生成版本；未确认候选不能进入结构计算。
+适配器会核对 `confirmedGenerationId`、`activeGenerationId`、确认版本、生成状态和 blocking 问题；未确认或版本不一致的 Design 不能进入结构计算。旧的“C候选＋单独确认文件”仅保留兼容，不作为长期正式接口。
 
 ## 输出与高亮
 
@@ -60,8 +59,8 @@ D 不读取旧页面兼容字段 `candidate.pointsMm` 或 `candidate.color`。
 预览支持：
 
 ```ts
-{ kind: 'strip', id: 'J-001' }
-{ kind: 'crossing', id: 'X-J-001-W-001' }
+{ kind: 'strip', id: 'V001' }
+{ kind: 'crossing', id: 'X-V001-H001' }
 { kind: 'position', positionMm: { x: 130, y: 75 } }
 ```
 
@@ -81,7 +80,10 @@ pnpm build
 ## 计算假设和限制
 
 - 当前使用 B 提供的 `FAN-ROUND-170-V1` 圆形边界和 `PATTERN-ROUND-150-V1` 有效图样区；
-- 当前按 `CROSS-1X1-V1` 生成 21 经×21 纬和 441 个交织点，但完整工艺参数和实物试编仍待验证；
+- 当前按 `CROSS-1X1-V1` 生成 21 经×21 纬和 441 个交织点，编号使用 `V001–V021`、`H001–H021`；
+- 当前是 `trimmed-circle-demo` 圆形演示结构，不是 B v0.3 的 189×189 mm 毛坯；快照以 `nonconforming-demo / pending` 记录差异；
+- 当前3/3.5 mm演示宽度不符合9±0.5 mm，且缺少厚度与备料长度，不得作为B标准PASS样例；
+- SVG 当前只展示排列和配色，尚未按交织点 `top` 绘制局部压挑；页面必须标为“结构示意预览”；
 - 几何长度不包含损耗、收边或备料余量；
 - 当前仅实现扇面 `polygon` 离散色块采样；`polyline`、自定义叶片形状和复杂几何属于后续批次；
 - 所有输出均标记“演示数据，待 B 验证”。

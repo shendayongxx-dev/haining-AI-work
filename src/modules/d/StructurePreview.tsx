@@ -17,7 +17,7 @@ export default function StructurePreview({ snapshot, highlight = null }: Structu
   const crossing = highlight?.kind === 'crossing' ? crossings.get(highlight.id) : undefined;
   const marker = highlight?.kind === 'position' ? highlight.positionMm : crossing?.positionMm;
   const circle = snapshot.activeArea;
-  return <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="D 组竹条结构演示预览">
+  return <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="D 组圆扇结构示意预览，尚未按交织点上下关系表现局部压挑">
     <defs>
       <clipPath id={`fan-${snapshot.designRevision}`}>
         <circle cx={circle.centerMm.x * mmToSvg} cy={circle.centerMm.y * mmToSvg} r={circle.radiusMm * mmToSvg} />

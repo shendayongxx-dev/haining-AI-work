@@ -29,6 +29,14 @@ export type CToDCandidateFile = {
   };
 };
 
+export type ConfirmedDesignFile = CToDCandidateFile & {
+  designRevision: number;
+  generationRevision: number;
+  confirmation: ConfirmationState & { confirmedBy: string };
+  confirmedGenerationId: string;
+  activeGenerationId: string;
+};
+
 function formalCarrier(): FanStructureInput['carrier'] {
   const value = FORMAL_FAN_CARRIER_V1;
   return {
@@ -118,4 +126,32 @@ export function adaptConfirmedCandidateFile(
       baseColor: options.baseColor,
     },
   };
+}
+
+/** Formal A→D entrypoint. Reads one version-bound confirmed Design atomically. */
+export function adaptConfirmedDesign(
+  design: ConfirmedDesignFile,
+  options: Omit<ConfirmedCandidateOptions, 'designId' | 'designRevision'>,
+): FanStructureInput {
+  const generation = design.generation;
+  const confirmation = design.confirmation;
+  if (design.designId.length === 0 || design.designRevision < 1) throw new Error('A Design 缺少有效设计标识或版本。');
+  if (generation.status !== 'succeeded') throw new Error('A Design 的当前生成结果未成功。');
+  if (generation.issues.some(issue => issue.severity === 'blocking')) throw new Error('A Design 存在 blocking 生成问题。');
+  if (generation.result.resultType !== 'surface_pattern') throw new Error('当前 D 第一批只接收 surface_pattern。');
+  if (confirmation.status !== 'confirmed') throw new Error('A Design 的当前生成结果尚未确认。');
+  if (design.confirmedGenerationId !== generation.generationId
+    || design.activeGenerationId !== generation.generationId
+    || confirmation.confirmedGenerationId !== generation.generationId) {
+    throw new Error('A Design 的确认生成 ID、活动生成 ID 与 generationId 不一致。');
+  }
+  if (design.generationRevision !== generation.generationRevision
+    || confirmation.confirmedGenerationRevision !== generation.generationRevision) {
+    throw new Error('A Design 的确认版本与生成版本不一致。');
+  }
+  return adaptConfirmedCandidateFile(design, confirmation, {
+    ...options,
+    designId: design.designId,
+    designRevision: design.designRevision,
+  });
 }

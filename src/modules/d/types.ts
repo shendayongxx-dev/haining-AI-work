@@ -93,9 +93,13 @@ export type StructureSnapshot = {
   confirmedGenerationId: string;
   sourcePattern: {
     patternId: string;
+    coordinateSpace: SurfacePattern['coordinateSpace'];
+    palette: SurfacePattern['palette'];
+    elements: SurfacePattern['elements'];
+    transform: SurfacePattern['transform'];
     generationIssues: FanStructureInput['generationIssues'];
   };
-  status: { usage: 'demo'; label: '演示数据，待 B 验证' };
+  status: { usage: 'demo'; label: '圆扇结构演示，工艺 pending' };
   carrier: {
     type: 'fan';
     unit: 'mm';
@@ -108,6 +112,22 @@ export type StructureSnapshot = {
   };
   activeArea: { type: 'circle'; centerMm: PointMm; radiusMm: 85 };
   weave: { id: 'CROSS-1X1-V1'; rule: 'over-under-1-1'; verified: false };
+  craftComparison: {
+    status: 'pending';
+    conformance: 'nonconforming-demo';
+    geometryStage: 'trimmed-circle-demo';
+    ruleSources: string[];
+    current: { stripWidthMm: number; thicknessMm: null; stockLengthMm: null };
+    required: {
+      stripWidthMm: number;
+      stripWidthToleranceMm: number;
+      thicknessMm: number;
+      thicknessToleranceMm: number;
+      stockLengthMm: { min: number; max: number };
+      rawBlankBboxMm: { x: number; y: number; width: number; height: number };
+    };
+    differences: { code: string; message: string }[];
+  };
   parameters: FanStructureInput['parameters'];
   grid: { warpSpacingMm: number; weftSpacingMm: number; warpCount: number; weftCount: number };
   strips: { list: Strip[] };

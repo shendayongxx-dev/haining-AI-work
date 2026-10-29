@@ -1,6 +1,7 @@
 import type { Crossing, FanStructureInput, PointMm, Strip, StructureSnapshot, SurfacePattern } from './types';
+import { B_V03_CARRIER_RULE, B_V03_WEAVE_RULE } from './craftRules';
 
-const DEMO_LABEL = '演示数据，待 B 验证' as const;
+const DEMO_LABEL = '圆扇结构演示，工艺 pending' as const;
 const WIDTH_MM = 210;
 const HEIGHT_MM = 297;
 
@@ -83,9 +84,9 @@ function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, w
       });
     }
   }
-  const prefix = direction === 'warp' ? 'J' : 'W';
+  const prefix = direction === 'warp' ? 'V' : 'H';
   return {
-    id: `${prefix}-${pad(index + 1)}`,
+    id: `${prefix}${pad(index + 1)}`,
     direction,
     index,
     axisMm: round(axisMm),
@@ -99,6 +100,9 @@ function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, w
 
 export function calculateFanStructure(input: FanStructureInput): StructureSnapshot {
   const count = Math.max(2, Math.round(input.parameters.density));
+  if (count !== B_V03_WEAVE_RULE.warp.count || count !== B_V03_WEAVE_RULE.weft.count) {
+    throw new Error('CROSS-1X1-V1 固定要求 21 经×21 纬。');
+  }
   const { centerMm, radiusMm } = input.carrier;
   // CROSS-1X1-V1 联调采用圆内接正方形的 21×21 轴线，确保全部 441 个交点位于圆内。
   const gridHalfSpan = radiusMm / Math.sqrt(2);
@@ -130,7 +134,14 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
     designRevision: input.designRevision,
     generatedFromRevision: input.designRevision,
     confirmedGenerationId: input.confirmedGenerationId,
-    sourcePattern: { patternId: input.pattern.patternId, generationIssues: input.generationIssues },
+    sourcePattern: {
+      patternId: input.pattern.patternId,
+      coordinateSpace: input.pattern.coordinateSpace,
+      palette: input.pattern.palette,
+      elements: input.pattern.elements,
+      transform: input.pattern.transform,
+      generationIssues: input.generationIssues,
+    },
     status: { usage: 'demo', label: DEMO_LABEL },
     carrier: {
       type: 'fan', unit: 'mm', carrierId: input.carrier.id, boundaryId: input.carrier.boundaryId,
@@ -139,6 +150,36 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
     },
     activeArea: { type: 'circle', centerMm, radiusMm },
     weave: { id: 'CROSS-1X1-V1', rule: 'over-under-1-1', verified: false },
+    craftComparison: {
+      status: 'pending',
+      conformance: 'nonconforming-demo',
+      geometryStage: 'trimmed-circle-demo',
+      ruleSources: [
+        'docs/CRAFT_RULES.md', 'docs/FORMAL_CARRIER_SPEC.md',
+        'data/CROSS_WEAVE_V1.json', 'data/FORMAL_CARRIER_ROUND_170.json',
+      ],
+      current: { stripWidthMm: input.parameters.stripWidthMm, thicknessMm: null, stockLengthMm: null },
+      required: {
+        stripWidthMm: B_V03_WEAVE_RULE.stripSpec.widthMm,
+        stripWidthToleranceMm: B_V03_WEAVE_RULE.stripSpec.widthToleranceMm,
+        thicknessMm: B_V03_WEAVE_RULE.stripSpec.thicknessMm,
+        thicknessToleranceMm: B_V03_WEAVE_RULE.stripSpec.thicknessToleranceMm,
+        stockLengthMm: B_V03_WEAVE_RULE.stripSpec.stockLengthMm,
+        rawBlankBboxMm: B_V03_CARRIER_RULE.rawWeaveBlank.bboxMm,
+      },
+      differences: [
+        {
+          code: 'STRIP_WIDTH_NONCONFORMING',
+          message: `当前演示宽度 ${input.parameters.stripWidthMm} mm；B v0.3 要求 9±0.5 mm。`,
+        },
+        { code: 'STRIP_THICKNESS_MISSING', message: '当前快照未采集厚度；B v0.3 要求 0.5±0.1 mm。' },
+        { code: 'STOCK_LENGTH_MISSING', message: '当前快照未采集备料长度；B v0.3 要求 280–300 mm。' },
+        {
+          code: 'RAW_BLANK_NOT_MODELLED',
+          message: '当前仅建模裁剪后的圆形演示结构，尚未建模 189×189 mm 毛坯及圆外交点。',
+        },
+      ],
+    },
     parameters: input.parameters,
     grid: {
       warpSpacingMm: round(warpSpacingMm), weftSpacingMm: round(weftSpacingMm),
