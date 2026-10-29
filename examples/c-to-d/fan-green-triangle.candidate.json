@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "DESIGN_DATA_V0.2",
+  "designId": "design-fan-green-triangle-001",
+  "designRevision": 0,
+  "generationRevision": 1,
+  "carrier": {
+    "id": "FAN-DEMO-V0.1",
+    "type": "fan",
+    "boundaryId": "fan-demo-boundary-v0.1",
+    "effectivePatternBoundaryId": "fan-demo-pattern-region-v0.1",
+    "coordinateSpace": {
+      "unit": "mm",
+      "width": 200,
+      "height": 120,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    }
+  },
+  "input": {
+    "inputVersionId": "input-fan-green-triangle-001",
+    "channel": "drawing",
+    "captureMethod": "pointer",
+    "drawingSpace": {
+      "unit": "normalized",
+      "width": 1,
+      "height": 1,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    },
+    "strokes": [
+      {
+        "id": "stroke-green-triangle-001",
+        "color": "#315F3A",
+        "width": 0.012,
+        "closed": true,
+        "points": [
+          { "x": 0.35, "y": 0.68 },
+          { "x": 0.5, "y": 0.32 },
+          { "x": 0.65, "y": 0.68 },
+          { "x": 0.35, "y": 0.68 }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "generationId": "generation-fan-green-triangle-001",
+    "status": "succeeded",
+    "confirmed": false,
+    "generatorVersion": "c-core-v0.2-candidate",
+    "resultType": "surface_pattern",
+    "surfacePattern": {
+      "patternId": "pattern-fan-green-triangle-001",
+      "clippingBoundaryId": "fan-demo-pattern-region-v0.1",
+      "coordinateSpace": {
+        "unit": "mm",
+        "width": 200,
+        "height": 120,
+        "origin": "topLeft",
+        "xAxis": "right",
+        "yAxis": "down"
+      },
+      "palette": [
+        { "id": "green-01", "value": "#315F3A" }
+      ],
+      "elements": [
+        {
+          "elementId": "element-green-triangle-001",
+          "sourceInputId": "stroke-green-triangle-001",
+          "type": "polygon",
+          "pointsMm": [
+            { "x": 70, "y": 81.6 },
+            { "x": 100, "y": 38.4 },
+            { "x": 130, "y": 81.6 },
+            { "x": 70, "y": 81.6 }
+          ],
+          "paletteId": "green-01",
+          "zIndex": 1
+        }
+      ]
+    },
+    "issues": []
+  },
+  "craftStatus": "demo_pending_validation"
+}

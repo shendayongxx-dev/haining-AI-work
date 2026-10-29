@@ -1,0 +1,64 @@
+{
+  "notice": "演示数据，待 B 验证；不代表正式扇面尺寸或工艺规格。",
+  "designId": "design-demo-fan-001",
+  "generationId": "generation-demo-001",
+  "generationRevision": 1,
+  "generatorVersion": "c-core-v0.1",
+  "inputVersionId": "input-demo-001",
+  "status": "succeeded",
+  "result": {
+    "resultType": "surface_pattern",
+    "patternId": "generation-demo-001-pattern",
+    "coordinateSpace": {
+      "unit": "mm",
+      "width": 200,
+      "height": 120,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    },
+    "palette": [
+      {
+        "id": "primary",
+        "color": "#315f3a",
+        "role": "pattern"
+      }
+    ],
+    "elements": [
+      {
+        "id": "generation-demo-001-element-001",
+        "sourceStrokeId": "stroke-001",
+        "type": "polygon",
+        "pointsMm": [
+          {
+            "x": 70,
+            "y": 74.4
+          },
+          {
+            "x": 90,
+            "y": 57.6
+          },
+          {
+            "x": 110,
+            "y": 74.4
+          },
+          {
+            "x": 70,
+            "y": 74.4
+          }
+        ],
+        "paletteId": "primary",
+        "zIndex": 1
+      }
+    ],
+    "transform": {
+      "scale": 1,
+      "rotationDeg": 0,
+      "offsetMm": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "issues": []
+}

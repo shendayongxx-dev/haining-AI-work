@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "DESIGN_DATA_V0.2",
+  "designId": "design-fan-green-triangle-001",
+  "designRevision": 1,
+  "generationRevision": 1,
+  "confirmation": {
+    "status": "confirmed",
+    "confirmedGenerationId": "generation-fan-green-triangle-001",
+    "confirmedGenerationRevision": 1,
+    "confirmedBy": "A"
+  },
+  "handoffNote": "本文件只展示 A 确认后交给 D 的状态增量；候选结果主体见 fan-green-triangle.candidate.json。A 应在正式状态仓库中合并两者。"
+}
+

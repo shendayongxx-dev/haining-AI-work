@@ -1,0 +1,55 @@
+{
+  "notice": "演示数据，待 B 验证；用户确认形状不等于工艺通过。",
+  "designId": "design-demo-custom-001",
+  "generationId": "generation-demo-custom-001",
+  "generationRevision": 1,
+  "inputVersionId": "input-demo-custom-001",
+  "status": "succeeded",
+  "result": {
+    "resultType": "carrier_shape",
+    "coordinateSpace": {
+      "unit": "mm",
+      "width": 200,
+      "height": 120,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    },
+    "shape": {
+      "components": [
+        {
+          "id": "generation-demo-custom-001-component-001",
+          "sourceStrokeId": "stroke-shape-001",
+          "outerBoundary": {
+            "closed": true,
+            "pointsMm": [
+              {
+                "x": 100,
+                "y": 18
+              },
+              {
+                "x": 150,
+                "y": 60
+              },
+              {
+                "x": 100,
+                "y": 102
+              },
+              {
+                "x": 50,
+                "y": 60
+              },
+              {
+                "x": 100,
+                "y": 18
+              }
+            ]
+          },
+          "holes": []
+        }
+      ],
+      "fillRule": "evenodd"
+    }
+  },
+  "issues": []
+}

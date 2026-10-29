@@ -1,0 +1,45 @@
+{
+  "notice": "演示数据，待 B 验证；用户确认形状不等于工艺通过。",
+  "designId": "design-demo-custom-001",
+  "inputVersionId": "input-demo-custom-001",
+  "generationId": "generation-demo-custom-001",
+  "generationRevision": 1,
+  "carrier": {
+    "type": "custom",
+    "coordinateSpace": {
+      "unit": "mm",
+      "width": 200,
+      "height": 120,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    }
+  },
+  "input": {
+    "channel": "drawing",
+    "captureMethod": "pointer",
+    "drawingSpace": {
+      "width": 1,
+      "height": 1,
+      "unit": "normalized",
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    },
+    "strokes": [
+      {
+        "id": "stroke-shape-001",
+        "color": "#315F3A",
+        "width": 0.02,
+        "closed": true,
+        "points": [
+          { "x": 0.5, "y": 0.15 },
+          { "x": 0.75, "y": 0.5 },
+          { "x": 0.5, "y": 0.85 },
+          { "x": 0.25, "y": 0.5 },
+          { "x": 0.5, "y": 0.15 }
+        ]
+      }
+    ]
+  }
+}
