@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "WEAVE-v1.0",
+  "weaveId": "CROSS-1X1-V1",
+  "name": "十字编／基础平编",
+  "warp": { "count": 21, "angleDeg": 90, "idPattern": "V%03d" },
+  "weft": { "count": 21, "angleDeg": 0, "idPattern": "H%03d" },
+  "stripSpec": {
+    "widthMm": 9,
+    "widthToleranceMm": 0.5,
+    "thicknessMm": 0.5,
+    "thicknessToleranceMm": 0.1,
+    "stockLengthMm": { "min": 280, "max": 300 }
+  },
+  "interlaceCycle": ["over_1", "under_1"],
+  "rowOffsetCycle": [0, 1],
+  "intersectionCount": 441,
+  "intersectionIdPattern": "X-{warpId}-{weftId}",
+  "craftRuleVersion": "CROSS-1X1-V1"
+}
+
