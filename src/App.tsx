@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Candidate, Carrier, InputChannel, Point, Step } from './model';
 import { FORMAL_FAN_CARRIER_V1 } from './data/formalFanCarrier';
 import Fan from './modules/d/FanPreview';
+import { adaptConfirmedCandidate, calculateFanStructure, StructurePreview } from './modules/d';
 import { canConfirmCandidate, generateCandidate } from './modules/c/generateCandidate';
 import { validateDemo } from './modules/e/validation';
 
@@ -39,16 +40,33 @@ export default function App() {
   const [confirmed,setConfirmed]=useState<Candidate|null>(null);
   const [revision,setRevision]=useState(0);
   const [weave,setWeave]=useState('');
-  const [density,setDensity]=useState(65);
+  const [density,setDensity]=useState(21);
   const [width,setWidth]=useState(3);
   const [size,setSize]=useState(100);
-  const [color,setColor]=useState('#0e6652');
+  const [color,setColor]=useState('#315F3A');
   const [notice,setNotice]=useState('');
   const [heroMotion,setHeroMotion]=useState({x:0,y:0});
   const [activeScene,setActiveScene]=useState(0);
   const homeScrollRef=useRef<HTMLDivElement|null>(null);
   const timer=useRef<ReturnType<typeof setTimeout>|null>(null);
   const generationCounter=useRef(0);
+  const designId=useRef(`design-${crypto.randomUUID()}`);
+  const structure=useMemo(()=>{
+    if(!confirmed||confirmed.resultType!=='surface_pattern'||weave!=='CROSS-1X1-V1')return null;
+    return calculateFanStructure(adaptConfirmedCandidate(confirmed,{
+      status:'confirmed',
+      confirmedGenerationId:confirmed.generationId,
+      confirmedGenerationRevision:confirmed.generationRevision,
+    },{
+      designId:designId.current,
+      designRevision:revision,
+      density,
+      stripWidthMm:width,
+      baseColor:'#e7cda9',
+      patternColor:color,
+      patternScale:size/100,
+    }));
+  },[confirmed,weave,revision,density,width,color,size]);
   useEffect(()=>()=>{if(timer.current)clearTimeout(timer.current);},[]);
   useEffect(()=>{
     if(step!=='carrier'||!homeScrollRef.current)return;
@@ -98,15 +116,15 @@ export default function App() {
       {step==='input'&&<div className="input-page"><div className="heading"><p className="kicker">01 / 输入创意</p><h1>让灵感有形</h1><p>当前载体：{carrier==='fan'?`${FORMAL_FAN_CARRIER_V1.carrierName} · 表面图样`:'自定义形状 · 几何载体'}</p></div><div className="input-box"><div className="channels"><button className={channel==='drawing'?'active':''} onClick={()=>setChannel('drawing')}>✎　直接绘制</button><button className={channel==='text'?'active':''} onClick={()=>setChannel('text')}>T　文字描述</button><button className={channel==='referenceImage'?'active':''} onClick={()=>setChannel('referenceImage')}>▧　参考图</button></div>{channel==='drawing'&&<><Drawing strokes={strokes} onChange={setStrokes}/><button className="link" onClick={()=>setStrokes([[{x:105,y:65},{x:70,y:145},{x:140,y:145},{x:105,y:65}]])}>使用绿色三角形联调样例</button></>}{channel==='text'&&<><textarea maxLength={500} value={text} onChange={e=>setText(e.target.value)} placeholder="描述你想要的竹编图样或形状……"/><p className="muted">{text.length}/500 · 绿色三角形和自定义叶片可做结构化联调；其他描述等待真实模型适配器</p></>}{channel==='referenceImage'&&<label className="upload"><strong>{file?file.name:'选择一张参考图'}</strong><small>PNG / JPEG / WebP · 当前完成格式和候选接口验证，assetRef 与视觉模型待 A 接入</small><input type="file" accept="image/png,image/jpeg,image/webp" onChange={e=>setFile(e.target.files?.[0]??null)}/></label>}{notice&&<p className="notice" role="alert">{notice}</p>}<div className="actions"><button onClick={()=>go('carrier')}>← 返回载体</button><button className="primary" onClick={generate}>生成候选 →</button></div></div></div>}
       {step==='generating'&&<div className="generating"><div className="orbit"><Fan grid/></div><p className="kicker">创意转译</p><h1>正在编织你的 <em>灵感</em></h1><p>正在为你的创意生成候选设计。</p><div className="bar"><i/></div><button className="link" onClick={()=>{if(timer.current)clearTimeout(timer.current);go('input');}}>返回修改</button></div>}
       {step==='confirm'&&candidate&&<div className="confirm"><div className="result-card"><Fan candidate={candidate}/><small>候选结果 · {candidate.resultType}</small></div><section><p className="kicker">02 / 结果确认</p><h1>{carrier==='fan'?'表面图样预览':'候选载体形状'}</h1><p>{candidate.label}</p><div className="detail">坐标单位 <b>mm</b>　生成版本 <b>{candidate.generationRevision}</b>　状态 <b>尚未确认</b></div>{candidate.issues.map(issue=><p key={issue.id} className="notice" role={issue.severity==='blocking'?'alert':'status'}>{issue.message}</p>)}<p className="muted">确认创意结果后选择编法；此确认不代表工艺通过。旧正式设计仅在确认新候选时替换。</p><div className="actions"><button onClick={()=>go('input')}>返回修改</button><button onClick={generate}>重新生成</button><button className="primary" disabled={!canConfirmCandidate(candidate)} onClick={confirm}>确认当前结果 →</button></div></section></div>}
-      {step==='weave'&&confirmed&&<div className="weave-page"><div className="heading"><p className="kicker">03 / 选择编法</p><h1>为图样选择织法</h1><p>编法适用性待 B 提供工艺依据。</p></div><div className="weaves"><button className={weave?'selected':''} onClick={()=>{if(!weave){setWeave('plain-demo');setRevision(n=>n+1);}}}><b>▦</b><strong>平编</strong><small>演示选项 · 待 B 验证</small></button><div><b>▧</b><strong>斜纹编</strong><small>待规则确认</small></div><div><b>◇</b><strong>人字纹</strong><small>待规则确认</small></div></div><div className="actions center"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" disabled={!weave} onClick={()=>go('edit')}>进入编辑预览 →</button></div></div>}
+      {step==='weave'&&confirmed&&<div className="weave-page"><div className="heading"><p className="kicker">03 / 选择编法</p><h1>为图样选择织法</h1><p>当前联调规则：CROSS-1X1-V1。</p></div><div className="weaves"><button className={weave?'selected':''} onClick={()=>{if(!weave){setWeave('CROSS-1X1-V1');setRevision(n=>n+1);}}}><b>▦</b><strong>平编</strong><small>CROSS-1X1-V1 · 21×21</small></button><div><b>▧</b><strong>斜纹编</strong><small>待规则确认</small></div><div><b>◇</b><strong>人字纹</strong><small>待规则确认</small></div></div><div className="actions center"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" disabled={!weave} onClick={()=>go('edit')}>进入编辑预览 →</button></div></div>}
       {step==='edit'&&confirmed&&<div className="studio">
         <aside className="design-sidebar">
           <div className="studio-section"><h2>当前设计</h2><div className="mini"><Fan candidate={confirmed}/><div><strong>{confirmed.label}</strong><small>已确认 · 版本 {revision}</small></div></div></div>
           <div className="studio-section"><h2>载体 <small>切换后重新确认创意</small></h2><div className="option-grid"><button className={carrier==='fan'?'chosen':''} onClick={()=>{if(carrier!=='fan'){setCarrier('fan');go('input');}}}><span>◉</span>扇面</button><button className={carrier==='custom'?'chosen':''} onClick={()=>{if(carrier!=='custom'){setCarrier('custom');go('input');}}}><span>◇</span>自定义形状</button></div><p className="side-note">改变载体将返回输入流程，当前已确认设计会保留到新候选确认。</p></div>
-          <div className="studio-section"><h2>基础编法 <small>演示切换</small></h2><div className="option-grid weave-options"><button className={weave==='plain-demo'?'chosen':''} onClick={()=>{if(weave!=='plain-demo'){setWeave('plain-demo');setRevision(n=>n+1);}}}><span>▦</span>平编</button><button className={weave==='diagonal-demo'?'chosen':''} onClick={()=>{if(weave!=='diagonal-demo'){setWeave('diagonal-demo');setRevision(n=>n+1);}}}><span>▨</span>斜纹编</button></div><p className="side-note">编法适用性和真实交织结构均待 B、D 验证。</p></div>
+          <div className="studio-section"><h2>基础编法 <small>正式载体联调</small></h2><div className="option-grid weave-options"><button className={weave==='CROSS-1X1-V1'?'chosen':''} onClick={()=>{if(weave!=='CROSS-1X1-V1'){setWeave('CROSS-1X1-V1');setRevision(n=>n+1);}}}><span>▦</span>平编</button><button disabled title="等待 B 提供规则"><span>▨</span>斜纹编</button></div><p className="side-note">当前使用 CROSS-1X1-V1 生成 21经×21纬；实际制作仍待试编验证。</p></div>
         </aside>
-        <section className="studio-main"><div className="studio-title"><h2>实时预览</h2><span>演示预览 · 待 B 验证</span><small>版本 {revision}</small></div><div className="preview"><Fan candidate={confirmed} grid density={density} stripWidth={width} color={color} weave={weave} scale={size}/><small>参数与配色实时反映在 SVG · D 的正式网格和竹条计算待接入</small></div></section>
-        <aside className="controls"><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(65);setWidth(3);setSize(100);setColor('#0e6652');setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整设计后旧检查与教程失效。</p><label>编织疏密 <b>{density}</b><input type="range" min="20" max="90" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="5" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><div className="palette"><b>配色方案</b><div>{[['#e7cda9','竹本色'],['#0e6652','墨竹青'],['#75a78d','青玉绿']].map(([hex,name])=><button key={hex} className={color===hex?'active':''} style={{background:hex}} title={name} aria-label={name} onClick={()=>{if(color!==hex){setColor(hex);setRevision(n=>n+1);}}}/>)}</div></div><div className="actions"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
+        <section className="studio-main"><div className="studio-title"><h2>实时预览</h2><span>圆扇结构示意预览 · 尚未按 top 表现局部压挑 · 工艺 pending</span><small>版本 {revision}</small></div><div className="preview">{structure?<StructurePreview snapshot={structure}/>:<Fan candidate={confirmed}/>}<small>{structure?`D 结构快照 · ${structure.strips.list.length} 根竹条 · ${structure.interlace.crossings.length} 个交织点`:'当前结果尚未进入 D 扇面结构计算'}</small></div></section>
+        <aside className="controls"><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(21);setWidth(3);setSize(100);setColor('#315F3A');setRevision(n=>n+1);}}>↻ 重置</button></div><p>本轮唯一案例固定为 21经×21纬；调整其他设计参数后旧检查与教程失效。</p><label>竹条数量／方向 <b>{density}</b><input type="range" min="21" max="21" value={density} readOnly/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="5" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><div className="palette"><b>图样颜色</b><div>{[['#315F3A','C 组原始绿'],['#0e6652','墨竹青'],['#75a78d','青玉绿']].map(([hex,name])=><button key={hex} className={color===hex?'active':''} style={{background:hex}} title={name} aria-label={name} onClick={()=>{if(color!==hex){setColor(hex);setRevision(n=>n+1);}}}/>)}</div></div><div className="actions"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
       </div>}
       {step==='check'&&<div className="end"><p className="kicker">05 / 工艺检查</p><div className="end-icon">!</div><h1>工艺状态：{validateDemo(revision).status==='pending'?'待验证':validateDemo(revision).status}</h1><p>当前设计版本 {revision}：{validateDemo(revision).pendingReason}</p><div className="warning">不能宣称可制作，也不能生成正式材料清单或教程。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button className="primary" onClick={()=>go('materials')}>查看演示资料页 →</button></div></div>}
       {step==='materials'&&<div className="end"><p className="kicker">06 / 制作资料</p><div className="end-icon">▤</div><h1>制作资料等待验证</h1><p>材料清单、竹条编号和图文教程必须对应通过检查的当前设计版本。</p><div className="warning">演示页面，未经工艺验证 · 正式生成与导出暂不可用</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button onClick={()=>go('check')}>查看检查状态</button></div></div>}

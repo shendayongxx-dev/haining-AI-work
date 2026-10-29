@@ -1,0 +1,7292 @@
+{
+  "schemaVersion": "0.2",
+  "designId": "design-fan-green-triangle-001",
+  "designRevision": 2,
+  "generatedFromRevision": 2,
+  "confirmedGenerationId": "generation-fan-green-triangle-001",
+  "sourcePattern": {
+    "patternId": "pattern-fan-green-triangle-001",
+    "coordinateSpace": {
+      "unit": "mm",
+      "width": 210,
+      "height": 297,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    },
+    "palette": [
+      {
+        "paletteId": "green-01",
+        "color": "#315F3A"
+      }
+    ],
+    "elements": [
+      {
+        "elementId": "element-green-triangle-001",
+        "sourceInputId": "stroke-green-triangle-001",
+        "kind": "polygon",
+        "paletteId": "green-01",
+        "zIndex": 1,
+        "pointsMm": [
+          {
+            "x": 105,
+            "y": 65
+          },
+          {
+            "x": 70,
+            "y": 145
+          },
+          {
+            "x": 140,
+            "y": 145
+          },
+          {
+            "x": 105,
+            "y": 65
+          }
+        ]
+      }
+    ],
+    "transform": {
+      "scale": 1.1,
+      "rotationDeg": 0,
+      "offsetMm": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "generationIssues": []
+  },
+  "status": {
+    "usage": "demo",
+    "label": "圆扇结构演示，工艺 pending"
+  },
+  "carrier": {
+    "type": "fan",
+    "unit": "mm",
+    "carrierId": "FAN-ROUND-170-V1",
+    "boundaryId": "BOUNDARY-ROUND-170-V1",
+    "effectivePatternBoundaryId": "PATTERN-ROUND-150-V1",
+    "widthMm": 210,
+    "heightMm": 297,
+    "boundaryVerification": "provided-by-b"
+  },
+  "activeArea": {
+    "type": "circle",
+    "centerMm": {
+      "x": 105,
+      "y": 110
+    },
+    "radiusMm": 85
+  },
+  "weave": {
+    "id": "CROSS-1X1-V1",
+    "rule": "over-under-1-1",
+    "verified": false
+  },
+  "craftComparison": {
+    "status": "pending",
+    "conformance": "nonconforming-demo",
+    "geometryStage": "trimmed-circle-demo",
+    "ruleSources": [
+      "docs/CRAFT_RULES.md",
+      "docs/FORMAL_CARRIER_SPEC.md",
+      "data/CROSS_WEAVE_V1.json",
+      "data/FORMAL_CARRIER_ROUND_170.json"
+    ],
+    "current": {
+      "stripWidthMm": 3.5,
+      "thicknessMm": null,
+      "stockLengthMm": null
+    },
+    "required": {
+      "stripWidthMm": 9,
+      "stripWidthToleranceMm": 0.5,
+      "thicknessMm": 0.5,
+      "thicknessToleranceMm": 0.1,
+      "stockLengthMm": {
+        "min": 280,
+        "max": 300
+      },
+      "rawBlankBboxMm": {
+        "x": 10.5,
+        "y": 15.5,
+        "width": 189,
+        "height": 189
+      }
+    },
+    "differences": [
+      {
+        "code": "STRIP_WIDTH_NONCONFORMING",
+        "message": "当前演示宽度 3.5 mm；B v0.3 要求 9±0.5 mm。"
+      },
+      {
+        "code": "STRIP_THICKNESS_MISSING",
+        "message": "当前快照未采集厚度；B v0.3 要求 0.5±0.1 mm。"
+      },
+      {
+        "code": "STOCK_LENGTH_MISSING",
+        "message": "当前快照未采集备料长度；B v0.3 要求 280–300 mm。"
+      },
+      {
+        "code": "RAW_BLANK_NOT_MODELLED",
+        "message": "当前仅建模裁剪后的圆形演示结构，尚未建模 189×189 mm 毛坯及圆外交点。"
+      }
+    ]
+  },
+  "parameters": {
+    "density": 21,
+    "stripWidthMm": 3.5,
+    "weaveId": "CROSS-1X1-V1",
+    "baseColor": "#e7cda9"
+  },
+  "grid": {
+    "warpSpacingMm": 6.01,
+    "weftSpacingMm": 6.01,
+    "warpCount": 21,
+    "weftCount": 21
+  },
+  "strips": {
+    "list": [
+      {
+        "id": "V001",
+        "direction": "warp",
+        "index": 0,
+        "axisMm": 44.9,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 44.9,
+          "y": 49.9
+        },
+        "endMm": {
+          "x": 44.9,
+          "y": 170.1
+        },
+        "geometryLengthMm": 120.21,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 120.21,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V002",
+        "direction": "warp",
+        "index": 1,
+        "axisMm": 50.91,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 50.91,
+          "y": 44.43
+        },
+        "endMm": {
+          "x": 50.91,
+          "y": 175.57
+        },
+        "geometryLengthMm": 131.13,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 131.13,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V003",
+        "direction": "warp",
+        "index": 2,
+        "axisMm": 56.92,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 56.92,
+          "y": 39.91
+        },
+        "endMm": {
+          "x": 56.92,
+          "y": 180.09
+        },
+        "geometryLengthMm": 140.19,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 140.19,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V004",
+        "direction": "warp",
+        "index": 3,
+        "axisMm": 62.93,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 62.93,
+          "y": 36.14
+        },
+        "endMm": {
+          "x": 62.93,
+          "y": 183.86
+        },
+        "geometryLengthMm": 147.71,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 147.71,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V005",
+        "direction": "warp",
+        "index": 4,
+        "axisMm": 68.94,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 68.94,
+          "y": 33.03
+        },
+        "endMm": {
+          "x": 68.94,
+          "y": 186.97
+        },
+        "geometryLengthMm": 153.94,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 111.19,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 111.19,
+            "toMm": 117.2,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 117.2,
+            "toMm": 153.94,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V006",
+        "direction": "warp",
+        "index": 5,
+        "axisMm": 74.95,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 74.95,
+          "y": 30.49
+        },
+        "endMm": {
+          "x": 74.95,
+          "y": 189.51
+        },
+        "geometryLengthMm": 159.02,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 99.17,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 99.17,
+            "toMm": 117.2,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 117.2,
+            "toMm": 159.02,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V007",
+        "direction": "warp",
+        "index": 6,
+        "axisMm": 80.96,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 80.96,
+          "y": 28.47
+        },
+        "endMm": {
+          "x": 80.96,
+          "y": 191.53
+        },
+        "geometryLengthMm": 163.06,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 87.15,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 87.15,
+            "toMm": 117.2,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 117.2,
+            "toMm": 163.06,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V008",
+        "direction": "warp",
+        "index": 7,
+        "axisMm": 86.97,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 86.97,
+          "y": 26.93
+        },
+        "endMm": {
+          "x": 86.97,
+          "y": 193.07
+        },
+        "geometryLengthMm": 166.13,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 75.13,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 75.13,
+            "toMm": 123.21,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 123.21,
+            "toMm": 166.13,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V009",
+        "direction": "warp",
+        "index": 8,
+        "axisMm": 92.98,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 92.98,
+          "y": 25.85
+        },
+        "endMm": {
+          "x": 92.98,
+          "y": 194.15
+        },
+        "geometryLengthMm": 168.29,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 63.11,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 63.11,
+            "toMm": 123.21,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 123.21,
+            "toMm": 168.29,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V010",
+        "direction": "warp",
+        "index": 9,
+        "axisMm": 98.99,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 98.99,
+          "y": 25.21
+        },
+        "endMm": {
+          "x": 98.99,
+          "y": 194.79
+        },
+        "geometryLengthMm": 169.57,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 51.09,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 51.09,
+            "toMm": 123.21,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 123.21,
+            "toMm": 169.57,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V011",
+        "direction": "warp",
+        "index": 10,
+        "axisMm": 105,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 105,
+          "y": 25
+        },
+        "endMm": {
+          "x": 105,
+          "y": 195
+        },
+        "geometryLengthMm": 170,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 33.06,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 33.06,
+            "toMm": 123.21,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 123.21,
+            "toMm": 170,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V012",
+        "direction": "warp",
+        "index": 11,
+        "axisMm": 111.01,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 111.01,
+          "y": 25.21
+        },
+        "endMm": {
+          "x": 111.01,
+          "y": 194.79
+        },
+        "geometryLengthMm": 169.57,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 51.09,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 51.09,
+            "toMm": 123.21,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 123.21,
+            "toMm": 169.57,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V013",
+        "direction": "warp",
+        "index": 12,
+        "axisMm": 117.02,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 117.02,
+          "y": 25.85
+        },
+        "endMm": {
+          "x": 117.02,
+          "y": 194.15
+        },
+        "geometryLengthMm": 168.29,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 63.11,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 63.11,
+            "toMm": 123.21,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 123.21,
+            "toMm": 168.29,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V014",
+        "direction": "warp",
+        "index": 13,
+        "axisMm": 123.03,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 123.03,
+          "y": 26.93
+        },
+        "endMm": {
+          "x": 123.03,
+          "y": 193.07
+        },
+        "geometryLengthMm": 166.13,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 75.13,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 75.13,
+            "toMm": 123.21,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 123.21,
+            "toMm": 166.13,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V015",
+        "direction": "warp",
+        "index": 14,
+        "axisMm": 129.04,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 129.04,
+          "y": 28.47
+        },
+        "endMm": {
+          "x": 129.04,
+          "y": 191.53
+        },
+        "geometryLengthMm": 163.06,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 87.15,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 87.15,
+            "toMm": 117.2,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 117.2,
+            "toMm": 163.06,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V016",
+        "direction": "warp",
+        "index": 15,
+        "axisMm": 135.05,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 135.05,
+          "y": 30.49
+        },
+        "endMm": {
+          "x": 135.05,
+          "y": 189.51
+        },
+        "geometryLengthMm": 159.02,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 99.17,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 99.17,
+            "toMm": 117.2,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 117.2,
+            "toMm": 159.02,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V017",
+        "direction": "warp",
+        "index": 16,
+        "axisMm": 141.06,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 141.06,
+          "y": 33.03
+        },
+        "endMm": {
+          "x": 141.06,
+          "y": 186.97
+        },
+        "geometryLengthMm": 153.94,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 111.19,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 111.19,
+            "toMm": 117.2,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 117.2,
+            "toMm": 153.94,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V018",
+        "direction": "warp",
+        "index": 17,
+        "axisMm": 147.07,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 147.07,
+          "y": 36.14
+        },
+        "endMm": {
+          "x": 147.07,
+          "y": 183.86
+        },
+        "geometryLengthMm": 147.71,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 147.71,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V019",
+        "direction": "warp",
+        "index": 18,
+        "axisMm": 153.08,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 153.08,
+          "y": 39.91
+        },
+        "endMm": {
+          "x": 153.08,
+          "y": 180.09
+        },
+        "geometryLengthMm": 140.19,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 140.19,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V020",
+        "direction": "warp",
+        "index": 19,
+        "axisMm": 159.09,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 159.09,
+          "y": 44.43
+        },
+        "endMm": {
+          "x": 159.09,
+          "y": 175.57
+        },
+        "geometryLengthMm": 131.13,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 131.13,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "V021",
+        "direction": "warp",
+        "index": 20,
+        "axisMm": 165.1,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 165.1,
+          "y": 49.9
+        },
+        "endMm": {
+          "x": 165.1,
+          "y": 170.1
+        },
+        "geometryLengthMm": 120.21,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 120.21,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H001",
+        "direction": "weft",
+        "index": 0,
+        "axisMm": 49.9,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 44.9,
+          "y": 49.9
+        },
+        "endMm": {
+          "x": 165.1,
+          "y": 49.9
+        },
+        "geometryLengthMm": 120.21,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 120.21,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H002",
+        "direction": "weft",
+        "index": 1,
+        "axisMm": 55.91,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 39.43,
+          "y": 55.91
+        },
+        "endMm": {
+          "x": 170.57,
+          "y": 55.91
+        },
+        "geometryLengthMm": 131.13,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 131.13,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H003",
+        "direction": "weft",
+        "index": 2,
+        "axisMm": 61.92,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 34.91,
+          "y": 61.92
+        },
+        "endMm": {
+          "x": 175.09,
+          "y": 61.92
+        },
+        "geometryLengthMm": 140.19,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 140.19,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H004",
+        "direction": "weft",
+        "index": 3,
+        "axisMm": 67.93,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 31.14,
+          "y": 67.93
+        },
+        "endMm": {
+          "x": 178.86,
+          "y": 67.93
+        },
+        "geometryLengthMm": 147.71,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 69.12,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 69.12,
+            "toMm": 75.13,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 75.13,
+            "toMm": 147.71,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H005",
+        "direction": "weft",
+        "index": 4,
+        "axisMm": 73.94,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 28.03,
+          "y": 73.94
+        },
+        "endMm": {
+          "x": 181.97,
+          "y": 73.94
+        },
+        "geometryLengthMm": 153.94,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 69.12,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 69.12,
+            "toMm": 81.14,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 81.14,
+            "toMm": 153.94,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H006",
+        "direction": "weft",
+        "index": 5,
+        "axisMm": 79.95,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 25.49,
+          "y": 79.95
+        },
+        "endMm": {
+          "x": 184.51,
+          "y": 79.95
+        },
+        "geometryLengthMm": 159.02,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 69.12,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 69.12,
+            "toMm": 87.15,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 87.15,
+            "toMm": 159.02,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H007",
+        "direction": "weft",
+        "index": 6,
+        "axisMm": 85.96,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 23.47,
+          "y": 85.96
+        },
+        "endMm": {
+          "x": 186.53,
+          "y": 85.96
+        },
+        "geometryLengthMm": 163.06,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 69.12,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 69.12,
+            "toMm": 93.16,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 93.16,
+            "toMm": 163.06,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H008",
+        "direction": "weft",
+        "index": 7,
+        "axisMm": 91.97,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 21.93,
+          "y": 91.97
+        },
+        "endMm": {
+          "x": 188.07,
+          "y": 91.97
+        },
+        "geometryLengthMm": 166.13,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 69.12,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 69.12,
+            "toMm": 99.17,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 99.17,
+            "toMm": 166.13,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H009",
+        "direction": "weft",
+        "index": 8,
+        "axisMm": 97.98,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 20.85,
+          "y": 97.98
+        },
+        "endMm": {
+          "x": 189.15,
+          "y": 97.98
+        },
+        "geometryLengthMm": 168.29,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 69.12,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 69.12,
+            "toMm": 99.17,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 99.17,
+            "toMm": 168.29,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H010",
+        "direction": "weft",
+        "index": 9,
+        "axisMm": 103.99,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 20.21,
+          "y": 103.99
+        },
+        "endMm": {
+          "x": 189.79,
+          "y": 103.99
+        },
+        "geometryLengthMm": 169.57,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 63.11,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 63.11,
+            "toMm": 105.18,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 105.18,
+            "toMm": 169.57,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H011",
+        "direction": "weft",
+        "index": 10,
+        "axisMm": 110,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 20,
+          "y": 110
+        },
+        "endMm": {
+          "x": 190,
+          "y": 110
+        },
+        "geometryLengthMm": 170,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 63.11,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 63.11,
+            "toMm": 105.18,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 105.18,
+            "toMm": 170,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H012",
+        "direction": "weft",
+        "index": 11,
+        "axisMm": 116.01,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 20.21,
+          "y": 116.01
+        },
+        "endMm": {
+          "x": 189.79,
+          "y": 116.01
+        },
+        "geometryLengthMm": 169.57,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 63.11,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 63.11,
+            "toMm": 111.19,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 111.19,
+            "toMm": 169.57,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H013",
+        "direction": "weft",
+        "index": 12,
+        "axisMm": 122.02,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 20.85,
+          "y": 122.02
+        },
+        "endMm": {
+          "x": 189.15,
+          "y": 122.02
+        },
+        "geometryLengthMm": 168.29,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 57.1,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 57.1,
+            "toMm": 111.19,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 111.19,
+            "toMm": 168.29,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H014",
+        "direction": "weft",
+        "index": 13,
+        "axisMm": 128.03,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 21.93,
+          "y": 128.03
+        },
+        "endMm": {
+          "x": 188.07,
+          "y": 128.03
+        },
+        "geometryLengthMm": 166.13,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 51.09,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 51.09,
+            "toMm": 111.19,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 111.19,
+            "toMm": 166.13,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H015",
+        "direction": "weft",
+        "index": 14,
+        "axisMm": 134.04,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 23.47,
+          "y": 134.04
+        },
+        "endMm": {
+          "x": 186.53,
+          "y": 134.04
+        },
+        "geometryLengthMm": 163.06,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 51.09,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 51.09,
+            "toMm": 111.19,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 111.19,
+            "toMm": 163.06,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H016",
+        "direction": "weft",
+        "index": 15,
+        "axisMm": 140.05,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 25.49,
+          "y": 140.05
+        },
+        "endMm": {
+          "x": 184.51,
+          "y": 140.05
+        },
+        "geometryLengthMm": 159.02,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 45.08,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 45.08,
+            "toMm": 117.2,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 117.2,
+            "toMm": 159.02,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H017",
+        "direction": "weft",
+        "index": 16,
+        "axisMm": 146.06,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 28.03,
+          "y": 146.06
+        },
+        "endMm": {
+          "x": 181.97,
+          "y": 146.06
+        },
+        "geometryLengthMm": 153.94,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 39.07,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          },
+          {
+            "fromMm": 39.07,
+            "toMm": 117.2,
+            "paletteId": "green-01",
+            "color": "#315F3A",
+            "sourceElementId": "element-green-triangle-001",
+            "sourceInputId": "stroke-green-triangle-001"
+          },
+          {
+            "fromMm": 117.2,
+            "toMm": 153.94,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H018",
+        "direction": "weft",
+        "index": 17,
+        "axisMm": 152.07,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 31.14,
+          "y": 152.07
+        },
+        "endMm": {
+          "x": 178.86,
+          "y": 152.07
+        },
+        "geometryLengthMm": 147.71,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 147.71,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H019",
+        "direction": "weft",
+        "index": 18,
+        "axisMm": 158.08,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 34.91,
+          "y": 158.08
+        },
+        "endMm": {
+          "x": 175.09,
+          "y": 158.08
+        },
+        "geometryLengthMm": 140.19,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 140.19,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H020",
+        "direction": "weft",
+        "index": 19,
+        "axisMm": 164.09,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 39.43,
+          "y": 164.09
+        },
+        "endMm": {
+          "x": 170.57,
+          "y": 164.09
+        },
+        "geometryLengthMm": 131.13,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 131.13,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      },
+      {
+        "id": "H021",
+        "direction": "weft",
+        "index": 20,
+        "axisMm": 170.1,
+        "widthMm": 3.5,
+        "startMm": {
+          "x": 44.9,
+          "y": 170.1
+        },
+        "endMm": {
+          "x": 165.1,
+          "y": 170.1
+        },
+        "geometryLengthMm": 120.21,
+        "colorSegments": [
+          {
+            "fromMm": 0,
+            "toMm": 120.21,
+            "paletteId": "d-base",
+            "color": "#e7cda9"
+          }
+        ]
+      }
+    ]
+  },
+  "interlace": {
+    "crossings": [
+      {
+        "id": "X-V001-H001",
+        "warpId": "V001",
+        "weftId": "H001",
+        "warpIndex": 0,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 44.9,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H002",
+        "warpId": "V001",
+        "weftId": "H002",
+        "warpIndex": 0,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 44.9,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H003",
+        "warpId": "V001",
+        "weftId": "H003",
+        "warpIndex": 0,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 44.9,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H004",
+        "warpId": "V001",
+        "weftId": "H004",
+        "warpIndex": 0,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 44.9,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H005",
+        "warpId": "V001",
+        "weftId": "H005",
+        "warpIndex": 0,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 44.9,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H006",
+        "warpId": "V001",
+        "weftId": "H006",
+        "warpIndex": 0,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 44.9,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H007",
+        "warpId": "V001",
+        "weftId": "H007",
+        "warpIndex": 0,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 44.9,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H008",
+        "warpId": "V001",
+        "weftId": "H008",
+        "warpIndex": 0,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 44.9,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H009",
+        "warpId": "V001",
+        "weftId": "H009",
+        "warpIndex": 0,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 44.9,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H010",
+        "warpId": "V001",
+        "weftId": "H010",
+        "warpIndex": 0,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 44.9,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H011",
+        "warpId": "V001",
+        "weftId": "H011",
+        "warpIndex": 0,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 44.9,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H012",
+        "warpId": "V001",
+        "weftId": "H012",
+        "warpIndex": 0,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 44.9,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H013",
+        "warpId": "V001",
+        "weftId": "H013",
+        "warpIndex": 0,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 44.9,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H014",
+        "warpId": "V001",
+        "weftId": "H014",
+        "warpIndex": 0,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 44.9,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H015",
+        "warpId": "V001",
+        "weftId": "H015",
+        "warpIndex": 0,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 44.9,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H016",
+        "warpId": "V001",
+        "weftId": "H016",
+        "warpIndex": 0,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 44.9,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H017",
+        "warpId": "V001",
+        "weftId": "H017",
+        "warpIndex": 0,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 44.9,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H018",
+        "warpId": "V001",
+        "weftId": "H018",
+        "warpIndex": 0,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 44.9,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H019",
+        "warpId": "V001",
+        "weftId": "H019",
+        "warpIndex": 0,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 44.9,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H020",
+        "warpId": "V001",
+        "weftId": "H020",
+        "warpIndex": 0,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 44.9,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V001-H021",
+        "warpId": "V001",
+        "weftId": "H021",
+        "warpIndex": 0,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 44.9,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H001",
+        "warpId": "V002",
+        "weftId": "H001",
+        "warpIndex": 1,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 50.91,
+          "y": 49.9
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H002",
+        "warpId": "V002",
+        "weftId": "H002",
+        "warpIndex": 1,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 50.91,
+          "y": 55.91
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H003",
+        "warpId": "V002",
+        "weftId": "H003",
+        "warpIndex": 1,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 50.91,
+          "y": 61.92
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H004",
+        "warpId": "V002",
+        "weftId": "H004",
+        "warpIndex": 1,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 50.91,
+          "y": 67.93
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H005",
+        "warpId": "V002",
+        "weftId": "H005",
+        "warpIndex": 1,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 50.91,
+          "y": 73.94
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H006",
+        "warpId": "V002",
+        "weftId": "H006",
+        "warpIndex": 1,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 50.91,
+          "y": 79.95
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H007",
+        "warpId": "V002",
+        "weftId": "H007",
+        "warpIndex": 1,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 50.91,
+          "y": 85.96
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H008",
+        "warpId": "V002",
+        "weftId": "H008",
+        "warpIndex": 1,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 50.91,
+          "y": 91.97
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H009",
+        "warpId": "V002",
+        "weftId": "H009",
+        "warpIndex": 1,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 50.91,
+          "y": 97.98
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H010",
+        "warpId": "V002",
+        "weftId": "H010",
+        "warpIndex": 1,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 50.91,
+          "y": 103.99
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H011",
+        "warpId": "V002",
+        "weftId": "H011",
+        "warpIndex": 1,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 50.91,
+          "y": 110
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H012",
+        "warpId": "V002",
+        "weftId": "H012",
+        "warpIndex": 1,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 50.91,
+          "y": 116.01
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H013",
+        "warpId": "V002",
+        "weftId": "H013",
+        "warpIndex": 1,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 50.91,
+          "y": 122.02
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H014",
+        "warpId": "V002",
+        "weftId": "H014",
+        "warpIndex": 1,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 50.91,
+          "y": 128.03
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H015",
+        "warpId": "V002",
+        "weftId": "H015",
+        "warpIndex": 1,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 50.91,
+          "y": 134.04
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H016",
+        "warpId": "V002",
+        "weftId": "H016",
+        "warpIndex": 1,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 50.91,
+          "y": 140.05
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H017",
+        "warpId": "V002",
+        "weftId": "H017",
+        "warpIndex": 1,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 50.91,
+          "y": 146.06
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H018",
+        "warpId": "V002",
+        "weftId": "H018",
+        "warpIndex": 1,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 50.91,
+          "y": 152.07
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H019",
+        "warpId": "V002",
+        "weftId": "H019",
+        "warpIndex": 1,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 50.91,
+          "y": 158.08
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H020",
+        "warpId": "V002",
+        "weftId": "H020",
+        "warpIndex": 1,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 50.91,
+          "y": 164.09
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V002-H021",
+        "warpId": "V002",
+        "weftId": "H021",
+        "warpIndex": 1,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 50.91,
+          "y": 170.1
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H001",
+        "warpId": "V003",
+        "weftId": "H001",
+        "warpIndex": 2,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 56.92,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H002",
+        "warpId": "V003",
+        "weftId": "H002",
+        "warpIndex": 2,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 56.92,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H003",
+        "warpId": "V003",
+        "weftId": "H003",
+        "warpIndex": 2,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 56.92,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H004",
+        "warpId": "V003",
+        "weftId": "H004",
+        "warpIndex": 2,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 56.92,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H005",
+        "warpId": "V003",
+        "weftId": "H005",
+        "warpIndex": 2,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 56.92,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H006",
+        "warpId": "V003",
+        "weftId": "H006",
+        "warpIndex": 2,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 56.92,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H007",
+        "warpId": "V003",
+        "weftId": "H007",
+        "warpIndex": 2,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 56.92,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H008",
+        "warpId": "V003",
+        "weftId": "H008",
+        "warpIndex": 2,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 56.92,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H009",
+        "warpId": "V003",
+        "weftId": "H009",
+        "warpIndex": 2,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 56.92,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H010",
+        "warpId": "V003",
+        "weftId": "H010",
+        "warpIndex": 2,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 56.92,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H011",
+        "warpId": "V003",
+        "weftId": "H011",
+        "warpIndex": 2,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 56.92,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H012",
+        "warpId": "V003",
+        "weftId": "H012",
+        "warpIndex": 2,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 56.92,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H013",
+        "warpId": "V003",
+        "weftId": "H013",
+        "warpIndex": 2,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 56.92,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H014",
+        "warpId": "V003",
+        "weftId": "H014",
+        "warpIndex": 2,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 56.92,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H015",
+        "warpId": "V003",
+        "weftId": "H015",
+        "warpIndex": 2,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 56.92,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H016",
+        "warpId": "V003",
+        "weftId": "H016",
+        "warpIndex": 2,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 56.92,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H017",
+        "warpId": "V003",
+        "weftId": "H017",
+        "warpIndex": 2,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 56.92,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H018",
+        "warpId": "V003",
+        "weftId": "H018",
+        "warpIndex": 2,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 56.92,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H019",
+        "warpId": "V003",
+        "weftId": "H019",
+        "warpIndex": 2,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 56.92,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H020",
+        "warpId": "V003",
+        "weftId": "H020",
+        "warpIndex": 2,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 56.92,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V003-H021",
+        "warpId": "V003",
+        "weftId": "H021",
+        "warpIndex": 2,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 56.92,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H001",
+        "warpId": "V004",
+        "weftId": "H001",
+        "warpIndex": 3,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 62.93,
+          "y": 49.9
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H002",
+        "warpId": "V004",
+        "weftId": "H002",
+        "warpIndex": 3,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 62.93,
+          "y": 55.91
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H003",
+        "warpId": "V004",
+        "weftId": "H003",
+        "warpIndex": 3,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 62.93,
+          "y": 61.92
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H004",
+        "warpId": "V004",
+        "weftId": "H004",
+        "warpIndex": 3,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 62.93,
+          "y": 67.93
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H005",
+        "warpId": "V004",
+        "weftId": "H005",
+        "warpIndex": 3,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 62.93,
+          "y": 73.94
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H006",
+        "warpId": "V004",
+        "weftId": "H006",
+        "warpIndex": 3,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 62.93,
+          "y": 79.95
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H007",
+        "warpId": "V004",
+        "weftId": "H007",
+        "warpIndex": 3,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 62.93,
+          "y": 85.96
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H008",
+        "warpId": "V004",
+        "weftId": "H008",
+        "warpIndex": 3,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 62.93,
+          "y": 91.97
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H009",
+        "warpId": "V004",
+        "weftId": "H009",
+        "warpIndex": 3,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 62.93,
+          "y": 97.98
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H010",
+        "warpId": "V004",
+        "weftId": "H010",
+        "warpIndex": 3,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 62.93,
+          "y": 103.99
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H011",
+        "warpId": "V004",
+        "weftId": "H011",
+        "warpIndex": 3,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 62.93,
+          "y": 110
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H012",
+        "warpId": "V004",
+        "weftId": "H012",
+        "warpIndex": 3,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 62.93,
+          "y": 116.01
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H013",
+        "warpId": "V004",
+        "weftId": "H013",
+        "warpIndex": 3,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 62.93,
+          "y": 122.02
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H014",
+        "warpId": "V004",
+        "weftId": "H014",
+        "warpIndex": 3,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 62.93,
+          "y": 128.03
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H015",
+        "warpId": "V004",
+        "weftId": "H015",
+        "warpIndex": 3,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 62.93,
+          "y": 134.04
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H016",
+        "warpId": "V004",
+        "weftId": "H016",
+        "warpIndex": 3,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 62.93,
+          "y": 140.05
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H017",
+        "warpId": "V004",
+        "weftId": "H017",
+        "warpIndex": 3,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 62.93,
+          "y": 146.06
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H018",
+        "warpId": "V004",
+        "weftId": "H018",
+        "warpIndex": 3,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 62.93,
+          "y": 152.07
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H019",
+        "warpId": "V004",
+        "weftId": "H019",
+        "warpIndex": 3,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 62.93,
+          "y": 158.08
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H020",
+        "warpId": "V004",
+        "weftId": "H020",
+        "warpIndex": 3,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 62.93,
+          "y": 164.09
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V004-H021",
+        "warpId": "V004",
+        "weftId": "H021",
+        "warpIndex": 3,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 62.93,
+          "y": 170.1
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H001",
+        "warpId": "V005",
+        "weftId": "H001",
+        "warpIndex": 4,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 68.94,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H002",
+        "warpId": "V005",
+        "weftId": "H002",
+        "warpIndex": 4,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 68.94,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H003",
+        "warpId": "V005",
+        "weftId": "H003",
+        "warpIndex": 4,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 68.94,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H004",
+        "warpId": "V005",
+        "weftId": "H004",
+        "warpIndex": 4,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 68.94,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H005",
+        "warpId": "V005",
+        "weftId": "H005",
+        "warpIndex": 4,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 68.94,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H006",
+        "warpId": "V005",
+        "weftId": "H006",
+        "warpIndex": 4,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 68.94,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H007",
+        "warpId": "V005",
+        "weftId": "H007",
+        "warpIndex": 4,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 68.94,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H008",
+        "warpId": "V005",
+        "weftId": "H008",
+        "warpIndex": 4,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 68.94,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H009",
+        "warpId": "V005",
+        "weftId": "H009",
+        "warpIndex": 4,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 68.94,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H010",
+        "warpId": "V005",
+        "weftId": "H010",
+        "warpIndex": 4,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 68.94,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H011",
+        "warpId": "V005",
+        "weftId": "H011",
+        "warpIndex": 4,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 68.94,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H012",
+        "warpId": "V005",
+        "weftId": "H012",
+        "warpIndex": 4,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 68.94,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H013",
+        "warpId": "V005",
+        "weftId": "H013",
+        "warpIndex": 4,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 68.94,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H014",
+        "warpId": "V005",
+        "weftId": "H014",
+        "warpIndex": 4,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 68.94,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H015",
+        "warpId": "V005",
+        "weftId": "H015",
+        "warpIndex": 4,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 68.94,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H016",
+        "warpId": "V005",
+        "weftId": "H016",
+        "warpIndex": 4,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 68.94,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H017",
+        "warpId": "V005",
+        "weftId": "H017",
+        "warpIndex": 4,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 68.94,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H018",
+        "warpId": "V005",
+        "weftId": "H018",
+        "warpIndex": 4,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 68.94,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H019",
+        "warpId": "V005",
+        "weftId": "H019",
+        "warpIndex": 4,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 68.94,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H020",
+        "warpId": "V005",
+        "weftId": "H020",
+        "warpIndex": 4,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 68.94,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V005-H021",
+        "warpId": "V005",
+        "weftId": "H021",
+        "warpIndex": 4,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 68.94,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H001",
+        "warpId": "V006",
+        "weftId": "H001",
+        "warpIndex": 5,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 74.95,
+          "y": 49.9
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H002",
+        "warpId": "V006",
+        "weftId": "H002",
+        "warpIndex": 5,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 74.95,
+          "y": 55.91
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H003",
+        "warpId": "V006",
+        "weftId": "H003",
+        "warpIndex": 5,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 74.95,
+          "y": 61.92
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H004",
+        "warpId": "V006",
+        "weftId": "H004",
+        "warpIndex": 5,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 74.95,
+          "y": 67.93
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H005",
+        "warpId": "V006",
+        "weftId": "H005",
+        "warpIndex": 5,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 74.95,
+          "y": 73.94
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H006",
+        "warpId": "V006",
+        "weftId": "H006",
+        "warpIndex": 5,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 74.95,
+          "y": 79.95
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H007",
+        "warpId": "V006",
+        "weftId": "H007",
+        "warpIndex": 5,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 74.95,
+          "y": 85.96
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H008",
+        "warpId": "V006",
+        "weftId": "H008",
+        "warpIndex": 5,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 74.95,
+          "y": 91.97
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H009",
+        "warpId": "V006",
+        "weftId": "H009",
+        "warpIndex": 5,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 74.95,
+          "y": 97.98
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H010",
+        "warpId": "V006",
+        "weftId": "H010",
+        "warpIndex": 5,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 74.95,
+          "y": 103.99
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H011",
+        "warpId": "V006",
+        "weftId": "H011",
+        "warpIndex": 5,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 74.95,
+          "y": 110
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H012",
+        "warpId": "V006",
+        "weftId": "H012",
+        "warpIndex": 5,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 74.95,
+          "y": 116.01
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H013",
+        "warpId": "V006",
+        "weftId": "H013",
+        "warpIndex": 5,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 74.95,
+          "y": 122.02
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H014",
+        "warpId": "V006",
+        "weftId": "H014",
+        "warpIndex": 5,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 74.95,
+          "y": 128.03
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H015",
+        "warpId": "V006",
+        "weftId": "H015",
+        "warpIndex": 5,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 74.95,
+          "y": 134.04
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H016",
+        "warpId": "V006",
+        "weftId": "H016",
+        "warpIndex": 5,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 74.95,
+          "y": 140.05
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H017",
+        "warpId": "V006",
+        "weftId": "H017",
+        "warpIndex": 5,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 74.95,
+          "y": 146.06
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H018",
+        "warpId": "V006",
+        "weftId": "H018",
+        "warpIndex": 5,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 74.95,
+          "y": 152.07
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H019",
+        "warpId": "V006",
+        "weftId": "H019",
+        "warpIndex": 5,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 74.95,
+          "y": 158.08
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H020",
+        "warpId": "V006",
+        "weftId": "H020",
+        "warpIndex": 5,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 74.95,
+          "y": 164.09
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V006-H021",
+        "warpId": "V006",
+        "weftId": "H021",
+        "warpIndex": 5,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 74.95,
+          "y": 170.1
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H001",
+        "warpId": "V007",
+        "weftId": "H001",
+        "warpIndex": 6,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 80.96,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H002",
+        "warpId": "V007",
+        "weftId": "H002",
+        "warpIndex": 6,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 80.96,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H003",
+        "warpId": "V007",
+        "weftId": "H003",
+        "warpIndex": 6,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 80.96,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H004",
+        "warpId": "V007",
+        "weftId": "H004",
+        "warpIndex": 6,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 80.96,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H005",
+        "warpId": "V007",
+        "weftId": "H005",
+        "warpIndex": 6,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 80.96,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H006",
+        "warpId": "V007",
+        "weftId": "H006",
+        "warpIndex": 6,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 80.96,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H007",
+        "warpId": "V007",
+        "weftId": "H007",
+        "warpIndex": 6,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 80.96,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H008",
+        "warpId": "V007",
+        "weftId": "H008",
+        "warpIndex": 6,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 80.96,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H009",
+        "warpId": "V007",
+        "weftId": "H009",
+        "warpIndex": 6,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 80.96,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H010",
+        "warpId": "V007",
+        "weftId": "H010",
+        "warpIndex": 6,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 80.96,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H011",
+        "warpId": "V007",
+        "weftId": "H011",
+        "warpIndex": 6,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 80.96,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H012",
+        "warpId": "V007",
+        "weftId": "H012",
+        "warpIndex": 6,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 80.96,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H013",
+        "warpId": "V007",
+        "weftId": "H013",
+        "warpIndex": 6,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 80.96,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H014",
+        "warpId": "V007",
+        "weftId": "H014",
+        "warpIndex": 6,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 80.96,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H015",
+        "warpId": "V007",
+        "weftId": "H015",
+        "warpIndex": 6,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 80.96,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H016",
+        "warpId": "V007",
+        "weftId": "H016",
+        "warpIndex": 6,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 80.96,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H017",
+        "warpId": "V007",
+        "weftId": "H017",
+        "warpIndex": 6,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 80.96,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H018",
+        "warpId": "V007",
+        "weftId": "H018",
+        "warpIndex": 6,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 80.96,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H019",
+        "warpId": "V007",
+        "weftId": "H019",
+        "warpIndex": 6,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 80.96,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H020",
+        "warpId": "V007",
+        "weftId": "H020",
+        "warpIndex": 6,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 80.96,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V007-H021",
+        "warpId": "V007",
+        "weftId": "H021",
+        "warpIndex": 6,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 80.96,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H001",
+        "warpId": "V008",
+        "weftId": "H001",
+        "warpIndex": 7,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 86.97,
+          "y": 49.9
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H002",
+        "warpId": "V008",
+        "weftId": "H002",
+        "warpIndex": 7,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 86.97,
+          "y": 55.91
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H003",
+        "warpId": "V008",
+        "weftId": "H003",
+        "warpIndex": 7,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 86.97,
+          "y": 61.92
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H004",
+        "warpId": "V008",
+        "weftId": "H004",
+        "warpIndex": 7,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 86.97,
+          "y": 67.93
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H005",
+        "warpId": "V008",
+        "weftId": "H005",
+        "warpIndex": 7,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 86.97,
+          "y": 73.94
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H006",
+        "warpId": "V008",
+        "weftId": "H006",
+        "warpIndex": 7,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 86.97,
+          "y": 79.95
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H007",
+        "warpId": "V008",
+        "weftId": "H007",
+        "warpIndex": 7,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 86.97,
+          "y": 85.96
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H008",
+        "warpId": "V008",
+        "weftId": "H008",
+        "warpIndex": 7,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 86.97,
+          "y": 91.97
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H009",
+        "warpId": "V008",
+        "weftId": "H009",
+        "warpIndex": 7,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 86.97,
+          "y": 97.98
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H010",
+        "warpId": "V008",
+        "weftId": "H010",
+        "warpIndex": 7,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 86.97,
+          "y": 103.99
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H011",
+        "warpId": "V008",
+        "weftId": "H011",
+        "warpIndex": 7,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 86.97,
+          "y": 110
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H012",
+        "warpId": "V008",
+        "weftId": "H012",
+        "warpIndex": 7,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 86.97,
+          "y": 116.01
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H013",
+        "warpId": "V008",
+        "weftId": "H013",
+        "warpIndex": 7,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 86.97,
+          "y": 122.02
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H014",
+        "warpId": "V008",
+        "weftId": "H014",
+        "warpIndex": 7,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 86.97,
+          "y": 128.03
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H015",
+        "warpId": "V008",
+        "weftId": "H015",
+        "warpIndex": 7,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 86.97,
+          "y": 134.04
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H016",
+        "warpId": "V008",
+        "weftId": "H016",
+        "warpIndex": 7,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 86.97,
+          "y": 140.05
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H017",
+        "warpId": "V008",
+        "weftId": "H017",
+        "warpIndex": 7,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 86.97,
+          "y": 146.06
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H018",
+        "warpId": "V008",
+        "weftId": "H018",
+        "warpIndex": 7,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 86.97,
+          "y": 152.07
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H019",
+        "warpId": "V008",
+        "weftId": "H019",
+        "warpIndex": 7,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 86.97,
+          "y": 158.08
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H020",
+        "warpId": "V008",
+        "weftId": "H020",
+        "warpIndex": 7,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 86.97,
+          "y": 164.09
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V008-H021",
+        "warpId": "V008",
+        "weftId": "H021",
+        "warpIndex": 7,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 86.97,
+          "y": 170.1
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H001",
+        "warpId": "V009",
+        "weftId": "H001",
+        "warpIndex": 8,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 92.98,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H002",
+        "warpId": "V009",
+        "weftId": "H002",
+        "warpIndex": 8,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 92.98,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H003",
+        "warpId": "V009",
+        "weftId": "H003",
+        "warpIndex": 8,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 92.98,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H004",
+        "warpId": "V009",
+        "weftId": "H004",
+        "warpIndex": 8,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 92.98,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H005",
+        "warpId": "V009",
+        "weftId": "H005",
+        "warpIndex": 8,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 92.98,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H006",
+        "warpId": "V009",
+        "weftId": "H006",
+        "warpIndex": 8,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 92.98,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H007",
+        "warpId": "V009",
+        "weftId": "H007",
+        "warpIndex": 8,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 92.98,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H008",
+        "warpId": "V009",
+        "weftId": "H008",
+        "warpIndex": 8,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 92.98,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H009",
+        "warpId": "V009",
+        "weftId": "H009",
+        "warpIndex": 8,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 92.98,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H010",
+        "warpId": "V009",
+        "weftId": "H010",
+        "warpIndex": 8,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 92.98,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H011",
+        "warpId": "V009",
+        "weftId": "H011",
+        "warpIndex": 8,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 92.98,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H012",
+        "warpId": "V009",
+        "weftId": "H012",
+        "warpIndex": 8,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 92.98,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H013",
+        "warpId": "V009",
+        "weftId": "H013",
+        "warpIndex": 8,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 92.98,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H014",
+        "warpId": "V009",
+        "weftId": "H014",
+        "warpIndex": 8,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 92.98,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H015",
+        "warpId": "V009",
+        "weftId": "H015",
+        "warpIndex": 8,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 92.98,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H016",
+        "warpId": "V009",
+        "weftId": "H016",
+        "warpIndex": 8,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 92.98,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H017",
+        "warpId": "V009",
+        "weftId": "H017",
+        "warpIndex": 8,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 92.98,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H018",
+        "warpId": "V009",
+        "weftId": "H018",
+        "warpIndex": 8,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 92.98,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H019",
+        "warpId": "V009",
+        "weftId": "H019",
+        "warpIndex": 8,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 92.98,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H020",
+        "warpId": "V009",
+        "weftId": "H020",
+        "warpIndex": 8,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 92.98,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V009-H021",
+        "warpId": "V009",
+        "weftId": "H021",
+        "warpIndex": 8,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 92.98,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H001",
+        "warpId": "V010",
+        "weftId": "H001",
+        "warpIndex": 9,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 98.99,
+          "y": 49.9
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H002",
+        "warpId": "V010",
+        "weftId": "H002",
+        "warpIndex": 9,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 98.99,
+          "y": 55.91
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H003",
+        "warpId": "V010",
+        "weftId": "H003",
+        "warpIndex": 9,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 98.99,
+          "y": 61.92
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H004",
+        "warpId": "V010",
+        "weftId": "H004",
+        "warpIndex": 9,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 98.99,
+          "y": 67.93
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H005",
+        "warpId": "V010",
+        "weftId": "H005",
+        "warpIndex": 9,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 98.99,
+          "y": 73.94
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H006",
+        "warpId": "V010",
+        "weftId": "H006",
+        "warpIndex": 9,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 98.99,
+          "y": 79.95
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H007",
+        "warpId": "V010",
+        "weftId": "H007",
+        "warpIndex": 9,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 98.99,
+          "y": 85.96
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H008",
+        "warpId": "V010",
+        "weftId": "H008",
+        "warpIndex": 9,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 98.99,
+          "y": 91.97
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H009",
+        "warpId": "V010",
+        "weftId": "H009",
+        "warpIndex": 9,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 98.99,
+          "y": 97.98
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H010",
+        "warpId": "V010",
+        "weftId": "H010",
+        "warpIndex": 9,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 98.99,
+          "y": 103.99
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H011",
+        "warpId": "V010",
+        "weftId": "H011",
+        "warpIndex": 9,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 98.99,
+          "y": 110
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H012",
+        "warpId": "V010",
+        "weftId": "H012",
+        "warpIndex": 9,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 98.99,
+          "y": 116.01
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H013",
+        "warpId": "V010",
+        "weftId": "H013",
+        "warpIndex": 9,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 98.99,
+          "y": 122.02
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H014",
+        "warpId": "V010",
+        "weftId": "H014",
+        "warpIndex": 9,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 98.99,
+          "y": 128.03
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H015",
+        "warpId": "V010",
+        "weftId": "H015",
+        "warpIndex": 9,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 98.99,
+          "y": 134.04
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H016",
+        "warpId": "V010",
+        "weftId": "H016",
+        "warpIndex": 9,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 98.99,
+          "y": 140.05
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H017",
+        "warpId": "V010",
+        "weftId": "H017",
+        "warpIndex": 9,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 98.99,
+          "y": 146.06
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H018",
+        "warpId": "V010",
+        "weftId": "H018",
+        "warpIndex": 9,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 98.99,
+          "y": 152.07
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H019",
+        "warpId": "V010",
+        "weftId": "H019",
+        "warpIndex": 9,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 98.99,
+          "y": 158.08
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H020",
+        "warpId": "V010",
+        "weftId": "H020",
+        "warpIndex": 9,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 98.99,
+          "y": 164.09
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V010-H021",
+        "warpId": "V010",
+        "weftId": "H021",
+        "warpIndex": 9,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 98.99,
+          "y": 170.1
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H001",
+        "warpId": "V011",
+        "weftId": "H001",
+        "warpIndex": 10,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 105,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H002",
+        "warpId": "V011",
+        "weftId": "H002",
+        "warpIndex": 10,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 105,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H003",
+        "warpId": "V011",
+        "weftId": "H003",
+        "warpIndex": 10,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 105,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H004",
+        "warpId": "V011",
+        "weftId": "H004",
+        "warpIndex": 10,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 105,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H005",
+        "warpId": "V011",
+        "weftId": "H005",
+        "warpIndex": 10,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 105,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H006",
+        "warpId": "V011",
+        "weftId": "H006",
+        "warpIndex": 10,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 105,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H007",
+        "warpId": "V011",
+        "weftId": "H007",
+        "warpIndex": 10,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 105,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H008",
+        "warpId": "V011",
+        "weftId": "H008",
+        "warpIndex": 10,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 105,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H009",
+        "warpId": "V011",
+        "weftId": "H009",
+        "warpIndex": 10,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 105,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H010",
+        "warpId": "V011",
+        "weftId": "H010",
+        "warpIndex": 10,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 105,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H011",
+        "warpId": "V011",
+        "weftId": "H011",
+        "warpIndex": 10,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 105,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H012",
+        "warpId": "V011",
+        "weftId": "H012",
+        "warpIndex": 10,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 105,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H013",
+        "warpId": "V011",
+        "weftId": "H013",
+        "warpIndex": 10,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 105,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H014",
+        "warpId": "V011",
+        "weftId": "H014",
+        "warpIndex": 10,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 105,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H015",
+        "warpId": "V011",
+        "weftId": "H015",
+        "warpIndex": 10,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 105,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H016",
+        "warpId": "V011",
+        "weftId": "H016",
+        "warpIndex": 10,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 105,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H017",
+        "warpId": "V011",
+        "weftId": "H017",
+        "warpIndex": 10,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 105,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H018",
+        "warpId": "V011",
+        "weftId": "H018",
+        "warpIndex": 10,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 105,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H019",
+        "warpId": "V011",
+        "weftId": "H019",
+        "warpIndex": 10,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 105,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H020",
+        "warpId": "V011",
+        "weftId": "H020",
+        "warpIndex": 10,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 105,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V011-H021",
+        "warpId": "V011",
+        "weftId": "H021",
+        "warpIndex": 10,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 105,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H001",
+        "warpId": "V012",
+        "weftId": "H001",
+        "warpIndex": 11,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 111.01,
+          "y": 49.9
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H002",
+        "warpId": "V012",
+        "weftId": "H002",
+        "warpIndex": 11,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 111.01,
+          "y": 55.91
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H003",
+        "warpId": "V012",
+        "weftId": "H003",
+        "warpIndex": 11,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 111.01,
+          "y": 61.92
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H004",
+        "warpId": "V012",
+        "weftId": "H004",
+        "warpIndex": 11,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 111.01,
+          "y": 67.93
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H005",
+        "warpId": "V012",
+        "weftId": "H005",
+        "warpIndex": 11,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 111.01,
+          "y": 73.94
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H006",
+        "warpId": "V012",
+        "weftId": "H006",
+        "warpIndex": 11,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 111.01,
+          "y": 79.95
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H007",
+        "warpId": "V012",
+        "weftId": "H007",
+        "warpIndex": 11,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 111.01,
+          "y": 85.96
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H008",
+        "warpId": "V012",
+        "weftId": "H008",
+        "warpIndex": 11,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 111.01,
+          "y": 91.97
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H009",
+        "warpId": "V012",
+        "weftId": "H009",
+        "warpIndex": 11,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 111.01,
+          "y": 97.98
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H010",
+        "warpId": "V012",
+        "weftId": "H010",
+        "warpIndex": 11,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 111.01,
+          "y": 103.99
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H011",
+        "warpId": "V012",
+        "weftId": "H011",
+        "warpIndex": 11,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 111.01,
+          "y": 110
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H012",
+        "warpId": "V012",
+        "weftId": "H012",
+        "warpIndex": 11,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 111.01,
+          "y": 116.01
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H013",
+        "warpId": "V012",
+        "weftId": "H013",
+        "warpIndex": 11,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 111.01,
+          "y": 122.02
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H014",
+        "warpId": "V012",
+        "weftId": "H014",
+        "warpIndex": 11,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 111.01,
+          "y": 128.03
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H015",
+        "warpId": "V012",
+        "weftId": "H015",
+        "warpIndex": 11,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 111.01,
+          "y": 134.04
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H016",
+        "warpId": "V012",
+        "weftId": "H016",
+        "warpIndex": 11,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 111.01,
+          "y": 140.05
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H017",
+        "warpId": "V012",
+        "weftId": "H017",
+        "warpIndex": 11,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 111.01,
+          "y": 146.06
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H018",
+        "warpId": "V012",
+        "weftId": "H018",
+        "warpIndex": 11,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 111.01,
+          "y": 152.07
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H019",
+        "warpId": "V012",
+        "weftId": "H019",
+        "warpIndex": 11,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 111.01,
+          "y": 158.08
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H020",
+        "warpId": "V012",
+        "weftId": "H020",
+        "warpIndex": 11,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 111.01,
+          "y": 164.09
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V012-H021",
+        "warpId": "V012",
+        "weftId": "H021",
+        "warpIndex": 11,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 111.01,
+          "y": 170.1
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H001",
+        "warpId": "V013",
+        "weftId": "H001",
+        "warpIndex": 12,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 117.02,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H002",
+        "warpId": "V013",
+        "weftId": "H002",
+        "warpIndex": 12,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 117.02,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H003",
+        "warpId": "V013",
+        "weftId": "H003",
+        "warpIndex": 12,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 117.02,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H004",
+        "warpId": "V013",
+        "weftId": "H004",
+        "warpIndex": 12,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 117.02,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H005",
+        "warpId": "V013",
+        "weftId": "H005",
+        "warpIndex": 12,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 117.02,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H006",
+        "warpId": "V013",
+        "weftId": "H006",
+        "warpIndex": 12,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 117.02,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H007",
+        "warpId": "V013",
+        "weftId": "H007",
+        "warpIndex": 12,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 117.02,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H008",
+        "warpId": "V013",
+        "weftId": "H008",
+        "warpIndex": 12,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 117.02,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H009",
+        "warpId": "V013",
+        "weftId": "H009",
+        "warpIndex": 12,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 117.02,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H010",
+        "warpId": "V013",
+        "weftId": "H010",
+        "warpIndex": 12,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 117.02,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H011",
+        "warpId": "V013",
+        "weftId": "H011",
+        "warpIndex": 12,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 117.02,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H012",
+        "warpId": "V013",
+        "weftId": "H012",
+        "warpIndex": 12,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 117.02,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H013",
+        "warpId": "V013",
+        "weftId": "H013",
+        "warpIndex": 12,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 117.02,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H014",
+        "warpId": "V013",
+        "weftId": "H014",
+        "warpIndex": 12,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 117.02,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H015",
+        "warpId": "V013",
+        "weftId": "H015",
+        "warpIndex": 12,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 117.02,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H016",
+        "warpId": "V013",
+        "weftId": "H016",
+        "warpIndex": 12,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 117.02,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H017",
+        "warpId": "V013",
+        "weftId": "H017",
+        "warpIndex": 12,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 117.02,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H018",
+        "warpId": "V013",
+        "weftId": "H018",
+        "warpIndex": 12,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 117.02,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H019",
+        "warpId": "V013",
+        "weftId": "H019",
+        "warpIndex": 12,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 117.02,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H020",
+        "warpId": "V013",
+        "weftId": "H020",
+        "warpIndex": 12,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 117.02,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V013-H021",
+        "warpId": "V013",
+        "weftId": "H021",
+        "warpIndex": 12,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 117.02,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H001",
+        "warpId": "V014",
+        "weftId": "H001",
+        "warpIndex": 13,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 123.03,
+          "y": 49.9
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H002",
+        "warpId": "V014",
+        "weftId": "H002",
+        "warpIndex": 13,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 123.03,
+          "y": 55.91
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H003",
+        "warpId": "V014",
+        "weftId": "H003",
+        "warpIndex": 13,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 123.03,
+          "y": 61.92
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H004",
+        "warpId": "V014",
+        "weftId": "H004",
+        "warpIndex": 13,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 123.03,
+          "y": 67.93
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H005",
+        "warpId": "V014",
+        "weftId": "H005",
+        "warpIndex": 13,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 123.03,
+          "y": 73.94
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H006",
+        "warpId": "V014",
+        "weftId": "H006",
+        "warpIndex": 13,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 123.03,
+          "y": 79.95
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H007",
+        "warpId": "V014",
+        "weftId": "H007",
+        "warpIndex": 13,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 123.03,
+          "y": 85.96
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H008",
+        "warpId": "V014",
+        "weftId": "H008",
+        "warpIndex": 13,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 123.03,
+          "y": 91.97
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H009",
+        "warpId": "V014",
+        "weftId": "H009",
+        "warpIndex": 13,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 123.03,
+          "y": 97.98
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H010",
+        "warpId": "V014",
+        "weftId": "H010",
+        "warpIndex": 13,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 123.03,
+          "y": 103.99
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H011",
+        "warpId": "V014",
+        "weftId": "H011",
+        "warpIndex": 13,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 123.03,
+          "y": 110
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H012",
+        "warpId": "V014",
+        "weftId": "H012",
+        "warpIndex": 13,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 123.03,
+          "y": 116.01
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H013",
+        "warpId": "V014",
+        "weftId": "H013",
+        "warpIndex": 13,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 123.03,
+          "y": 122.02
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H014",
+        "warpId": "V014",
+        "weftId": "H014",
+        "warpIndex": 13,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 123.03,
+          "y": 128.03
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H015",
+        "warpId": "V014",
+        "weftId": "H015",
+        "warpIndex": 13,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 123.03,
+          "y": 134.04
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H016",
+        "warpId": "V014",
+        "weftId": "H016",
+        "warpIndex": 13,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 123.03,
+          "y": 140.05
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H017",
+        "warpId": "V014",
+        "weftId": "H017",
+        "warpIndex": 13,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 123.03,
+          "y": 146.06
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H018",
+        "warpId": "V014",
+        "weftId": "H018",
+        "warpIndex": 13,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 123.03,
+          "y": 152.07
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H019",
+        "warpId": "V014",
+        "weftId": "H019",
+        "warpIndex": 13,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 123.03,
+          "y": 158.08
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H020",
+        "warpId": "V014",
+        "weftId": "H020",
+        "warpIndex": 13,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 123.03,
+          "y": 164.09
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V014-H021",
+        "warpId": "V014",
+        "weftId": "H021",
+        "warpIndex": 13,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 123.03,
+          "y": 170.1
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H001",
+        "warpId": "V015",
+        "weftId": "H001",
+        "warpIndex": 14,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 129.04,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H002",
+        "warpId": "V015",
+        "weftId": "H002",
+        "warpIndex": 14,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 129.04,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H003",
+        "warpId": "V015",
+        "weftId": "H003",
+        "warpIndex": 14,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 129.04,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H004",
+        "warpId": "V015",
+        "weftId": "H004",
+        "warpIndex": 14,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 129.04,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H005",
+        "warpId": "V015",
+        "weftId": "H005",
+        "warpIndex": 14,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 129.04,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H006",
+        "warpId": "V015",
+        "weftId": "H006",
+        "warpIndex": 14,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 129.04,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H007",
+        "warpId": "V015",
+        "weftId": "H007",
+        "warpIndex": 14,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 129.04,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H008",
+        "warpId": "V015",
+        "weftId": "H008",
+        "warpIndex": 14,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 129.04,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H009",
+        "warpId": "V015",
+        "weftId": "H009",
+        "warpIndex": 14,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 129.04,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H010",
+        "warpId": "V015",
+        "weftId": "H010",
+        "warpIndex": 14,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 129.04,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H011",
+        "warpId": "V015",
+        "weftId": "H011",
+        "warpIndex": 14,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 129.04,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H012",
+        "warpId": "V015",
+        "weftId": "H012",
+        "warpIndex": 14,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 129.04,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H013",
+        "warpId": "V015",
+        "weftId": "H013",
+        "warpIndex": 14,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 129.04,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H014",
+        "warpId": "V015",
+        "weftId": "H014",
+        "warpIndex": 14,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 129.04,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H015",
+        "warpId": "V015",
+        "weftId": "H015",
+        "warpIndex": 14,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 129.04,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H016",
+        "warpId": "V015",
+        "weftId": "H016",
+        "warpIndex": 14,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 129.04,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H017",
+        "warpId": "V015",
+        "weftId": "H017",
+        "warpIndex": 14,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 129.04,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H018",
+        "warpId": "V015",
+        "weftId": "H018",
+        "warpIndex": 14,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 129.04,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H019",
+        "warpId": "V015",
+        "weftId": "H019",
+        "warpIndex": 14,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 129.04,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H020",
+        "warpId": "V015",
+        "weftId": "H020",
+        "warpIndex": 14,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 129.04,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V015-H021",
+        "warpId": "V015",
+        "weftId": "H021",
+        "warpIndex": 14,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 129.04,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H001",
+        "warpId": "V016",
+        "weftId": "H001",
+        "warpIndex": 15,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 135.05,
+          "y": 49.9
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H002",
+        "warpId": "V016",
+        "weftId": "H002",
+        "warpIndex": 15,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 135.05,
+          "y": 55.91
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H003",
+        "warpId": "V016",
+        "weftId": "H003",
+        "warpIndex": 15,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 135.05,
+          "y": 61.92
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H004",
+        "warpId": "V016",
+        "weftId": "H004",
+        "warpIndex": 15,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 135.05,
+          "y": 67.93
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H005",
+        "warpId": "V016",
+        "weftId": "H005",
+        "warpIndex": 15,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 135.05,
+          "y": 73.94
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H006",
+        "warpId": "V016",
+        "weftId": "H006",
+        "warpIndex": 15,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 135.05,
+          "y": 79.95
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H007",
+        "warpId": "V016",
+        "weftId": "H007",
+        "warpIndex": 15,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 135.05,
+          "y": 85.96
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H008",
+        "warpId": "V016",
+        "weftId": "H008",
+        "warpIndex": 15,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 135.05,
+          "y": 91.97
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H009",
+        "warpId": "V016",
+        "weftId": "H009",
+        "warpIndex": 15,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 135.05,
+          "y": 97.98
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H010",
+        "warpId": "V016",
+        "weftId": "H010",
+        "warpIndex": 15,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 135.05,
+          "y": 103.99
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H011",
+        "warpId": "V016",
+        "weftId": "H011",
+        "warpIndex": 15,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 135.05,
+          "y": 110
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H012",
+        "warpId": "V016",
+        "weftId": "H012",
+        "warpIndex": 15,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 135.05,
+          "y": 116.01
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H013",
+        "warpId": "V016",
+        "weftId": "H013",
+        "warpIndex": 15,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 135.05,
+          "y": 122.02
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H014",
+        "warpId": "V016",
+        "weftId": "H014",
+        "warpIndex": 15,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 135.05,
+          "y": 128.03
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H015",
+        "warpId": "V016",
+        "weftId": "H015",
+        "warpIndex": 15,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 135.05,
+          "y": 134.04
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H016",
+        "warpId": "V016",
+        "weftId": "H016",
+        "warpIndex": 15,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 135.05,
+          "y": 140.05
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H017",
+        "warpId": "V016",
+        "weftId": "H017",
+        "warpIndex": 15,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 135.05,
+          "y": 146.06
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H018",
+        "warpId": "V016",
+        "weftId": "H018",
+        "warpIndex": 15,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 135.05,
+          "y": 152.07
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H019",
+        "warpId": "V016",
+        "weftId": "H019",
+        "warpIndex": 15,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 135.05,
+          "y": 158.08
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H020",
+        "warpId": "V016",
+        "weftId": "H020",
+        "warpIndex": 15,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 135.05,
+          "y": 164.09
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V016-H021",
+        "warpId": "V016",
+        "weftId": "H021",
+        "warpIndex": 15,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 135.05,
+          "y": 170.1
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H001",
+        "warpId": "V017",
+        "weftId": "H001",
+        "warpIndex": 16,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 141.06,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H002",
+        "warpId": "V017",
+        "weftId": "H002",
+        "warpIndex": 16,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 141.06,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H003",
+        "warpId": "V017",
+        "weftId": "H003",
+        "warpIndex": 16,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 141.06,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H004",
+        "warpId": "V017",
+        "weftId": "H004",
+        "warpIndex": 16,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 141.06,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H005",
+        "warpId": "V017",
+        "weftId": "H005",
+        "warpIndex": 16,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 141.06,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H006",
+        "warpId": "V017",
+        "weftId": "H006",
+        "warpIndex": 16,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 141.06,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H007",
+        "warpId": "V017",
+        "weftId": "H007",
+        "warpIndex": 16,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 141.06,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H008",
+        "warpId": "V017",
+        "weftId": "H008",
+        "warpIndex": 16,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 141.06,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H009",
+        "warpId": "V017",
+        "weftId": "H009",
+        "warpIndex": 16,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 141.06,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H010",
+        "warpId": "V017",
+        "weftId": "H010",
+        "warpIndex": 16,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 141.06,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H011",
+        "warpId": "V017",
+        "weftId": "H011",
+        "warpIndex": 16,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 141.06,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H012",
+        "warpId": "V017",
+        "weftId": "H012",
+        "warpIndex": 16,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 141.06,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H013",
+        "warpId": "V017",
+        "weftId": "H013",
+        "warpIndex": 16,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 141.06,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H014",
+        "warpId": "V017",
+        "weftId": "H014",
+        "warpIndex": 16,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 141.06,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H015",
+        "warpId": "V017",
+        "weftId": "H015",
+        "warpIndex": 16,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 141.06,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H016",
+        "warpId": "V017",
+        "weftId": "H016",
+        "warpIndex": 16,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 141.06,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H017",
+        "warpId": "V017",
+        "weftId": "H017",
+        "warpIndex": 16,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 141.06,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H018",
+        "warpId": "V017",
+        "weftId": "H018",
+        "warpIndex": 16,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 141.06,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H019",
+        "warpId": "V017",
+        "weftId": "H019",
+        "warpIndex": 16,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 141.06,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H020",
+        "warpId": "V017",
+        "weftId": "H020",
+        "warpIndex": 16,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 141.06,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V017-H021",
+        "warpId": "V017",
+        "weftId": "H021",
+        "warpIndex": 16,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 141.06,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H001",
+        "warpId": "V018",
+        "weftId": "H001",
+        "warpIndex": 17,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 147.07,
+          "y": 49.9
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H002",
+        "warpId": "V018",
+        "weftId": "H002",
+        "warpIndex": 17,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 147.07,
+          "y": 55.91
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H003",
+        "warpId": "V018",
+        "weftId": "H003",
+        "warpIndex": 17,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 147.07,
+          "y": 61.92
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H004",
+        "warpId": "V018",
+        "weftId": "H004",
+        "warpIndex": 17,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 147.07,
+          "y": 67.93
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H005",
+        "warpId": "V018",
+        "weftId": "H005",
+        "warpIndex": 17,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 147.07,
+          "y": 73.94
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H006",
+        "warpId": "V018",
+        "weftId": "H006",
+        "warpIndex": 17,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 147.07,
+          "y": 79.95
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H007",
+        "warpId": "V018",
+        "weftId": "H007",
+        "warpIndex": 17,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 147.07,
+          "y": 85.96
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H008",
+        "warpId": "V018",
+        "weftId": "H008",
+        "warpIndex": 17,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 147.07,
+          "y": 91.97
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H009",
+        "warpId": "V018",
+        "weftId": "H009",
+        "warpIndex": 17,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 147.07,
+          "y": 97.98
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H010",
+        "warpId": "V018",
+        "weftId": "H010",
+        "warpIndex": 17,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 147.07,
+          "y": 103.99
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H011",
+        "warpId": "V018",
+        "weftId": "H011",
+        "warpIndex": 17,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 147.07,
+          "y": 110
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H012",
+        "warpId": "V018",
+        "weftId": "H012",
+        "warpIndex": 17,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 147.07,
+          "y": 116.01
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H013",
+        "warpId": "V018",
+        "weftId": "H013",
+        "warpIndex": 17,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 147.07,
+          "y": 122.02
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H014",
+        "warpId": "V018",
+        "weftId": "H014",
+        "warpIndex": 17,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 147.07,
+          "y": 128.03
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H015",
+        "warpId": "V018",
+        "weftId": "H015",
+        "warpIndex": 17,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 147.07,
+          "y": 134.04
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H016",
+        "warpId": "V018",
+        "weftId": "H016",
+        "warpIndex": 17,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 147.07,
+          "y": 140.05
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H017",
+        "warpId": "V018",
+        "weftId": "H017",
+        "warpIndex": 17,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 147.07,
+          "y": 146.06
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H018",
+        "warpId": "V018",
+        "weftId": "H018",
+        "warpIndex": 17,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 147.07,
+          "y": 152.07
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H019",
+        "warpId": "V018",
+        "weftId": "H019",
+        "warpIndex": 17,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 147.07,
+          "y": 158.08
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H020",
+        "warpId": "V018",
+        "weftId": "H020",
+        "warpIndex": 17,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 147.07,
+          "y": 164.09
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V018-H021",
+        "warpId": "V018",
+        "weftId": "H021",
+        "warpIndex": 17,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 147.07,
+          "y": 170.1
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H001",
+        "warpId": "V019",
+        "weftId": "H001",
+        "warpIndex": 18,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 153.08,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H002",
+        "warpId": "V019",
+        "weftId": "H002",
+        "warpIndex": 18,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 153.08,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H003",
+        "warpId": "V019",
+        "weftId": "H003",
+        "warpIndex": 18,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 153.08,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H004",
+        "warpId": "V019",
+        "weftId": "H004",
+        "warpIndex": 18,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 153.08,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H005",
+        "warpId": "V019",
+        "weftId": "H005",
+        "warpIndex": 18,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 153.08,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H006",
+        "warpId": "V019",
+        "weftId": "H006",
+        "warpIndex": 18,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 153.08,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H007",
+        "warpId": "V019",
+        "weftId": "H007",
+        "warpIndex": 18,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 153.08,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H008",
+        "warpId": "V019",
+        "weftId": "H008",
+        "warpIndex": 18,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 153.08,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H009",
+        "warpId": "V019",
+        "weftId": "H009",
+        "warpIndex": 18,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 153.08,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H010",
+        "warpId": "V019",
+        "weftId": "H010",
+        "warpIndex": 18,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 153.08,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H011",
+        "warpId": "V019",
+        "weftId": "H011",
+        "warpIndex": 18,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 153.08,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H012",
+        "warpId": "V019",
+        "weftId": "H012",
+        "warpIndex": 18,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 153.08,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H013",
+        "warpId": "V019",
+        "weftId": "H013",
+        "warpIndex": 18,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 153.08,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H014",
+        "warpId": "V019",
+        "weftId": "H014",
+        "warpIndex": 18,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 153.08,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H015",
+        "warpId": "V019",
+        "weftId": "H015",
+        "warpIndex": 18,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 153.08,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H016",
+        "warpId": "V019",
+        "weftId": "H016",
+        "warpIndex": 18,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 153.08,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H017",
+        "warpId": "V019",
+        "weftId": "H017",
+        "warpIndex": 18,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 153.08,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H018",
+        "warpId": "V019",
+        "weftId": "H018",
+        "warpIndex": 18,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 153.08,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H019",
+        "warpId": "V019",
+        "weftId": "H019",
+        "warpIndex": 18,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 153.08,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H020",
+        "warpId": "V019",
+        "weftId": "H020",
+        "warpIndex": 18,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 153.08,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V019-H021",
+        "warpId": "V019",
+        "weftId": "H021",
+        "warpIndex": 18,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 153.08,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H001",
+        "warpId": "V020",
+        "weftId": "H001",
+        "warpIndex": 19,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 159.09,
+          "y": 49.9
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H002",
+        "warpId": "V020",
+        "weftId": "H002",
+        "warpIndex": 19,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 159.09,
+          "y": 55.91
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H003",
+        "warpId": "V020",
+        "weftId": "H003",
+        "warpIndex": 19,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 159.09,
+          "y": 61.92
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H004",
+        "warpId": "V020",
+        "weftId": "H004",
+        "warpIndex": 19,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 159.09,
+          "y": 67.93
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H005",
+        "warpId": "V020",
+        "weftId": "H005",
+        "warpIndex": 19,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 159.09,
+          "y": 73.94
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H006",
+        "warpId": "V020",
+        "weftId": "H006",
+        "warpIndex": 19,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 159.09,
+          "y": 79.95
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H007",
+        "warpId": "V020",
+        "weftId": "H007",
+        "warpIndex": 19,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 159.09,
+          "y": 85.96
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H008",
+        "warpId": "V020",
+        "weftId": "H008",
+        "warpIndex": 19,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 159.09,
+          "y": 91.97
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H009",
+        "warpId": "V020",
+        "weftId": "H009",
+        "warpIndex": 19,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 159.09,
+          "y": 97.98
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H010",
+        "warpId": "V020",
+        "weftId": "H010",
+        "warpIndex": 19,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 159.09,
+          "y": 103.99
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H011",
+        "warpId": "V020",
+        "weftId": "H011",
+        "warpIndex": 19,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 159.09,
+          "y": 110
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H012",
+        "warpId": "V020",
+        "weftId": "H012",
+        "warpIndex": 19,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 159.09,
+          "y": 116.01
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H013",
+        "warpId": "V020",
+        "weftId": "H013",
+        "warpIndex": 19,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 159.09,
+          "y": 122.02
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H014",
+        "warpId": "V020",
+        "weftId": "H014",
+        "warpIndex": 19,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 159.09,
+          "y": 128.03
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H015",
+        "warpId": "V020",
+        "weftId": "H015",
+        "warpIndex": 19,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 159.09,
+          "y": 134.04
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H016",
+        "warpId": "V020",
+        "weftId": "H016",
+        "warpIndex": 19,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 159.09,
+          "y": 140.05
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H017",
+        "warpId": "V020",
+        "weftId": "H017",
+        "warpIndex": 19,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 159.09,
+          "y": 146.06
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H018",
+        "warpId": "V020",
+        "weftId": "H018",
+        "warpIndex": 19,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 159.09,
+          "y": 152.07
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H019",
+        "warpId": "V020",
+        "weftId": "H019",
+        "warpIndex": 19,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 159.09,
+          "y": 158.08
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H020",
+        "warpId": "V020",
+        "weftId": "H020",
+        "warpIndex": 19,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 159.09,
+          "y": 164.09
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V020-H021",
+        "warpId": "V020",
+        "weftId": "H021",
+        "warpIndex": 19,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 159.09,
+          "y": 170.1
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H001",
+        "warpId": "V021",
+        "weftId": "H001",
+        "warpIndex": 20,
+        "weftIndex": 0,
+        "positionMm": {
+          "x": 165.1,
+          "y": 49.9
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H002",
+        "warpId": "V021",
+        "weftId": "H002",
+        "warpIndex": 20,
+        "weftIndex": 1,
+        "positionMm": {
+          "x": 165.1,
+          "y": 55.91
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H003",
+        "warpId": "V021",
+        "weftId": "H003",
+        "warpIndex": 20,
+        "weftIndex": 2,
+        "positionMm": {
+          "x": 165.1,
+          "y": 61.92
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H004",
+        "warpId": "V021",
+        "weftId": "H004",
+        "warpIndex": 20,
+        "weftIndex": 3,
+        "positionMm": {
+          "x": 165.1,
+          "y": 67.93
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H005",
+        "warpId": "V021",
+        "weftId": "H005",
+        "warpIndex": 20,
+        "weftIndex": 4,
+        "positionMm": {
+          "x": 165.1,
+          "y": 73.94
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H006",
+        "warpId": "V021",
+        "weftId": "H006",
+        "warpIndex": 20,
+        "weftIndex": 5,
+        "positionMm": {
+          "x": 165.1,
+          "y": 79.95
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H007",
+        "warpId": "V021",
+        "weftId": "H007",
+        "warpIndex": 20,
+        "weftIndex": 6,
+        "positionMm": {
+          "x": 165.1,
+          "y": 85.96
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H008",
+        "warpId": "V021",
+        "weftId": "H008",
+        "warpIndex": 20,
+        "weftIndex": 7,
+        "positionMm": {
+          "x": 165.1,
+          "y": 91.97
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H009",
+        "warpId": "V021",
+        "weftId": "H009",
+        "warpIndex": 20,
+        "weftIndex": 8,
+        "positionMm": {
+          "x": 165.1,
+          "y": 97.98
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H010",
+        "warpId": "V021",
+        "weftId": "H010",
+        "warpIndex": 20,
+        "weftIndex": 9,
+        "positionMm": {
+          "x": 165.1,
+          "y": 103.99
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H011",
+        "warpId": "V021",
+        "weftId": "H011",
+        "warpIndex": 20,
+        "weftIndex": 10,
+        "positionMm": {
+          "x": 165.1,
+          "y": 110
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H012",
+        "warpId": "V021",
+        "weftId": "H012",
+        "warpIndex": 20,
+        "weftIndex": 11,
+        "positionMm": {
+          "x": 165.1,
+          "y": 116.01
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H013",
+        "warpId": "V021",
+        "weftId": "H013",
+        "warpIndex": 20,
+        "weftIndex": 12,
+        "positionMm": {
+          "x": 165.1,
+          "y": 122.02
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H014",
+        "warpId": "V021",
+        "weftId": "H014",
+        "warpIndex": 20,
+        "weftIndex": 13,
+        "positionMm": {
+          "x": 165.1,
+          "y": 128.03
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H015",
+        "warpId": "V021",
+        "weftId": "H015",
+        "warpIndex": 20,
+        "weftIndex": 14,
+        "positionMm": {
+          "x": 165.1,
+          "y": 134.04
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H016",
+        "warpId": "V021",
+        "weftId": "H016",
+        "warpIndex": 20,
+        "weftIndex": 15,
+        "positionMm": {
+          "x": 165.1,
+          "y": 140.05
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H017",
+        "warpId": "V021",
+        "weftId": "H017",
+        "warpIndex": 20,
+        "weftIndex": 16,
+        "positionMm": {
+          "x": 165.1,
+          "y": 146.06
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H018",
+        "warpId": "V021",
+        "weftId": "H018",
+        "warpIndex": 20,
+        "weftIndex": 17,
+        "positionMm": {
+          "x": 165.1,
+          "y": 152.07
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H019",
+        "warpId": "V021",
+        "weftId": "H019",
+        "warpIndex": 20,
+        "weftIndex": 18,
+        "positionMm": {
+          "x": 165.1,
+          "y": 158.08
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H020",
+        "warpId": "V021",
+        "weftId": "H020",
+        "warpIndex": 20,
+        "weftIndex": 19,
+        "positionMm": {
+          "x": 165.1,
+          "y": 164.09
+        },
+        "top": "warp",
+        "ruleVerification": "pending"
+      },
+      {
+        "id": "X-V021-H021",
+        "warpId": "V021",
+        "weftId": "H021",
+        "warpIndex": 20,
+        "weftIndex": 20,
+        "positionMm": {
+          "x": 165.1,
+          "y": 170.1
+        },
+        "top": "weft",
+        "ruleVerification": "pending"
+      }
+    ]
+  },
+  "viewTransform": {
+    "mmToSvg": 2,
+    "originSvg": {
+      "x": 0,
+      "y": 0
+    },
+    "xDirection": "right",
+    "yDirection": "down"
+  },
+  "validation": {
+    "source": "d-initial",
+    "designId": "design-fan-green-triangle-001",
+    "generatedFromRevision": 2,
+    "status": "pending",
+    "pendingReason": "已读取 B 的正式圆扇边界与 CROSS-1X1-V1 标识；竹条参数和实际制作仍待完整规则及试编验证"
+  }
+}
