@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "0.2",
+  "designId": "design-fan-green-triangle-001",
+  "designRevision": 1,
+  "carrier": {
+    "id": "FAN-ROUND-170-V1",
+    "type": "fan",
+    "boundaryId": "BOUNDARY-ROUND-170-V1",
+    "effectivePatternBoundaryId": "PATTERN-ROUND-150-V1",
+    "coordinateSpace": {
+      "unit": "mm",
+      "width": 210,
+      "height": 297,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    },
+    "notice": "B组正式载体V1；图样计算使用精确圆心和半径。"
+  },
+  "input": {
+    "inputVersionId": "input-fan-green-triangle-001",
+    "inputRevision": 1,
+    "channel": "drawing",
+    "captureMethod": "pointer",
+    "drawingSpace": {
+      "unit": "normalized",
+      "width": 1,
+      "height": 1,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    },
+    "strokes": [
+      {
+        "id": "stroke-green-triangle-001",
+        "color": "#315F3A",
+        "closed": true,
+        "points": [
+          {
+            "x": 0.5,
+            "y": 0.218855
+          },
+          {
+            "x": 0.333333,
+            "y": 0.488215
+          },
+          {
+            "x": 0.666667,
+            "y": 0.488215
+          },
+          {
+            "x": 0.5,
+            "y": 0.218855
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "generationId": "generation-fan-green-triangle-001",
+    "generationRevision": 1,
+    "inputVersionId": "input-fan-green-triangle-001",
+    "status": "succeeded",
+    "generatorVersion": "c-generator-v0.2",
+    "result": {
+      "resultType": "surface_pattern",
+      "patternId": "pattern-fan-green-triangle-001",
+      "coordinateSpace": {
+        "unit": "mm",
+        "width": 210,
+        "height": 297,
+        "origin": "topLeft",
+        "xAxis": "right",
+        "yAxis": "down"
+      },
+      "palette": [
+        {
+          "paletteId": "green-01",
+          "color": "#315F3A"
+        }
+      ],
+      "elements": [
+        {
+          "elementId": "element-green-triangle-001",
+          "sourceInputId": "stroke-green-triangle-001",
+          "kind": "polygon",
+          "paletteId": "green-01",
+          "zIndex": 1,
+          "pointsMm": [
+            {
+              "x": 105,
+              "y": 65
+            },
+            {
+              "x": 70,
+              "y": 145
+            },
+            {
+              "x": 140,
+              "y": 145
+            },
+            {
+              "x": 105,
+              "y": 65
+            }
+          ]
+        }
+      ],
+      "transform": {
+        "scale": 1,
+        "rotationDeg": 0,
+        "offsetMm": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    "issues": []
+  },
+  "generationRevision": 1,
+  "confirmation": {
+    "status": "confirmed",
+    "confirmedGenerationId": "generation-fan-green-triangle-001",
+    "confirmedGenerationRevision": 1,
+    "confirmedBy": "A"
+  },
+  "confirmedGenerationId": "generation-fan-green-triangle-001",
+  "activeGenerationId": "generation-fan-green-triangle-001",
+  "downstream": {
+    "structureSnapshot": {
+      "status": "not_generated",
+      "generatedFromRevision": null
+    },
+    "validation": {
+      "status": "unchecked",
+      "generatedFromRevision": null
+    },
+    "materials": {
+      "status": "not_generated",
+      "generatedFromRevision": null
+    },
+    "tutorial": {
+      "status": "not_generated",
+      "generatedFromRevision": null
+    }
+  },
+  "exampleNote": "联调样例：模拟用户明确确认候选；不表示工艺检查通过。确认新候选后，旧D/E结果须失效。"
+}
