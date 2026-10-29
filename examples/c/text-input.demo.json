@@ -1,0 +1,11 @@
+{
+  "notice": "演示输入；正式生成需要接入经过团队确认的自然语言生成服务。",
+  "inputVersionId": "input-text-demo-001",
+  "inputRevision": 1,
+  "channel": "text",
+  "source": {
+    "channel": "text",
+    "text": "在扇面中央生成三个大小递减的绿色叶片轮廓",
+    "language": "zh-CN"
+  }
+}

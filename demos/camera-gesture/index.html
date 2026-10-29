@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C 组｜摄像头手势绘制体验</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">C 组 · 交互技术预览</p>
+          <h1>用手指在扇面上画图</h1>
+          <p class="subtitle">移动食指控制光标，拇指与食指捏合开始绘制，松开结束。</p>
+        </div>
+        <div id="systemStatus" class="status-pill" data-state="loading">正在准备手势模型…</div>
+      </header>
+
+      <section class="workspace" aria-label="手势绘制体验区">
+        <article class="panel camera-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="step">01</span>
+              <h2>摄像头动作</h2>
+            </div>
+            <span id="handStatus" class="mini-status">等待启动</span>
+          </div>
+          <div class="camera-stage">
+            <video id="camera" autoplay playsinline muted></video>
+            <canvas id="handOverlay" aria-hidden="true"></canvas>
+            <div id="cameraEmpty" class="camera-empty">
+              <span class="camera-icon">●</span>
+              <strong>摄像头尚未启动</strong>
+              <span>画面只在当前浏览器中处理</span>
+            </div>
+          </div>
+          <div class="camera-controls">
+            <button id="startCamera" class="primary-button" disabled>启动摄像头</button>
+            <button id="stopCamera" class="secondary-button" disabled>停止</button>
+            <label class="switch-label">
+              <input id="mirrorInput" type="checkbox" checked />
+              <span>镜像动作</span>
+            </label>
+          </div>
+        </article>
+
+        <article class="panel drawing-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="step">02</span>
+              <h2>扇面绘制</h2>
+            </div>
+            <span id="drawStatus" class="mini-status">等待手势</span>
+          </div>
+          <div id="drawingStage" class="drawing-stage">
+            <canvas id="drawingCanvas"></canvas>
+            <div class="fan-label">演示扇面边界 · 待 B 验证</div>
+          </div>
+          <div class="drawing-controls">
+            <button id="undoDrawing" class="secondary-button" disabled>撤销一笔</button>
+            <button id="clearDrawing" class="secondary-button" disabled>全部清空</button>
+            <span id="strokeCount" class="stroke-count">0 笔</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="guide" aria-label="使用方法">
+        <h2>三步体验</h2>
+        <ol>
+          <li><strong>启动摄像头</strong><span>允许权限后，把一只手放进画面。</span></li>
+          <li><strong>移动食指</strong><span>绿色圆点会跟随食指移动。</span></li>
+          <li><strong>捏合绘制</strong><span>拇指和食指捏合时画线，松开即停。</span></li>
+        </ol>
+        <p class="privacy-note">隐私说明：摄像头画面和手势识别均在当前浏览器内处理，本演示不上传、不保存视频。</p>
+      </section>
+    </main>
+
+    <script type="module" src="./demo.js"></script>
+  </body>
+</html>

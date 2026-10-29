@@ -1,0 +1,32 @@
+{
+  "notice": "摄像头手势轨迹演示；正式手部关键点需要浏览器摄像头与识别适配器。",
+  "inputVersionId": "input-camera-demo-001",
+  "inputRevision": 1,
+  "channel": "drawing",
+  "source": {
+    "channel": "drawing",
+    "captureMethod": "cameraGesture",
+    "drawingSpace": {
+      "unit": "normalized",
+      "width": 1,
+      "height": 1,
+      "origin": "topLeft",
+      "xAxis": "right",
+      "yAxis": "down"
+    },
+    "strokes": [
+      {
+        "id": "camera-stroke-demo-001",
+        "captureMethod": "cameraGesture",
+        "color": "#315f3a",
+        "width": 0.02,
+        "closed": false,
+        "points": [
+          { "x": 0.35, "y": 0.62 },
+          { "x": 0.45, "y": 0.48 },
+          { "x": 0.55, "y": 0.62 }
+        ]
+      }
+    ]
+  }
+}
