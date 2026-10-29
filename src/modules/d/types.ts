@@ -93,7 +93,13 @@ export type StructureSnapshot = {
   strips: { list: Strip[] };
   interlace: { crossings: Crossing[] };
   viewTransform: { mmToSvg: number; originSvg: PointMm; xDirection: 'right'; yDirection: 'down' };
-  validation: { status: 'pending'; pendingReason: string };
+  validation: {
+    source: 'd-initial';
+    designId: string;
+    generatedFromRevision: number;
+    status: 'pending';
+    pendingReason: string;
+  };
 };
 
 export type HighlightTarget =

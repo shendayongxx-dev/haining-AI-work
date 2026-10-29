@@ -69,6 +69,10 @@ D 在每次正式设计变化后以同一次计算产生：网格、`strips.list
 - ID 在同一 `designRevision` 内唯一且稳定。新版本由 D 生成完整快照；旧问题定位必须同时带旧 `generatedFromRevision`，不得误指向新版本竹条。
 - SVG 高亮依据竹条 ID、交织点 ID 或毫米位置。E 不读取 `viewTransform` 做检查或材料计算。
 
+当前 A4 矩形直条演示中，`warp.axisMm` 表示中心线 X 坐标，竹条从 `(axisMm, 0)` 沿 Y 正方向延伸；`weft.axisMm` 表示中心线 Y 坐标，竹条从 `(0, axisMm)` 沿 X 正方向延伸。边界中心线竹条的宽度仅在预览中裁切。`colorSegments[].fromMm/toMm` 表示从竹条起点沿长度方向的距离，必须满足 `0 <= fromMm < toMm <= geometryLengthMm`。明确坐标保留两位小数，E 以竹条坐标为准，不用显示用的网格间距反推；几何比较采用 `0.01 mm` 容差。该简化规则不扩展解释为正式扇面或任意形状路径。
+
+`parameters.density` 表示经、纬每个方向各自的竹条数量，不是每毫米密度。`weave.id` 是输出快照的权威编法 ID，`parameters.weaveId` 是输入参数的同值副本。颜色分段仅表示图样映射后的视觉目标色，不直接等同于采购材料、拼接或已验证染色方案。快照内由 D 写入的初始状态标记 `validation.source = "d-initial"`，并携带 `designId` 与 `generatedFromRevision`；它不是 E 的检查结果，E 独立生成并保存自己的版本化结果。
+
 D 提议的半径 130 mm、65 经×65 纬、3 mm 竹条及 3313 个交织点仅可用于联调，并应标注**“演示数据，待 B 验证”**，不得作为正式工艺规格。
 
 ## 7. E 的检查、材料与教程

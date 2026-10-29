@@ -63,11 +63,11 @@ function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, w
   for (const sample of samples) {
     const last = colorSegments.at(-1);
     if (last && last.paletteId === sample.paletteId && last.sourceElementId === sample.sourceElementId) {
-      last.toMm = round(sample.position + spacingMm / 2);
+      last.toMm = round(Math.min(limit, sample.position + spacingMm / 2));
     } else {
       colorSegments.push({
         fromMm: round(Math.max(0, sample.position - spacingMm / 2)),
-        toMm: round(sample.position + spacingMm / 2),
+        toMm: round(Math.min(limit, sample.position + spacingMm / 2)),
         paletteId: sample.paletteId,
         color: sample.color,
         sourceElementId: sample.sourceElementId,
@@ -134,6 +134,12 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
     strips: { list: [...warps, ...wefts] },
     interlace: { crossings },
     viewTransform: { mmToSvg: 2, originSvg: { x: 0, y: 0 }, xDirection: 'right', yDirection: 'down' },
-    validation: { status: 'pending', pendingReason: '当前仅使用 A4 页面演示包络；正式扇面边界、竹条规格和编法规则尚待 B 验证' },
+    validation: {
+      source: 'd-initial',
+      designId: input.designId,
+      generatedFromRevision: input.designRevision,
+      status: 'pending',
+      pendingReason: '当前仅使用 A4 页面演示包络；正式扇面边界、竹条规格和编法规则尚待 B 验证',
+    },
   };
 }

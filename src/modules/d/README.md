@@ -33,6 +33,25 @@ const snapshot = calculateFanStructure(input);
 
 快照包含：版本、演示载体、有效区域、参数、竹条、颜色段、交织点、显示映射和待验证状态。颜色段保留 `sourceElementId`。
 
+### 当前 A4 直条几何约定
+
+- `warp` 的 `axisMm` 是竹条中心线的 X 坐标；起点为 `(axisMm, 0)`，沿 Y 正方向延伸；
+- `weft` 的 `axisMm` 是竹条中心线的 Y 坐标；起点为 `(0, axisMm)`，沿 X 正方向延伸；
+- 当前坐标原点在 A4 左上角，X 向右、Y 向下；边界中心线竹条的宽度仅在预览中裁切；
+- `geometryLengthMm` 是从上述起点沿竹条方向计算的演示几何长度，不含损耗、收边或余量；
+- `colorSegments[].fromMm/toMm` 是从竹条起点沿长度方向的距离，满足 `0 <= fromMm < toMm <= geometryLengthMm`；
+- `axisMm` 和分段端点保留两位小数。E 应以每根竹条的明确坐标定位，不使用四舍五入后的 `grid.*SpacingMm` 反推。几何比较建议采用 `0.01 mm` 容差。
+
+以上规则只适用于本轮 A4 矩形直条演示。正式扇面、自定义形状和不连续竹条需要另行增加路径、端点和局部长度定义。
+
+### 字段语义
+
+- `parameters.density` 表示经向和纬向各自的竹条数量，是无量纲计数，不是“每毫米密度”；
+- `weave.id` 是快照采用的权威编法 ID；`parameters.weaveId` 是输入参数的同值副本，计算时必须与其一致；
+- 分段 `color` 是图样映射后的视觉目标色，不代表独立采购材料，也不自动表示拼接、换条或已验证的染色工艺；
+- `paletteId` 和 `sourceElementId` 分别引用当前快照所源自的 C `surface_pattern.palette` 与 `surface_pattern.elements`；问题回传时同时携带 `designId`、`generatedFromRevision` 和元素 ID；
+- 快照内 `validation.source = "d-initial"` 表示 D 因缺少工艺依据给出的初始待验证提示，不是 E 已执行检查。E 的独立结果应另行保存，并携带自己的 `designId` 与 `generatedFromRevision`。
+
 预览支持：
 
 ```ts
