@@ -50,76 +50,20 @@ export type CreativeInput =
       sizeBytes: number;
     };
 
-export interface GenerationIssue {
-  id: string;
-  code: string;
-  severity: "warning" | "blocking";
-  message: string;
-  targetId?: string;
-}
-
-export interface SurfacePattern {
-  patternId: string;
-  clippingBoundaryId: string;
-  coordinateSpace: CoordinateSpaceMm;
-  palette: Array<{ id: string; value: string }>;
-  elements: Array<{
-    elementId: string;
-    sourceInputId?: string;
-    type: "polygon" | "polyline";
-    pointsMm: Point[];
-    paletteId: string;
-    zIndex: number;
-  }>;
-}
-
-export interface CarrierShape {
-  shapeId: string;
-  coordinateSpace: CoordinateSpaceMm;
-  fillRule: "evenodd";
-  components: Array<{
-    componentId: string;
-    outerBoundary: { closed: boolean; pointsMm: Point[] };
-    holes: Array<{ holeId: string; closed: boolean; pointsMm: Point[] }>;
-  }>;
-}
-
-interface CandidateBase {
-  schemaVersion: "DESIGN_DATA_V0.2";
+export interface CandidateResult {
+  schemaVersion: "0.2";
   designId: string;
   designRevision: number;
-  generationRevision: number;
   carrier: {
     id: string;
     type: CarrierType;
-    boundaryId: string;
+    boundaryId?: string;
     effectivePatternBoundaryId?: string;
     coordinateSpace: CoordinateSpaceMm;
   };
   input: CreativeInput & { inputVersionId: string };
-  generation: {
-    generationId: string;
-    status: "succeeded" | "failed";
-    confirmed: false;
-    generatorVersion: string;
-    issues: GenerationIssue[];
-  };
-  craftStatus: "demo_pending_validation";
+  generation: Candidate;
 }
-
-export type CandidateResult =
-  | (CandidateBase & {
-      generation: CandidateBase["generation"] & {
-        resultType: "surface_pattern";
-        surfacePattern: SurfacePattern;
-      };
-    })
-  | (CandidateBase & {
-      generation: CandidateBase["generation"] & {
-        resultType: "carrier_shape";
-        carrierShape: CarrierShape;
-      };
-    });
 
 export interface GenerationRequest {
   carrier: CandidateResult["carrier"];
@@ -136,3 +80,4 @@ export const NORMALIZED_DRAWING_SPACE = {
   xAxis: "right",
   yAxis: "down",
 } as const;
+import type { Candidate } from "../../model";

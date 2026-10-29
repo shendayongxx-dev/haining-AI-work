@@ -49,19 +49,20 @@ A 确认状态示意见 `fan-green-triangle.confirmed-by-a.json`。自定义单�
 
 ## 运行与验证
 
-当前共享仓库尚未包含 A 的 React/Vite/TypeScript 骨架，因此 TSX 组件暂时不能单独启动，也不应另建网站。无框架核心可运行：
+本模块已经合并 A 的 React/Vite/TypeScript 骨架，并通过 A 的 `src/modules/c/generateCandidate.ts` 接入现有页面。运行：
 
 ```powershell
+pnpm dev
+pnpm build
 node --test src/modules/creative-input/*.test.mjs
-node scripts/generate-c-demo-results.mjs
 ```
 
-A 合入网站骨架后执行项目统一的 `pnpm test` 和 `pnpm build`，并从“选扇面 → 直接绘制 → 候选预览 → 确认”走一次真实页面回归。
+页面路径为“选扇面/自定义形状 → 三类输入 → 候选预览 → 明确确认”。
 
 ## 已知限制
 
-- 本地 `docs/DESIGN_DATA.md` 仍标记为 V0.1 讨论稿；`DESIGN_DATA_V0.2` 类型和样例是依据现有确认语义与 D 交接要求整理的候选，不代表公共字段已经冻结。
-- 正式演示扇面边界和有效图样区域尚未出现在当前仓库；绿色三角形使用 200×120 mm 演示坐标，不代表真实成品尺寸。
+- 当前按 `docs/DESIGN_DATA.md` V0.2 团队联调草案实现；公共字段继续遵守共同评审要求。
+- 绿色三角形使用 210×297 mm A4 页面演示坐标；这不是正式扇面边界，有效图样区域仍待 B 验证。
 - B 提供的 A4 210×297 mm 是纸样最大包络，不是固定扇面尺寸；正式边界由 A/B 交付后再替换。
 - 参考图和自然语言已提供输入组件和可注入适配器，真实 AI 服务尚未接入。
 - 摄像头手势属于增强输入，已有无框架原型，不阻塞首轮三个标准通道。
@@ -69,7 +70,6 @@ A 合入网站骨架后执行项目统一的 `pnpm test` 和 `pnpm build`，并�
 
 ## 下一位对接
 
-- A：确认 V0.2 公共字段，提供 React 骨架、载体上下文、上传服务、生成 API 和确认状态仓库。
+- A：提供稳定 `assetRef` 上传/读取服务和真实生成 API，并继续管理确认状态与正式设计版本。
 - D：读取 A 已确认的绿色三角形结果，核对 `patternId`、`elementId`、`sourceInputId`、有限色板和毫米坐标。
 - B：继续提供正式扇面边界、有效图样区域及工艺验证状态；未验证内容保持“待验证”。
-

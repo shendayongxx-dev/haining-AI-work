@@ -24,14 +24,13 @@ C 不负责选择编法、生成竹条和交织点、计算材料、提供教程
 
 ## 公共接口待确认
 
-当前仓库中的 `docs/DESIGN_DATA.md` 仍为 V0.1 讨论草案，因此本次没有单独修改公共文档。请 A 组织确认以下 V0.2 字段：
+当前实现已按 `docs/DESIGN_DATA.md` V0.2 团队联调草案调整，没有单独修改公共文档。以下细节仍需在 C、D 实际样例联调后确认：
 
-- `schemaVersion = DESIGN_DATA_V0.2` 的正式字符串；
-- `surfacePattern.elements[].elementId` 还是通用 `id`；
-- `palette[].value` 还是 `color`；
+- `schemaVersion` 的正式字符串（样例暂用 `0.2`）；
+- D 对 `surface_pattern.elements[].elementId`、`paletteId/color` 的实际读取；
 - `carrier.boundaryId`、`effectivePatternBoundaryId` 的正式位置；
 - A 的确认对象和 `designRevision` 递增方式；
-- C 候选的 `craftStatus` 是否并入统一 `validation`。
+- 演示/待验证标记在正式设计和 D 快照中的归属。
 
 字段冻结前，D 可以使用绿色三角形样例联调读取逻辑，但不应把候选结构写死成不可迁移的生产接口。
 
@@ -42,4 +41,3 @@ C 不负责选择编法、生成竹条和交织点、计算材料、提供教程
 - 绿色三角形必须保持一个有限绿色色板、一个闭合 polygon、毫米坐标及稳定来源 ID；
 - 自定义叶片是形状，不得当成扇面表面图样；
 - 所有工艺结论保持“演示数据，待 B 验证”。
-

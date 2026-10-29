@@ -1,16 +1,14 @@
 {
-  "schemaVersion": "DESIGN_DATA_V0.2",
+  "schemaVersion": "0.2",
   "designId": "design-custom-leaf-001",
   "designRevision": 0,
-  "generationRevision": 1,
   "carrier": {
     "id": "CUSTOM-CANDIDATE-001",
     "type": "custom",
-    "boundaryId": "custom-boundary-candidate-001",
     "coordinateSpace": {
       "unit": "mm",
-      "width": 180,
-      "height": 100,
+      "width": 210,
+      "height": 297,
       "origin": "topLeft",
       "xAxis": "right",
       "yAxis": "down"
@@ -18,48 +16,46 @@
   },
   "input": {
     "inputVersionId": "input-custom-leaf-001",
+    "inputRevision": 1,
     "channel": "text",
     "text": "生成一个单一闭合、不自交、无孔洞的叶片形载体",
     "language": "zh-CN"
   },
   "generation": {
     "generationId": "generation-custom-leaf-001",
+    "generationRevision": 1,
+    "inputVersionId": "input-custom-leaf-001",
     "status": "succeeded",
-    "confirmed": false,
-    "generatorVersion": "c-core-v0.2-candidate",
-    "resultType": "carrier_shape",
-    "carrierShape": {
+    "generatorVersion": "c-generator-v0.2",
+    "result": {
+      "resultType": "carrier_shape",
       "shapeId": "shape-custom-leaf-001",
       "coordinateSpace": {
         "unit": "mm",
-        "width": 180,
-        "height": 100,
+        "width": 210,
+        "height": 297,
         "origin": "topLeft",
         "xAxis": "right",
         "yAxis": "down"
       },
       "fillRule": "evenodd",
-      "components": [
-        {
-          "componentId": "component-leaf-001",
-          "outerBoundary": {
-            "closed": true,
-            "pointsMm": [
-              { "x": 20, "y": 50 },
-              { "x": 55, "y": 18 },
-              { "x": 115, "y": 20 },
-              { "x": 160, "y": 50 },
-              { "x": 115, "y": 80 },
-              { "x": 55, "y": 82 },
-              { "x": 20, "y": 50 }
-            ]
-          },
-          "holes": []
-        }
-      ]
+      "components": [{
+        "componentId": "component-leaf-001",
+        "outerBoundary": {
+          "closed": true,
+          "pointsMm": [
+            { "x": 24, "y": 148.5 },
+            { "x": 66, "y": 62 },
+            { "x": 144, "y": 66 },
+            { "x": 186, "y": 148.5 },
+            { "x": 144, "y": 231 },
+            { "x": 66, "y": 235 },
+            { "x": 24, "y": 148.5 }
+          ]
+        },
+        "holes": []
+      }]
     },
     "issues": []
-  },
-  "craftStatus": "demo_pending_validation"
+  }
 }
-
