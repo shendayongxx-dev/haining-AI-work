@@ -22,7 +22,7 @@
 
 在线预览：<https://shendayongxx-dev.github.io/haining-AI-work/>（由 `main` 分支的 GitHub Pages 工作流部署）。
 
-首页场景图 `src/assets/bamboo-studio-hero.png` 由 OpenAI ImageGen 为本项目生成，作为氛围视觉使用；图中竹编物体是生成图像，不代表 B 组已试编的实物案例。
+首页场景图 `src/assets/bamboo-studio-hero.png`、`src/assets/bamboo-round-fan-scene.png`、`src/assets/bamboo-lantern-scene.png` 由 OpenAI ImageGen 为本项目生成，作为氛围视觉使用；图中竹编物体是生成图像，不代表 B 组已试编的实物案例。
 
 安装 Node.js 20.19+ 后，在仓库根目录执行 `pnpm install`、`pnpm dev`。构建命令为 `pnpm build`。团队接入点、当前占位能力和共同案例见 [集成说明](docs/INTEGRATION.md)。
 
