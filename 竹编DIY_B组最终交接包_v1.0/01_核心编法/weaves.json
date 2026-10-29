@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0",
+  "unit": "mm",
+  "weaves": [
+    {
+      "weaveId": "CROSS-COURSE-2X2-V1",
+      "name": "十字编（课程版）",
+      "craftRuleVersion": "CRAFT-CROSS-COURSE-v1.1",
+      "gridType": "orthogonal-dense",
+      "cycleRows": [
+        {"row": 1, "offset": 0, "sequence": ["over", "over", "under", "under"]},
+        {"row": 2, "offset": 1, "sequence": ["under", "over", "over", "under"]},
+        {"row": 3, "offset": 2, "sequence": ["under", "under", "over", "over"]},
+        {"row": 4, "offset": 3, "sequence": ["over", "under", "under", "over"]}
+      ],
+      "repeatFromRow": 5,
+      "imageDirectory": "01_核心编法/01_十字编/步骤图片",
+      "source": "03_来源原件/十字编_课程教案.docx",
+      "validationStatus": "步骤与图示已核对；材料量待实物复核"
+    },
+    {
+      "weaveId": "HERRING-3X3-V1",
+      "name": "人字编（压三挑三）",
+      "craftRuleVersion": "CRAFT-HERRING-3X3-v1.0",
+      "gridType": "orthogonal-dense-shifted",
+      "repeatLength": 6,
+      "overCount": 3,
+      "underCount": 3,
+      "rowShift": 1,
+      "boundaryRule": "不足3根时按6根周期从另一侧递补",
+      "imageDirectory": "01_核心编法/02_人字编/步骤图片",
+      "source": "03_来源原件/人字编_完整图解.pdf",
+      "validationStatus": "步骤与图示已核对；材料量待实物复核"
+    },
+    {
+      "weaveId": "SQUARE-HOLE-1X1-V1",
+      "name": "四角孔编",
+      "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0",
+      "gridType": "orthogonal-open",
+      "sequence": ["over", "under"],
+      "stripWidthMm": 9,
+      "clearHoleMm": 6,
+      "pitchMm": 15,
+      "imageDirectory": "01_核心编法/03_四角孔编/步骤图片",
+      "source": "03_来源原件/四角孔编_完整图解.pdf",
+      "validationStatus": "步骤与图示已核对；9/6/15 mm参数待实物复核"
+    }
+  ],
+  "stripFields": ["stripId", "direction", "order", "widthMm", "thicknessMm", "color", "lengthMm", "crossings"],
+  "resultFields": ["designVersion", "craftRuleVersion", "carrierId", "boundaryId"]
+}

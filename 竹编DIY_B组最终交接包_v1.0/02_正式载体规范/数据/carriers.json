@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0",
+  "coordinateSpace": {"id": "A4_MM_210X297", "widthMm": 210, "heightMm": 297, "origin": "top-left", "xAxis": "right", "yAxis": "down"},
+  "common": {
+    "edgeAllowanceMm": 10,
+    "supportedWeaves": ["CROSS-COURSE-2X2-V1", "HERRING-3X3-V1", "SQUARE-HOLE-1X1-V1"],
+    "denseGrid": {"warpCount": 21, "weftCount": 21, "stripCount": 42, "stockLengthPerStripMm": 290, "baseTotalLengthMm": 12180},
+    "openGrid": {"warpCount": 13, "weftCount": 13, "stripCount": 26, "stripWidthMm": 9, "clearHoleMm": 6, "pitchMm": 15, "stockLengthPerStripMm": 290, "baseTotalLengthMm": 7540}
+  },
+  "carriers": [
+    {"carrierId":"FAN-ROUND-170-V1","name":"圆形／月圆式","boundary":{"type":"circle","cx":105,"cy":110,"r":85},"effectivePatternBoundary":{"type":"circle","cx":105,"cy":110,"r":75},"handleExclusion":{"xMin":95,"xMax":115,"yMin":185,"yMax":205},"outlineFile":"轮廓图/FAN-ROUND-170-V1.svg"},
+    {"carrierId":"FAN-OVAL-150X180-V1","name":"长圆式","boundary":{"type":"ellipse","cx":105,"cy":110,"rx":75,"ry":90},"effectivePatternBoundary":{"type":"ellipse","cx":105,"cy":110,"rx":65,"ry":80},"handleExclusion":{"xMin":95,"xMax":115,"yMin":190,"yMax":210},"outlineFile":"轮廓图/FAN-OVAL-150X180-V1.svg"},
+    {"carrierId":"FAN-OCTAGON-170-V1","name":"八角式","boundary":{"type":"polygon","pointsMm":[[70,25],[140,25],[190,75],[190,145],[140,195],[70,195],[20,145],[20,75]]},"effectivePatternBoundary":{"type":"inset","insetMm":10},"handleExclusion":{"xMin":95,"xMax":115,"yMin":185,"yMax":205},"outlineFile":"轮廓图/FAN-OCTAGON-170-V1.svg"},
+    {"carrierId":"FAN-BANANA-160X180-V1","name":"芭蕉式","boundary":{"type":"svgPath","path":"M105 20 C150 20 185 45 185 92 C185 142 156 174 118 190 C113 192 110 197 105 200 C100 197 97 192 92 190 C54 174 25 142 25 92 C25 45 60 20 105 20 Z"},"effectivePatternBoundary":{"type":"inset","insetMm":10},"handleExclusion":{"xMin":95,"xMax":115,"yMin":175,"yMax":205},"outlineFile":"轮廓图/FAN-BANANA-160X180-V1.svg"},
+    {"carrierId":"FAN-FIVE-LOBED-170-V1","name":"五角海棠型","boundary":{"type":"radialSmooth","cx":105,"cy":110,"lobes":5,"outerRadiusMm":85,"valleyRadiusMm":70,"startAngleDeg":-90},"effectivePatternBoundary":{"type":"radialSmooth","cx":105,"cy":110,"lobes":5,"outerRadiusMm":75,"valleyRadiusMm":60,"startAngleDeg":-90},"handleExclusion":{"xMin":95,"xMax":115,"yMin":170,"yMax":200},"outlineFile":"轮廓图/FAN-FIVE-LOBED-170-V1.svg"},
+    {"carrierId":"FAN-PALACE-WAIST-SQUARE-160X180-V1","name":"宫腰方形","boundary":{"type":"svgPath","path":"M65 20 C43 20 25 38 25 60 C25 82 37 92 37 110 C37 128 25 138 25 160 C25 182 43 200 65 200 L145 200 C167 200 185 182 185 160 C185 138 173 128 173 110 C173 92 185 82 185 60 C185 38 167 20 145 20 Z"},"effectivePatternBoundary":{"type":"svgPath","path":"M70 30 C50 30 35 45 35 65 C35 84 47 94 47 110 C47 126 35 136 35 155 C35 175 50 190 70 190 L140 190 C160 190 175 175 175 155 C175 136 163 126 163 110 C163 94 175 84 175 65 C175 45 160 30 140 30 Z"},"handleExclusion":{"xMin":95,"xMax":115,"yMin":175,"yMax":205},"outlineFile":"轮廓图/FAN-PALACE-WAIST-SQUARE-160X180-V1.svg"}
+  ]
+}
