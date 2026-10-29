@@ -1,0 +1,78 @@
+import { useEffect, useRef, useState } from 'react';
+import { Candidate, Carrier, DEMO_FAN_BOUNDARY_V0_1, InputChannel, Point, Step } from './model';
+import Fan from './modules/d/FanPreview';
+import { generateCandidate } from './modules/c/generateCandidate';
+import { validateDemo } from './modules/e/validation';
+
+const steps: { id: Step; label: string }[] = [
+  { id: 'carrier', label: '选择载体' }, { id: 'input', label: '输入创意' }, { id: 'generating', label: '生成中' },
+  { id: 'confirm', label: '结果确认' }, { id: 'weave', label: '选择编法' }, { id: 'edit', label: '编辑预览' },
+  { id: 'check', label: '工艺检查' }, { id: 'materials', label: '制作资料' },
+];
+type Stroke = Point[];
+
+function Drawing({ strokes, onChange }: { strokes: Stroke[]; onChange: (s: Stroke[]) => void }) {
+  const active = useRef<Stroke | null>(null);
+  const [live, setLive] = useState<Stroke>([]);
+  const [redo, setRedo] = useState<Stroke[]>([]);
+  const xy = (e: React.PointerEvent<SVGSVGElement>) => { const r = e.currentTarget.getBoundingClientRect(); return { x: Math.round((e.clientX-r.left)/r.width*260), y: Math.round((e.clientY-r.top)/r.height*150) }; };
+  const points = (s: Stroke) => s.map(p => `${p.x},${p.y}`).join(' ');
+  return <div className="drawing"><div className="drawing-tools"><strong>直接绘制</strong><span>鼠标 / 触屏 / 触控笔</span><button onClick={() => { if(strokes.length){setRedo([...redo,strokes.at(-1)!]);onChange(strokes.slice(0,-1));} }}>撤销</button><button onClick={() => { if(redo.length){onChange([...strokes,redo.at(-1)!]);setRedo(redo.slice(0,-1));} }}>重做</button><button onClick={() => {onChange([]);setRedo([]);}}>清空</button></div><svg className="drawing-pad" viewBox="0 0 260 150" onPointerDown={e => { e.currentTarget.setPointerCapture(e.pointerId); active.current=[xy(e)]; setLive(active.current); }} onPointerMove={e => { if(active.current){ active.current=[...active.current,xy(e)];setLive(active.current); } }} onPointerUp={() => { if(active.current && active.current.length>1) onChange([...strokes,active.current]);active.current=null;setLive([]); }}><rect width="260" height="150" fill="#f4ead9"/><path d="M8 140 Q130 -100 252 140" fill="none" stroke="#b89b70" strokeDasharray="4 3"/>{strokes.map((s,i) => <polyline key={i} points={points(s)} fill="none" stroke="#14543b" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>)}<polyline points={points(live)} fill="none" stroke="#14543b" strokeWidth="3"/></svg><p>绘制笔迹已记录；真实图形转译待 C 接入。</p></div>;
+}
+
+export default function App() {
+  const [step,setStep]=useState<Step>('carrier');
+  const [carrier,setCarrier]=useState<Carrier>('fan');
+  const [channel,setChannel]=useState<InputChannel>('drawing');
+  const [text,setText]=useState('');
+  const [file,setFile]=useState<File|null>(null);
+  const [strokes,setStrokes]=useState<Stroke[]>([]);
+  const [candidate,setCandidate]=useState<Candidate|null>(null);
+  const [confirmed,setConfirmed]=useState<Candidate|null>(null);
+  const [revision,setRevision]=useState(0);
+  const [weave,setWeave]=useState('');
+  const [density,setDensity]=useState(65);
+  const [width,setWidth]=useState(3);
+  const [size,setSize]=useState(100);
+  const [color,setColor]=useState('#0e6652');
+  const [notice,setNotice]=useState('');
+  const timer=useRef<ReturnType<typeof setTimeout>|null>(null);
+  useEffect(()=>()=>{if(timer.current)clearTimeout(timer.current);},[]);
+  const go=(s:Step)=>{setNotice('');setStep(s);};
+  function generate(){
+    if(channel==='drawing'&&!strokes.length)return setNotice('请先绘制，或使用绿色三角形联调样例。');
+    if(channel==='text'&&!text.trim())return setNotice('请输入创意描述。');
+    if(channel==='referenceImage'&&!file)return setNotice('请选择参考图。');
+    const inputId=crypto.randomUUID();go('generating');
+    timer.current=setTimeout(()=>{
+      void generateCandidate({ carrier, channel, inputVersionId: inputId, text, file, strokes })
+        .then(result => { setCandidate(result); setStep('confirm'); })
+        .catch(() => { setNotice('生成失败，请修改输入后重试。当前已确认设计保持不变。'); setStep('input'); });
+    },1300);
+  }
+  function confirm(){if(!candidate)return;setConfirmed(candidate);setRevision(n=>n+1);setWeave('');go('weave');}
+  function update(fn:(v:number)=>void,v:number){fn(v);setRevision(n=>n+1);}
+  return <div className={`app ${['edit','check','materials'].includes(step)?'light':''}`}>
+    <header className="topbar"><button className="logo" onClick={()=>go('carrier')}>竹编工艺 <i>印</i></button><span>以竹为材 · 编织生活的想象</span><small>团队集成骨架 V0.2</small></header>
+    <nav className="flow" aria-label="创作流程">{steps.filter(s=>s.id!=='generating').map((s,i)=><div className={`flow-step ${step===s.id?'on':''} ${steps.findIndex(x=>x.id===step)>steps.findIndex(x=>x.id===s.id)?'done':''}`} key={s.id}><b>{i+1}</b><span>{s.label}</span></div>)}</nav>
+    <main key={step} className="scene">
+      {step==='carrier'&&<div className="hero"><section><p className="kicker">竹编 DIY · 创作实验室</p><h1>开始你的<br/><em>竹编创作</em></h1><p>选择创作载体，让你的灵感成为可预览的竹编设计。</p><div className="carriers"><button className={carrier==='fan'?'selected':''} onClick={()=>setCarrier('fan')}><b>◉</b>扇面<small>生成表面图样</small></button><button className={carrier==='custom'?'selected':''} onClick={()=>setCarrier('custom')}><b>◇</b>自定义形状<small>生成几何载体</small></button><div>♙ 包<small>暂未开放</small></div><div>▢ 箱盒<small>暂未开放</small></div></div><button className="primary" onClick={()=>go('input')}>开始设计 <span>→</span></button><p className="muted">扇面与自定义形状进入完整流程</p></section><div className="hero-visual"><div className="halo"/><Fan grid/><span>竹编 · 形与纹</span></div></div>}
+      {step==='input'&&<div className="input-page"><div className="heading"><p className="kicker">01 / 输入创意</p><h1>让灵感有形</h1><p>当前载体：{carrier==='fan'?'扇面 · 表面图样':'自定义形状 · 几何载体'}</p></div><div className="input-box"><div className="channels"><button className={channel==='drawing'?'active':''} onClick={()=>setChannel('drawing')}>✎　直接绘制</button><button className={channel==='text'?'active':''} onClick={()=>setChannel('text')}>T　文字描述</button><button className={channel==='referenceImage'?'active':''} onClick={()=>setChannel('referenceImage')}>▧　参考图</button></div>{channel==='drawing'&&<><Drawing strokes={strokes} onChange={setStrokes}/><button className="link" onClick={()=>setStrokes([[{x:130,y:35},{x:95,y:105},{x:165,y:105},{x:130,y:35}]])}>使用绿色三角形联调样例</button></>}{channel==='text'&&<><textarea maxLength={500} value={text} onChange={e=>setText(e.target.value)} placeholder="描述你想要的竹编图样或形状……"/><p className="muted">{text.length}/500 · 真实自然语言转译待 C 接入</p></>}{channel==='referenceImage'&&<label className="upload"><strong>{file?file.name:'选择一张参考图'}</strong><small>PNG / JPEG / WebP · 当前仅本地选择，上传接口待接入</small><input type="file" accept="image/png,image/jpeg,image/webp" onChange={e=>setFile(e.target.files?.[0]??null)}/></label>}{notice&&<p className="notice" role="alert">{notice}</p>}<div className="actions"><button onClick={()=>go('carrier')}>← 返回载体</button><button className="primary" onClick={generate}>生成候选 →</button></div></div></div>}
+      {step==='generating'&&<div className="generating"><div className="orbit"><Fan grid/></div><p className="kicker">创意转译 · 演示过渡</p><h1>正在编织你的 <em>灵感</em></h1><p>正在准备接口联调候选；C 模块接入后替换此过程。</p><div className="bar"><i/></div><button className="link" onClick={()=>{if(timer.current)clearTimeout(timer.current);go('input');}}>返回修改</button></div>}
+      {step==='confirm'&&candidate&&<div className="confirm"><div className="result-card"><Fan candidate={candidate}/><small>候选结果 · {candidate.resultType}</small></div><section><p className="kicker">02 / 结果确认</p><h1>{carrier==='fan'?'表面图样预览':'候选载体形状'}</h1><p>{candidate.label}</p><div className="detail">坐标单位 <b>mm</b>　状态 <b>尚未确认</b></div><p className="muted">确认创意结果后选择编法；此确认不代表工艺通过。旧正式设计仅在确认新候选时替换。</p><div className="actions"><button onClick={()=>go('input')}>返回修改</button><button onClick={generate}>重新生成</button><button className="primary" onClick={confirm}>确认当前结果 →</button></div></section></div>}
+      {step==='weave'&&confirmed&&<div className="weave-page"><div className="heading"><p className="kicker">03 / 选择编法</p><h1>为图样选择织法</h1><p>编法适用性待 B 提供工艺依据。</p></div><div className="weaves"><button className={weave?'selected':''} onClick={()=>{if(!weave){setWeave('plain-demo');setRevision(n=>n+1);}}}><b>▦</b><strong>平编</strong><small>演示选项 · 待 B 验证</small></button><div><b>▧</b><strong>斜纹编</strong><small>待规则确认</small></div><div><b>◇</b><strong>人字纹</strong><small>待规则确认</small></div></div><div className="actions center"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" disabled={!weave} onClick={()=>go('edit')}>进入编辑预览 →</button></div></div>}
+      {step==='edit'&&confirmed&&<div className="studio">
+        <aside className="design-sidebar">
+          <div className="studio-section"><h2>当前设计</h2><div className="mini"><Fan candidate={confirmed}/><div><strong>{confirmed.label}</strong><small>已确认 · 版本 {revision}</small></div></div></div>
+          <div className="studio-section"><h2>载体 <small>切换后重新确认创意</small></h2><div className="option-grid"><button className={carrier==='fan'?'chosen':''} onClick={()=>{if(carrier!=='fan'){setCarrier('fan');go('input');}}}><span>◉</span>扇面</button><button className={carrier==='custom'?'chosen':''} onClick={()=>{if(carrier!=='custom'){setCarrier('custom');go('input');}}}><span>◇</span>自定义形状</button></div><p className="side-note">改变载体将返回输入流程，当前已确认设计会保留到新候选确认。</p></div>
+          <div className="studio-section"><h2>基础编法 <small>演示切换</small></h2><div className="option-grid weave-options"><button className={weave==='plain-demo'?'chosen':''} onClick={()=>{if(weave!=='plain-demo'){setWeave('plain-demo');setRevision(n=>n+1);}}}><span>▦</span>平编</button><button className={weave==='diagonal-demo'?'chosen':''} onClick={()=>{if(weave!=='diagonal-demo'){setWeave('diagonal-demo');setRevision(n=>n+1);}}}><span>▨</span>斜纹编</button></div><p className="side-note">编法适用性和真实交织结构均待 B、D 验证。</p></div>
+        </aside>
+        <section className="studio-main"><div className="studio-title"><h2>实时预览</h2><span>演示预览 · 待 B 验证</span><small>版本 {revision}</small></div><div className="preview"><Fan candidate={confirmed} grid density={density} stripWidth={width} color={color} weave={weave} scale={size}/><small>参数与配色实时反映在 SVG · D 的正式网格和竹条计算待接入</small></div></section>
+        <aside className="controls"><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(65);setWidth(3);setSize(100);setColor('#0e6652');setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整设计后旧检查与教程失效。</p><label>编织疏密 <b>{density}</b><input type="range" min="20" max="90" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="5" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><div className="palette"><b>配色方案</b><div>{[['#e7cda9','竹本色'],['#0e6652','墨竹青'],['#75a78d','青玉绿']].map(([hex,name])=><button key={hex} className={color===hex?'active':''} style={{background:hex}} title={name} aria-label={name} onClick={()=>{if(color!==hex){setColor(hex);setRevision(n=>n+1);}}}/>)}</div></div><div className="actions"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
+      </div>}
+      {step==='check'&&<div className="end"><p className="kicker">05 / 工艺检查</p><div className="end-icon">!</div><h1>工艺状态：{validateDemo(revision).status==='pending'?'待验证':validateDemo(revision).status}</h1><p>当前设计版本 {revision}：{validateDemo(revision).pendingReason}</p><div className="warning">不能宣称可制作，也不能生成正式材料清单或教程。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button className="primary" onClick={()=>go('materials')}>查看演示资料页 →</button></div></div>}
+      {step==='materials'&&<div className="end"><p className="kicker">06 / 制作资料</p><div className="end-icon">▤</div><h1>制作资料等待验证</h1><p>材料清单、竹条编号和图文教程必须对应通过检查的当前设计版本。</p><div className="warning">演示页面，未经工艺验证 · 正式生成与导出暂不可用</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button onClick={()=>go('check')}>查看检查状态</button></div></div>}
+    </main><footer>{DEMO_FAN_BOUNDARY_V0_1.id} · {DEMO_FAN_BOUNDARY_V0_1.label} · DESIGN_DATA V0.2</footer>
+  </div>;
+}
+
