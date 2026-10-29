@@ -11,10 +11,12 @@ function isStripHighlighted(highlight: HighlightTarget | undefined, id: string) 
 
 export default function StructurePreview({ snapshot, highlight = null }: StructurePreviewProps) {
   const { mmToSvg } = snapshot.viewTransform;
+  const width = snapshot.carrier.widthMm * mmToSvg;
+  const height = snapshot.carrier.heightMm * mmToSvg;
   const crossings = new Map(snapshot.interlace.crossings.map(value => [value.id, value]));
   const crossing = highlight?.kind === 'crossing' ? crossings.get(highlight.id) : undefined;
   const marker = highlight?.kind === 'position' ? highlight.positionMm : crossing?.positionMm;
-  return <svg viewBox="0 0 520 300" role="img" aria-label="D 组竹条结构演示预览">
+  return <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="D 组竹条结构演示预览">
     <defs>
       <clipPath id={`fan-${snapshot.designRevision}`}>
         <polygon points={snapshot.activeArea.pointsMm.map(p => `${p.x * mmToSvg},${p.y * mmToSvg}`).join(' ')} />
@@ -35,6 +37,6 @@ export default function StructurePreview({ snapshot, highlight = null }: Structu
     </g>
     <polygon points={snapshot.activeArea.pointsMm.map(p => `${p.x * mmToSvg},${p.y * mmToSvg}`).join(' ')} fill="none" stroke="#ba8750" strokeWidth="4" />
     {marker && <circle cx={marker.x * mmToSvg} cy={marker.y * mmToSvg} r="8" fill="none" stroke="#ff3b30" strokeWidth="4" />}
-    <text x="10" y="290" fontSize="12" fill="#7a5b34">{snapshot.status.label} · revision {snapshot.generatedFromRevision}</text>
+    <text x="10" y={height - 10} fontSize="12" fill="#7a5b34">{snapshot.status.label} · revision {snapshot.generatedFromRevision}</text>
   </svg>;
 }

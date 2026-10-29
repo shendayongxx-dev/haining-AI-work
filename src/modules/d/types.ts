@@ -2,7 +2,15 @@ export type PointMm = { x: number; y: number };
 
 export type SurfacePattern = {
   patternId: string;
-  palette: { paletteId: string; color: string; role?: 'base' | 'pattern' }[];
+  coordinateSpace: {
+    unit: 'mm';
+    width: number;
+    height: number;
+    origin: 'topLeft';
+    xAxis: 'right';
+    yAxis: 'down';
+  };
+  palette: { paletteId: string; color: string }[];
   elements: {
     elementId: string;
     kind: 'polygon' | 'polyline';
@@ -11,7 +19,7 @@ export type SurfacePattern = {
     pointsMm: PointMm[];
     strokeWidthMm?: number;
   }[];
-  transform: { scale: number; rotationDeg: number; translateMm: PointMm };
+  transform: { scale: number; rotationDeg: number; offsetMm: PointMm };
 };
 
 export type FanStructureInput = {
@@ -24,7 +32,14 @@ export type FanStructureInput = {
     density: number;
     stripWidthMm: number;
     weaveId: 'plain-demo';
+    baseColor: string;
   };
+};
+
+export type ConfirmationState = {
+  status: 'confirmed';
+  confirmedGenerationId: string;
+  confirmedGenerationRevision: number;
 };
 
 export type ColorSegment = {
@@ -63,11 +78,18 @@ export type StructureSnapshot = {
   generatedFromRevision: number;
   confirmedGenerationId: string;
   status: { usage: 'demo'; label: '演示数据，待 B 验证' };
-  carrier: { type: 'fan'; unit: 'mm'; boundaryId: 'DEMO_FAN_BOUNDARY_V0.1'; widthMm: 260; heightMm: 150 };
+  carrier: {
+    type: 'fan';
+    unit: 'mm';
+    boundaryId: 'A4-PAGE-DEMO';
+    widthMm: 210;
+    heightMm: 297;
+    boundaryVerification: 'pending';
+  };
   activeArea: { type: 'polygon'; pointsMm: PointMm[] };
   weave: { id: 'plain-demo'; rule: 'over-under-1-1'; verified: false };
   parameters: FanStructureInput['parameters'];
-  grid: { spacingMm: number; warpCount: number; weftCount: number };
+  grid: { warpSpacingMm: number; weftSpacingMm: number; warpCount: number; weftCount: number };
   strips: { list: Strip[] };
   interlace: { crossings: Crossing[] };
   viewTransform: { mmToSvg: number; originSvg: PointMm; xDirection: 'right'; yDirection: 'down' };

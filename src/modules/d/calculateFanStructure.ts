@@ -1,25 +1,26 @@
 import type { Crossing, FanStructureInput, PointMm, Strip, StructureSnapshot, SurfacePattern } from './types';
 
 const DEMO_LABEL = '演示数据，待 B 验证' as const;
-const WIDTH_MM = 260;
-const HEIGHT_MM = 150;
-const APEX: PointMm = { x: 130, y: 0 };
-const LEFT: PointMm = { x: 8, y: 145 };
-const RIGHT: PointMm = { x: 252, y: 145 };
+const WIDTH_MM = 210;
+const HEIGHT_MM = 297;
+const ACTIVE_AREA: PointMm[] = [
+  { x: 0, y: 0 }, { x: WIDTH_MM, y: 0 },
+  { x: WIDTH_MM, y: HEIGHT_MM }, { x: 0, y: HEIGHT_MM },
+];
 
 const round = (value: number) => Math.round(value * 100) / 100;
 const pad = (value: number) => String(value).padStart(3, '0');
 
 function rotateScale(point: PointMm, pattern: SurfacePattern): PointMm {
-  const { scale, rotationDeg, translateMm } = pattern.transform;
+  const { scale, rotationDeg, offsetMm } = pattern.transform;
   const angle = rotationDeg * Math.PI / 180;
   const cx = WIDTH_MM / 2;
   const cy = HEIGHT_MM / 2;
   const x = (point.x - cx) * scale;
   const y = (point.y - cy) * scale;
   return {
-    x: cx + x * Math.cos(angle) - y * Math.sin(angle) + translateMm.x,
-    y: cy + x * Math.sin(angle) + y * Math.cos(angle) + translateMm.y,
+    x: cx + x * Math.cos(angle) - y * Math.sin(angle) + offsetMm.x,
+    y: cy + x * Math.sin(angle) + y * Math.cos(angle) + offsetMm.y,
   };
 }
 
@@ -36,31 +37,26 @@ function pointInPolygon(point: PointMm, polygon: PointMm[]): boolean {
 }
 
 function insideFan(point: PointMm): boolean {
-  const side = (a: PointMm, b: PointMm, p: PointMm) =>
-    (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x);
-  return point.y >= 0 && point.y <= 145
-    && side(APEX, LEFT, point) <= 0
-    && side(RIGHT, APEX, point) <= 0;
+  return point.x >= 0 && point.x <= WIDTH_MM && point.y >= 0 && point.y <= HEIGHT_MM;
 }
 
-function samplePattern(pattern: SurfacePattern, point: PointMm) {
+function samplePattern(pattern: SurfacePattern, point: PointMm, baseColor: string) {
   const palette = new Map(pattern.palette.map(entry => [entry.paletteId, entry.color]));
-  const base = pattern.palette.find(entry => entry.role === 'base') ?? pattern.palette[0];
   const hit = [...pattern.elements]
     .sort((a, b) => b.zIndex - a.zIndex || a.elementId.localeCompare(b.elementId))
     .find(element => element.kind === 'polygon'
       && pointInPolygon(point, element.pointsMm.map(value => rotateScale(value, pattern))));
-  const paletteId = hit?.paletteId ?? base?.paletteId ?? 'base';
-  return { paletteId, color: palette.get(paletteId) ?? '#ead8b5', sourceElementId: hit?.elementId };
+  if (!hit) return { paletteId: 'd-base', color: baseColor, sourceElementId: undefined };
+  return { paletteId: hit.paletteId, color: palette.get(hit.paletteId) ?? baseColor, sourceElementId: hit.elementId };
 }
 
 function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, widthMm: number,
-  spacingMm: number, pattern: SurfacePattern): Strip | null {
+  spacingMm: number, pattern: SurfacePattern, baseColor: string): Strip | null {
   const samples: { position: number; paletteId: string; color: string; sourceElementId?: string }[] = [];
   const limit = direction === 'warp' ? HEIGHT_MM : WIDTH_MM;
   for (let position = 0; position <= limit; position += spacingMm) {
     const point = direction === 'warp' ? { x: axisMm, y: position } : { x: position, y: axisMm };
-    if (insideFan(point)) samples.push({ position, ...samplePattern(pattern, point) });
+    if (insideFan(point)) samples.push({ position, ...samplePattern(pattern, point, baseColor) });
   }
   if (!samples.length) return null;
   const colorSegments: Strip['colorSegments'] = [];
@@ -92,13 +88,15 @@ function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, w
 
 export function calculateFanStructure(input: FanStructureInput): StructureSnapshot {
   const count = Math.max(2, Math.round(input.parameters.density));
-  const spacingMm = WIDTH_MM / (count - 1);
+  const warpSpacingMm = WIDTH_MM / (count - 1);
+  const weftSpacingMm = HEIGHT_MM / (count - 1);
   const warps = Array.from({ length: count }, (_, index) =>
-    buildStrip('warp', index, index * spacingMm, input.parameters.stripWidthMm, spacingMm, input.pattern))
+    buildStrip('warp', index, index * warpSpacingMm, input.parameters.stripWidthMm,
+      weftSpacingMm, input.pattern, input.parameters.baseColor))
     .filter((strip): strip is Strip => Boolean(strip));
   const wefts = Array.from({ length: count }, (_, index) =>
-    buildStrip('weft', index, index * HEIGHT_MM / (count - 1), input.parameters.stripWidthMm,
-      HEIGHT_MM / (count - 1), input.pattern))
+    buildStrip('weft', index, index * weftSpacingMm, input.parameters.stripWidthMm,
+      warpSpacingMm, input.pattern, input.parameters.baseColor))
     .filter((strip): strip is Strip => Boolean(strip));
   const crossings: Crossing[] = [];
   for (const warp of warps) for (const weft of wefts) {
@@ -122,14 +120,20 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
     generatedFromRevision: input.designRevision,
     confirmedGenerationId: input.confirmedGenerationId,
     status: { usage: 'demo', label: DEMO_LABEL },
-    carrier: { type: 'fan', unit: 'mm', boundaryId: 'DEMO_FAN_BOUNDARY_V0.1', widthMm: WIDTH_MM, heightMm: HEIGHT_MM },
-    activeArea: { type: 'polygon', pointsMm: [APEX, RIGHT, LEFT] },
+    carrier: {
+      type: 'fan', unit: 'mm', boundaryId: 'A4-PAGE-DEMO', widthMm: WIDTH_MM,
+      heightMm: HEIGHT_MM, boundaryVerification: 'pending',
+    },
+    activeArea: { type: 'polygon', pointsMm: ACTIVE_AREA },
     weave: { id: 'plain-demo', rule: 'over-under-1-1', verified: false },
     parameters: input.parameters,
-    grid: { spacingMm: round(spacingMm), warpCount: warps.length, weftCount: wefts.length },
+    grid: {
+      warpSpacingMm: round(warpSpacingMm), weftSpacingMm: round(weftSpacingMm),
+      warpCount: warps.length, weftCount: wefts.length,
+    },
     strips: { list: [...warps, ...wefts] },
     interlace: { crossings },
     viewTransform: { mmToSvg: 2, originSvg: { x: 0, y: 0 }, xDirection: 'right', yDirection: 'down' },
-    validation: { status: 'pending', pendingReason: '演示载体、竹条规格和编法规则尚待 B 提供依据并验证' },
+    validation: { status: 'pending', pendingReason: '当前仅使用 A4 页面演示包络；正式扇面边界、竹条规格和编法规则尚待 B 验证' },
   };
 }

@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-import { Candidate, Carrier, DEMO_FAN_BOUNDARY_V0_1, InputChannel, Point, Step } from './model';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Candidate, Carrier, InputChannel, Point, Step } from './model';
 import Fan from './modules/d/FanPreview';
+import { adaptConfirmedCandidate, calculateFanStructure, StructurePreview } from './modules/d';
 import { canConfirmCandidate, generateCandidate } from './modules/c/generateCandidate';
 import { validateDemo } from './modules/e/validation';
 
@@ -34,10 +35,27 @@ export default function App() {
   const [density,setDensity]=useState(65);
   const [width,setWidth]=useState(3);
   const [size,setSize]=useState(100);
-  const [color,setColor]=useState('#0e6652');
+  const [color,setColor]=useState('#315F3A');
   const [notice,setNotice]=useState('');
   const timer=useRef<ReturnType<typeof setTimeout>|null>(null);
   const generationCounter=useRef(0);
+  const designId=useRef(`design-${crypto.randomUUID()}`);
+  const structure=useMemo(()=>{
+    if(!confirmed||confirmed.resultType!=='surface_pattern'||weave!=='plain-demo')return null;
+    return calculateFanStructure(adaptConfirmedCandidate(confirmed,{
+      status:'confirmed',
+      confirmedGenerationId:confirmed.generationId,
+      confirmedGenerationRevision:confirmed.generationRevision,
+    },{
+      designId:designId.current,
+      designRevision:revision,
+      density,
+      stripWidthMm:width,
+      baseColor:'#e7cda9',
+      patternColor:color,
+      patternScale:size/100,
+    }));
+  },[confirmed,weave,revision,density,width,color,size]);
   useEffect(()=>()=>{if(timer.current)clearTimeout(timer.current);},[]);
   const go=(s:Step)=>{setNotice('');setStep(s);};
   function generate(){
@@ -67,14 +85,14 @@ export default function App() {
         <aside className="design-sidebar">
           <div className="studio-section"><h2>当前设计</h2><div className="mini"><Fan candidate={confirmed}/><div><strong>{confirmed.label}</strong><small>已确认 · 版本 {revision}</small></div></div></div>
           <div className="studio-section"><h2>载体 <small>切换后重新确认创意</small></h2><div className="option-grid"><button className={carrier==='fan'?'chosen':''} onClick={()=>{if(carrier!=='fan'){setCarrier('fan');go('input');}}}><span>◉</span>扇面</button><button className={carrier==='custom'?'chosen':''} onClick={()=>{if(carrier!=='custom'){setCarrier('custom');go('input');}}}><span>◇</span>自定义形状</button></div><p className="side-note">改变载体将返回输入流程，当前已确认设计会保留到新候选确认。</p></div>
-          <div className="studio-section"><h2>基础编法 <small>演示切换</small></h2><div className="option-grid weave-options"><button className={weave==='plain-demo'?'chosen':''} onClick={()=>{if(weave!=='plain-demo'){setWeave('plain-demo');setRevision(n=>n+1);}}}><span>▦</span>平编</button><button className={weave==='diagonal-demo'?'chosen':''} onClick={()=>{if(weave!=='diagonal-demo'){setWeave('diagonal-demo');setRevision(n=>n+1);}}}><span>▨</span>斜纹编</button></div><p className="side-note">编法适用性和真实交织结构均待 B、D 验证。</p></div>
+          <div className="studio-section"><h2>基础编法 <small>演示切换</small></h2><div className="option-grid weave-options"><button className={weave==='plain-demo'?'chosen':''} onClick={()=>{if(weave!=='plain-demo'){setWeave('plain-demo');setRevision(n=>n+1);}}}><span>▦</span>平编</button><button disabled title="等待 B 提供规则"><span>▨</span>斜纹编</button></div><p className="side-note">当前仅平编用于结构接口演示，真实规则仍待 B 验证。</p></div>
         </aside>
-        <section className="studio-main"><div className="studio-title"><h2>实时预览</h2><span>演示预览 · 待 B 验证</span><small>版本 {revision}</small></div><div className="preview"><Fan candidate={confirmed} grid density={density} stripWidth={width} color={color} weave={weave} scale={size}/><small>参数与配色实时反映在 SVG · D 的正式网格和竹条计算待接入</small></div></section>
-        <aside className="controls"><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(65);setWidth(3);setSize(100);setColor('#0e6652');setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整设计后旧检查与教程失效。</p><label>编织疏密 <b>{density}</b><input type="range" min="20" max="90" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="5" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><div className="palette"><b>配色方案</b><div>{[['#e7cda9','竹本色'],['#0e6652','墨竹青'],['#75a78d','青玉绿']].map(([hex,name])=><button key={hex} className={color===hex?'active':''} style={{background:hex}} title={name} aria-label={name} onClick={()=>{if(color!==hex){setColor(hex);setRevision(n=>n+1);}}}/>)}</div></div><div className="actions"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
+        <section className="studio-main"><div className="studio-title"><h2>实时预览</h2><span>演示预览 · 待 B 验证</span><small>版本 {revision}</small></div><div className="preview">{structure?<StructurePreview snapshot={structure}/>:<Fan candidate={confirmed}/>}<small>{structure?`D 结构快照 · ${structure.strips.list.length} 根竹条 · ${structure.interlace.crossings.length} 个交织点`:'当前结果尚未进入 D 扇面结构计算'}</small></div></section>
+        <aside className="controls"><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(65);setWidth(3);setSize(100);setColor('#315F3A');setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整设计后旧检查与教程失效。</p><label>编织疏密 <b>{density}</b><input type="range" min="20" max="90" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="5" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><div className="palette"><b>图样颜色</b><div>{[['#315F3A','C 组原始绿'],['#0e6652','墨竹青'],['#75a78d','青玉绿']].map(([hex,name])=><button key={hex} className={color===hex?'active':''} style={{background:hex}} title={name} aria-label={name} onClick={()=>{if(color!==hex){setColor(hex);setRevision(n=>n+1);}}}/>)}</div></div><div className="actions"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
       </div>}
       {step==='check'&&<div className="end"><p className="kicker">05 / 工艺检查</p><div className="end-icon">!</div><h1>工艺状态：{validateDemo(revision).status==='pending'?'待验证':validateDemo(revision).status}</h1><p>当前设计版本 {revision}：{validateDemo(revision).pendingReason}</p><div className="warning">不能宣称可制作，也不能生成正式材料清单或教程。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button className="primary" onClick={()=>go('materials')}>查看演示资料页 →</button></div></div>}
       {step==='materials'&&<div className="end"><p className="kicker">06 / 制作资料</p><div className="end-icon">▤</div><h1>制作资料等待验证</h1><p>材料清单、竹条编号和图文教程必须对应通过检查的当前设计版本。</p><div className="warning">演示页面，未经工艺验证 · 正式生成与导出暂不可用</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button onClick={()=>go('check')}>查看检查状态</button></div></div>}
-    </main><footer>{DEMO_FAN_BOUNDARY_V0_1.id} · {DEMO_FAN_BOUNDARY_V0_1.label} · DESIGN_DATA V0.2</footer>
+    </main><footer>A4-PAGE-DEMO · A4 页面演示包络，正式扇面边界待 B 验证 · DESIGN_DATA V0.2</footer>
   </div>;
 }
 

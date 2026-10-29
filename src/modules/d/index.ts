@@ -1,4 +1,5 @@
 export { calculateFanStructure } from './calculateFanStructure';
+export { adaptConfirmedCandidate } from './adaptConfirmedCandidate';
 export { default as StructurePreview } from './StructurePreview';
-export { greenTriangleRevision1, greenTriangleRevision2 } from './demoFixture';
-export type { FanStructureInput, HighlightTarget, StructureSnapshot, SurfacePattern } from './types';
+export type { ConfirmedCandidateOptions } from './adaptConfirmedCandidate';
+export type { ConfirmationState, FanStructureInput, HighlightTarget, StructureSnapshot, SurfacePattern } from './types';
