@@ -42,3 +42,17 @@
   .studio-main .preview{height:min(570px,calc(100svh - 145px))}
 }
 
+.home-fan-picker{margin:12px 0 18px;color:#f3e4cc}
+.home-fan-picker>strong{display:block;margin-bottom:9px;font-size:13px;font-weight:500;letter-spacing:.1em}
+.home-fan-picker>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.home-fan-picker button{display:flex;align-items:center;gap:7px;min-width:0;min-height:56px;padding:7px;border:1px solid #f4e6d43d;border-radius:10px;background:#ffffff17;color:#f3e4cc;text-align:left}
+.home-fan-picker button.selected{background:#f5e9d5;color:#18432f;border-color:#f5e9d5}
+.home-fan-picker button:disabled{opacity:.58}
+.home-fan-picker svg,.fan-variant-grid svg{width:28px;height:28px;flex:none;fill:none;stroke:currentColor;stroke-width:2}
+.home-fan-picker span{min-width:0;font-size:12px;line-height:1.2}
+.home-fan-picker small{display:block;margin-left:auto;font:10px sans-serif;white-space:nowrap}
+.fan-variant-grid svg{margin-bottom:4px}
+.drawing-pad{height:560px;margin-top:14px}
+.drawing-pad-custom{height:620px}
+@media(max-width:600px){.home-fan-picker>div{grid-template-columns:repeat(2,minmax(0,1fr))}.home-fan-picker button{min-height:50px}.drawing-pad{height:430px}.drawing-pad-custom{height:500px}}
+
