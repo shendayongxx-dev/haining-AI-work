@@ -100,9 +100,6 @@ function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, w
 
 export function calculateFanStructure(input: FanStructureInput): StructureSnapshot {
   const count = Math.max(2, Math.round(input.parameters.density));
-  if (count !== B_V03_WEAVE_RULE.warp.count || count !== B_V03_WEAVE_RULE.weft.count) {
-    throw new Error('CROSS-1X1-V1 固定要求 21 经×21 纬。');
-  }
   const { centerMm, radiusMm } = input.carrier;
   // CROSS-1X1-V1 联调采用圆内接正方形的 21×21 轴线，确保全部 441 个交点位于圆内。
   const gridHalfSpan = radiusMm / Math.sqrt(2);
@@ -158,8 +155,16 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
         'docs/CRAFT_RULES.md', 'docs/FORMAL_CARRIER_SPEC.md',
         'data/CROSS_WEAVE_V1.json', 'data/FORMAL_CARRIER_ROUND_170.json',
       ],
-      current: { stripWidthMm: input.parameters.stripWidthMm, thicknessMm: null, stockLengthMm: null },
+      current: {
+        warpCount: count,
+        weftCount: count,
+        stripWidthMm: input.parameters.stripWidthMm,
+        thicknessMm: null,
+        stockLengthMm: null,
+      },
       required: {
+        warpCount: B_V03_WEAVE_RULE.warp.count,
+        weftCount: B_V03_WEAVE_RULE.weft.count,
         stripWidthMm: B_V03_WEAVE_RULE.stripSpec.widthMm,
         stripWidthToleranceMm: B_V03_WEAVE_RULE.stripSpec.widthToleranceMm,
         thicknessMm: B_V03_WEAVE_RULE.stripSpec.thicknessMm,
@@ -168,6 +173,10 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
         rawBlankBboxMm: B_V03_CARRIER_RULE.rawWeaveBlank.bboxMm,
       },
       differences: [
+        ...(count === B_V03_WEAVE_RULE.warp.count && count === B_V03_WEAVE_RULE.weft.count ? [] : [{
+          code: 'STRIP_COUNT_NONCONFORMING',
+          message: `当前演示为 ${count} 经×${count} 纬；B v0.3 固定要求 21 经×21 纬。`,
+        }]),
         {
           code: 'STRIP_WIDTH_NONCONFORMING',
           message: `当前演示宽度 ${input.parameters.stripWidthMm} mm；B v0.3 要求 9±0.5 mm。`,

@@ -22,7 +22,7 @@ const snapshot = calculateFanStructure(input);
 - `carrier`：固定读取 `FAN-ROUND-170-V1`、`BOUNDARY-ROUND-170-V1` 和 `PATTERN-ROUND-150-V1`；
 - `generation.result`：正式读取 `palette`、`elements`、`transform`，图样点位于 `elements[].pointsMm`；
 - `generation.issues`：阻断问题会拒绝进入 D，其他问题原样保留；
-- `parameters`：当前联调固定每方向 21 根竹条、竹条宽度和 `CROSS-1X1-V1` 编法。
+- `parameters`：默认每方向 21 根竹条，并允许9–41根的结构演示调节；偏离21时快照增加 `STRIP_COUNT_NONCONFORMING`，工艺状态保持 `pending`。
 
 D 不读取旧页面兼容字段 `candidate.pointsMm` 或 `candidate.color`。
 
@@ -80,7 +80,7 @@ pnpm build
 ## 计算假设和限制
 
 - 当前使用 B 提供的 `FAN-ROUND-170-V1` 圆形边界和 `PATTERN-ROUND-150-V1` 有效图样区；
-- 当前按 `CROSS-1X1-V1` 生成 21 经×21 纬和 441 个交织点，编号使用 `V001–V021`、`H001–H021`；
+- 默认按 `CROSS-1X1-V1` 生成 21 经×21 纬和 441 个交织点；根数 9–41 仅供结构演示，编号随根数生成（默认 `V001–V021`、`H001–H021`）；
 - 当前是 `trimmed-circle-demo` 圆形演示结构，不是 B v0.3 的 189×189 mm 毛坯；快照以 `nonconforming-demo / pending` 记录差异；
 - 当前3/3.5 mm演示宽度不符合9±0.5 mm，且缺少厚度与备料长度，不得作为B标准PASS样例；
 - SVG 按交织点 `top` 绘制局部上下压挑，并展示排列和配色；这仍是结构示意预览，尚未经工艺验证；
