@@ -35,3 +35,10 @@
 .fan-variant-grid small,.weave-catalog small{display:block;margin-top:5px;font:10px/1.4 sans-serif;color:#78877a}
 .weaves>div{cursor:not-allowed}
 
+/* Keep the preview beside the longer option list while the page scrolls. */
+.app.light{overflow-x:clip;overflow-y:visible}
+@media(min-width:721px){
+  .studio-main{position:sticky;top:16px;align-self:start}
+  .studio-main .preview{height:min(570px,calc(100svh - 145px))}
+}
+
