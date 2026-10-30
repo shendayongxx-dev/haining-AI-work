@@ -20,3 +20,9 @@
 @media(max-width:850px){.story-side-label{display:none}.story-slide{padding-top:105px}.story-content h2{font-size:clamp(48px,7vw,68px)}}
 @media(max-width:600px){.story-slide{padding:115px 24px 54px;min-height:100svh}.story-content h2{font-size:clamp(44px,10vw,60px)}.story-content .story-lead{font-size:14px!important}.craft-sequence{margin:24px 0 17px}.craft-sequence>div{padding:13px 7px}.craft-sequence strong{font-size:17px}.craft-sequence span{font-size:10px}.heritage-note{margin:25px 0 20px}.story-index{bottom:15px}}
 
+/* Keep D's full SVG viewBox inside A's preview card, with room for its caption. */
+.studio-main{min-width:0}
+.preview{grid-template-rows:minmax(0,1fr) auto;gap:8px;padding:12px;overflow:hidden}
+.preview>svg:not(.fan){grid-row:1;width:100%;height:100%;min-width:0;min-height:0;display:block}
+.preview>small{position:static;grid-row:2;text-align:center}
+
