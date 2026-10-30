@@ -26,3 +26,12 @@
 .preview>svg:not(.fan){grid-row:1;width:100%;height:100%;min-width:0;min-height:0;display:block}
 .preview>small{position:static;grid-row:2;text-align:center}
 
+/* The B handoff is visible without implying that unfinished variants can be selected. */
+.fan-variant-grid,.weave-catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.fan-variant-grid button,.weave-catalog button{min-width:0;min-height:68px;padding:9px;border:1px solid #d9d8cf;border-radius:10px;background:#fbfaf6;color:#264a39;text-align:left}
+.fan-variant-grid button.chosen,.weave-catalog button.chosen{border:2px solid #0e6652;background:#edf6ef}
+.fan-variant-grid button:disabled,.weave-catalog button:disabled{opacity:.75;cursor:not-allowed}
+.fan-variant-grid strong,.weave-catalog strong{display:block;font-size:12px;line-height:1.4}
+.fan-variant-grid small,.weave-catalog small{display:block;margin-top:5px;font:10px/1.4 sans-serif;color:#78877a}
+.weaves>div{cursor:not-allowed}
+
