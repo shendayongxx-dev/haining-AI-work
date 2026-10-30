@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import type { Carrier, Point } from './model';
 import { FORMAL_FAN_CARRIER_V1 as fan } from './data/formalFanCarrier';
+import { prepareCustomShapeStroke } from './modules/c/shapeProcessing';
 
 type Stroke = Point[];
 
@@ -9,7 +10,9 @@ export default function DrawingCanvas({ carrier, strokes, onChange }: { carrier:
   const [live, setLive] = useState<Stroke>([]);
   const [redo, setRedo] = useState<Stroke[]>([]);
   const isFan = carrier === 'fan';
-  const points = (stroke: Stroke) => stroke.map(p => `${p.x},${p.y}`).join(' ');
+  const points = (stroke: Stroke, completed = false) =>
+    (completed && !isFan ? prepareCustomShapeStroke(stroke).points : stroke)
+      .map(p => `${p.x},${p.y}`).join(' ');
   const xy = (e: React.PointerEvent<SVGSVGElement>): Point => {
     const matrix = e.currentTarget.getScreenCTM();
     if (!matrix) return { x: 0, y: 0 };
@@ -31,9 +34,9 @@ export default function DrawingCanvas({ carrier, strokes, onChange }: { carrier:
       {isFan && <><circle cx={fan.boundary.centerMm.x} cy={fan.boundary.centerMm.y} r={fan.boundary.radiusMm} fill="#ead9b9" stroke="#7f6848" strokeWidth="1.2" />
         <circle cx={fan.effectivePatternBoundary.centerMm.x} cy={fan.effectivePatternBoundary.centerMm.y} r={fan.effectivePatternBoundary.radiusMm} fill="#fffaf0" stroke="#2f7d68" strokeWidth="0.8" strokeDasharray="3 2" />
         <rect x={fan.handleReserve.x} y={fan.handleReserve.y} width={fan.handleReserve.width} height={fan.handleReserve.height} fill="#c85c5c" fillOpacity="0.25" stroke="#a43c3c" strokeWidth="0.6" /></>}
-      {strokes.map((stroke, i) => <polyline key={i} points={points(stroke)} fill="none" stroke="#14543b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />)}
+      {strokes.map((stroke, i) => <polyline key={i} points={points(stroke, true)} fill={isFan ? 'none' : '#315f3a33'} stroke="#14543b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />)}
       <polyline points={points(live)} fill="none" stroke="#14543b" strokeWidth="2" />
     </svg>
-    <p>{isFan ? '实线为170 mm圆扇，绿色虚线为150 mm有效图样区；红色区域为扇柄连接保留区。' : '在普通画布中绘制闭合的载体外轮廓；这里不预设扇面边框。'} 坐标以毫米保存。</p>
+    <p>{isFan ? '实线为170 mm圆扇，绿色虚线为150 mm有效图样区；红色区域为扇柄连接保留区。' : '在普通画布中绘制载体轮廓；完成后自动连接首尾并平滑线条，无需精准回到起点。'} 坐标以毫米保存。</p>
   </div>;
 }
