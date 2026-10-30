@@ -3,6 +3,7 @@ import { Candidate, Carrier, InputChannel, Point, Step } from './model';
 import { FORMAL_FAN_CARRIER_V1 } from './data/formalFanCarrier';
 import Fan from './modules/d/FanPreview';
 import { canConfirmCandidate, generateCandidate } from './modules/c/generateCandidate';
+import { prepareCustomShapeStroke } from './modules/c/shapeProcessing';
 import { validateDemo } from './modules/e/validation';
 
 const steps: { id: Step; label: string }[] = [
@@ -11,8 +12,9 @@ const steps: { id: Step; label: string }[] = [
   { id: 'check', label: '工艺检查' }, { id: 'materials', label: '制作资料' },
 ];
 type Stroke = Point[];
+let activeDrawingCarrier: Carrier = 'fan';
 
-function Drawing({ strokes, onChange }: { strokes: Stroke[]; onChange: (s: Stroke[]) => void }) {
+function Drawing({ strokes, onChange, refineCustomShape = activeDrawingCarrier === 'custom' }: { strokes: Stroke[]; onChange: (s: Stroke[]) => void; refineCustomShape?: boolean }) {
   const active = useRef<Stroke | null>(null);
   const [live, setLive] = useState<Stroke>([]);
   const [redo, setRedo] = useState<Stroke[]>([]);
@@ -23,9 +25,9 @@ function Drawing({ strokes, onChange }: { strokes: Stroke[]; onChange: (s: Strok
     const point = new DOMPoint(e.clientX, e.clientY).matrixTransform(matrix.inverse());
     return { x: Math.round(point.x * 1000) / 1000, y: Math.round(point.y * 1000) / 1000 };
   };
-  const points = (s: Stroke) => s.map(p => `${p.x},${p.y}`).join(' ');
+  const points = (s: Stroke) => (refineCustomShape ? prepareCustomShapeStroke(s).points : s).map(p => `${p.x},${p.y}`).join(' ');
   const fan = FORMAL_FAN_CARRIER_V1;
-  return <div className="drawing"><div className="drawing-tools"><strong>直接绘制</strong><span>鼠标 / 触屏 / 触控笔</span><button onClick={() => { if(strokes.length){setRedo([...redo,strokes.at(-1)!]);onChange(strokes.slice(0,-1));} }}>撤销</button><button onClick={() => { if(redo.length){onChange([...strokes,redo.at(-1)!]);setRedo(redo.slice(0,-1));} }}>重做</button><button onClick={() => {onChange([]);setRedo([]);}}>清空</button></div><svg className="drawing-pad" viewBox="0 0 210 297" style={{touchAction:'none'}} onPointerDown={e => { e.currentTarget.setPointerCapture(e.pointerId); active.current=[xy(e)]; setLive(active.current); }} onPointerMove={e => { if(active.current){ active.current=[...active.current,xy(e)];setLive(active.current); } }} onPointerUp={() => { if(active.current && active.current.length>1) onChange([...strokes,active.current]);active.current=null;setLive([]); }} onPointerCancel={()=>{active.current=null;setLive([]);}}><rect width="210" height="297" fill="#f4ead9"/><circle cx={fan.boundary.centerMm.x} cy={fan.boundary.centerMm.y} r={fan.boundary.radiusMm} fill="#ead9b9" stroke="#7f6848" strokeWidth="1.2"/><circle cx={fan.effectivePatternBoundary.centerMm.x} cy={fan.effectivePatternBoundary.centerMm.y} r={fan.effectivePatternBoundary.radiusMm} fill="#fffaf0" stroke="#2f7d68" strokeWidth="0.8" strokeDasharray="3 2"/><rect x={fan.handleReserve.x} y={fan.handleReserve.y} width={fan.handleReserve.width} height={fan.handleReserve.height} fill="#c85c5c" fillOpacity="0.25" stroke="#a43c3c" strokeWidth="0.6"/>{strokes.map((s,i) => <polyline key={i} points={points(s)} fill="none" stroke="#14543b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>)}<polyline points={points(live)} fill="none" stroke="#14543b" strokeWidth="2"/></svg><p>实线为170 mm扇面，绿色虚线内为150 mm有效图样区域；红色区域为扇柄连接保留区。保存坐标直接使用毫米。</p></div>;
+  return <div className="drawing"><div className="drawing-tools"><strong>直接绘制</strong><span>鼠标 / 触屏 / 触控笔</span><button onClick={() => { if(strokes.length){setRedo([...redo,strokes.at(-1)!]);onChange(strokes.slice(0,-1));} }}>撤销</button><button onClick={() => { if(redo.length){onChange([...strokes,redo.at(-1)!]);setRedo(redo.slice(0,-1));} }}>重做</button><button onClick={() => {onChange([]);setRedo([]);}}>清空</button></div><svg className="drawing-pad" viewBox="0 0 210 297" style={{touchAction:'none'}} onPointerDown={e => { e.currentTarget.setPointerCapture(e.pointerId); active.current=[xy(e)]; setLive(active.current); }} onPointerMove={e => { if(active.current){ active.current=[...active.current,xy(e)];setLive(active.current); } }} onPointerUp={() => { if(active.current && active.current.length>1) onChange([...strokes,active.current]);active.current=null;setLive([]); }} onPointerCancel={()=>{active.current=null;setLive([]);}}><rect width="210" height="297" fill="#f4ead9"/><circle cx={fan.boundary.centerMm.x} cy={fan.boundary.centerMm.y} r={fan.boundary.radiusMm} fill="#ead9b9" stroke="#7f6848" strokeWidth="1.2"/><circle cx={fan.effectivePatternBoundary.centerMm.x} cy={fan.effectivePatternBoundary.centerMm.y} r={fan.effectivePatternBoundary.radiusMm} fill="#fffaf0" stroke="#2f7d68" strokeWidth="0.8" strokeDasharray="3 2"/><rect x={fan.handleReserve.x} y={fan.handleReserve.y} width={fan.handleReserve.width} height={fan.handleReserve.height} fill="#c85c5c" fillOpacity="0.25" stroke="#a43c3c" strokeWidth="0.6"/>{strokes.map((s,i) => <polyline key={i} points={points(s)} fill={refineCustomShape?'#315f3a33':'none'} stroke="#14543b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>)}<polyline points={points(live)} fill={refineCustomShape?'#315f3a22':'none'} stroke="#14543b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg><p>{refineCustomShape?'绘制大致轮廓即可；系统会自动连接首尾并平滑线条，无需精准回到起点。':'实线为170 mm扇面，绿色虚线内为150 mm有效图样区域；红色区域为扇柄连接保留区。保存坐标直接使用毫米。'}</p></div>;
 }
 
 export default function App() {
@@ -44,6 +46,7 @@ export default function App() {
   const [size,setSize]=useState(100);
   const [color,setColor]=useState('#0e6652');
   const [notice,setNotice]=useState('');
+  activeDrawingCarrier=carrier;
   const timer=useRef<ReturnType<typeof setTimeout>|null>(null);
   const generationCounter=useRef(0);
   useEffect(()=>()=>{if(timer.current)clearTimeout(timer.current);},[]);
