@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Candidate, Carrier, InputChannel, Point, Step } from './model';
+import { Candidate, Carrier, CarrierShape, InputChannel, Point, Step } from './model';
 import { FORMAL_FAN_CARRIER_V1 } from './data/formalFanCarrier';
 import Fan from './modules/d/FanPreview';
+import CustomStructurePreview from './modules/d/CustomStructurePreview';
 import DrawingCanvas from './DrawingCanvas';
 import { adaptConfirmedCandidate, calculateFanStructure, StructurePreview } from './modules/d';
 import { canConfirmCandidate, generateCandidate } from './modules/c/generateCandidate';
@@ -66,6 +67,7 @@ export default function App() {
   const timer=useRef<ReturnType<typeof setTimeout>|null>(null);
   const generationCounter=useRef(0);
   const designId=useRef(`design-${crypto.randomUUID()}`);
+  const customShape=confirmed?.resultType==='carrier_shape' ? confirmed.result as CarrierShape : null;
   const structure=useMemo(()=>{
     if(!confirmed||confirmed.resultType!=='surface_pattern'||weave!=='CROSS-1X1-V1')return null;
     return calculateFanStructure(adaptConfirmedCandidate(confirmed,{
@@ -140,7 +142,7 @@ export default function App() {
           {carrier==='fan'&&<div className="studio-section"><h2>扇面形态 <small>首轮选三种</small></h2><div className="fan-variant-grid">{fanVariants.map(item=><button key={item.id} type="button" className={fanVariantId===item.id?'chosen':''} disabled={item.status!=='当前联调'} title={`${item.id} · ${item.status}`}><FanOutline id={item.id}/><strong>{item.name}</strong><small>{item.status}</small></button>)}</div><p className="side-note">圆形正在用绿色三角形联调；长圆式、八角式随后接入，其余三种待开发。</p></div>}
           <div className="studio-section"><h2>基础编法 <small>B 组提供三种</small></h2><div className="weave-catalog"><button type="button" className={weave==='CROSS-1X1-V1'?'chosen':''} onClick={()=>{if(weave!=='CROSS-1X1-V1'){setWeave('CROSS-1X1-V1');setRevision(n=>n+1);}}}><strong>平编演示</strong><small>CROSS-1X1-V1 · 当前可用</small></button>{targetWeaves.map(item=><button key={item.id} type="button" disabled title={`${item.id} · 计划接入`}><strong>{item.name}</strong><small>计划接入</small></button>)}</div><p className="side-note">B 的课程版十字编不同于当前挑一压一演示；三种正式编法会逐项接入。</p></div>
         </aside>
-        <section className="studio-main"><div className="studio-title"><h2>实时预览</h2><span>圆扇结构示意预览 · 已显示平编上下交织 · 工艺待验证</span><small>版本 {revision}</small></div><div className="preview">{structure?<StructurePreview snapshot={structure}/>:<Fan candidate={confirmed}/>}<small>{structure?`D 结构快照 · ${structure.strips.list.length} 根竹条 · ${structure.interlace.crossings.length} 个交织点`:'当前结果尚未进入 D 扇面结构计算'}</small></div></section>
+        <section className="studio-main"><div className="studio-title"><h2>实时预览</h2><span>{customShape?'自定义形状竹条结构示意 · 工艺待验证':'圆扇结构示意预览 · 已显示平编上下交织 · 工艺待验证'}</span><small>版本 {revision}</small></div><div className="preview">{structure?<StructurePreview snapshot={structure}/>:customShape?<CustomStructurePreview shape={customShape} density={density} stripWidthMm={width} color={color} scale={size}/>:<Fan candidate={confirmed}/>}<small>{structure?`D 结构快照 · ${structure.strips.list.length} 根竹条 · ${structure.interlace.crossings.length} 个交织点`:customShape?'自定义轮廓竹条交织演示 · 工艺待验证':'当前结果尚未进入结构计算'}</small></div></section>
         <aside className="controls"><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(21);setWidth(3);setSize(100);setColor('#315F3A');setRevision(n=>n+1);}}>↻ 重置</button></div><p>默认21经×21纬对照B v0.3规则；调整仅供结构演示，偏离21时工艺状态保持待验证。</p><label>竹条数量／方向 <b>{density}</b><input type="range" min="9" max="41" step="1" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="5" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><div className="palette"><b>图样颜色</b><div>{[['#315F3A','C 组原始绿'],['#0e6652','墨竹青'],['#75a78d','青玉绿']].map(([hex,name])=><button key={hex} className={color===hex?'active':''} style={{background:hex}} title={name} aria-label={name} onClick={()=>{if(color!==hex){setColor(hex);setRevision(n=>n+1);}}}/>)}</div></div><div className="actions"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
       </div>}
       {step==='check'&&<div className="end"><p className="kicker">05 / 工艺检查</p><div className="end-icon">!</div><h1>工艺状态：{validateDemo(revision).status==='pending'?'待验证':validateDemo(revision).status}</h1><p>当前设计版本 {revision}：{validateDemo(revision).pendingReason}</p><div className="warning">不能宣称可制作，也不能生成正式材料清单或教程。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button className="primary" onClick={()=>go('materials')}>查看演示资料页 →</button></div></div>}
