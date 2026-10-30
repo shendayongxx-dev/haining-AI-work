@@ -117,8 +117,16 @@ export type StructureSnapshot = {
     conformance: 'nonconforming-demo';
     geometryStage: 'trimmed-circle-demo';
     ruleSources: string[];
-    current: { stripWidthMm: number; thicknessMm: null; stockLengthMm: null };
+    current: {
+      warpCount: number;
+      weftCount: number;
+      stripWidthMm: number;
+      thicknessMm: null;
+      stockLengthMm: null;
+    };
     required: {
+      warpCount: number;
+      weftCount: number;
       stripWidthMm: number;
       stripWidthToleranceMm: number;
       thicknessMm: number;

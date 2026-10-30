@@ -22,7 +22,7 @@ const snapshot = calculateFanStructure(input);
 - `carrier`：固定读取 `FAN-ROUND-170-V1`、`BOUNDARY-ROUND-170-V1` 和 `PATTERN-ROUND-150-V1`；
 - `generation.result`：正式读取 `palette`、`elements`、`transform`，图样点位于 `elements[].pointsMm`；
 - `generation.issues`：阻断问题会拒绝进入 D，其他问题原样保留；
-- `parameters`：当前联调固定每方向 21 根竹条、竹条宽度和 `CROSS-1X1-V1` 编法。
+- `parameters`：默认每方向 21 根竹条，并允许9–41根的结构演示调节；偏离21时快照增加 `STRIP_COUNT_NONCONFORMING`，工艺状态保持 `pending`。
 
 D 不读取旧页面兼容字段 `candidate.pointsMm` 或 `candidate.color`。
 
