@@ -85,6 +85,24 @@ export type Crossing = {
   ruleVerification: 'pending';
 };
 
+export type RawBlankStrip = {
+  id: string;
+  direction: 'warp' | 'weft';
+  index: number;
+  axisMm: number;
+  widthMm: number;
+  startMm: PointMm;
+  endMm: PointMm;
+  geometryLengthMm: number;
+  stockLengthMm: { min: number; max: number };
+};
+
+export type WeavingStep = {
+  step: number;
+  weftId: string;
+  crossings: { crossingId: string; warpId: string; action: 'over' | 'under' }[];
+};
+
 export type StructureSnapshot = {
   schemaVersion: '0.2';
   designId: string;
@@ -114,15 +132,15 @@ export type StructureSnapshot = {
   weave: { id: 'CROSS-1X1-V1'; rule: 'over-under-1-1'; verified: false };
   craftComparison: {
     status: 'pending';
-    conformance: 'nonconforming-demo';
-    geometryStage: 'trimmed-circle-demo';
+    conformance: 'b-v0.3-geometry';
+    geometryStage: 'raw-blank-then-trim';
     ruleSources: string[];
     current: {
       warpCount: number;
       weftCount: number;
       stripWidthMm: number;
-      thicknessMm: null;
-      stockLengthMm: null;
+      thicknessMm: number;
+      stockLengthMm: { min: number; max: number };
     };
     required: {
       warpCount: number;
@@ -140,6 +158,20 @@ export type StructureSnapshot = {
   grid: { warpSpacingMm: number; weftSpacingMm: number; warpCount: number; weftCount: number };
   strips: { list: Strip[] };
   interlace: { crossings: Crossing[] };
+  stages: {
+    rawBlank: {
+      bboxMm: { x: number; y: number; width: number; height: number };
+      strips: { list: RawBlankStrip[] };
+      interlace: { crossings: Crossing[] };
+      weavingOrder: WeavingStep[];
+    };
+    trimmedProduct: {
+      boundaryId: 'BOUNDARY-ROUND-170-V1';
+      activeArea: { type: 'circle'; centerMm: PointMm; radiusMm: 85 };
+      strips: { list: Strip[] };
+      visibleCrossingIds: string[];
+    };
+  };
   viewTransform: { mmToSvg: number; originSvg: PointMm; xDirection: 'right'; yDirection: 'down' };
   validation: {
     source: 'd-initial';

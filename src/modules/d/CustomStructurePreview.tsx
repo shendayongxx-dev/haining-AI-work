@@ -17,7 +17,7 @@ export default function CustomStructurePreview({ snapshot }: { snapshot: CustomS
       <path d={path} fill="#cfb98f" fillOpacity=".42" />
       {snapshot.strips.list.map(strip => <g key={strip.id} data-strip-id={strip.id}>
         <line x1={strip.startMm.x} y1={strip.startMm.y} x2={strip.endMm.x} y2={strip.endMm.y} stroke="#3c291b" strokeOpacity=".36" strokeWidth={strip.widthMm+.6} />
-        <line x1={strip.startMm.x} y1={strip.startMm.y} x2={strip.endMm.x} y2={strip.endMm.y} stroke={strip.color} strokeWidth={strip.widthMm} />
+        <line x1={strip.startMm.x} y1={strip.startMm.y} x2={strip.endMm.x} y2={strip.endMm.y} className={`weave-strip weave-strip-${strip.direction}`} stroke={strip.color} strokeWidth={strip.widthMm} />
       </g>)}
       {snapshot.interlace.crossings.map(crossing => {
         const top = stripsById.get(crossing.top === 'warp' ? crossing.warpStripId : crossing.weftStripId);
@@ -34,7 +34,7 @@ export default function CustomStructurePreview({ snapshot }: { snapshot: CustomS
           <title>{`${crossing.id} · ${top.id} 在上（压） · ${lower.id} 在下（挑）`}</title>
           <line {...coordinates} stroke="#cfb98f" strokeWidth={top.widthMm+1.6} />
           <line {...coordinates} stroke="#2f2117" strokeOpacity=".55" strokeWidth={top.widthMm+.75} filter={`url(#${shadowId})`} />
-          <line {...coordinates} className="weave-top" stroke={top.color} strokeWidth={top.widthMm} />
+          <line {...coordinates} className={`weave-top weave-strip-${top.direction}`} stroke={top.color} strokeWidth={top.widthMm} />
           <line {...highlightCoordinates} stroke="#fff8e8" strokeOpacity=".28" strokeWidth=".25" />
         </g>;
       })}
