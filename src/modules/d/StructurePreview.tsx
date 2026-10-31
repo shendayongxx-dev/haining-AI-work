@@ -38,8 +38,8 @@ export default function StructurePreview({ snapshot, highlight = null }: Structu
             ? { x1: strip.axisMm * mmToSvg, x2: strip.axisMm * mmToSvg, y1: (strip.startMm.y + segment.fromMm) * mmToSvg, y2: (strip.startMm.y + segment.toMm) * mmToSvg }
             : { y1: strip.axisMm * mmToSvg, y2: strip.axisMm * mmToSvg, x1: (strip.startMm.x + segment.fromMm) * mmToSvg, x2: (strip.startMm.x + segment.toMm) * mmToSvg };
           return <g key={`${strip.id}-${index}`} data-strip-id={strip.id}>
-            <line {...coordinates} stroke="#3c291b" strokeOpacity=".36" strokeWidth={stripWidth + 1.2} />
-            <line {...coordinates} stroke={color} strokeWidth={stripWidth} />
+            <line {...coordinates} stroke="#3c291b" strokeOpacity=".25" strokeWidth={stripWidth + .7} />
+            <line {...coordinates} className={`weave-strip weave-strip-${strip.direction}`} stroke={color} strokeWidth={stripWidth} />
           </g>;
         });
       })}
@@ -67,11 +67,11 @@ export default function StructurePreview({ snapshot, highlight = null }: Structu
               ? { ...coordinates, x1: coordinates.x1 - .45 * mmToSvg, x2: coordinates.x2 - .45 * mmToSvg }
               : { ...coordinates, y1: coordinates.y1 - .45 * mmToSvg, y2: coordinates.y2 - .45 * mmToSvg };
             return <g key={index}>
-              <line {...coordinates} stroke="#cfb98f" strokeWidth={strokeWidth + 3.2} />
-              <line {...coordinates} stroke="#2f2117" strokeOpacity=".55" strokeWidth={strokeWidth + 1.5}
+              <line {...coordinates} stroke="#cfb98f" strokeWidth={strokeWidth + 1.2} />
+              <line {...coordinates} stroke="#2f2117" strokeOpacity=".38" strokeWidth={strokeWidth + .65}
                 filter={`url(#weave-shadow-${snapshot.designRevision})`} />
-              <line {...coordinates} className="weave-top" stroke={color} strokeWidth={strokeWidth} />
-              <line {...highlightCoordinates} stroke="#fff8e8" strokeOpacity=".28" strokeWidth={Math.max(0.6, mmToSvg * .35)} />
+              <line {...coordinates} className={`weave-top weave-strip-${top.direction}`} stroke={color} strokeWidth={strokeWidth} />
+              <line {...highlightCoordinates} stroke="#fff8e8" strokeOpacity=".2" strokeWidth={Math.max(0.45, mmToSvg * .22)} />
             </g>;
           })}
         </g>;

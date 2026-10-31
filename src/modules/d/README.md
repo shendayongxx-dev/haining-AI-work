@@ -45,7 +45,7 @@ D 不读取旧页面兼容字段 `candidate.pointsMm` 或 `candidate.color`。
 - 坐标空间仍为 210 × 297 mm，圆心 `(105,110)`、外轮廓半径 85 mm；
 - `warp.axisMm` 是竹条中心线的 X 坐标，`weft.axisMm` 是中心线的 Y 坐标；
 - 每根竹条提供圆周裁切后的 `startMm`、`endMm` 和 `geometryLengthMm`；
-- 21 经和 21 纬的轴线落在圆内接正方形范围内，因此 441 个笛卡尔交点全部位于圆形边界内；
+- 21 经和 21 纬先在 B v0.3 的 189×189 mm 毛坯中生成 441 个交点，再计算每根竹条在 170 mm 圆扇内的可见段；
 - `geometryLengthMm` 不含损耗、收边或余量；
 - `colorSegments[].fromMm/toMm` 是从竹条起点沿长度方向的距离，满足 `0 <= fromMm < toMm <= geometryLengthMm`；
 - `axisMm` 和分段端点保留两位小数。E 应以每根竹条的明确坐标定位，不使用四舍五入后的 `grid.*SpacingMm` 反推。几何比较建议采用 `0.01 mm` 容差。
@@ -85,8 +85,8 @@ pnpm build
 
 - 当前使用 B 提供的 `FAN-ROUND-170-V1` 圆形边界和 `PATTERN-ROUND-150-V1` 有效图样区；
 - 默认按 `CROSS-1X1-V1` 生成 21 经×21 纬和 441 个交织点；根数 9–41 仅供结构演示，编号随根数生成（默认 `V001–V021`、`H001–H021`）；
-- 当前是 `trimmed-circle-demo` 圆形演示结构，不是 B v0.3 的 189×189 mm 毛坯；快照以 `nonconforming-demo / pending` 记录差异；
-- 当前3/3.5 mm演示宽度不符合9±0.5 mm，且缺少厚度与备料长度，不得作为B标准PASS样例；
+- 快照同时提供 `stages.rawBlank` 和 `stages.trimmedProduct`；前者供 E 生成逐纬条穿织顺序，后者驱动圆扇预览；
+- 默认宽度已调整为 9 mm，并携带 0.5 mm 厚度和 280–300 mm 备料长度依据；页面参数偏离 B 规则时仍记录差异；
 - SVG 按交织点 `top` 绘制局部上下压挑，并展示排列和配色；这仍是结构示意预览，尚未经工艺验证；
 - 几何长度不包含损耗、收边或备料余量；
 - 扇面当前仅实现 `polygon` 离散色块采样，`polyline` 尚未接入；

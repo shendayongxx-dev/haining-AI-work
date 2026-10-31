@@ -1,4 +1,4 @@
-import type { Crossing, FanStructureInput, PointMm, Strip, StructureSnapshot, SurfacePattern } from './types';
+import type { Crossing, FanStructureInput, PointMm, RawBlankStrip, Strip, StructureSnapshot, SurfacePattern, WeavingStep } from './types';
 import { B_V03_CARRIER_RULE, B_V03_WEAVE_RULE } from './craftRules';
 
 const DEMO_LABEL = '圆扇结构演示，工艺 pending' as const;
@@ -59,8 +59,11 @@ function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, w
     ? { x: axisMm, y: center.y + halfChord }
     : { x: center.x + halfChord, y: axisMm };
   const limit = halfChord * 2;
-  const samplePositions = Array.from({ length: Math.ceil(limit / spacingMm) + 1 }, (_, sampleIndex) =>
-    Math.min(limit, sampleIndex * spacingMm));
+  // 网格间距决定竹条排布，但图样颜色必须以更细的毫米步长采样，
+  // 否则 9 mm 正式竹条会把边缘简化成大色块。
+  const sampleStepMm = Math.min(1, spacingMm);
+  const samplePositions = Array.from({ length: Math.ceil(limit / sampleStepMm) + 1 }, (_, sampleIndex) =>
+    Math.min(limit, sampleIndex * sampleStepMm));
   const samples = samplePositions.map(position => {
     const point = direction === 'warp'
       ? { x: axisMm, y: startMm.y + position }
@@ -72,11 +75,11 @@ function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, w
     const last = colorSegments.at(-1);
     if (last && last.paletteId === sample.paletteId && last.sourceElementId === sample.sourceElementId
       && last.sourceInputId === sample.sourceInputId) {
-      last.toMm = round(Math.min(limit, sample.position + spacingMm / 2));
+      last.toMm = round(Math.min(limit, sample.position + sampleStepMm / 2));
     } else {
       colorSegments.push({
-        fromMm: round(Math.max(0, sample.position - spacingMm / 2)),
-        toMm: round(Math.min(limit, sample.position + spacingMm / 2)),
+        fromMm: round(Math.max(0, sample.position - sampleStepMm / 2)),
+        toMm: round(Math.min(limit, sample.position + sampleStepMm / 2)),
         paletteId: sample.paletteId,
         color: sample.color,
         sourceElementId: sample.sourceElementId,
@@ -101,15 +104,16 @@ function buildStrip(direction: 'warp' | 'weft', index: number, axisMm: number, w
 export function calculateFanStructure(input: FanStructureInput): StructureSnapshot {
   const count = Math.max(2, Math.round(input.parameters.density));
   const { centerMm, radiusMm } = input.carrier;
-  // CROSS-1X1-V1 联调采用圆内接正方形的 21×21 轴线，确保全部 441 个交点位于圆内。
-  const gridHalfSpan = radiusMm / Math.sqrt(2);
-  const warpSpacingMm = gridHalfSpan * 2 / (count - 1);
-  const weftSpacingMm = warpSpacingMm;
+  const rawBlank = B_V03_CARRIER_RULE.rawWeaveBlank.bboxMm;
+  const warpSpacingMm = rawBlank.width / count;
+  const weftSpacingMm = rawBlank.height / count;
+  const warpAxis = (index: number) => rawBlank.x + warpSpacingMm * (index + .5);
+  const weftAxis = (index: number) => rawBlank.y + weftSpacingMm * (index + .5);
   const warps = Array.from({ length: count }, (_, index) =>
-    buildStrip('warp', index, centerMm.x - gridHalfSpan + index * warpSpacingMm,
+    buildStrip('warp', index, warpAxis(index),
       input.parameters.stripWidthMm, weftSpacingMm, input.pattern, input.parameters.baseColor, centerMm, radiusMm));
   const wefts = Array.from({ length: count }, (_, index) =>
-    buildStrip('weft', index, centerMm.y - gridHalfSpan + index * weftSpacingMm,
+    buildStrip('weft', index, weftAxis(index),
       input.parameters.stripWidthMm, warpSpacingMm, input.pattern, input.parameters.baseColor, centerMm, radiusMm));
   const crossings: Crossing[] = [];
   for (const warp of warps) for (const weft of wefts) {
@@ -125,6 +129,37 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
       ruleVerification: 'pending',
     });
   }
+  const stockLengthMm = B_V03_WEAVE_RULE.stripSpec.stockLengthMm;
+  const rawBlankStrips: RawBlankStrip[] = [
+    ...Array.from({ length: count }, (_, index) => ({
+      id: `V${pad(index + 1)}`, direction: 'warp' as const, index, axisMm: round(warpAxis(index)),
+      widthMm: input.parameters.stripWidthMm,
+      startMm: { x: round(warpAxis(index)), y: rawBlank.y },
+      endMm: { x: round(warpAxis(index)), y: rawBlank.y + rawBlank.height },
+      geometryLengthMm: rawBlank.height, stockLengthMm,
+    })),
+    ...Array.from({ length: count }, (_, index) => ({
+      id: `H${pad(index + 1)}`, direction: 'weft' as const, index, axisMm: round(weftAxis(index)),
+      widthMm: input.parameters.stripWidthMm,
+      startMm: { x: rawBlank.x, y: round(weftAxis(index)) },
+      endMm: { x: rawBlank.x + rawBlank.width, y: round(weftAxis(index)) },
+      geometryLengthMm: rawBlank.width, stockLengthMm,
+    })),
+  ];
+  const weavingOrder: WeavingStep[] = wefts.map(weft => ({
+    step: weft.index + 1,
+    weftId: weft.id,
+    crossings: crossings.filter(crossing => crossing.weftId === weft.id).map(crossing => ({
+      crossingId: crossing.id,
+      warpId: crossing.warpId,
+      action: crossing.top === 'weft' ? 'over' : 'under',
+    })),
+  }));
+  const visibleCrossingIds = crossings.filter(crossing => {
+    const dx = crossing.positionMm.x - centerMm.x;
+    const dy = crossing.positionMm.y - centerMm.y;
+    return dx * dx + dy * dy <= radiusMm * radiusMm;
+  }).map(crossing => crossing.id);
   return {
     schemaVersion: input.schemaVersion,
     designId: input.designId,
@@ -149,8 +184,8 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
     weave: { id: 'CROSS-1X1-V1', rule: 'over-under-1-1', verified: false },
     craftComparison: {
       status: 'pending',
-      conformance: 'nonconforming-demo',
-      geometryStage: 'trimmed-circle-demo',
+      conformance: 'b-v0.3-geometry',
+      geometryStage: 'raw-blank-then-trim',
       ruleSources: [
         'docs/CRAFT_RULES.md', 'docs/FORMAL_CARRIER_SPEC.md',
         'data/CROSS_WEAVE_V1.json', 'data/FORMAL_CARRIER_ROUND_170.json',
@@ -159,8 +194,8 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
         warpCount: count,
         weftCount: count,
         stripWidthMm: input.parameters.stripWidthMm,
-        thicknessMm: null,
-        stockLengthMm: null,
+        thicknessMm: B_V03_WEAVE_RULE.stripSpec.thicknessMm,
+        stockLengthMm,
       },
       required: {
         warpCount: B_V03_WEAVE_RULE.warp.count,
@@ -177,16 +212,10 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
           code: 'STRIP_COUNT_NONCONFORMING',
           message: `当前演示为 ${count} 经×${count} 纬；B v0.3 固定要求 21 经×21 纬。`,
         }]),
-        {
+        ...(Math.abs(input.parameters.stripWidthMm - B_V03_WEAVE_RULE.stripSpec.widthMm) > B_V03_WEAVE_RULE.stripSpec.widthToleranceMm ? [{
           code: 'STRIP_WIDTH_NONCONFORMING',
           message: `当前演示宽度 ${input.parameters.stripWidthMm} mm；B v0.3 要求 9±0.5 mm。`,
-        },
-        { code: 'STRIP_THICKNESS_MISSING', message: '当前快照未采集厚度；B v0.3 要求 0.5±0.1 mm。' },
-        { code: 'STOCK_LENGTH_MISSING', message: '当前快照未采集备料长度；B v0.3 要求 280–300 mm。' },
-        {
-          code: 'RAW_BLANK_NOT_MODELLED',
-          message: '当前仅建模裁剪后的圆形演示结构，尚未建模 189×189 mm 毛坯及圆外交点。',
-        },
+        }] : []),
       ],
     },
     parameters: input.parameters,
@@ -196,13 +225,22 @@ export function calculateFanStructure(input: FanStructureInput): StructureSnapsh
     },
     strips: { list: [...warps, ...wefts] },
     interlace: { crossings },
+    stages: {
+      rawBlank: { bboxMm: rawBlank, strips: { list: rawBlankStrips }, interlace: { crossings }, weavingOrder },
+      trimmedProduct: {
+        boundaryId: input.carrier.boundaryId,
+        activeArea: { type: 'circle', centerMm, radiusMm },
+        strips: { list: [...warps, ...wefts] },
+        visibleCrossingIds,
+      },
+    },
     viewTransform: { mmToSvg: 2, originSvg: { x: 0, y: 0 }, xDirection: 'right', yDirection: 'down' },
     validation: {
       source: 'd-initial',
       designId: input.designId,
       generatedFromRevision: input.designRevision,
       status: 'pending',
-      pendingReason: '已读取 B 的正式圆扇边界与 CROSS-1X1-V1 标识；竹条参数和实际制作仍待完整规则及试编验证',
+      pendingReason: '已按 B v0.3 建模 189×189 mm 毛坯、170 mm 裁剪及逐纬条穿织顺序；实际制作仍待试编验证',
     },
   };
 }
