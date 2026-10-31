@@ -20,3 +20,39 @@
 @media(max-width:850px){.story-side-label{display:none}.story-slide{padding-top:105px}.story-content h2{font-size:clamp(48px,7vw,68px)}}
 @media(max-width:600px){.story-slide{padding:115px 24px 54px;min-height:100svh}.story-content h2{font-size:clamp(44px,10vw,60px)}.story-content .story-lead{font-size:14px!important}.craft-sequence{margin:24px 0 17px}.craft-sequence>div{padding:13px 7px}.craft-sequence strong{font-size:17px}.craft-sequence span{font-size:10px}.heritage-note{margin:25px 0 20px}.story-index{bottom:15px}}
 
+/* Keep D's full SVG viewBox inside A's preview card, with room for its caption. */
+.studio-main{min-width:0}
+.preview{grid-template-rows:minmax(0,1fr) auto;gap:8px;padding:12px;overflow:hidden}
+.preview>svg:not(.fan){grid-row:1;width:100%;height:100%;min-width:0;min-height:0;display:block}
+.preview>small{position:static;grid-row:2;text-align:center}
+
+/* The B handoff is visible without implying that unfinished variants can be selected. */
+.fan-variant-grid,.weave-catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.fan-variant-grid button,.weave-catalog button{min-width:0;min-height:68px;padding:9px;border:1px solid #d9d8cf;border-radius:10px;background:#fbfaf6;color:#264a39;text-align:left}
+.fan-variant-grid button.chosen,.weave-catalog button.chosen{border:2px solid #0e6652;background:#edf6ef}
+.fan-variant-grid button:disabled,.weave-catalog button:disabled{opacity:.75;cursor:not-allowed}
+.fan-variant-grid strong,.weave-catalog strong{display:block;font-size:12px;line-height:1.4}
+.fan-variant-grid small,.weave-catalog small{display:block;margin-top:5px;font:10px/1.4 sans-serif;color:#78877a}
+.weaves>div{cursor:not-allowed}
+
+/* Keep the preview beside the longer option list while the page scrolls. */
+.app.light{overflow-x:clip;overflow-y:visible}
+@media(min-width:721px){
+  .studio-main{position:sticky;top:16px;align-self:start}
+  .studio-main .preview{height:min(570px,calc(100svh - 145px))}
+}
+
+.home-fan-picker{margin:12px 0 18px;color:#f3e4cc}
+.home-fan-picker>strong{display:block;margin-bottom:9px;font-size:13px;font-weight:500;letter-spacing:.1em}
+.home-fan-picker>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.home-fan-picker button{display:flex;align-items:center;gap:7px;min-width:0;min-height:56px;padding:7px;border:1px solid #f4e6d43d;border-radius:10px;background:#ffffff17;color:#f3e4cc;text-align:left}
+.home-fan-picker button.selected{background:#f5e9d5;color:#18432f;border-color:#f5e9d5}
+.home-fan-picker button:disabled{opacity:.58}
+.home-fan-picker svg,.fan-variant-grid svg{width:28px;height:28px;flex:none;fill:none;stroke:currentColor;stroke-width:2}
+.home-fan-picker span{min-width:0;font-size:12px;line-height:1.2}
+.home-fan-picker small{display:block;margin-left:auto;font:10px sans-serif;white-space:nowrap}
+.fan-variant-grid svg{margin-bottom:4px}
+.drawing-pad{height:560px;margin-top:14px}
+.drawing-pad-custom{height:620px}
+@media(max-width:600px){.home-fan-picker>div{grid-template-columns:repeat(2,minmax(0,1fr))}.home-fan-picker button{min-height:50px}.drawing-pad{height:430px}.drawing-pad-custom{height:500px}}
+

@@ -1,5 +1,6 @@
 import type { Candidate, Carrier, CarrierShape, GenerationIssue, InputChannel, Point, SurfacePattern } from '../../model';
 import { clampToEffectivePatternBoundary, distanceFromFanCenter, FORMAL_FAN_CARRIER_V1, pointInHandleReserve } from '../../data/formalFanCarrier';
+import { prepareCustomShapeStroke } from './shapeProcessing';
 
 export type GenerationInput = {
   carrier: Carrier;
@@ -33,10 +34,13 @@ export function canConfirmCandidate(candidate: Candidate): boolean {
 function sourceGeometry(input: GenerationInput) {
   if (input.channel === 'drawing') {
     const stroke = input.strokes?.at(-1) ?? [];
+    const prepared = input.carrier === 'custom' ? prepareCustomShapeStroke(stroke) : null;
     return {
-      pointsMm: stroke.map(point => ({ x: round(point.x), y: round(point.y) })),
+      pointsMm: (prepared?.points ?? stroke).map(point => ({ x: round(point.x), y: round(point.y) })),
       sourceInputId: `drawing-${input.inputVersionId}`,
-      issues: [] as GenerationIssue[],
+      issues: prepared?.autoClosed || prepared?.smoothed
+        ? [issue('OUTLINE_AUTO_REFINED', 'info', 'geometry', '已根据绘制内容自动闭合并平滑轮廓。')]
+        : [] as GenerationIssue[],
     };
   }
   if (input.channel === 'text') {

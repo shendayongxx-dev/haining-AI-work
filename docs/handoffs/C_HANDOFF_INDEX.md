@@ -6,6 +6,10 @@
 
 文件：[`C_TO_A_HANDOFF.md`](C_TO_A_HANDOFF.md)
 
+载体选择与多扇面对接专项文件：[`C_TO_A_CARRIER_SELECTION_CONTRACT.md`](C_TO_A_CARRIER_SELECTION_CONTRACT.md)
+
+专项文件明确：当前唯一已联调固定扇面、A→C载体上下文、C→A候选约束、切换载体后的失效规则，以及长圆式／八角式在正式数据到位前的页面状态。
+
 C 需要 A 确认或提供：
 
 - C 模块的页面和路由接入位置；
