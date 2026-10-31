@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0",
+  "authority": "B physical acceptance records",
+  "defaultStatus": "pending",
+  "cases": [
+    {"caseId":"CASE-ROUND-CROSS-01","carrierId":"FAN-ROUND-170-V1","weaveId":"CROSS-COURSE-2X2-V1","status":"pending","evidence":{"photos":[],"measurements":[],"materialRecord":null,"edgeFinishRecord":null},"usableAsEPassThreshold":false},
+    {"caseId":"CASE-OVAL-HERRING-01","carrierId":"FAN-OVAL-150X180-V1","weaveId":"HERRING-3X3-V1","status":"pending","evidence":{"photos":[],"measurements":[],"materialRecord":null,"edgeFinishRecord":null},"usableAsEPassThreshold":false},
+    {"caseId":"CASE-OCTAGON-SQUARE-HOLE-01","carrierId":"FAN-OCTAGON-170-V1","weaveId":"SQUARE-HOLE-1X1-V1","status":"pending","evidence":{"photos":[],"measurements":[],"materialRecord":null,"edgeFinishRecord":null},"usableAsEPassThreshold":false}
+  ]
+}
