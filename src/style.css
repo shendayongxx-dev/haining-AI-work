@@ -25,6 +25,7 @@
 .preview{grid-template-rows:minmax(0,1fr) auto;gap:8px;padding:12px;overflow:hidden}
 .preview>svg:not(.fan){grid-row:1;width:100%;height:100%;min-width:0;min-height:0;display:block}
 .preview>small{position:static;grid-row:2;text-align:center}
+.weave-crossing{cursor:help}.weave-crossing .weave-top{transition:filter .15s,stroke-width .15s}.weave-crossing:hover .weave-top{filter:brightness(1.2) saturate(1.15)}
 
 /* The B handoff is visible without implying that unfinished variants can be selected. */
 .fan-variant-grid,.weave-catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
