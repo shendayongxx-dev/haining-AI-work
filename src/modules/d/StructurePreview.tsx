@@ -23,20 +23,25 @@ export default function StructurePreview({ snapshot, highlight = null }: Structu
       <clipPath id={`fan-${snapshot.designRevision}`}>
         <circle cx={circle.centerMm.x * mmToSvg} cy={circle.centerMm.y * mmToSvg} r={circle.radiusMm * mmToSvg} />
       </clipPath>
+      <filter id={`weave-shadow-${snapshot.designRevision}`} x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="1.2" dy="1.5" stdDeviation="1.1" floodColor="#25170d" floodOpacity=".5" />
+      </filter>
     </defs>
-    <circle cx={circle.centerMm.x * mmToSvg} cy={circle.centerMm.y * mmToSvg} r={circle.radiusMm * mmToSvg} fill="#ead8b5" />
+    <circle cx={circle.centerMm.x * mmToSvg} cy={circle.centerMm.y * mmToSvg} r={circle.radiusMm * mmToSvg} fill="#cfb98f" />
     <g clipPath={`url(#fan-${snapshot.designRevision})`}>
       {snapshot.strips.list.map(strip => {
         const highlighted = isStripHighlighted(highlight, strip.id);
-        return strip.colorSegments.map((segment, index) => strip.direction === 'warp'
-          ? <line key={`${strip.id}-${index}`} data-strip-id={strip.id} x1={strip.axisMm * mmToSvg}
-              x2={strip.axisMm * mmToSvg} y1={(strip.startMm.y + segment.fromMm) * mmToSvg}
-              y2={(strip.startMm.y + segment.toMm) * mmToSvg}
-              stroke={highlighted ? '#ff3b30' : segment.color} strokeWidth={(highlighted ? strip.widthMm + 2 : strip.widthMm) * mmToSvg} />
-          : <line key={`${strip.id}-${index}`} data-strip-id={strip.id} y1={strip.axisMm * mmToSvg}
-              y2={strip.axisMm * mmToSvg} x1={(strip.startMm.x + segment.fromMm) * mmToSvg}
-              x2={(strip.startMm.x + segment.toMm) * mmToSvg}
-              stroke={highlighted ? '#ff3b30' : segment.color} strokeWidth={(highlighted ? strip.widthMm + 2 : strip.widthMm) * mmToSvg} />);
+        return strip.colorSegments.map((segment, index) => {
+          const color = highlighted ? '#ff3b30' : segment.color;
+          const stripWidth = (highlighted ? strip.widthMm + 2 : strip.widthMm) * mmToSvg;
+          const coordinates = strip.direction === 'warp'
+            ? { x1: strip.axisMm * mmToSvg, x2: strip.axisMm * mmToSvg, y1: (strip.startMm.y + segment.fromMm) * mmToSvg, y2: (strip.startMm.y + segment.toMm) * mmToSvg }
+            : { y1: strip.axisMm * mmToSvg, y2: strip.axisMm * mmToSvg, x1: (strip.startMm.x + segment.fromMm) * mmToSvg, x2: (strip.startMm.x + segment.toMm) * mmToSvg };
+          return <g key={`${strip.id}-${index}`} data-strip-id={strip.id}>
+            <line {...coordinates} stroke="#3c291b" strokeOpacity=".36" strokeWidth={stripWidth + 1.2} />
+            <line {...coordinates} stroke={color} strokeWidth={stripWidth} />
+          </g>;
+        });
       })}
       {snapshot.interlace.crossings.map(crossing => {
         const top = strips.get(crossing.top === 'warp' ? crossing.warpId : crossing.weftId);
@@ -47,20 +52,27 @@ export default function StructurePreview({ snapshot, highlight = null }: Structu
           : crossing.positionMm.x - top.startMm.x;
         const halfMm = lower.widthMm / 2 + 0.2;
         const highlighted = isStripHighlighted(highlight, top.id);
-        return <g key={crossing.id} data-crossing-id={crossing.id}>
+        return <g key={crossing.id} data-crossing-id={crossing.id} className="weave-crossing">
+          <title>{`${crossing.id} · ${top.id} 在上（压） · ${lower.id} 在下（挑）`}</title>
           {top.colorSegments.map((segment, index) => {
             const fromMm = Math.max(segment.fromMm, alongMm - halfMm);
             const toMm = Math.min(segment.toMm, alongMm + halfMm);
             if (toMm <= fromMm) return null;
             const color = highlighted ? '#ff3b30' : segment.color;
             const strokeWidth = (highlighted ? top.widthMm + 2 : top.widthMm) * mmToSvg;
-            return top.direction === 'warp'
-              ? <line key={index} x1={top.axisMm * mmToSvg} x2={top.axisMm * mmToSvg}
-                  y1={(top.startMm.y + fromMm) * mmToSvg} y2={(top.startMm.y + toMm) * mmToSvg}
-                  stroke={color} strokeWidth={strokeWidth} />
-              : <line key={index} y1={top.axisMm * mmToSvg} y2={top.axisMm * mmToSvg}
-                  x1={(top.startMm.x + fromMm) * mmToSvg} x2={(top.startMm.x + toMm) * mmToSvg}
-                  stroke={color} strokeWidth={strokeWidth} />;
+            const coordinates = top.direction === 'warp'
+              ? { x1: top.axisMm * mmToSvg, x2: top.axisMm * mmToSvg, y1: (top.startMm.y + fromMm) * mmToSvg, y2: (top.startMm.y + toMm) * mmToSvg }
+              : { y1: top.axisMm * mmToSvg, y2: top.axisMm * mmToSvg, x1: (top.startMm.x + fromMm) * mmToSvg, x2: (top.startMm.x + toMm) * mmToSvg };
+            const highlightCoordinates = top.direction === 'warp'
+              ? { ...coordinates, x1: coordinates.x1 - .45 * mmToSvg, x2: coordinates.x2 - .45 * mmToSvg }
+              : { ...coordinates, y1: coordinates.y1 - .45 * mmToSvg, y2: coordinates.y2 - .45 * mmToSvg };
+            return <g key={index}>
+              <line {...coordinates} stroke="#cfb98f" strokeWidth={strokeWidth + 3.2} />
+              <line {...coordinates} stroke="#2f2117" strokeOpacity=".55" strokeWidth={strokeWidth + 1.5}
+                filter={`url(#weave-shadow-${snapshot.designRevision})`} />
+              <line {...coordinates} className="weave-top" stroke={color} strokeWidth={strokeWidth} />
+              <line {...highlightCoordinates} stroke="#fff8e8" strokeOpacity=".28" strokeWidth={Math.max(0.6, mmToSvg * .35)} />
+            </g>;
           })}
         </g>;
       })}
