@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640">
+  <defs>
+    <pattern id="weave" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#d7b477"/>
+      <rect x="0" y="0" width="16" height="40" fill="#6d4b27"/>
+      <rect x="20" y="0" width="16" height="40" fill="#6d4b27"/>
+      <rect x="0" y="2" width="40" height="14" fill="#b98b4c" stroke="#f3d59b" stroke-width="2"/>
+      <rect x="0" y="22" width="40" height="14" fill="#b98b4c" stroke="#f3d59b" stroke-width="2"/>
+      <rect x="0" y="2" width="16" height="14" fill="#6d4b27"/>
+      <rect x="20" y="22" width="16" height="14" fill="#6d4b27"/>
+    </pattern>
+    <clipPath id="fan"><circle cx="350" cy="315" r="250"/></clipPath>
+  </defs>
+  <rect width="900" height="640" fill="#f7f2e8"/>
+  <rect x="80" y="45" width="540" height="540" fill="url(#weave)" clip-path="url(#fan)"/>
+  <circle cx="350" cy="315" r="250" fill="none" stroke="#a8733c" stroke-width="12"/>
+  <circle cx="350" cy="315" r="210" fill="none" stroke="#d14d3f" stroke-width="4" stroke-dasharray="12 10"/>
+  <path d="M350 155 L265 430 L435 430 Z" fill="#c8533b" fill-opacity=".58"/>
+  <text x="655" y="150" font-size="28" font-family="Microsoft YaHei">正式外轮廓</text>
+  <path d="M635 155 L585 175" stroke="#a8733c" stroke-width="4"/>
+  <text x="655" y="265" font-size="28" font-family="Microsoft YaHei">外侧基础竹编区</text>
+  <text x="655" y="303" font-size="20" font-family="Microsoft YaHei" fill="#555">编法、编号和节距连续</text>
+  <path d="M635 270 L560 285" stroke="#333" stroke-width="4"/>
+  <text x="655" y="390" font-size="28" font-family="Microsoft YaHei">有效图样区</text>
+  <path d="M635 395 L535 390" stroke="#d14d3f" stroke-width="4"/>
+  <text x="80" y="620" font-size="22" font-family="Microsoft YaHei">正确：基础竹编覆盖完整毛坯并裁切到外轮廓；虚线只限制用户图案，不截断竹篾。</text>
+</svg>

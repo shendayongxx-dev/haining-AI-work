@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "unit": "mm",
   "weaves": [
     {
@@ -47,5 +47,11 @@
     }
   ],
   "stripFields": ["stripId", "direction", "order", "widthMm", "thicknessMm", "color", "lengthMm", "crossings"],
-  "resultFields": ["designVersion", "craftRuleVersion", "carrierId", "boundaryId"]
+  "generationPipeline": {
+    "stage1": "rawBlank",
+    "stage2": "trimmedProduct",
+    "patternScope": "effectivePatternBoundary",
+    "outerBaseWeaveRule": "Continue the same base weave from the effective pattern boundary to the formal carrier boundary; preserve strip IDs, pitch and crossing phase."
+  },
+  "resultFields": ["designVersion", "craftRuleVersion", "carrierId", "boundaryId", "rawBlank", "trimmedProduct", "outerBaseWeaveZone"]
 }
