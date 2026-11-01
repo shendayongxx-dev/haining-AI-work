@@ -14,9 +14,19 @@
       "details": "169/169 个毛坯交点。"
     },
     {
+      "id": "weave-matrix-exact",
+      "pass": true,
+      "details": "全部交点的 topStripId 与 SQUARE-HOLE-1X1-V1 权威循环矩阵一致。"
+    },
+    {
       "id": "weaving-order-links",
       "pass": true,
       "details": "169 条操作均关联交点、工作条与挑压动作。"
+    },
+    {
+      "id": "weaving-order-sequence",
+      "pass": true,
+      "details": "每根纬条的操作按经条顺序完整排列，可直接分组生成逐条编织步骤。"
     },
     {
       "id": "visible-segment-backlinks",

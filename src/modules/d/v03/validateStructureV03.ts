@@ -1,4 +1,5 @@
 import type { StructureSnapshotV03 } from './types';
+import weaveSpecJson from '../../../../data/WEAVE_SPEC_V1_2.json';
 
 export type ValidationCheck = { id: string; pass: boolean; details: string };
 export type ValidationReportV03 = { caseId: string; checkedAt: string; pass: boolean; checks: ValidationCheck[] };
@@ -46,6 +47,19 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
     return crossing && crossing.weftStripId === operation.workingStripId && crossing.warpStripId === operation.referenceStripId
       && (operation.action === 'over') === (crossing.topStripId === operation.workingStripId);
   });
+  const weave = weaveSpecJson.weaves.find(value => value.weaveId === snapshot.weaveId);
+  const matrixExact = Boolean(weave) && crossings.every(crossing => {
+    const warpIndex = Number(crossing.warpStripId.slice(1)) - 1;
+    const weftIndex = Number(crossing.weftStripId.slice(1)) - 1;
+    const expectedTop = weave!.topLayerMatrix[weftIndex % weave!.topLayerMatrix.length][warpIndex % weave!.topLayerMatrix[0].length] === 'W'
+      ? crossing.weftStripId : crossing.warpStripId;
+    return crossing.topStripId === expectedTop;
+  });
+  const operationSequence = Array.from({ length: snapshot.grid.weftCount }, (_, index) => `H${String(index + 1).padStart(3, '0')}`).every(stripId => {
+    const stripOperations = operations.filter(operation => operation.workingStripId === stripId);
+    return stripOperations.length === snapshot.grid.warpCount
+      && stripOperations.every((operation, index) => operation.step === Number(stripId.slice(1)) && operation.crossingSequence === index + 1);
+  });
   const nullableMaterials = strips.every(strip => strip.stockLengthMm === null && strip.setupAllowanceMm === null && strip.trimWasteLengthMm === null);
   const boundary = snapshot.carrierGeometry.boundary as Shape;
   const boundaryEndpoints = strips.every(strip => strip.visibleSegments.every(segment => pointOnBoundary(segment.startMm, boundary) && pointOnBoundary(segment.endMm, boundary)));
@@ -55,7 +69,9 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
   const checks: ValidationCheck[] = [
     { id: 'source-key-complete', pass: sourceKey, details: '完整来源键与快照顶层字段一致。' },
     { id: 'crossing-matrix-count', pass: crossings.length === expected, details: `${crossings.length}/${expected} 个毛坯交点。` },
+    { id: 'weave-matrix-exact', pass: matrixExact, details: `全部交点的 topStripId 与 ${snapshot.weaveId} 权威循环矩阵一致。` },
     { id: 'weaving-order-links', pass: Boolean(operationLinks), details: `${operations.length} 条操作均关联交点、工作条与挑压动作。` },
+    { id: 'weaving-order-sequence', pass: operationSequence, details: '每根纬条的操作按经条顺序完整排列，可直接分组生成逐条编织步骤。' },
     { id: 'visible-segment-backlinks', pass: crossingBacklinks, details: `${visible.length} 个裁切后可见交点具有双向 segmentId/crossingId 引用。` },
     { id: 'color-segment-coverage', pass: colorCoverage, details: '颜色段连续覆盖全部可见段，坐标为原竹条毛坯起点偏移。' },
     { id: 'boundary-clipping-endpoints', pass: boundaryEndpoints, details: '全部可见段端点位于载体边界，未发现整页直条残留。' },

@@ -6,6 +6,15 @@ type Shape = { type: 'circle'; cx: number; cy: number; r: number }
   | { type: 'polygon'; pointsMm: number[][] };
 
 const esc = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
+function directionalShade(color: string, direction: StripV03['direction']) {
+  const match = color.match(/^#([0-9a-f]{6})$/i);
+  if (!match) return color;
+  const amount = direction === 'warp' ? 12 : -8;
+  const value = Number.parseInt(match[1], 16);
+  const channels = [value >> 16, (value >> 8) & 255, value & 255]
+    .map(channel => Math.max(0, Math.min(255, channel + amount)).toString(16).padStart(2, '0'));
+  return `#${channels.join('')}`;
+}
 const shape = (value: Shape, attributes: string) => value.type === 'circle'
   ? `<circle cx="${value.cx}" cy="${value.cy}" r="${value.r}" ${attributes}/>`
   : value.type === 'ellipse'
@@ -19,7 +28,7 @@ function colorAt(strip: StripV03, point: PointMm) {
   for (const segment of strip.visibleSegments) {
     const color = segment.colorSegments.find((entry, index, all) => offset >= entry.stripOffsetStartMm - .01
       && (offset < entry.stripOffsetEndMm - .01 || (index === all.length - 1 && offset <= entry.stripOffsetEndMm + .01)));
-    if (color) return color.color;
+    if (color) return directionalShade(color.color, strip.direction);
   }
   return '#D9BC83';
 }
@@ -29,7 +38,7 @@ function line(strip: StripV03, start: PointMm, end: PointMm, color: string, extr
 }
 
 function topPatch(strip: StripV03, start: PointMm, end: PointMm, color: string) {
-  return `${line({ ...strip, widthMm: strip.widthMm + 1.2 }, start, end, '#5b4225', 'opacity="0.42"')}
+  return `${line({ ...strip, widthMm: strip.widthMm + .65 }, start, end, '#4b351d', 'opacity="0.22"')}
 ${line(strip, start, end, color, 'filter="url(#lift)"')}`;
 }
 
@@ -44,7 +53,7 @@ export function renderStructureSvg(snapshot: StructureSnapshotV03) {
     const endCoordinate = rawStart + color.stripOffsetEndMm;
     const start = strip.direction === 'warp' ? { x: strip.axisMm, y: startCoordinate } : { x: startCoordinate, y: strip.axisMm };
     const end = strip.direction === 'warp' ? { x: strip.axisMm, y: endCoordinate } : { x: endCoordinate, y: strip.axisMm };
-    return line(strip, start, end, color.color, 'opacity="0.96"');
+    return line(strip, start, end, directionalShade(color.color, strip.direction));
   }))).join('\n');
   const patches = snapshot.stages.rawBlank.crossings.filter(crossing => crossing.trimmedProduct.visible).map(crossing => {
     const strip = stripMap.get(crossing.topStripId);
