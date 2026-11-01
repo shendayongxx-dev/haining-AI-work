@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.3",
-  "structureGeneratorVersion": "D-STRUCTURE-v0.3.0",
+  "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
   "designId": "design-fan-green-triangle-001-octagon-square-hole",
   "generatedFromRevision": 1,
   "carrierId": "FAN-OCTAGON-170-V1",
@@ -13,7 +13,7 @@
   "physicalValidation": "not-completed",
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.0",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
     "designId": "design-fan-green-triangle-001-octagon-square-hole",
     "generatedFromRevision": 1,
     "carrierId": "FAN-OCTAGON-170-V1",
@@ -1027,6 +1027,7 @@
               "stripOffsetEndMm": 169.5,
               "lengthMm": 150,
               "crossingIds": [
+                "X-V010-H002",
                 "X-V010-H003",
                 "X-V010-H004",
                 "X-V010-H005",
@@ -1035,7 +1036,8 @@
                 "X-V010-H008",
                 "X-V010-H009",
                 "X-V010-H010",
-                "X-V010-H011"
+                "X-V010-H011",
+                "X-V010-H012"
               ],
               "colorSegments": [
                 {
@@ -1109,13 +1111,15 @@
               "stripOffsetEndMm": 154.5,
               "lengthMm": 120,
               "crossingIds": [
+                "X-V011-H003",
                 "X-V011-H004",
                 "X-V011-H005",
                 "X-V011-H006",
                 "X-V011-H007",
                 "X-V011-H008",
                 "X-V011-H009",
-                "X-V011-H010"
+                "X-V011-H010",
+                "X-V011-H011"
               ],
               "colorSegments": [
                 {
@@ -1189,15 +1193,35 @@
               "stripOffsetEndMm": 139.5,
               "lengthMm": 90,
               "crossingIds": [
+                "X-V012-H004",
                 "X-V012-H005",
                 "X-V012-H006",
                 "X-V012-H007",
                 "X-V012-H008",
-                "X-V012-H009"
+                "X-V012-H009",
+                "X-V012-H010"
               ],
               "colorSegments": [
                 {
                   "stripOffsetStartMm": 49.5,
+                  "stripOffsetEndMm": 63.5,
+                  "scope": "outer-base",
+                  "color": "#D9BC83",
+                  "paletteId": null,
+                  "sourceElementId": null,
+                  "sourceInputId": null
+                },
+                {
+                  "stripOffsetStartMm": 63.5,
+                  "stripOffsetEndMm": 125.5,
+                  "scope": "base",
+                  "color": "#D9BC83",
+                  "paletteId": null,
+                  "sourceElementId": null,
+                  "sourceInputId": null
+                },
+                {
+                  "stripOffsetStartMm": 125.5,
                   "stripOffsetEndMm": 139.5,
                   "scope": "outer-base",
                   "color": "#D9BC83",
@@ -1306,7 +1330,8 @@
                 "X-V006-H002",
                 "X-V007-H002",
                 "X-V008-H002",
-                "X-V009-H002"
+                "X-V009-H002",
+                "X-V010-H002"
               ],
               "colorSegments": [
                 {
@@ -1387,7 +1412,8 @@
                 "X-V007-H003",
                 "X-V008-H003",
                 "X-V009-H003",
-                "X-V010-H003"
+                "X-V010-H003",
+                "X-V011-H003"
               ],
               "colorSegments": [
                 {
@@ -1470,7 +1496,8 @@
                 "X-V008-H004",
                 "X-V009-H004",
                 "X-V010-H004",
-                "X-V011-H004"
+                "X-V011-H004",
+                "X-V012-H004"
               ],
               "colorSegments": [
                 {
@@ -1883,7 +1910,7 @@
                 },
                 {
                   "stripOffsetStartMm": 68,
-                  "stripOffsetEndMm": 120.5,
+                  "stripOffsetEndMm": 121,
                   "scope": "motif",
                   "color": "#315F3A",
                   "paletteId": "green-01",
@@ -1891,7 +1918,7 @@
                   "sourceInputId": "stroke-green-triangle-001"
                 },
                 {
-                  "stripOffsetStartMm": 120.5,
+                  "stripOffsetStartMm": 121,
                   "stripOffsetEndMm": 169.5,
                   "scope": "base",
                   "color": "#D9BC83",
@@ -2063,7 +2090,8 @@
                 "X-V008-H010",
                 "X-V009-H010",
                 "X-V010-H010",
-                "X-V011-H010"
+                "X-V011-H010",
+                "X-V012-H010"
               ],
               "colorSegments": [
                 {
@@ -2144,7 +2172,8 @@
                 "X-V007-H011",
                 "X-V008-H011",
                 "X-V009-H011",
-                "X-V010-H011"
+                "X-V010-H011",
+                "X-V011-H011"
               ],
               "colorSegments": [
                 {
@@ -2223,11 +2252,30 @@
                 "X-V006-H012",
                 "X-V007-H012",
                 "X-V008-H012",
-                "X-V009-H012"
+                "X-V009-H012",
+                "X-V010-H012"
               ],
               "colorSegments": [
                 {
                   "stripOffsetStartMm": 49.5,
+                  "stripOffsetEndMm": 63.5,
+                  "scope": "outer-base",
+                  "color": "#D9BC83",
+                  "paletteId": null,
+                  "sourceElementId": null,
+                  "sourceInputId": null
+                },
+                {
+                  "stripOffsetStartMm": 63.5,
+                  "stripOffsetEndMm": 125.5,
+                  "scope": "base",
+                  "color": "#D9BC83",
+                  "paletteId": null,
+                  "sourceElementId": null,
+                  "sourceInputId": null
+                },
+                {
+                  "stripOffsetStartMm": 125.5,
                   "stripOffsetEndMm": 139.5,
                   "scope": "outer-base",
                   "color": "#D9BC83",
@@ -2637,7 +2685,7 @@
           "topStripId": "H002",
           "rawBlank": true,
           "trimmedProduct": {
-            "visible": false
+            "visible": true
           }
         },
         {
@@ -2861,7 +2909,7 @@
           "topStripId": "H003",
           "rawBlank": true,
           "trimmedProduct": {
-            "visible": false
+            "visible": true
           }
         },
         {
@@ -3085,7 +3133,7 @@
           "topStripId": "H004",
           "rawBlank": true,
           "trimmedProduct": {
-            "visible": false
+            "visible": true
           }
         },
         {
@@ -4333,7 +4381,7 @@
           "topStripId": "H010",
           "rawBlank": true,
           "trimmedProduct": {
-            "visible": false
+            "visible": true
           }
         },
         {
@@ -4525,7 +4573,7 @@
           "topStripId": "H011",
           "rawBlank": true,
           "trimmedProduct": {
-            "visible": false
+            "visible": true
           }
         },
         {
@@ -4717,7 +4765,7 @@
           "topStripId": "H012",
           "rawBlank": true,
           "trimmedProduct": {
-            "visible": false
+            "visible": true
           }
         },
         {
@@ -5410,7 +5458,7 @@
             "y": 35
           },
           "trimmedProduct": {
-            "visible": false,
+            "visible": true,
             "workingSegmentId": "H002-S01",
             "referenceSegmentId": "V010-S01"
           }
@@ -5676,7 +5724,7 @@
             "y": 50
           },
           "trimmedProduct": {
-            "visible": false,
+            "visible": true,
             "workingSegmentId": "H003-S01",
             "referenceSegmentId": "V011-S01"
           }
@@ -5942,7 +5990,7 @@
             "y": 65
           },
           "trimmedProduct": {
-            "visible": false,
+            "visible": true,
             "workingSegmentId": "H004-S01",
             "referenceSegmentId": "V012-S01"
           }
@@ -7424,7 +7472,7 @@
             "y": 155
           },
           "trimmedProduct": {
-            "visible": false,
+            "visible": true,
             "workingSegmentId": "H010-S01",
             "referenceSegmentId": "V012-S01"
           }
@@ -7652,7 +7700,7 @@
             "y": 170
           },
           "trimmedProduct": {
-            "visible": false,
+            "visible": true,
             "workingSegmentId": "H011-S01",
             "referenceSegmentId": "V011-S01"
           }
@@ -7880,7 +7928,7 @@
             "y": 185
           },
           "trimmedProduct": {
-            "visible": false,
+            "visible": true,
             "workingSegmentId": "H012-S01",
             "referenceSegmentId": "V010-S01"
           }
@@ -9089,6 +9137,7 @@
               "stripOffsetEndMm": 169.5,
               "lengthMm": 150,
               "crossingIds": [
+                "X-V010-H002",
                 "X-V010-H003",
                 "X-V010-H004",
                 "X-V010-H005",
@@ -9097,7 +9146,8 @@
                 "X-V010-H008",
                 "X-V010-H009",
                 "X-V010-H010",
-                "X-V010-H011"
+                "X-V010-H011",
+                "X-V010-H012"
               ],
               "colorSegments": [
                 {
@@ -9171,13 +9221,15 @@
               "stripOffsetEndMm": 154.5,
               "lengthMm": 120,
               "crossingIds": [
+                "X-V011-H003",
                 "X-V011-H004",
                 "X-V011-H005",
                 "X-V011-H006",
                 "X-V011-H007",
                 "X-V011-H008",
                 "X-V011-H009",
-                "X-V011-H010"
+                "X-V011-H010",
+                "X-V011-H011"
               ],
               "colorSegments": [
                 {
@@ -9251,15 +9303,35 @@
               "stripOffsetEndMm": 139.5,
               "lengthMm": 90,
               "crossingIds": [
+                "X-V012-H004",
                 "X-V012-H005",
                 "X-V012-H006",
                 "X-V012-H007",
                 "X-V012-H008",
-                "X-V012-H009"
+                "X-V012-H009",
+                "X-V012-H010"
               ],
               "colorSegments": [
                 {
                   "stripOffsetStartMm": 49.5,
+                  "stripOffsetEndMm": 63.5,
+                  "scope": "outer-base",
+                  "color": "#D9BC83",
+                  "paletteId": null,
+                  "sourceElementId": null,
+                  "sourceInputId": null
+                },
+                {
+                  "stripOffsetStartMm": 63.5,
+                  "stripOffsetEndMm": 125.5,
+                  "scope": "base",
+                  "color": "#D9BC83",
+                  "paletteId": null,
+                  "sourceElementId": null,
+                  "sourceInputId": null
+                },
+                {
+                  "stripOffsetStartMm": 125.5,
                   "stripOffsetEndMm": 139.5,
                   "scope": "outer-base",
                   "color": "#D9BC83",
@@ -9368,7 +9440,8 @@
                 "X-V006-H002",
                 "X-V007-H002",
                 "X-V008-H002",
-                "X-V009-H002"
+                "X-V009-H002",
+                "X-V010-H002"
               ],
               "colorSegments": [
                 {
@@ -9449,7 +9522,8 @@
                 "X-V007-H003",
                 "X-V008-H003",
                 "X-V009-H003",
-                "X-V010-H003"
+                "X-V010-H003",
+                "X-V011-H003"
               ],
               "colorSegments": [
                 {
@@ -9532,7 +9606,8 @@
                 "X-V008-H004",
                 "X-V009-H004",
                 "X-V010-H004",
-                "X-V011-H004"
+                "X-V011-H004",
+                "X-V012-H004"
               ],
               "colorSegments": [
                 {
@@ -9945,7 +10020,7 @@
                 },
                 {
                   "stripOffsetStartMm": 68,
-                  "stripOffsetEndMm": 120.5,
+                  "stripOffsetEndMm": 121,
                   "scope": "motif",
                   "color": "#315F3A",
                   "paletteId": "green-01",
@@ -9953,7 +10028,7 @@
                   "sourceInputId": "stroke-green-triangle-001"
                 },
                 {
-                  "stripOffsetStartMm": 120.5,
+                  "stripOffsetStartMm": 121,
                   "stripOffsetEndMm": 169.5,
                   "scope": "base",
                   "color": "#D9BC83",
@@ -10125,7 +10200,8 @@
                 "X-V008-H010",
                 "X-V009-H010",
                 "X-V010-H010",
-                "X-V011-H010"
+                "X-V011-H010",
+                "X-V012-H010"
               ],
               "colorSegments": [
                 {
@@ -10206,7 +10282,8 @@
                 "X-V007-H011",
                 "X-V008-H011",
                 "X-V009-H011",
-                "X-V010-H011"
+                "X-V010-H011",
+                "X-V011-H011"
               ],
               "colorSegments": [
                 {
@@ -10285,11 +10362,30 @@
                 "X-V006-H012",
                 "X-V007-H012",
                 "X-V008-H012",
-                "X-V009-H012"
+                "X-V009-H012",
+                "X-V010-H012"
               ],
               "colorSegments": [
                 {
                   "stripOffsetStartMm": 49.5,
+                  "stripOffsetEndMm": 63.5,
+                  "scope": "outer-base",
+                  "color": "#D9BC83",
+                  "paletteId": null,
+                  "sourceElementId": null,
+                  "sourceInputId": null
+                },
+                {
+                  "stripOffsetStartMm": 63.5,
+                  "stripOffsetEndMm": 125.5,
+                  "scope": "base",
+                  "color": "#D9BC83",
+                  "paletteId": null,
+                  "sourceElementId": null,
+                  "sourceInputId": null
+                },
+                {
+                  "stripOffsetStartMm": 125.5,
                   "stripOffsetEndMm": 139.5,
                   "scope": "outer-base",
                   "color": "#D9BC83",
@@ -10340,6 +10436,7 @@
         "X-V007-H002",
         "X-V008-H002",
         "X-V009-H002",
+        "X-V010-H002",
         "X-V003-H003",
         "X-V004-H003",
         "X-V005-H003",
@@ -10348,6 +10445,7 @@
         "X-V008-H003",
         "X-V009-H003",
         "X-V010-H003",
+        "X-V011-H003",
         "X-V002-H004",
         "X-V003-H004",
         "X-V004-H004",
@@ -10358,6 +10456,7 @@
         "X-V009-H004",
         "X-V010-H004",
         "X-V011-H004",
+        "X-V012-H004",
         "X-V002-H005",
         "X-V003-H005",
         "X-V004-H005",
@@ -10423,6 +10522,7 @@
         "X-V009-H010",
         "X-V010-H010",
         "X-V011-H010",
+        "X-V012-H010",
         "X-V003-H011",
         "X-V004-H011",
         "X-V005-H011",
@@ -10431,12 +10531,14 @@
         "X-V008-H011",
         "X-V009-H011",
         "X-V010-H011",
+        "X-V011-H011",
         "X-V004-H012",
         "X-V005-H012",
         "X-V006-H012",
         "X-V007-H012",
         "X-V008-H012",
-        "X-V009-H012"
+        "X-V009-H012",
+        "X-V010-H012"
       ]
     }
   },

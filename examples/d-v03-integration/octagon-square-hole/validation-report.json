@@ -31,7 +31,22 @@
     {
       "id": "visible-segment-backlinks",
       "pass": true,
-      "details": "103 个裁切后可见交点具有双向 segmentId/crossingId 引用。"
+      "details": "109 个裁切后可见交点具有双向 segmentId/crossingId 引用。"
+    },
+    {
+      "id": "invisible-segment-refs-cleared",
+      "pass": true,
+      "details": "全部 visible=false 交点的成品 segmentId 均为 null。"
+    },
+    {
+      "id": "weaving-order-trimmed-refs",
+      "pass": true,
+      "details": "weavingOrder 的可见状态与两个成品段引用一致。"
+    },
+    {
+      "id": "visible-crossing-ids-exact",
+      "pass": true,
+      "details": "visibleCrossingIds 与 crossings.visible=true 集合完全一致。"
     },
     {
       "id": "color-segment-coverage",

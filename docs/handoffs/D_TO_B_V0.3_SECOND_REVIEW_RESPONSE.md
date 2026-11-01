@@ -58,7 +58,7 @@ D 已接受 B 组第二轮 `changes-requested`，并完成以下修订。
 ```json
 {
   "schemaVersion": "0.3",
-  "structureGeneratorVersion": "D-STRUCTURE-v0.3.0"
+  "structureGeneratorVersion": "D-STRUCTURE-v0.3.1"
 }
 ```
 

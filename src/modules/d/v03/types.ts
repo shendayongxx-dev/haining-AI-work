@@ -101,7 +101,7 @@ export type EngineeringWarningV03 = {
 
 export type StructureSnapshotV03 = {
   schemaVersion: '0.3';
-  structureGeneratorVersion: 'D-STRUCTURE-v0.3.0';
+  structureGeneratorVersion: 'D-STRUCTURE-v0.3.1';
   designId: string;
   generatedFromRevision: number;
   confirmedGenerationId: string;
@@ -114,7 +114,7 @@ export type StructureSnapshotV03 = {
   physicalValidation: 'not-completed';
   sourceKey: {
     schemaVersion: '0.3';
-    structureGeneratorVersion: 'D-STRUCTURE-v0.3.0';
+    structureGeneratorVersion: 'D-STRUCTURE-v0.3.1';
     designId: string;
     generatedFromRevision: number;
     carrierId: CarrierId;
