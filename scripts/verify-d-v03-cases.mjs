@@ -15,6 +15,10 @@ for (const name of cases) {
     snapshot.stages.rawBlank.strips === undefined && snapshot.stages.trimmedProduct.strips === undefined,
     snapshot.stages.rawBlank.stripIds.length === snapshot.strips.length,
     snapshot.stages.rawBlank.stripIds.every((stripId, index) => stripId === snapshot.strips[index].stripId),
+    snapshot.confirmedGenerationId === snapshot.creativeSource.confirmedGenerationId,
+    snapshot.creativeSource.resultType === 'surface_pattern',
+    snapshot.creativeSource.resultId === snapshot.sourcePattern.patternId,
+    Array.isArray(snapshot.creativeSource.generationIssues),
     snapshot.engineeringWarnings.every(warning => warning.status === 'pending'),
     matrix.length === snapshot.grid.weftCount + 1 && matrix.every(row => row.split(',').length === snapshot.grid.warpCount + 1),
     snapshot.stages.rawBlank.crossings.filter(crossing => !crossing.trimmedProduct.visible)

@@ -14,6 +14,16 @@
       "details": "designRevision 与 generatedFromRevision 一致。"
     },
     {
+      "id": "creative-source-complete",
+      "pass": true,
+      "details": "C 确认生成、生成版本、适配器版本、输入版本和 patternId 可独立追溯。"
+    },
+    {
+      "id": "upstream-generation-domain",
+      "pass": true,
+      "details": "C generationIssues 保存在 creativeSource 中，未混入 D engineeringWarnings。"
+    },
+    {
       "id": "canonical-strips-unique",
       "pass": true,
       "details": "顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。"

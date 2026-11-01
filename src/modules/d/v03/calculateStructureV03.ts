@@ -26,6 +26,19 @@ const round = (value: number) => Math.round(value * 100) / 100;
 const pad = (value: number) => String(value).padStart(3, '0');
 const mmDistance = (a: PointMm, b: PointMm) => Math.hypot(a.x - b.x, a.y - b.y);
 
+function cloneSurfacePattern(pattern: SurfacePattern): SurfacePattern {
+  return {
+    ...pattern,
+    coordinateSpace: { ...pattern.coordinateSpace },
+    palette: pattern.palette.map(entry => ({ ...entry })),
+    elements: pattern.elements.map(entry => ({
+      ...entry,
+      pointsMm: entry.pointsMm.map(point => ({ ...point })),
+    })),
+    transform: { ...pattern.transform, offsetMm: { ...pattern.transform.offsetMm } },
+  };
+}
+
 function carrierById(id: CarrierId) {
   const value = carrierSpec.carriers.find(entry => entry.carrierId === id);
   if (!value) throw new Error(`Unsupported carrierId: ${id}`);
@@ -305,20 +318,26 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
   }
   const warnings = [...warningForHandle(input, carrier, crossings), ...edgeWarnings(input, strips, pitchMm)];
   const sourceKey = {
-    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.2' as const,
+    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.3' as const,
     designId: input.designId, designRevision: input.designRevision, generatedFromRevision: input.designRevision, carrierId: input.carrierId,
     carrierSpecVersion: 'CARRIER-SPEC-v1.2' as const, weaveId: input.weaveId,
     weaveSpecVersion: 'WEAVE-SPEC-v1.2' as const, craftRuleVersion: weave.craftRuleVersion,
   };
   return {
     ...sourceKey,
-    confirmedGenerationId: input.confirmedGenerationId,
-    structuralValidation: { status: 'passed' as const, validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.2' as const },
+    confirmedGenerationId: input.creativeSource.confirmedGenerationId,
+    structuralValidation: { status: 'passed' as const, validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.3' as const },
     craftValidation: { status: 'pending' as const, owner: 'E' as const },
     physicalValidation: { status: 'not-completed' as const, owner: 'B' as const },
     sourceKey,
+    creativeSource: {
+      ...input.creativeSource,
+      resultType: 'surface_pattern' as const,
+      resultId: input.pattern.patternId,
+      generationIssues: input.creativeSource.generationIssues.map(issue => ({ ...issue })),
+    },
     strips,
-    sourcePattern: input.pattern, coordinateSpace: { widthMm: 210, heightMm: 297, origin: 'top-left', xAxis: 'right', yAxis: 'down' },
+    sourcePattern: cloneSurfacePattern(input.pattern), coordinateSpace: { widthMm: 210, heightMm: 297, origin: 'top-left', xAxis: 'right', yAxis: 'down' },
     carrierGeometry: { boundary: carrier.boundary, effectivePatternBoundary: carrier.effectivePatternBoundary, handleExclusion: carrier.handleExclusion },
     outerBaseWeaveZone: {
       operation: 'boundary-minus-effectivePatternBoundary', baseWeaveRequired: true,

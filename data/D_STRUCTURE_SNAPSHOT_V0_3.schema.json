@@ -1,20 +1,21 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "D_STRUCTURE_SNAPSHOT_V0_3.schema.json",
-  "title": "D Structure Snapshot v0.3.2",
+  "title": "D Structure Snapshot v0.3.3",
   "type": "object",
   "additionalProperties": true,
   "required": [
-    "schemaVersion", "structureGeneratorVersion", "designId", "designRevision", "generatedFromRevision",
-    "carrierId", "carrierSpecVersion", "weaveId", "weaveSpecVersion", "craftRuleVersion", "sourceKey",
+    "schemaVersion", "structureGeneratorVersion", "designId", "designRevision", "generatedFromRevision", "confirmedGenerationId",
+    "carrierId", "carrierSpecVersion", "weaveId", "weaveSpecVersion", "craftRuleVersion", "sourceKey", "creativeSource", "sourcePattern",
     "structuralValidation", "craftValidation", "physicalValidation", "strips", "stages"
   ],
   "properties": {
     "schemaVersion": { "const": "0.3" },
-    "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.2" },
+    "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.3" },
     "designId": { "type": "string", "minLength": 1 },
     "designRevision": { "type": "integer", "minimum": 0 },
     "generatedFromRevision": { "type": "integer", "minimum": 0 },
+    "confirmedGenerationId": { "type": "string", "minLength": 1 },
     "carrierId": { "type": "string", "minLength": 1 },
     "carrierSpecVersion": { "type": "string", "minLength": 1 },
     "weaveId": { "type": "string", "minLength": 1 },
@@ -29,7 +30,7 @@
       ],
       "properties": {
         "schemaVersion": { "const": "0.3" },
-        "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.2" },
+        "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.3" },
         "designId": { "type": "string" },
         "designRevision": { "type": "integer" },
         "generatedFromRevision": { "type": "integer" },
@@ -46,7 +47,7 @@
       "required": ["status", "validatorVersion"],
       "properties": {
         "status": { "const": "passed" },
-        "validatorVersion": { "const": "D-STRUCTURE-VALIDATOR-v0.3.2" }
+        "validatorVersion": { "const": "D-STRUCTURE-VALIDATOR-v0.3.3" }
       }
     },
     "craftValidation": {
@@ -60,6 +61,35 @@
       "additionalProperties": false,
       "required": ["status", "owner"],
       "properties": { "status": { "const": "not-completed" }, "owner": { "const": "B" } }
+    },
+    "creativeSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "confirmedGenerationId", "generationRevision", "generatorVersion", "inputVersionId",
+        "resultType", "resultId", "generationIssues"
+      ],
+      "properties": {
+        "confirmedGenerationId": { "type": "string", "minLength": 1 },
+        "generationRevision": { "type": "integer", "minimum": 1 },
+        "generatorVersion": { "type": "string", "minLength": 1 },
+        "inputVersionId": { "type": "string", "minLength": 1 },
+        "resultType": { "const": "surface_pattern" },
+        "resultId": { "type": "string", "minLength": 1 },
+        "generationIssues": { "type": "array", "items": { "$ref": "#/$defs/generationIssue" } }
+      }
+    },
+    "sourcePattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["patternId", "coordinateSpace", "palette", "elements", "transform"],
+      "properties": {
+        "patternId": { "type": "string", "minLength": 1 },
+        "coordinateSpace": { "type": "object" },
+        "palette": { "type": "array", "items": { "type": "object" } },
+        "elements": { "type": "array", "items": { "type": "object" } },
+        "transform": { "type": "object" }
+      }
     },
     "strips": {
       "type": "array",
@@ -96,6 +126,19 @@
     }
   },
   "$defs": {
+    "generationIssue": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "code", "severity", "stage", "message", "generatorVersion"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "code": { "type": "string", "minLength": 1 },
+        "severity": { "enum": ["info", "warning", "blocking"] },
+        "stage": { "enum": ["input", "translation", "geometry"] },
+        "message": { "type": "string" },
+        "generatorVersion": { "type": "string", "minLength": 1 }
+      }
+    },
     "point": {
       "type": "object",
       "additionalProperties": false,

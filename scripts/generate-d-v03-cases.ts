@@ -4,18 +4,26 @@ import { calculateStructureV03 } from '../src/modules/d/v03/calculateStructureV0
 import { renderStructureSvg } from '../src/modules/d/v03/renderStructureSvg';
 import { validateStructureV03 } from '../src/modules/d/v03/validateStructureV03';
 import type { SurfacePattern } from '../src/modules/d/types';
+import type { GenerationIssue } from '../src/model';
 import type { CarrierId, WeaveId } from '../src/modules/d/v03/types';
 
 type ConfirmedDesign = {
   designId: string;
   designRevision: number;
   confirmedGenerationId: string;
-  generation: { result: SurfacePattern };
+  generation: {
+    generationId: string;
+    generationRevision: number;
+    inputVersionId: string;
+    generatorVersion: string;
+    issues: GenerationIssue[];
+    result: SurfacePattern & { resultType: 'surface_pattern' };
+  };
 };
 
 const root = process.cwd();
 const source = JSON.parse(readFileSync(join(root, 'examples/a-to-d/fan-green-triangle.confirmed-design.json'), 'utf8')) as ConfirmedDesign;
-const pattern = source.generation.result;
+const { resultType: _resultType, ...pattern } = source.generation.result;
 const outputRoot = join(root, 'examples/d-v03-integration');
 const cases: { slug: string; carrierId: CarrierId; weaveId: WeaveId }[] = [
   { slug: 'round-cross-course', carrierId: 'FAN-ROUND-170-V1', weaveId: 'CROSS-COURSE-2X2-V1' },
@@ -30,7 +38,13 @@ for (const entry of cases) {
   const snapshot = calculateStructureV03({
     designId: `${source.designId}-${entry.slug}`,
     designRevision: source.designRevision,
-    confirmedGenerationId: source.confirmedGenerationId,
+    creativeSource: {
+      confirmedGenerationId: source.confirmedGenerationId,
+      generationRevision: source.generation.generationRevision,
+      generatorVersion: source.generation.generatorVersion,
+      inputVersionId: source.generation.inputVersionId,
+      generationIssues: source.generation.issues,
+    },
     carrierId: entry.carrierId,
     weaveId: entry.weaveId,
     pattern,
@@ -96,13 +110,13 @@ SVG 仅作结构预览；JSON 是 E 组消费的权威数据源。
   writeFileSync(join(directory, 'validation-report.md'), report);
 }
 
-writeFileSync(join(outputRoot, 'README.md'), `# D v0.3.2 三组共同案例
+writeFileSync(join(outputRoot, 'README.md'), `# D v0.3.3 三组共同案例
 
 | 案例 | 完整 JSON | SVG 预览 | PNG 截图 | 交点矩阵 | 检查报告 |
 |---|---|---|---|---|---|
 ${cases.map(entry => `| ${entry.carrierId} + ${entry.weaveId} | [JSON](./${entry.slug}/structure-snapshot.json) | [SVG](./${entry.slug}/preview.svg) | [PNG](./${entry.slug}/preview.png) | [CSV](./${entry.slug}/crossing-matrix.csv) | [报告](./${entry.slug}/validation-report.md) |`).join('\n')}
 
-三组案例统一使用 C 的绿色三角形 \`surface_pattern\` 作为联调图样。完整结构由 D v0.3.2 同一次计算生成 JSON 与 SVG；E 应读取 JSON，不从 SVG 取数。顶层 \`strips[]\` 是唯一完整竹条对象树，阶段对象只保存 ID 索引。
+三组案例统一使用 C 的绿色三角形 \`surface_pattern\` 作为联调图样。完整结构由 D v0.3.3 同一次计算生成 JSON 与 SVG；E 应读取 JSON，不从 SVG 取数。顶层 \`strips[]\` 是唯一完整竹条对象树，阶段对象只保存 ID 索引。\`creativeSource\` 与不可变 \`sourcePattern\` 保存 C 的完整来源链。
 
 未确定的 \`stockLengthMm\`、\`setupAllowanceMm\`、\`trimWasteLengthMm\` 均为 \`null\`。D 结构验证为 \`passed\`；E 工艺与 B 实物状态保持 \`pending\` / \`not-completed\`。
 

@@ -11,10 +11,10 @@
 ## 版本
 
 - `schemaVersion`: `0.3`（不变）
-- `structureGeneratorVersion`: `D-STRUCTURE-v0.3.2`（边界修复保留，并叠加公共对象树收敛）
+- `structureGeneratorVersion`: `D-STRUCTURE-v0.3.3`（边界修复保留，并叠加公共对象树与 C 来源合同收敛）
 - 工艺及实物状态：继续保持 `pending / not-completed`
 
-v0.3.2 同时收敛了竹条对象树：完整竹条改从顶层 `strips[]` 读取；`stages.rawBlank.stripIds[]` 与 `stages.trimmedProduct.visibleStripIds[]` 仅作为阶段索引。旧的两个 `stages.*.strips[]` 已删除，请 E 按 `schemaVersion` 双读，不要把 v0.2 读取路径直接套用到 v0.3.2。
+v0.3.3 同时收敛了竹条对象树与 C 来源合同：完整竹条改从顶层 `strips[]` 读取；`stages.rawBlank.stripIds[]` 与 `stages.trimmedProduct.visibleStripIds[]` 仅作为阶段索引；新增 `creativeSource` 与不可变 `sourcePattern`。旧的两个 `stages.*.strips[]` 已删除，请 E 按 `schemaVersion` 双读，不要把 v0.2 读取路径直接套用到 v0.3.3。
 
 ## 修复结果
 

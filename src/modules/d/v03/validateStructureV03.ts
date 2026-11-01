@@ -87,13 +87,27 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
   const segmentOrdering = strips.every(strip => strip.visibleSegments.every((segment, index, all) => index === 0
     || segment.stripOffsetStartMm >= all[index - 1].stripOffsetStartMm));
   const palette = new Map(snapshot.sourcePattern.palette.map(entry => [entry.paletteId, entry.color]));
+  const sourceElements = new Map(snapshot.sourcePattern.elements.map(entry => [entry.elementId, entry]));
   const colorSourceSemantics = strips.every(strip => strip.visibleSegments.every(segment => segment.colorSegments.every(color => color.scope === 'motif'
-    ? color.paletteId !== null && color.sourceElementId !== null && color.sourceInputId !== null && palette.get(color.paletteId) === color.color
+    ? color.paletteId !== null && color.sourceElementId !== null && color.sourceInputId !== null
+      && palette.get(color.paletteId) === color.color
+      && sourceElements.get(color.sourceElementId)?.sourceInputId === color.sourceInputId
+      && sourceElements.get(color.sourceElementId)?.paletteId === color.paletteId
     : color.paletteId === null && color.sourceElementId === null && color.sourceInputId === null)));
   const revisionCurrent = snapshot.designRevision === snapshot.generatedFromRevision;
+  const creativeSource = snapshot.confirmedGenerationId === snapshot.creativeSource.confirmedGenerationId
+    && snapshot.creativeSource.resultType === 'surface_pattern'
+    && snapshot.creativeSource.resultId === snapshot.sourcePattern.patternId
+    && snapshot.creativeSource.generationRevision >= 1
+    && snapshot.creativeSource.generatorVersion.length > 0
+    && snapshot.creativeSource.inputVersionId.length > 0;
+  const upstreamIssueDomain = snapshot.creativeSource.generationIssues.every(issue => issue.generatorVersion.length > 0
+    && ['info', 'warning', 'blocking'].includes(issue.severity));
   const checks: ValidationCheck[] = [
     { id: 'source-key-complete', pass: sourceKey, details: '完整来源键与快照顶层字段一致。' },
     { id: 'revision-current', pass: revisionCurrent, details: 'designRevision 与 generatedFromRevision 一致。' },
+    { id: 'creative-source-complete', pass: creativeSource, details: 'C 确认生成、生成版本、适配器版本、输入版本和 patternId 可独立追溯。' },
+    { id: 'upstream-generation-domain', pass: upstreamIssueDomain, details: 'C generationIssues 保存在 creativeSource 中，未混入 D engineeringWarnings。' },
     { id: 'canonical-strips-unique', pass: uniqueCanonicalStrips, details: '顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。' },
     { id: 'raw-stage-strip-index', pass: rawStageIndexExact, details: 'rawBlank.stripIds 与顶层 strips[] 顺序及数量完全一致。' },
     { id: 'trimmed-stage-strip-index', pass: trimmedStageIndexExact, details: 'trimmedProduct.visibleStripIds 仅索引具有可见段的顶层竹条。' },

@@ -1,4 +1,5 @@
 import type { PointMm, SurfacePattern } from '../types';
+import type { GenerationIssue } from '../../../model';
 
 export type CarrierId = 'FAN-ROUND-170-V1' | 'FAN-OVAL-150X180-V1' | 'FAN-OCTAGON-170-V1';
 export type WeaveId = 'CROSS-COURSE-2X2-V1' | 'HERRING-3X3-V1' | 'SQUARE-HOLE-1X1-V1';
@@ -8,7 +9,13 @@ export type SegmentScope = 'motif' | 'base' | 'outer-base';
 export type StructureV03Input = {
   designId: string;
   designRevision: number;
-  confirmedGenerationId: string;
+  creativeSource: {
+    confirmedGenerationId: string;
+    generationRevision: number;
+    generatorVersion: string;
+    inputVersionId: string;
+    generationIssues: GenerationIssue[];
+  };
   carrierId: CarrierId;
   weaveId: WeaveId;
   pattern: SurfacePattern;
@@ -101,7 +108,7 @@ export type EngineeringWarningV03 = {
 
 export type StructureSnapshotV03 = {
   schemaVersion: '0.3';
-  structureGeneratorVersion: 'D-STRUCTURE-v0.3.2';
+  structureGeneratorVersion: 'D-STRUCTURE-v0.3.3';
   designId: string;
   designRevision: number;
   generatedFromRevision: number;
@@ -111,12 +118,12 @@ export type StructureSnapshotV03 = {
   weaveId: WeaveId;
   weaveSpecVersion: 'WEAVE-SPEC-v1.2';
   craftRuleVersion: string;
-  structuralValidation: { status: 'passed'; validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.2' };
+  structuralValidation: { status: 'passed'; validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.3' };
   craftValidation: { status: 'pending'; owner: 'E' };
   physicalValidation: { status: 'not-completed'; owner: 'B' };
   sourceKey: {
     schemaVersion: '0.3';
-    structureGeneratorVersion: 'D-STRUCTURE-v0.3.2';
+    structureGeneratorVersion: 'D-STRUCTURE-v0.3.3';
     designId: string;
     designRevision: number;
     generatedFromRevision: number;
@@ -125,6 +132,15 @@ export type StructureSnapshotV03 = {
     weaveId: WeaveId;
     weaveSpecVersion: 'WEAVE-SPEC-v1.2';
     craftRuleVersion: string;
+  };
+  creativeSource: {
+    confirmedGenerationId: string;
+    generationRevision: number;
+    generatorVersion: string;
+    inputVersionId: string;
+    resultType: 'surface_pattern';
+    resultId: string;
+    generationIssues: GenerationIssue[];
   };
   strips: StripV03[];
   sourcePattern: SurfacePattern;

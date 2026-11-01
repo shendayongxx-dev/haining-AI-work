@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.3",
-  "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
+  "structureGeneratorVersion": "D-STRUCTURE-v0.3.3",
   "designId": "design-fan-green-triangle-001-round-cross-course",
   "designRevision": 1,
   "generatedFromRevision": 1,
@@ -12,7 +12,7 @@
   "confirmedGenerationId": "generation-fan-green-triangle-001",
   "structuralValidation": {
     "status": "passed",
-    "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.2"
+    "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.3"
   },
   "craftValidation": {
     "status": "pending",
@@ -24,7 +24,7 @@
   },
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.3",
     "designId": "design-fan-green-triangle-001-round-cross-course",
     "designRevision": 1,
     "generatedFromRevision": 1,
@@ -33,6 +33,15 @@
     "weaveId": "CROSS-COURSE-2X2-V1",
     "weaveSpecVersion": "WEAVE-SPEC-v1.2",
     "craftRuleVersion": "CRAFT-CROSS-COURSE-v1.1"
+  },
+  "creativeSource": {
+    "confirmedGenerationId": "generation-fan-green-triangle-001",
+    "generationRevision": 1,
+    "generatorVersion": "c-generator-v0.2",
+    "inputVersionId": "input-fan-green-triangle-001",
+    "generationIssues": [],
+    "resultType": "surface_pattern",
+    "resultId": "pattern-fan-green-triangle-001"
   },
   "strips": [
     {
@@ -3683,7 +3692,6 @@
     }
   ],
   "sourcePattern": {
-    "resultType": "surface_pattern",
     "patternId": "pattern-fan-green-triangle-001",
     "coordinateSpace": {
       "unit": "mm",

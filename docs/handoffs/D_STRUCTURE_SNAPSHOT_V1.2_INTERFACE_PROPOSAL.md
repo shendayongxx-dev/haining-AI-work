@@ -1,6 +1,6 @@
 # D：结构快照 v0.3 公共接口提案
 
-评审状态：`changes-requested-for-interface-freeze`（C 组评审后收敛中）
+评审状态：`C: changes-requested-for-source-contract`
 结构验证状态：`structuralValidation.status: passed`
 工艺验证状态：`craftValidation.status: pending`
 实物验证状态：`physicalValidation.status: not-completed`
@@ -19,7 +19,7 @@ D→E v0.3 数据结构目标是兼容六种候选载体、三种候选编法，
 ```json
 {
   "schemaVersion": "0.3",
-  "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
+  "structureGeneratorVersion": "D-STRUCTURE-v0.3.3",
   "designId": "design-001",
   "designRevision": 12,
   "generatedFromRevision": 12,
@@ -28,12 +28,12 @@ D→E v0.3 数据结构目标是兼容六种候选载体、三种候选编法，
   "weaveId": "HERRING-3X3-V1",
   "weaveSpecVersion": "WEAVE-SPEC-v1.2",
   "craftRuleVersion": "CRAFT-HERRING-3X3-v1.0",
-  "structuralValidation": { "status": "passed", "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.2" },
+  "structuralValidation": { "status": "passed", "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.3" },
   "craftValidation": { "status": "pending", "owner": "E" },
   "physicalValidation": { "status": "not-completed", "owner": "B" },
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.3",
     "designId": "design-001",
     "designRevision": 12,
     "generatedFromRevision": 12,
@@ -47,6 +47,39 @@ D→E v0.3 数据结构目标是兼容六种候选载体、三种候选编法，
 ```
 
 顶层重复的来源字段必须与 `sourceKey` 逐项全等；任一字段不一致时整份快照无效。`designRevision` 是快照对应的 A 设计版本，`generatedFromRevision` 是 D 启动计算时实际消费的 A 版本；生成完成时二者必须相等。A 接收异步结果时必须再次核对当前设计版本，旧结果不得覆盖新版本。
+
+### 2.1 C 确认生成来源与不可变图样快照
+
+```json
+{
+  "creativeSource": {
+    "confirmedGenerationId": "generation-fan-green-triangle-001",
+    "generationRevision": 1,
+    "generatorVersion": "c-generator-v0.2",
+    "inputVersionId": "input-fan-green-triangle-001",
+    "resultType": "surface_pattern",
+    "resultId": "pattern-fan-green-triangle-001",
+    "generationIssues": []
+  },
+  "sourcePattern": {
+    "patternId": "pattern-fan-green-triangle-001",
+    "coordinateSpace": { "unit": "mm", "width": 210, "height": 297, "origin": "topLeft", "xAxis": "right", "yAxis": "down" },
+    "palette": [{ "paletteId": "green-01", "color": "#315F3A" }],
+    "elements": [],
+    "transform": { "scale": 1, "rotationDeg": 0, "offsetMm": { "x": 0, "y": 0 } }
+  }
+}
+```
+
+- `sourcePattern` 是 D 计算时读取的 C 已确认结果的不可变副本，不是运行时外部引用；E 可以只凭单份快照复算 palette 与来源关系；
+- `creativeSource.resultId` 必须等于 `sourcePattern.patternId`，`confirmedGenerationId` 必须等于快照顶层同名字段；
+- 图样元素的完整定位键为 `creativeSource.resultId + sourceElementId`；单独的 `sourceElementId` 不视为跨图样全局唯一；
+- `paletteId/sourceElementId/sourceInputId` 必须从 C 已确认结果原样复制。D 不得重命名、重新编号或根据元素内容推导 `sourceInputId`；
+- `creativeSource.generationIssues[]` 保存 C 问题对象的不可变副本，不得转写为 D 的 `engineeringWarnings`；E 的 `validationIssues` 也属于独立问题域。
+
+### 2.2 本版对 `carrier_shape` 的范围决定
+
+v0.3.3 的三组固定载体案例只验证 `surface_pattern`。`carrier_shape` 明确不属于本版接口冻结范围，本版不因此宣称自定义形状流程完成。现有 v0.2 自定义形状演示继续保持独立实验状态；孔洞、多部件、凹形裁切和没有有效图样区时的颜色规则必须另立接口提案评审。
 
 ## 3. `visibleSegments[]`：多段可见竹篾
 
@@ -375,7 +408,7 @@ D→E v0.3 数据结构目标是兼容六种候选载体、三种候选编法，
 {
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.3",
     "designId": "design-001",
     "designRevision": 12,
     "generatedFromRevision": 12,
@@ -385,7 +418,23 @@ D→E v0.3 数据结构目标是兼容六种候选载体、三种候选编法，
     "weaveSpecVersion": "WEAVE-SPEC-v1.2",
     "craftRuleVersion": "CRAFT-HERRING-3X3-v1.0"
   },
-  "structuralValidation": { "status": "passed", "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.2" },
+  "creativeSource": {
+    "confirmedGenerationId": "generation-001",
+    "generationRevision": 3,
+    "generatorVersion": "c-generator-v0.2",
+    "inputVersionId": "input-001",
+    "resultType": "surface_pattern",
+    "resultId": "pattern-001",
+    "generationIssues": []
+  },
+  "sourcePattern": {
+    "patternId": "pattern-001",
+    "coordinateSpace": {},
+    "palette": [],
+    "elements": [],
+    "transform": {}
+  },
+  "structuralValidation": { "status": "passed", "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.3" },
   "craftValidation": { "status": "pending", "owner": "E" },
   "physicalValidation": { "status": "not-completed", "owner": "B" },
   "strips": [],
@@ -420,7 +469,7 @@ SVG 预览必须直接读取该快照，不能另算一份显示几何。E 读�
 {
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.3",
     "designId": "design-001",
     "designRevision": 12,
     "generatedFromRevision": 12,
@@ -441,6 +490,8 @@ SVG 预览必须直接读取该快照，不能另算一份显示几何。E 读�
 - `weaveId`、`weaveSpecVersion` 或 `craftRuleVersion`。
 
 E 的输出必须原样保存 `sourceKey`。A 以完整 `sourceKey` 判断结果是否仍对应当前设计，不能只比较 `designRevision`。D 修复裁切、段排序、颜色切分或交点归属算法时必须递增 `structureGeneratorVersion`，即使 A 设计和 B 规范版本没有变化。
+
+E 的输出还必须原样保存 `creativeSource`。`confirmedGenerationId/generationRevision/generatorVersion/inputVersionId/resultType/resultId` 任一变化时，旧检查、材料结果和教程同样失效。是否在后续版本把这些字段并入 `sourceKey`，由 A 在冻结评审中决定；v0.3.3 不静默改变现有 `sourceKey` 组成。
 
 版本字段统一约定：`designRevision` 是快照对应的 A 设计版本；`generatedFromRevision` 表示 D 实际消费的 A 版本。计算完成时必须满足二者相等，但迁移期继续同时保存，避免破坏 v0.2 消费者的版本判断。
 
@@ -485,9 +536,10 @@ E 的输出必须原样保存 `sourceKey`。A 以完整 `sourceKey` 判断结果
 
 ### C 组：输入合同与公共来源字段评审
 
-- 继续输出已确认的 `surface_pattern`；
-- 图样只在 `effectivePatternBoundary` 内生效；
-- 不需要生成竹篾、交点、外侧基础编织区或工程预警。
+- C 输出毫米坐标的原始 `surface_pattern`、稳定来源 ID 和 `generationIssues`；
+- D 根据当前 `carrierId/carrierSpecVersion` 投影并裁切图样到 `effectivePatternBoundary`，有效区外由 D 输出 `outer-base`；
+- C 不生成竹篾级裁切、颜色段、交点、外侧基础编织区或 D 工程预警；
+- 本版明确排除 `carrier_shape`，不以 surface_pattern 联调结果替代自定义形状合同。
 - 对对象树、来源字段和版本迁移的评审属于接口冻结门禁。
 
 ## 12. 验收案例
@@ -502,7 +554,7 @@ E 的输出必须原样保存 `sourceKey`。A 以完整 `sourceKey` 判断结果
 
 ## 13. 评审结论与集成门禁
 
-- B 组第三轮复审已确认规则方向可进入联调；C 组当前结论为 `changes-requested-for-interface-freeze`；
-- 在 C、E 完成 v0.3.2 独立消费前，不冻结接口，也不以公共接口完成为由请求合入 `main`；
+- B 组第三轮复审已确认规则方向可进入联调；C 组当前结论为 `changes-requested-for-source-contract`；
+- 在 C、E 完成 v0.3.3 独立消费前，不冻结接口，也不以公共接口完成为由请求合入 `main`；
 - 最终是否合入 `main` 由 A 依据版本兼容策略、C/E 消费验证和三组结构集成结果决定；
 - 实物验证缺失不阻断结构联调，但快照和页面必须持续标记 `pending`。
