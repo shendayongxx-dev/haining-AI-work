@@ -39,6 +39,18 @@ function weaveById(id: WeaveId) {
 }
 
 function pointInPolygon(point: PointMm, points: number[][]) {
+  const onBoundary = points.some((a, index) => {
+    const b = points[(index + 1) % points.length];
+    const dx = b[0] - a[0];
+    const dy = b[1] - a[1];
+    const lengthSquared = dx * dx + dy * dy;
+    const projection = lengthSquared === 0 ? 0 : ((point.x - a[0]) * dx + (point.y - a[1]) * dy) / lengthSquared;
+    if (projection < -1e-6 || projection > 1 + 1e-6) return false;
+    const nearestX = a[0] + Math.max(0, Math.min(1, projection)) * dx;
+    const nearestY = a[1] + Math.max(0, Math.min(1, projection)) * dy;
+    return Math.hypot(point.x - nearestX, point.y - nearestY) <= .01;
+  });
+  if (onBoundary) return true;
   let inside = false;
   for (let index = 0, previous = points.length - 1; index < points.length; previous = index++) {
     const a = points[index];
@@ -277,19 +289,23 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
     const matrixValue = weave.topLayerMatrix[weft.order % weave.topLayerMatrix.length === 0 ? weave.topLayerMatrix.length - 1 : (weft.order - 1) % weave.topLayerMatrix.length]
       [(warp.order - 1) % weave.topLayerMatrix[0].length];
     const topStripId = matrixValue === 'W' ? weft.stripId : warp.stripId;
-    crossings.push({ crossingId, warpStripId: warp.stripId, warpSegmentId: warpSegment?.segmentId ?? null,
-      weftStripId: weft.stripId, weftSegmentId: weftSegment?.segmentId ?? null, positionMm, topStripId, rawBlank: true,
+    crossings.push({ crossingId, warpStripId: warp.stripId, warpSegmentId: visible ? warpSegment?.segmentId ?? null : null,
+      weftStripId: weft.stripId, weftSegmentId: visible ? weftSegment?.segmentId ?? null : null, positionMm, topStripId, rawBlank: true,
       trimmedProduct: { visible } });
     weavingOrder.push({
       step: weft.order, operationId: `OP-${weft.stripId}-${String(warp.order).padStart(3, '0')}`,
       workingStripId: weft.stripId, workingDirection: 'weft', crossingSequence: warp.order, crossingId,
       referenceStripId: warp.stripId, action: topStripId === weft.stripId ? 'over' : 'under', positionMm,
-      trimmedProduct: { visible, workingSegmentId: weftSegment?.segmentId ?? null, referenceSegmentId: warpSegment?.segmentId ?? null },
+      trimmedProduct: {
+        visible,
+        workingSegmentId: visible ? weftSegment?.segmentId ?? null : null,
+        referenceSegmentId: visible ? warpSegment?.segmentId ?? null : null,
+      },
     });
   }
   const warnings = [...warningForHandle(input, carrier, crossings), ...edgeWarnings(input, strips, pitchMm)];
   const sourceKey = {
-    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.0' as const,
+    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.1' as const,
     designId: input.designId, generatedFromRevision: input.designRevision, carrierId: input.carrierId,
     carrierSpecVersion: 'CARRIER-SPEC-v1.2' as const, weaveId: input.weaveId,
     weaveSpecVersion: 'WEAVE-SPEC-v1.2' as const, craftRuleVersion: weave.craftRuleVersion,
