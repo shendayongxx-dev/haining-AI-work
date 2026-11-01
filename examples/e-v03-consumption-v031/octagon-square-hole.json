@@ -1,0 +1,3463 @@
+{
+  "sourceKey": {
+    "schemaVersion": "0.3",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+    "designId": "design-fan-green-triangle-001-octagon-square-hole",
+    "generatedFromRevision": 1,
+    "carrierId": "FAN-OCTAGON-170-V1",
+    "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+    "weaveId": "SQUARE-HOLE-1X1-V1",
+    "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+    "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0"
+  },
+  "structuralConsumptionPassed": true,
+  "validationStatus": "pending",
+  "physicalValidation": "not-completed",
+  "formalExportAllowed": false,
+  "checks": [
+    {
+      "id": "source-key-and-specifications",
+      "pass": true
+    },
+    {
+      "id": "strip-identities-and-material-fields",
+      "pass": true
+    },
+    {
+      "id": "segments-colors-and-boundary",
+      "pass": true
+    },
+    {
+      "id": "crossings-bidirectional-links-and-matrix",
+      "pass": true
+    },
+    {
+      "id": "weaving-steps-consumption",
+      "pass": true
+    },
+    {
+      "id": "engineering-warning-consumption",
+      "pass": true
+    },
+    {
+      "id": "outer-base-and-accounting-contract",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "notes": [
+    {
+      "code": "STOCK_PENDING",
+      "message": "26根备料长度未知；总备料量保持null，不回退几何长度。"
+    },
+    {
+      "code": "B_REVIEW_AND_PHYSICAL_PENDING",
+      "message": "B规则re-review及实物试编不在本次结构消费测试的认证范围。"
+    }
+  ],
+  "materials": {
+    "sourceKey": {
+      "schemaVersion": "0.3",
+      "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+      "designId": "design-fan-green-triangle-001-octagon-square-hole",
+      "generatedFromRevision": 1,
+      "carrierId": "FAN-OCTAGON-170-V1",
+      "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+      "weaveId": "SQUARE-HOLE-1X1-V1",
+      "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+      "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0"
+    },
+    "status": "pending",
+    "stripCount": 26,
+    "totalStockLengthMm": null,
+    "missingStockStripIds": [
+      "V001",
+      "V002",
+      "V003",
+      "V004",
+      "V005",
+      "V006",
+      "V007",
+      "V008",
+      "V009",
+      "V010",
+      "V011",
+      "V012",
+      "V013",
+      "H001",
+      "H002",
+      "H003",
+      "H004",
+      "H005",
+      "H006",
+      "H007",
+      "H008",
+      "H009",
+      "H010",
+      "H011",
+      "H012",
+      "H013"
+    ]
+  },
+  "tutorialPreview": {
+    "sourceKey": {
+      "schemaVersion": "0.3",
+      "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+      "designId": "design-fan-green-triangle-001-octagon-square-hole",
+      "generatedFromRevision": 1,
+      "carrierId": "FAN-OCTAGON-170-V1",
+      "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+      "weaveId": "SQUARE-HOLE-1X1-V1",
+      "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+      "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0"
+    },
+    "status": "pending",
+    "usage": "structure-preview-only",
+    "steps": [
+      {
+        "step": 1,
+        "workingStripId": "H001",
+        "operations": [
+          {
+            "step": 1,
+            "operationId": "OP-H001-001",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H001",
+            "referenceStripId": "V001",
+            "action": "over",
+            "positionMm": {
+              "x": 15,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-002",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H001",
+            "referenceStripId": "V002",
+            "action": "under",
+            "positionMm": {
+              "x": 30,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-003",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H001",
+            "referenceStripId": "V003",
+            "action": "over",
+            "positionMm": {
+              "x": 45,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-004",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H001",
+            "referenceStripId": "V004",
+            "action": "under",
+            "positionMm": {
+              "x": 60,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-005",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H001",
+            "referenceStripId": "V005",
+            "action": "over",
+            "positionMm": {
+              "x": 75,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-006",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H001",
+            "referenceStripId": "V006",
+            "action": "under",
+            "positionMm": {
+              "x": 90,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-007",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H001",
+            "referenceStripId": "V007",
+            "action": "over",
+            "positionMm": {
+              "x": 105,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-008",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H001",
+            "referenceStripId": "V008",
+            "action": "under",
+            "positionMm": {
+              "x": 120,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-009",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H001",
+            "referenceStripId": "V009",
+            "action": "over",
+            "positionMm": {
+              "x": 135,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-010",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H001",
+            "referenceStripId": "V010",
+            "action": "under",
+            "positionMm": {
+              "x": 150,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-011",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H001",
+            "referenceStripId": "V011",
+            "action": "over",
+            "positionMm": {
+              "x": 165,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-012",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H001",
+            "referenceStripId": "V012",
+            "action": "under",
+            "positionMm": {
+              "x": 180,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 1,
+            "operationId": "OP-H001-013",
+            "workingStripId": "H001",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H001",
+            "referenceStripId": "V013",
+            "action": "over",
+            "positionMm": {
+              "x": 195,
+              "y": 20
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 2,
+        "workingStripId": "H002",
+        "operations": [
+          {
+            "step": 2,
+            "operationId": "OP-H002-001",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H002",
+            "referenceStripId": "V001",
+            "action": "under",
+            "positionMm": {
+              "x": 15,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-002",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H002",
+            "referenceStripId": "V002",
+            "action": "over",
+            "positionMm": {
+              "x": 30,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-003",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H002",
+            "referenceStripId": "V003",
+            "action": "under",
+            "positionMm": {
+              "x": 45,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-004",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H002",
+            "referenceStripId": "V004",
+            "action": "over",
+            "positionMm": {
+              "x": 60,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H002-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-005",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H002",
+            "referenceStripId": "V005",
+            "action": "under",
+            "positionMm": {
+              "x": 75,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H002-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-006",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H002",
+            "referenceStripId": "V006",
+            "action": "over",
+            "positionMm": {
+              "x": 90,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H002-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-007",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H002",
+            "referenceStripId": "V007",
+            "action": "under",
+            "positionMm": {
+              "x": 105,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H002-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-008",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H002",
+            "referenceStripId": "V008",
+            "action": "over",
+            "positionMm": {
+              "x": 120,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H002-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-009",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H002",
+            "referenceStripId": "V009",
+            "action": "under",
+            "positionMm": {
+              "x": 135,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H002-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-010",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H002",
+            "referenceStripId": "V010",
+            "action": "over",
+            "positionMm": {
+              "x": 150,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H002-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-011",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H002",
+            "referenceStripId": "V011",
+            "action": "under",
+            "positionMm": {
+              "x": 165,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-012",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H002",
+            "referenceStripId": "V012",
+            "action": "over",
+            "positionMm": {
+              "x": 180,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 2,
+            "operationId": "OP-H002-013",
+            "workingStripId": "H002",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H002",
+            "referenceStripId": "V013",
+            "action": "under",
+            "positionMm": {
+              "x": 195,
+              "y": 35
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 3,
+        "workingStripId": "H003",
+        "operations": [
+          {
+            "step": 3,
+            "operationId": "OP-H003-001",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H003",
+            "referenceStripId": "V001",
+            "action": "over",
+            "positionMm": {
+              "x": 15,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-002",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H003",
+            "referenceStripId": "V002",
+            "action": "under",
+            "positionMm": {
+              "x": 30,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-003",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H003",
+            "referenceStripId": "V003",
+            "action": "over",
+            "positionMm": {
+              "x": 45,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H003-S01",
+              "referenceSegmentId": "V003-S01"
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-004",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H003",
+            "referenceStripId": "V004",
+            "action": "under",
+            "positionMm": {
+              "x": 60,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H003-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-005",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H003",
+            "referenceStripId": "V005",
+            "action": "over",
+            "positionMm": {
+              "x": 75,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H003-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-006",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H003",
+            "referenceStripId": "V006",
+            "action": "under",
+            "positionMm": {
+              "x": 90,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H003-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-007",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H003",
+            "referenceStripId": "V007",
+            "action": "over",
+            "positionMm": {
+              "x": 105,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H003-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-008",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H003",
+            "referenceStripId": "V008",
+            "action": "under",
+            "positionMm": {
+              "x": 120,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H003-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-009",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H003",
+            "referenceStripId": "V009",
+            "action": "over",
+            "positionMm": {
+              "x": 135,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H003-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-010",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H003",
+            "referenceStripId": "V010",
+            "action": "under",
+            "positionMm": {
+              "x": 150,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H003-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-011",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H003",
+            "referenceStripId": "V011",
+            "action": "over",
+            "positionMm": {
+              "x": 165,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H003-S01",
+              "referenceSegmentId": "V011-S01"
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-012",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H003",
+            "referenceStripId": "V012",
+            "action": "under",
+            "positionMm": {
+              "x": 180,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 3,
+            "operationId": "OP-H003-013",
+            "workingStripId": "H003",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H003",
+            "referenceStripId": "V013",
+            "action": "over",
+            "positionMm": {
+              "x": 195,
+              "y": 50
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 4,
+        "workingStripId": "H004",
+        "operations": [
+          {
+            "step": 4,
+            "operationId": "OP-H004-001",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H004",
+            "referenceStripId": "V001",
+            "action": "under",
+            "positionMm": {
+              "x": 15,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-002",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H004",
+            "referenceStripId": "V002",
+            "action": "over",
+            "positionMm": {
+              "x": 30,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V002-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-003",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H004",
+            "referenceStripId": "V003",
+            "action": "under",
+            "positionMm": {
+              "x": 45,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V003-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-004",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H004",
+            "referenceStripId": "V004",
+            "action": "over",
+            "positionMm": {
+              "x": 60,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-005",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H004",
+            "referenceStripId": "V005",
+            "action": "under",
+            "positionMm": {
+              "x": 75,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-006",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H004",
+            "referenceStripId": "V006",
+            "action": "over",
+            "positionMm": {
+              "x": 90,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-007",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H004",
+            "referenceStripId": "V007",
+            "action": "under",
+            "positionMm": {
+              "x": 105,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-008",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H004",
+            "referenceStripId": "V008",
+            "action": "over",
+            "positionMm": {
+              "x": 120,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-009",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H004",
+            "referenceStripId": "V009",
+            "action": "under",
+            "positionMm": {
+              "x": 135,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-010",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H004",
+            "referenceStripId": "V010",
+            "action": "over",
+            "positionMm": {
+              "x": 150,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-011",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H004",
+            "referenceStripId": "V011",
+            "action": "under",
+            "positionMm": {
+              "x": 165,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V011-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-012",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H004",
+            "referenceStripId": "V012",
+            "action": "over",
+            "positionMm": {
+              "x": 180,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H004-S01",
+              "referenceSegmentId": "V012-S01"
+            }
+          },
+          {
+            "step": 4,
+            "operationId": "OP-H004-013",
+            "workingStripId": "H004",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H004",
+            "referenceStripId": "V013",
+            "action": "under",
+            "positionMm": {
+              "x": 195,
+              "y": 65
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 5,
+        "workingStripId": "H005",
+        "operations": [
+          {
+            "step": 5,
+            "operationId": "OP-H005-001",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H005",
+            "referenceStripId": "V001",
+            "action": "over",
+            "positionMm": {
+              "x": 15,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-002",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H005",
+            "referenceStripId": "V002",
+            "action": "under",
+            "positionMm": {
+              "x": 30,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V002-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-003",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H005",
+            "referenceStripId": "V003",
+            "action": "over",
+            "positionMm": {
+              "x": 45,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V003-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-004",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H005",
+            "referenceStripId": "V004",
+            "action": "under",
+            "positionMm": {
+              "x": 60,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-005",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H005",
+            "referenceStripId": "V005",
+            "action": "over",
+            "positionMm": {
+              "x": 75,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-006",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H005",
+            "referenceStripId": "V006",
+            "action": "under",
+            "positionMm": {
+              "x": 90,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-007",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H005",
+            "referenceStripId": "V007",
+            "action": "over",
+            "positionMm": {
+              "x": 105,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-008",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H005",
+            "referenceStripId": "V008",
+            "action": "under",
+            "positionMm": {
+              "x": 120,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-009",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H005",
+            "referenceStripId": "V009",
+            "action": "over",
+            "positionMm": {
+              "x": 135,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-010",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H005",
+            "referenceStripId": "V010",
+            "action": "under",
+            "positionMm": {
+              "x": 150,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-011",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H005",
+            "referenceStripId": "V011",
+            "action": "over",
+            "positionMm": {
+              "x": 165,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V011-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-012",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H005",
+            "referenceStripId": "V012",
+            "action": "under",
+            "positionMm": {
+              "x": 180,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H005-S01",
+              "referenceSegmentId": "V012-S01"
+            }
+          },
+          {
+            "step": 5,
+            "operationId": "OP-H005-013",
+            "workingStripId": "H005",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H005",
+            "referenceStripId": "V013",
+            "action": "over",
+            "positionMm": {
+              "x": 195,
+              "y": 80
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 6,
+        "workingStripId": "H006",
+        "operations": [
+          {
+            "step": 6,
+            "operationId": "OP-H006-001",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H006",
+            "referenceStripId": "V001",
+            "action": "under",
+            "positionMm": {
+              "x": 15,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-002",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H006",
+            "referenceStripId": "V002",
+            "action": "over",
+            "positionMm": {
+              "x": 30,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V002-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-003",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H006",
+            "referenceStripId": "V003",
+            "action": "under",
+            "positionMm": {
+              "x": 45,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V003-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-004",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H006",
+            "referenceStripId": "V004",
+            "action": "over",
+            "positionMm": {
+              "x": 60,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-005",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H006",
+            "referenceStripId": "V005",
+            "action": "under",
+            "positionMm": {
+              "x": 75,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-006",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H006",
+            "referenceStripId": "V006",
+            "action": "over",
+            "positionMm": {
+              "x": 90,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-007",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H006",
+            "referenceStripId": "V007",
+            "action": "under",
+            "positionMm": {
+              "x": 105,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-008",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H006",
+            "referenceStripId": "V008",
+            "action": "over",
+            "positionMm": {
+              "x": 120,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-009",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H006",
+            "referenceStripId": "V009",
+            "action": "under",
+            "positionMm": {
+              "x": 135,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-010",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H006",
+            "referenceStripId": "V010",
+            "action": "over",
+            "positionMm": {
+              "x": 150,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-011",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H006",
+            "referenceStripId": "V011",
+            "action": "under",
+            "positionMm": {
+              "x": 165,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V011-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-012",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H006",
+            "referenceStripId": "V012",
+            "action": "over",
+            "positionMm": {
+              "x": 180,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H006-S01",
+              "referenceSegmentId": "V012-S01"
+            }
+          },
+          {
+            "step": 6,
+            "operationId": "OP-H006-013",
+            "workingStripId": "H006",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H006",
+            "referenceStripId": "V013",
+            "action": "under",
+            "positionMm": {
+              "x": 195,
+              "y": 95
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 7,
+        "workingStripId": "H007",
+        "operations": [
+          {
+            "step": 7,
+            "operationId": "OP-H007-001",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H007",
+            "referenceStripId": "V001",
+            "action": "over",
+            "positionMm": {
+              "x": 15,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-002",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H007",
+            "referenceStripId": "V002",
+            "action": "under",
+            "positionMm": {
+              "x": 30,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V002-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-003",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H007",
+            "referenceStripId": "V003",
+            "action": "over",
+            "positionMm": {
+              "x": 45,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V003-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-004",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H007",
+            "referenceStripId": "V004",
+            "action": "under",
+            "positionMm": {
+              "x": 60,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-005",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H007",
+            "referenceStripId": "V005",
+            "action": "over",
+            "positionMm": {
+              "x": 75,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-006",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H007",
+            "referenceStripId": "V006",
+            "action": "under",
+            "positionMm": {
+              "x": 90,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-007",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H007",
+            "referenceStripId": "V007",
+            "action": "over",
+            "positionMm": {
+              "x": 105,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-008",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H007",
+            "referenceStripId": "V008",
+            "action": "under",
+            "positionMm": {
+              "x": 120,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-009",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H007",
+            "referenceStripId": "V009",
+            "action": "over",
+            "positionMm": {
+              "x": 135,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-010",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H007",
+            "referenceStripId": "V010",
+            "action": "under",
+            "positionMm": {
+              "x": 150,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-011",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H007",
+            "referenceStripId": "V011",
+            "action": "over",
+            "positionMm": {
+              "x": 165,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V011-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-012",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H007",
+            "referenceStripId": "V012",
+            "action": "under",
+            "positionMm": {
+              "x": 180,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H007-S01",
+              "referenceSegmentId": "V012-S01"
+            }
+          },
+          {
+            "step": 7,
+            "operationId": "OP-H007-013",
+            "workingStripId": "H007",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H007",
+            "referenceStripId": "V013",
+            "action": "over",
+            "positionMm": {
+              "x": 195,
+              "y": 110
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 8,
+        "workingStripId": "H008",
+        "operations": [
+          {
+            "step": 8,
+            "operationId": "OP-H008-001",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H008",
+            "referenceStripId": "V001",
+            "action": "under",
+            "positionMm": {
+              "x": 15,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-002",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H008",
+            "referenceStripId": "V002",
+            "action": "over",
+            "positionMm": {
+              "x": 30,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V002-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-003",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H008",
+            "referenceStripId": "V003",
+            "action": "under",
+            "positionMm": {
+              "x": 45,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V003-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-004",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H008",
+            "referenceStripId": "V004",
+            "action": "over",
+            "positionMm": {
+              "x": 60,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-005",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H008",
+            "referenceStripId": "V005",
+            "action": "under",
+            "positionMm": {
+              "x": 75,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-006",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H008",
+            "referenceStripId": "V006",
+            "action": "over",
+            "positionMm": {
+              "x": 90,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-007",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H008",
+            "referenceStripId": "V007",
+            "action": "under",
+            "positionMm": {
+              "x": 105,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-008",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H008",
+            "referenceStripId": "V008",
+            "action": "over",
+            "positionMm": {
+              "x": 120,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-009",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H008",
+            "referenceStripId": "V009",
+            "action": "under",
+            "positionMm": {
+              "x": 135,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-010",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H008",
+            "referenceStripId": "V010",
+            "action": "over",
+            "positionMm": {
+              "x": 150,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-011",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H008",
+            "referenceStripId": "V011",
+            "action": "under",
+            "positionMm": {
+              "x": 165,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V011-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-012",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H008",
+            "referenceStripId": "V012",
+            "action": "over",
+            "positionMm": {
+              "x": 180,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H008-S01",
+              "referenceSegmentId": "V012-S01"
+            }
+          },
+          {
+            "step": 8,
+            "operationId": "OP-H008-013",
+            "workingStripId": "H008",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H008",
+            "referenceStripId": "V013",
+            "action": "under",
+            "positionMm": {
+              "x": 195,
+              "y": 125
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 9,
+        "workingStripId": "H009",
+        "operations": [
+          {
+            "step": 9,
+            "operationId": "OP-H009-001",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H009",
+            "referenceStripId": "V001",
+            "action": "over",
+            "positionMm": {
+              "x": 15,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-002",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H009",
+            "referenceStripId": "V002",
+            "action": "under",
+            "positionMm": {
+              "x": 30,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V002-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-003",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H009",
+            "referenceStripId": "V003",
+            "action": "over",
+            "positionMm": {
+              "x": 45,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V003-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-004",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H009",
+            "referenceStripId": "V004",
+            "action": "under",
+            "positionMm": {
+              "x": 60,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-005",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H009",
+            "referenceStripId": "V005",
+            "action": "over",
+            "positionMm": {
+              "x": 75,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-006",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H009",
+            "referenceStripId": "V006",
+            "action": "under",
+            "positionMm": {
+              "x": 90,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-007",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H009",
+            "referenceStripId": "V007",
+            "action": "over",
+            "positionMm": {
+              "x": 105,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-008",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H009",
+            "referenceStripId": "V008",
+            "action": "under",
+            "positionMm": {
+              "x": 120,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-009",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H009",
+            "referenceStripId": "V009",
+            "action": "over",
+            "positionMm": {
+              "x": 135,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-010",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H009",
+            "referenceStripId": "V010",
+            "action": "under",
+            "positionMm": {
+              "x": 150,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-011",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H009",
+            "referenceStripId": "V011",
+            "action": "over",
+            "positionMm": {
+              "x": 165,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V011-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-012",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H009",
+            "referenceStripId": "V012",
+            "action": "under",
+            "positionMm": {
+              "x": 180,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H009-S01",
+              "referenceSegmentId": "V012-S01"
+            }
+          },
+          {
+            "step": 9,
+            "operationId": "OP-H009-013",
+            "workingStripId": "H009",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H009",
+            "referenceStripId": "V013",
+            "action": "over",
+            "positionMm": {
+              "x": 195,
+              "y": 140
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 10,
+        "workingStripId": "H010",
+        "operations": [
+          {
+            "step": 10,
+            "operationId": "OP-H010-001",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H010",
+            "referenceStripId": "V001",
+            "action": "under",
+            "positionMm": {
+              "x": 15,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-002",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H010",
+            "referenceStripId": "V002",
+            "action": "over",
+            "positionMm": {
+              "x": 30,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V002-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-003",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H010",
+            "referenceStripId": "V003",
+            "action": "under",
+            "positionMm": {
+              "x": 45,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V003-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-004",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H010",
+            "referenceStripId": "V004",
+            "action": "over",
+            "positionMm": {
+              "x": 60,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-005",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H010",
+            "referenceStripId": "V005",
+            "action": "under",
+            "positionMm": {
+              "x": 75,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-006",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H010",
+            "referenceStripId": "V006",
+            "action": "over",
+            "positionMm": {
+              "x": 90,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-007",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H010",
+            "referenceStripId": "V007",
+            "action": "under",
+            "positionMm": {
+              "x": 105,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-008",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H010",
+            "referenceStripId": "V008",
+            "action": "over",
+            "positionMm": {
+              "x": 120,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-009",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H010",
+            "referenceStripId": "V009",
+            "action": "under",
+            "positionMm": {
+              "x": 135,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-010",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H010",
+            "referenceStripId": "V010",
+            "action": "over",
+            "positionMm": {
+              "x": 150,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-011",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H010",
+            "referenceStripId": "V011",
+            "action": "under",
+            "positionMm": {
+              "x": 165,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V011-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-012",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H010",
+            "referenceStripId": "V012",
+            "action": "over",
+            "positionMm": {
+              "x": 180,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H010-S01",
+              "referenceSegmentId": "V012-S01"
+            }
+          },
+          {
+            "step": 10,
+            "operationId": "OP-H010-013",
+            "workingStripId": "H010",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H010",
+            "referenceStripId": "V013",
+            "action": "under",
+            "positionMm": {
+              "x": 195,
+              "y": 155
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 11,
+        "workingStripId": "H011",
+        "operations": [
+          {
+            "step": 11,
+            "operationId": "OP-H011-001",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H011",
+            "referenceStripId": "V001",
+            "action": "over",
+            "positionMm": {
+              "x": 15,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-002",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H011",
+            "referenceStripId": "V002",
+            "action": "under",
+            "positionMm": {
+              "x": 30,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-003",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H011",
+            "referenceStripId": "V003",
+            "action": "over",
+            "positionMm": {
+              "x": 45,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H011-S01",
+              "referenceSegmentId": "V003-S01"
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-004",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H011",
+            "referenceStripId": "V004",
+            "action": "under",
+            "positionMm": {
+              "x": 60,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H011-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-005",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H011",
+            "referenceStripId": "V005",
+            "action": "over",
+            "positionMm": {
+              "x": 75,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H011-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-006",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H011",
+            "referenceStripId": "V006",
+            "action": "under",
+            "positionMm": {
+              "x": 90,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H011-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-007",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H011",
+            "referenceStripId": "V007",
+            "action": "over",
+            "positionMm": {
+              "x": 105,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H011-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-008",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H011",
+            "referenceStripId": "V008",
+            "action": "under",
+            "positionMm": {
+              "x": 120,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H011-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-009",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H011",
+            "referenceStripId": "V009",
+            "action": "over",
+            "positionMm": {
+              "x": 135,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H011-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-010",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H011",
+            "referenceStripId": "V010",
+            "action": "under",
+            "positionMm": {
+              "x": 150,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H011-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-011",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H011",
+            "referenceStripId": "V011",
+            "action": "over",
+            "positionMm": {
+              "x": 165,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H011-S01",
+              "referenceSegmentId": "V011-S01"
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-012",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H011",
+            "referenceStripId": "V012",
+            "action": "under",
+            "positionMm": {
+              "x": 180,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 11,
+            "operationId": "OP-H011-013",
+            "workingStripId": "H011",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H011",
+            "referenceStripId": "V013",
+            "action": "over",
+            "positionMm": {
+              "x": 195,
+              "y": 170
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 12,
+        "workingStripId": "H012",
+        "operations": [
+          {
+            "step": 12,
+            "operationId": "OP-H012-001",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H012",
+            "referenceStripId": "V001",
+            "action": "under",
+            "positionMm": {
+              "x": 15,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-002",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H012",
+            "referenceStripId": "V002",
+            "action": "over",
+            "positionMm": {
+              "x": 30,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-003",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H012",
+            "referenceStripId": "V003",
+            "action": "under",
+            "positionMm": {
+              "x": 45,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-004",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H012",
+            "referenceStripId": "V004",
+            "action": "over",
+            "positionMm": {
+              "x": 60,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H012-S01",
+              "referenceSegmentId": "V004-S01"
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-005",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H012",
+            "referenceStripId": "V005",
+            "action": "under",
+            "positionMm": {
+              "x": 75,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H012-S01",
+              "referenceSegmentId": "V005-S01"
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-006",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H012",
+            "referenceStripId": "V006",
+            "action": "over",
+            "positionMm": {
+              "x": 90,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H012-S01",
+              "referenceSegmentId": "V006-S01"
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-007",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H012",
+            "referenceStripId": "V007",
+            "action": "under",
+            "positionMm": {
+              "x": 105,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H012-S01",
+              "referenceSegmentId": "V007-S01"
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-008",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H012",
+            "referenceStripId": "V008",
+            "action": "over",
+            "positionMm": {
+              "x": 120,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H012-S01",
+              "referenceSegmentId": "V008-S01"
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-009",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H012",
+            "referenceStripId": "V009",
+            "action": "under",
+            "positionMm": {
+              "x": 135,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H012-S01",
+              "referenceSegmentId": "V009-S01"
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-010",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H012",
+            "referenceStripId": "V010",
+            "action": "over",
+            "positionMm": {
+              "x": 150,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": true,
+              "workingSegmentId": "H012-S01",
+              "referenceSegmentId": "V010-S01"
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-011",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H012",
+            "referenceStripId": "V011",
+            "action": "under",
+            "positionMm": {
+              "x": 165,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-012",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H012",
+            "referenceStripId": "V012",
+            "action": "over",
+            "positionMm": {
+              "x": 180,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 12,
+            "operationId": "OP-H012-013",
+            "workingStripId": "H012",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H012",
+            "referenceStripId": "V013",
+            "action": "under",
+            "positionMm": {
+              "x": 195,
+              "y": 185
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      },
+      {
+        "step": 13,
+        "workingStripId": "H013",
+        "operations": [
+          {
+            "step": 13,
+            "operationId": "OP-H013-001",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 1,
+            "crossingId": "X-V001-H013",
+            "referenceStripId": "V001",
+            "action": "over",
+            "positionMm": {
+              "x": 15,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-002",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 2,
+            "crossingId": "X-V002-H013",
+            "referenceStripId": "V002",
+            "action": "under",
+            "positionMm": {
+              "x": 30,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-003",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 3,
+            "crossingId": "X-V003-H013",
+            "referenceStripId": "V003",
+            "action": "over",
+            "positionMm": {
+              "x": 45,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-004",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 4,
+            "crossingId": "X-V004-H013",
+            "referenceStripId": "V004",
+            "action": "under",
+            "positionMm": {
+              "x": 60,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-005",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 5,
+            "crossingId": "X-V005-H013",
+            "referenceStripId": "V005",
+            "action": "over",
+            "positionMm": {
+              "x": 75,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-006",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 6,
+            "crossingId": "X-V006-H013",
+            "referenceStripId": "V006",
+            "action": "under",
+            "positionMm": {
+              "x": 90,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-007",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 7,
+            "crossingId": "X-V007-H013",
+            "referenceStripId": "V007",
+            "action": "over",
+            "positionMm": {
+              "x": 105,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-008",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 8,
+            "crossingId": "X-V008-H013",
+            "referenceStripId": "V008",
+            "action": "under",
+            "positionMm": {
+              "x": 120,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-009",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 9,
+            "crossingId": "X-V009-H013",
+            "referenceStripId": "V009",
+            "action": "over",
+            "positionMm": {
+              "x": 135,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-010",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 10,
+            "crossingId": "X-V010-H013",
+            "referenceStripId": "V010",
+            "action": "under",
+            "positionMm": {
+              "x": 150,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-011",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 11,
+            "crossingId": "X-V011-H013",
+            "referenceStripId": "V011",
+            "action": "over",
+            "positionMm": {
+              "x": 165,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-012",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 12,
+            "crossingId": "X-V012-H013",
+            "referenceStripId": "V012",
+            "action": "under",
+            "positionMm": {
+              "x": 180,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          },
+          {
+            "step": 13,
+            "operationId": "OP-H013-013",
+            "workingStripId": "H013",
+            "workingDirection": "weft",
+            "crossingSequence": 13,
+            "crossingId": "X-V013-H013",
+            "referenceStripId": "V013",
+            "action": "over",
+            "positionMm": {
+              "x": 195,
+              "y": 200
+            },
+            "trimmedProduct": {
+              "visible": false,
+              "workingSegmentId": null,
+              "referenceSegmentId": null
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "counts": {
+    "strips": 26,
+    "segments": 22,
+    "crossings": 169,
+    "visibleCrossings": 109,
+    "operations": 169,
+    "tutorialGroups": 13,
+    "engineeringWarnings": 2
+  },
+  "versionChecks": [
+    {
+      "field": "schemaVersion",
+      "pass": true
+    },
+    {
+      "field": "structureGeneratorVersion",
+      "pass": true
+    },
+    {
+      "field": "designId",
+      "pass": true
+    },
+    {
+      "field": "generatedFromRevision",
+      "pass": true
+    },
+    {
+      "field": "carrierId",
+      "pass": true
+    },
+    {
+      "field": "carrierSpecVersion",
+      "pass": true
+    },
+    {
+      "field": "weaveId",
+      "pass": true
+    },
+    {
+      "field": "weaveSpecVersion",
+      "pass": true
+    },
+    {
+      "field": "craftRuleVersion",
+      "pass": true
+    },
+    {
+      "field": "key-order-does-not-expire",
+      "pass": true
+    },
+    {
+      "field": "missing-key-rejected",
+      "pass": true
+    }
+  ]
+}

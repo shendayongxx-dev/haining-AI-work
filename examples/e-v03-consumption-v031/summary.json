@@ -1,0 +1,473 @@
+{
+  "cases": [
+    {
+      "caseId": "round-cross-course",
+      "pass": true,
+      "counts": {
+        "strips": 42,
+        "segments": 38,
+        "crossings": 441,
+        "visibleCrossings": 285,
+        "operations": 441,
+        "tutorialGroups": 21,
+        "engineeringWarnings": 1
+      },
+      "materialStatus": "pending",
+      "totalStockLengthMm": null,
+      "sourceKey": {
+        "schemaVersion": "0.3",
+        "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+        "designId": "design-fan-green-triangle-001-round-cross-course",
+        "generatedFromRevision": 1,
+        "carrierId": "FAN-ROUND-170-V1",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "CROSS-COURSE-2X2-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+        "craftRuleVersion": "CRAFT-CROSS-COURSE-v1.1"
+      },
+      "checks": [
+        {
+          "id": "source-key-and-specifications",
+          "pass": true
+        },
+        {
+          "id": "strip-identities-and-material-fields",
+          "pass": true
+        },
+        {
+          "id": "segments-colors-and-boundary",
+          "pass": true
+        },
+        {
+          "id": "crossings-bidirectional-links-and-matrix",
+          "pass": true
+        },
+        {
+          "id": "weaving-steps-consumption",
+          "pass": true
+        },
+        {
+          "id": "engineering-warning-consumption",
+          "pass": true
+        },
+        {
+          "id": "outer-base-and-accounting-contract",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "versionChecks": [
+        {
+          "field": "schemaVersion",
+          "pass": true
+        },
+        {
+          "field": "structureGeneratorVersion",
+          "pass": true
+        },
+        {
+          "field": "designId",
+          "pass": true
+        },
+        {
+          "field": "generatedFromRevision",
+          "pass": true
+        },
+        {
+          "field": "carrierId",
+          "pass": true
+        },
+        {
+          "field": "carrierSpecVersion",
+          "pass": true
+        },
+        {
+          "field": "weaveId",
+          "pass": true
+        },
+        {
+          "field": "weaveSpecVersion",
+          "pass": true
+        },
+        {
+          "field": "craftRuleVersion",
+          "pass": true
+        },
+        {
+          "field": "key-order-does-not-expire",
+          "pass": true
+        },
+        {
+          "field": "missing-key-rejected",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "caseId": "oval-herring",
+      "pass": true,
+      "counts": {
+        "strips": 42,
+        "segments": 36,
+        "crossings": 441,
+        "visibleCrossings": 259,
+        "operations": 441,
+        "tutorialGroups": 21,
+        "engineeringWarnings": 0
+      },
+      "materialStatus": "pending",
+      "totalStockLengthMm": null,
+      "sourceKey": {
+        "schemaVersion": "0.3",
+        "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+        "designId": "design-fan-green-triangle-001-oval-herring",
+        "generatedFromRevision": 1,
+        "carrierId": "FAN-OVAL-150X180-V1",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "HERRING-3X3-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+        "craftRuleVersion": "CRAFT-HERRING-3X3-v1.0"
+      },
+      "checks": [
+        {
+          "id": "source-key-and-specifications",
+          "pass": true
+        },
+        {
+          "id": "strip-identities-and-material-fields",
+          "pass": true
+        },
+        {
+          "id": "segments-colors-and-boundary",
+          "pass": true
+        },
+        {
+          "id": "crossings-bidirectional-links-and-matrix",
+          "pass": true
+        },
+        {
+          "id": "weaving-steps-consumption",
+          "pass": true
+        },
+        {
+          "id": "engineering-warning-consumption",
+          "pass": true
+        },
+        {
+          "id": "outer-base-and-accounting-contract",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "versionChecks": [
+        {
+          "field": "schemaVersion",
+          "pass": true
+        },
+        {
+          "field": "structureGeneratorVersion",
+          "pass": true
+        },
+        {
+          "field": "designId",
+          "pass": true
+        },
+        {
+          "field": "generatedFromRevision",
+          "pass": true
+        },
+        {
+          "field": "carrierId",
+          "pass": true
+        },
+        {
+          "field": "carrierSpecVersion",
+          "pass": true
+        },
+        {
+          "field": "weaveId",
+          "pass": true
+        },
+        {
+          "field": "weaveSpecVersion",
+          "pass": true
+        },
+        {
+          "field": "craftRuleVersion",
+          "pass": true
+        },
+        {
+          "field": "key-order-does-not-expire",
+          "pass": true
+        },
+        {
+          "field": "missing-key-rejected",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "caseId": "octagon-square-hole",
+      "pass": true,
+      "counts": {
+        "strips": 26,
+        "segments": 22,
+        "crossings": 169,
+        "visibleCrossings": 109,
+        "operations": 169,
+        "tutorialGroups": 13,
+        "engineeringWarnings": 2
+      },
+      "materialStatus": "pending",
+      "totalStockLengthMm": null,
+      "sourceKey": {
+        "schemaVersion": "0.3",
+        "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+        "designId": "design-fan-green-triangle-001-octagon-square-hole",
+        "generatedFromRevision": 1,
+        "carrierId": "FAN-OCTAGON-170-V1",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "SQUARE-HOLE-1X1-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+        "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0"
+      },
+      "checks": [
+        {
+          "id": "source-key-and-specifications",
+          "pass": true
+        },
+        {
+          "id": "strip-identities-and-material-fields",
+          "pass": true
+        },
+        {
+          "id": "segments-colors-and-boundary",
+          "pass": true
+        },
+        {
+          "id": "crossings-bidirectional-links-and-matrix",
+          "pass": true
+        },
+        {
+          "id": "weaving-steps-consumption",
+          "pass": true
+        },
+        {
+          "id": "engineering-warning-consumption",
+          "pass": true
+        },
+        {
+          "id": "outer-base-and-accounting-contract",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "versionChecks": [
+        {
+          "field": "schemaVersion",
+          "pass": true
+        },
+        {
+          "field": "structureGeneratorVersion",
+          "pass": true
+        },
+        {
+          "field": "designId",
+          "pass": true
+        },
+        {
+          "field": "generatedFromRevision",
+          "pass": true
+        },
+        {
+          "field": "carrierId",
+          "pass": true
+        },
+        {
+          "field": "carrierSpecVersion",
+          "pass": true
+        },
+        {
+          "field": "weaveId",
+          "pass": true
+        },
+        {
+          "field": "weaveSpecVersion",
+          "pass": true
+        },
+        {
+          "field": "craftRuleVersion",
+          "pass": true
+        },
+        {
+          "field": "key-order-does-not-expire",
+          "pass": true
+        },
+        {
+          "field": "missing-key-rejected",
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "negativeTests": [
+    {
+      "name": "source-key-mismatch",
+      "pass": true,
+      "errorCodes": [
+        "SOURCE_KEY_MISMATCH"
+      ]
+    },
+    {
+      "name": "duplicate-strip",
+      "pass": true,
+      "errorCodes": [
+        "DUPLICATE_STRIP",
+        "GRID_DIRECTION_COUNT",
+        "STAGE_IDENTITIES"
+      ]
+    },
+    {
+      "name": "wrong-operation-action",
+      "pass": true,
+      "errorCodes": [
+        "OP_ACTION"
+      ]
+    },
+    {
+      "name": "missing-operation",
+      "pass": true,
+      "errorCodes": [
+        "OP_COVERAGE"
+      ]
+    },
+    {
+      "name": "dangling-segment",
+      "pass": true,
+      "errorCodes": [
+        "CROSSING_SEGMENT_MEMBERSHIP",
+        "SEGMENT_BACKLINK",
+        "SEGMENT_FORWARD_LINK",
+        "OP_SEGMENT_REFERENCE"
+      ]
+    },
+    {
+      "name": "missing-backlink",
+      "pass": true,
+      "errorCodes": [
+        "STAGE_STRIP_MISMATCH",
+        "SEGMENT_BACKLINK"
+      ]
+    },
+    {
+      "name": "color-gap",
+      "pass": true,
+      "errorCodes": [
+        "STAGE_STRIP_MISMATCH",
+        "COLOR_RANGE"
+      ]
+    },
+    {
+      "name": "fake-zero-stock",
+      "pass": true,
+      "errorCodes": [
+        "SETUP_ACCOUNTING",
+        "STAGE_STRIP_MISMATCH"
+      ]
+    },
+    {
+      "name": "false-warning-certification",
+      "pass": true,
+      "errorCodes": [
+        "WARNING_STATE"
+      ]
+    },
+    {
+      "name": "duplicate-segment-not-new-material",
+      "pass": true
+    }
+  ],
+  "rejectionExamples": [
+    {
+      "caseId": "round-cross-course",
+      "currentSourceKey": {
+        "schemaVersion": "0.3",
+        "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+        "designId": "design-fan-green-triangle-001-round-cross-course",
+        "generatedFromRevision": 2,
+        "carrierId": "FAN-ROUND-170-V1",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "CROSS-COURSE-2X2-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+        "craftRuleVersion": "CRAFT-CROSS-COURSE-v1.1"
+      },
+      "incomingSourceKey": {
+        "schemaVersion": "0.3",
+        "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+        "designId": "design-fan-green-triangle-001-round-cross-course",
+        "generatedFromRevision": 1,
+        "carrierId": "FAN-ROUND-170-V1",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "CROSS-COURSE-2X2-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+        "craftRuleVersion": "CRAFT-CROSS-COURSE-v1.1"
+      },
+      "accepted": false,
+      "reason": "sourceKey.generatedFromRevision changed"
+    },
+    {
+      "caseId": "oval-herring",
+      "currentSourceKey": {
+        "schemaVersion": "0.3",
+        "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+        "designId": "design-fan-green-triangle-001-oval-herring",
+        "generatedFromRevision": 2,
+        "carrierId": "FAN-OVAL-150X180-V1",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "HERRING-3X3-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+        "craftRuleVersion": "CRAFT-HERRING-3X3-v1.0"
+      },
+      "incomingSourceKey": {
+        "schemaVersion": "0.3",
+        "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+        "designId": "design-fan-green-triangle-001-oval-herring",
+        "generatedFromRevision": 1,
+        "carrierId": "FAN-OVAL-150X180-V1",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "HERRING-3X3-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+        "craftRuleVersion": "CRAFT-HERRING-3X3-v1.0"
+      },
+      "accepted": false,
+      "reason": "sourceKey.generatedFromRevision changed"
+    },
+    {
+      "caseId": "octagon-square-hole",
+      "currentSourceKey": {
+        "schemaVersion": "0.3",
+        "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+        "designId": "design-fan-green-triangle-001-octagon-square-hole",
+        "generatedFromRevision": 2,
+        "carrierId": "FAN-OCTAGON-170-V1",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "SQUARE-HOLE-1X1-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+        "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0"
+      },
+      "incomingSourceKey": {
+        "schemaVersion": "0.3",
+        "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+        "designId": "design-fan-green-triangle-001-octagon-square-hole",
+        "generatedFromRevision": 1,
+        "carrierId": "FAN-OCTAGON-170-V1",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "SQUARE-HOLE-1X1-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+        "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0"
+      },
+      "accepted": false,
+      "reason": "sourceKey.generatedFromRevision changed"
+    }
+  ]
+}
