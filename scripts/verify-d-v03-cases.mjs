@@ -14,6 +14,13 @@ for (const name of cases) {
     snapshot.stages.rawBlank.strips.every(strip => strip.stockLengthMm === null && strip.setupAllowanceMm === null && strip.trimWasteLengthMm === null),
     snapshot.engineeringWarnings.every(warning => warning.status === 'pending'),
     matrix.length === snapshot.grid.weftCount + 1 && matrix.every(row => row.split(',').length === snapshot.grid.warpCount + 1),
+    snapshot.stages.rawBlank.crossings.filter(crossing => !crossing.trimmedProduct.visible)
+      .every(crossing => crossing.warpSegmentId === null && crossing.weftSegmentId === null),
+    snapshot.stages.rawBlank.weavingOrder.every(operation => operation.trimmedProduct.visible
+      ? operation.trimmedProduct.workingSegmentId !== null && operation.trimmedProduct.referenceSegmentId !== null
+      : operation.trimmedProduct.workingSegmentId === null && operation.trimmedProduct.referenceSegmentId === null),
+    new Set(snapshot.stages.trimmedProduct.visibleCrossingIds).size
+      === snapshot.stages.rawBlank.crossings.filter(crossing => crossing.trimmedProduct.visible).length,
   ];
   const pass = report.pass && directChecks.every(Boolean);
   failed ||= !pass;

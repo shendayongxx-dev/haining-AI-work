@@ -29,7 +29,7 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
   "physicalValidation": "not-completed",
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.0",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
     "designId": "design-001",
     "generatedFromRevision": 12,
     "carrierId": "FAN-OVAL-150X180-V1",
@@ -354,7 +354,7 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
 {
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.0",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
     "designId": "design-001",
     "generatedFromRevision": 12,
     "carrierId": "FAN-OVAL-150X180-V1",
@@ -395,7 +395,7 @@ SVG 预览必须直接读取该快照，不能另算一份显示几何。E 读�
 {
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.0",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
     "designId": "design-001",
     "generatedFromRevision": 12,
     "carrierId": "FAN-OVAL-150X180-V1",

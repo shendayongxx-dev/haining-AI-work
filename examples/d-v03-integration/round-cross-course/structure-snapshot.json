@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.3",
-  "structureGeneratorVersion": "D-STRUCTURE-v0.3.0",
+  "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
   "designId": "design-fan-green-triangle-001-round-cross-course",
   "generatedFromRevision": 1,
   "carrierId": "FAN-ROUND-170-V1",
@@ -13,7 +13,7 @@
   "physicalValidation": "not-completed",
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.0",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
     "designId": "design-fan-green-triangle-001-round-cross-course",
     "generatedFromRevision": 1,
     "carrierId": "FAN-ROUND-170-V1",
@@ -2675,7 +2675,7 @@
                 },
                 {
                   "stripOffsetStartMm": 21.93,
-                  "stripOffsetEndMm": 82.93,
+                  "stripOffsetEndMm": 82.43,
                   "scope": "base",
                   "color": "#D9BC83",
                   "paletteId": null,
@@ -2683,7 +2683,7 @@
                   "sourceInputId": null
                 },
                 {
-                  "stripOffsetStartMm": 82.93,
+                  "stripOffsetStartMm": 82.43,
                   "stripOffsetEndMm": 106.43,
                   "scope": "motif",
                   "color": "#315F3A",
@@ -21776,7 +21776,7 @@
                 },
                 {
                   "stripOffsetStartMm": 21.93,
-                  "stripOffsetEndMm": 82.93,
+                  "stripOffsetEndMm": 82.43,
                   "scope": "base",
                   "color": "#D9BC83",
                   "paletteId": null,
@@ -21784,7 +21784,7 @@
                   "sourceInputId": null
                 },
                 {
-                  "stripOffsetStartMm": 82.93,
+                  "stripOffsetStartMm": 82.43,
                   "stripOffsetEndMm": 106.43,
                   "scope": "motif",
                   "color": "#315F3A",

@@ -18,6 +18,9 @@
 | `weaving-order-links` | PASS | 441 条操作均关联交点、工作条与挑压动作。 |
 | `weaving-order-sequence` | PASS | 每根纬条的操作按经条顺序完整排列，可直接分组生成逐条编织步骤。 |
 | `visible-segment-backlinks` | PASS | 259 个裁切后可见交点具有双向 segmentId/crossingId 引用。 |
+| `invisible-segment-refs-cleared` | PASS | 全部 visible=false 交点的成品 segmentId 均为 null。 |
+| `weaving-order-trimmed-refs` | PASS | weavingOrder 的可见状态与两个成品段引用一致。 |
+| `visible-crossing-ids-exact` | PASS | visibleCrossingIds 与 crossings.visible=true 集合完全一致。 |
 | `color-segment-coverage` | PASS | 颜色段连续覆盖全部可见段，坐标为原竹条毛坯起点偏移。 |
 | `boundary-clipping-endpoints` | PASS | 全部可见段端点位于载体边界，未发现整页直条残留。 |
 | `unknown-materials-null` | PASS | 未确认备料长度、余量及裁切余量全部为 null。 |

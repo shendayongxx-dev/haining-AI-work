@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.3",
-  "structureGeneratorVersion": "D-STRUCTURE-v0.3.0",
+  "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
   "designId": "design-fan-green-triangle-001-oval-herring",
   "generatedFromRevision": 1,
   "carrierId": "FAN-OVAL-150X180-V1",
@@ -13,7 +13,7 @@
   "physicalValidation": "not-completed",
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.0",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
     "designId": "design-fan-green-triangle-001-oval-herring",
     "generatedFromRevision": 1,
     "carrierId": "FAN-OVAL-150X180-V1",
@@ -2879,7 +2879,7 @@
                 },
                 {
                   "stripOffsetStartMm": 70.88,
-                  "stripOffsetEndMm": 117.88,
+                  "stripOffsetEndMm": 118.38,
                   "scope": "motif",
                   "color": "#315F3A",
                   "paletteId": "green-01",
@@ -2887,7 +2887,7 @@
                   "sourceInputId": "stroke-green-triangle-001"
                 },
                 {
-                  "stripOffsetStartMm": 117.88,
+                  "stripOffsetStartMm": 118.38,
                   "stripOffsetEndMm": 158.88,
                   "scope": "base",
                   "color": "#D9BC83",
@@ -3810,7 +3810,7 @@
         {
           "crossingId": "X-V011-H001",
           "warpStripId": "V011",
-          "warpSegmentId": "V011-S01",
+          "warpSegmentId": null,
           "weftStripId": "H001",
           "weftSegmentId": null,
           "positionMm": {
@@ -10530,7 +10530,7 @@
         {
           "crossingId": "X-V011-H021",
           "warpStripId": "V011",
-          "warpSegmentId": "V011-S01",
+          "warpSegmentId": null,
           "weftStripId": "H021",
           "weftSegmentId": null,
           "positionMm": {
@@ -10911,7 +10911,7 @@
           "trimmedProduct": {
             "visible": false,
             "workingSegmentId": null,
-            "referenceSegmentId": "V011-S01"
+            "referenceSegmentId": null
           }
         },
         {
@@ -18891,7 +18891,7 @@
           "trimmedProduct": {
             "visible": false,
             "workingSegmentId": null,
-            "referenceSegmentId": "V011-S01"
+            "referenceSegmentId": null
           }
         },
         {
@@ -21836,7 +21836,7 @@
                 },
                 {
                   "stripOffsetStartMm": 70.88,
-                  "stripOffsetEndMm": 117.88,
+                  "stripOffsetEndMm": 118.38,
                   "scope": "motif",
                   "color": "#315F3A",
                   "paletteId": "green-01",
@@ -21844,7 +21844,7 @@
                   "sourceInputId": "stroke-green-triangle-001"
                 },
                 {
-                  "stripOffsetStartMm": 117.88,
+                  "stripOffsetStartMm": 118.38,
                   "stripOffsetEndMm": 158.88,
                   "scope": "base",
                   "color": "#D9BC83",
