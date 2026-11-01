@@ -37,12 +37,17 @@ for (const entry of cases) {
     baseColor: '#D9BC83',
   });
   const validation = validateStructureV03(snapshot);
+  if (!validation.pass) {
+    const failures = validation.checks.filter(check => !check.pass).map(check => check.id).join(', ');
+    throw new Error(`${entry.slug} failed structural validation: ${failures}`);
+  }
   const report = `# ${entry.carrierId} + ${entry.weaveId} 验证报告
 
 - 自动检查：${validation.pass ? '通过' : '失败'}
-- 快照状态：\`${snapshot.validationStatus}\`
-- 实物验证：\`${snapshot.physicalValidation}\`
-- 毛坯竹条：${snapshot.stages.rawBlank.strips.length} 根
+- 结构验证：\`${snapshot.structuralValidation.status}\`
+- 工艺验证：\`${snapshot.craftValidation.status}\`
+- 实物验证：\`${snapshot.physicalValidation.status}\`
+- 毛坯竹条：${snapshot.strips.length} 根
 - 毛坯交点：${snapshot.stages.rawBlank.crossings.length} 个
 - 裁切后可见交点：${snapshot.stages.trimmedProduct.visibleCrossingIds.length} 个
 - 工程预警：${snapshot.engineeringWarnings.length} 项，均为 \`review/pending\`
@@ -91,15 +96,15 @@ SVG 仅作结构预览；JSON 是 E 组消费的权威数据源。
   writeFileSync(join(directory, 'validation-report.md'), report);
 }
 
-writeFileSync(join(outputRoot, 'README.md'), `# D v0.3 三组共同案例
+writeFileSync(join(outputRoot, 'README.md'), `# D v0.3.2 三组共同案例
 
 | 案例 | 完整 JSON | SVG 预览 | PNG 截图 | 交点矩阵 | 检查报告 |
 |---|---|---|---|---|---|
 ${cases.map(entry => `| ${entry.carrierId} + ${entry.weaveId} | [JSON](./${entry.slug}/structure-snapshot.json) | [SVG](./${entry.slug}/preview.svg) | [PNG](./${entry.slug}/preview.png) | [CSV](./${entry.slug}/crossing-matrix.csv) | [报告](./${entry.slug}/validation-report.md) |`).join('\n')}
 
-三组案例统一使用 C 的绿色三角形 \`surface_pattern\` 作为联调图样。完整结构由 D v0.3 同一次计算生成 JSON 与 SVG；E 应读取 JSON，不从 SVG 取数。
+三组案例统一使用 C 的绿色三角形 \`surface_pattern\` 作为联调图样。完整结构由 D v0.3.2 同一次计算生成 JSON 与 SVG；E 应读取 JSON，不从 SVG 取数。顶层 \`strips[]\` 是唯一完整竹条对象树，阶段对象只保存 ID 索引。
 
-未确定的 \`stockLengthMm\`、\`setupAllowanceMm\`、\`trimWasteLengthMm\` 均为 \`null\`。所有工艺与实物状态保持 \`pending\` / \`not-completed\`。
+未确定的 \`stockLengthMm\`、\`setupAllowanceMm\`、\`trimWasteLengthMm\` 均为 \`null\`。D 结构验证为 \`passed\`；E 工艺与 B 实物状态保持 \`pending\` / \`not-completed\`。
 
 ## 复现与验证
 

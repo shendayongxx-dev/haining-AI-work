@@ -1,15 +1,16 @@
 # D：结构快照 v0.3 公共接口提案
 
-评审状态：`accepted-for-integration`（B 组第三轮复审通过）
-结构验证状态：`validationStatus: pending`
-实物验证状态：`physicalValidation: not-completed`
+评审状态：`changes-requested-for-interface-freeze`（C 组评审后收敛中）
+结构验证状态：`structuralValidation.status: passed`
+工艺验证状态：`craftValidation.status: pending`
+实物验证状态：`physicalValidation.status: not-completed`
 适用规则：`CARRIER-SPEC-v1.2`、`WEAVE-SPEC-v1.2`
 主送：A、B、E
 同步：C
 
 ## 1. 变更目的
 
-D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生的多段竹篾。当前 `schemaVersion: 0.2` 的单一 `startMm/endMm` 无法稳定表达这些结果，因此 D→E 快照升级为 `schemaVersion: 0.3`。
+D→E v0.3 数据结构目标是兼容六种候选载体、三种候选编法，以及凹形轮廓产生的多段竹篾。每个具体组合的可用状态由对应版本化规范、E 工艺检查与 B 实物验证共同决定。当前 `schemaVersion: 0.2` 的单一 `startMm/endMm` 无法稳定表达这些结果，因此提出 v0.3 扩展。
 
 本次只确定公共输出结构，不改变 C→A 的 `surface_pattern` 输入合同。所有工艺状态继续为 `pending`，结构计算成功不代表工艺通过。
 
@@ -18,19 +19,23 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
 ```json
 {
   "schemaVersion": "0.3",
+  "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
   "designId": "design-001",
+  "designRevision": 12,
   "generatedFromRevision": 12,
   "carrierId": "FAN-OVAL-150X180-V1",
   "carrierSpecVersion": "CARRIER-SPEC-v1.2",
   "weaveId": "HERRING-3X3-V1",
   "weaveSpecVersion": "WEAVE-SPEC-v1.2",
   "craftRuleVersion": "CRAFT-HERRING-3X3-v1.0",
-  "validationStatus": "pending",
-  "physicalValidation": "not-completed",
+  "structuralValidation": { "status": "passed", "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.2" },
+  "craftValidation": { "status": "pending", "owner": "E" },
+  "physicalValidation": { "status": "not-completed", "owner": "B" },
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
     "designId": "design-001",
+    "designRevision": 12,
     "generatedFromRevision": 12,
     "carrierId": "FAN-OVAL-150X180-V1",
     "carrierSpecVersion": "CARRIER-SPEC-v1.2",
@@ -41,7 +46,7 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
 }
 ```
 
-`carrierId`、`weaveId`、规则版本与 `generatedFromRevision` 必须由同一次计算产生。A 接收异步结果时必须再次核对当前设计版本，旧结果不得覆盖新版本。
+顶层重复的来源字段必须与 `sourceKey` 逐项全等；任一字段不一致时整份快照无效。`designRevision` 是快照对应的 A 设计版本，`generatedFromRevision` 是 D 启动计算时实际消费的 A 版本；生成完成时二者必须相等。A 接收异步结果时必须再次核对当前设计版本，旧结果不得覆盖新版本。
 
 ## 3. `visibleSegments[]`：多段可见竹篾
 
@@ -69,19 +74,19 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
       "lengthMm": 124.92,
       "crossingIds": ["X-V005-H005", "X-V005-H006", "X-V005-H007", "X-V005-H008", "X-V005-H009", "X-V005-H010", "X-V005-H011", "X-V005-H012", "X-V005-H013", "X-V005-H014", "X-V005-H015", "X-V005-H016", "X-V005-H017"],
       "colorSegments": [
-        { "stripOffsetStartMm": 32.04, "stripOffsetEndMm": 49.97, "scope": "outer-base", "color": "#e7cda9", "sourceElementId": null },
-        { "stripOffsetStartMm": 49.97, "stripOffsetEndMm": 80, "scope": "base", "color": "#e7cda9", "sourceElementId": null },
-        { "stripOffsetStartMm": 80, "stripOffsetEndMm": 120, "scope": "motif", "color": "#315F3A", "sourceElementId": "element-green-triangle-001" },
-        { "stripOffsetStartMm": 120, "stripOffsetEndMm": 139.03, "scope": "base", "color": "#e7cda9", "sourceElementId": null },
-        { "stripOffsetStartMm": 139.03, "stripOffsetEndMm": 156.96, "scope": "outer-base", "color": "#e7cda9", "sourceElementId": null }
+        { "stripOffsetStartMm": 32.04, "stripOffsetEndMm": 49.97, "scope": "outer-base", "color": "#e7cda9", "paletteId": null, "sourceElementId": null, "sourceInputId": null },
+        { "stripOffsetStartMm": 49.97, "stripOffsetEndMm": 80, "scope": "base", "color": "#e7cda9", "paletteId": null, "sourceElementId": null, "sourceInputId": null },
+        { "stripOffsetStartMm": 80, "stripOffsetEndMm": 120, "scope": "motif", "color": "#315F3A", "paletteId": "green-01", "sourceElementId": "element-green-triangle-001", "sourceInputId": "stroke-green-triangle-001" },
+        { "stripOffsetStartMm": 120, "stripOffsetEndMm": 139.03, "scope": "base", "color": "#e7cda9", "paletteId": null, "sourceElementId": null, "sourceInputId": null },
+        { "stripOffsetStartMm": 139.03, "stripOffsetEndMm": 156.96, "scope": "outer-base", "color": "#e7cda9", "paletteId": null, "sourceElementId": null, "sourceInputId": null }
       ]
     }
   ],
-  "stockLengthMm": 290,
+  "stockLengthMm": null,
   "rawBlankLengthMm": 189,
   "visibleLengthMm": 124.92,
-  "setupAllowanceMm": 101,
-  "trimWasteLengthMm": 64.08
+  "setupAllowanceMm": null,
+  "trimWasteLengthMm": null
 }
 ```
 
@@ -99,7 +104,7 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
 ### 3.1 段排序、空结果与端点归属
 
 - `stripOffsetStartMm/stripOffsetEndMm` 均以 `rawBlankSegment.startMm` 为原点，沿原竹篾方向递增；
-- 经篾 `visibleSegments[]` 按 Y 从小到大排序，纬篾按 X 从小到大排序；依次生成 `ordinal: 1,2...` 和 `S01、S02……`；
+- 所有 `visibleSegments[]` 只按 `stripOffsetStartMm` 升序排序；不得按全局 X/Y 排序。依次生成 `ordinal: 1,2...` 和 `S01、S02……`；
 - 几何结果在规定容差内未变化时，`segmentId` 必须稳定；小于几何容差的零长度段或相切碎片不生成；
 - 使用 `CARRIER-SPEC-v1.2` 的交点容差 `0.01 mm`、闭合误差 `0.05 mm` 和曲线最大弦误差 `0.25 mm`；
 - 竹篾被正式轮廓完全裁掉时仍保留原 `stripId`，使用 `visibleSegments: []`、`visibleLengthMm: 0`；材料计数仍以毛坯竹篾为准；
@@ -121,35 +126,45 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
       "stripOffsetEndMm": 49.97,
       "scope": "outer-base",
       "color": "#e7cda9",
-      "sourceElementId": null
+      "paletteId": null,
+      "sourceElementId": null,
+      "sourceInputId": null
     },
     {
       "stripOffsetStartMm": 49.97,
       "stripOffsetEndMm": 80,
       "scope": "base",
       "color": "#e7cda9",
-      "sourceElementId": null
+      "paletteId": null,
+      "sourceElementId": null,
+      "sourceInputId": null
     },
     {
       "stripOffsetStartMm": 80,
       "stripOffsetEndMm": 120,
       "scope": "motif",
       "color": "#315F3A",
-      "sourceElementId": "element-green-triangle-001"
+      "paletteId": "green-01",
+      "sourceElementId": "element-green-triangle-001",
+      "sourceInputId": "stroke-green-triangle-001"
     },
     {
       "stripOffsetStartMm": 120,
       "stripOffsetEndMm": 139.03,
       "scope": "base",
       "color": "#e7cda9",
-      "sourceElementId": null
+      "paletteId": null,
+      "sourceElementId": null,
+      "sourceInputId": null
     },
     {
       "stripOffsetStartMm": 139.03,
       "stripOffsetEndMm": 156.96,
       "scope": "outer-base",
       "color": "#e7cda9",
-      "sourceElementId": null
+      "paletteId": null,
+      "sourceElementId": null,
+      "sourceInputId": null
     }
   ]
 }
@@ -202,7 +217,9 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
   "stripOffsetEndMm": 36,
   "color": "#e7cda9",
   "scope": "outer-base",
-  "sourceElementId": null
+  "paletteId": null,
+  "sourceElementId": null,
+  "sourceInputId": null
 }
 ```
 
@@ -211,6 +228,8 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
 - `motif`：有效图样区内，由 C 的元素映射而来，保留 `sourceElementId/sourceInputId/paletteId`；
 - `base`：有效图样区内未被图样覆盖的基础色；
 - `outer-base`：有效图样区外、正式载体边界内的基础编织。
+
+`color` 是 D 实际渲染与染色使用的解析值。`paletteId` 非空时，`color` 必须等于 `sourcePattern.palette` 中对应色值，否则结构校验失败。`base/outer-base` 的 `paletteId/sourceElementId/sourceInputId` 必须全部为 `null`。
 
 外侧区域只恢复基础色，不重置竹篾 ID、节距或压挑循环。手柄区不是挖空区域，基础竹编继续存在，另行增加加固预警。
 
@@ -350,12 +369,15 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
 
 ## 8. 快照阶段结构
 
+顶层 `strips[]` 是唯一完整竹条对象树，包含毛坯几何、可见段、颜色段和材料字段。`stages.*` 只保存阶段边界和 ID 索引；禁止复制完整竹条对象后独立修改。
+
 ```json
 {
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
     "designId": "design-001",
+    "designRevision": 12,
     "generatedFromRevision": 12,
     "carrierId": "FAN-OVAL-150X180-V1",
     "carrierSpecVersion": "CARRIER-SPEC-v1.2",
@@ -363,20 +385,21 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
     "weaveSpecVersion": "WEAVE-SPEC-v1.2",
     "craftRuleVersion": "CRAFT-HERRING-3X3-v1.0"
   },
-  "validationStatus": "pending",
-  "physicalValidation": "not-completed",
+  "structuralValidation": { "status": "passed", "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.2" },
+  "craftValidation": { "status": "pending", "owner": "E" },
+  "physicalValidation": { "status": "not-completed", "owner": "B" },
+  "strips": [],
   "stages": {
     "rawBlank": {
       "boundary": {},
-      "strips": [],
+      "stripIds": ["V001", "H001"],
       "crossings": [],
       "weavingOrder": []
     },
     "trimmedProduct": {
       "boundary": {},
       "effectivePatternBoundary": {},
-      "outerBaseWeaveZone": {},
-      "strips": [],
+      "visibleStripIds": ["V001", "H001"],
       "visibleCrossingIds": []
     }
   },
@@ -387,6 +410,8 @@ D 需要支持六种正式载体、三种正式编法，以及凹形轮廓产生
 
 SVG 预览必须直接读取该快照，不能另算一份显示几何。E 读取 JSON，不从 SVG 反推结构数据。
 
+字段必填性、可空性和基础结构由 `data/D_STRUCTURE_SNAPSHOT_V0_3.schema.json` 约束；顶层与 `sourceKey` 全等、ID 双向引用、段排序、颜色来源一致性等 JSON Schema 无法完整表达的不变量，由 `validateStructureV03` 强制检查。
+
 ## 9. 版本失效规则
 
 所有 D、E 派生结果必须携带同一个来源键：
@@ -395,8 +420,9 @@ SVG 预览必须直接读取该快照，不能另算一份显示几何。E 读�
 {
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
     "designId": "design-001",
+    "designRevision": 12,
     "generatedFromRevision": 12,
     "carrierId": "FAN-OVAL-150X180-V1",
     "carrierSpecVersion": "CARRIER-SPEC-v1.2",
@@ -410,13 +436,21 @@ SVG 预览必须直接读取该快照，不能另算一份显示几何。E 读�
 以下任意值改变，旧的结构快照、E检查结果、材料结果和教程全部失效并重新计算：
 
 - `schemaVersion` 或 `structureGeneratorVersion`；
-- `designId` 或 `generatedFromRevision`；
+- `designId`、`designRevision` 或 `generatedFromRevision`；
 - `carrierId` 或 `carrierSpecVersion`；
 - `weaveId`、`weaveSpecVersion` 或 `craftRuleVersion`。
 
 E 的输出必须原样保存 `sourceKey`。A 以完整 `sourceKey` 判断结果是否仍对应当前设计，不能只比较 `designRevision`。D 修复裁切、段排序、颜色切分或交点归属算法时必须递增 `structureGeneratorVersion`，即使 A 设计和 B 规范版本没有变化。
 
-版本字段统一约定：`designRevision` 是 A 的当前输入设计版本；D 输出只使用 `generatedFromRevision` 表示本快照实际消费的 A 版本。计算完成时必须满足 `generatedFromRevision === designRevision`，保存后以下游结果的 `generatedFromRevision` 为追溯依据，不再另存第二个含义相同的版本字段。
+版本字段统一约定：`designRevision` 是快照对应的 A 设计版本；`generatedFromRevision` 表示 D 实际消费的 A 版本。计算完成时必须满足二者相等，但迁移期继续同时保存，避免破坏 v0.2 消费者的版本判断。
+
+### 9.1 v0.2 → v0.3 双读迁移
+
+- A/E 根据 `schemaVersion` 分流：v0.2 继续读取旧路径，v0.3 读取顶层 `strips[]` 与阶段 ID 索引；
+- 新设计停止生成 v0.2 的时间点，由 A 在 v0.3 三组案例完成 C/E 独立消费后确认；
+- 缺少完整 `sourceKey` 的 v0.2 快照标记为 `legacy-unverifiable`，不得复用旧工艺检查、材料结果或教程；
+- v0.2 案例保留一个联调周期作为兼容回归样例，不得自动改写为 v0.3；
+- 在迁移完成前，不使用“E 必须读取 v0.3”或“旧字段不再正式消费”的表述。
 
 ## 10. 圆扇手柄区约定
 
@@ -449,11 +483,12 @@ E 的输出必须原样保存 `sourceKey`。A 以完整 `sourceKey` 判断结果
 - 确认材料量读取毛坯/备料长度，不读取裁切后可见弦长；
 - 确认工程预警不会被误判为自动工艺结论。
 
-### C 组：同步，不作为 D→E 接口门禁
+### C 组：输入合同与公共来源字段评审
 
 - 继续输出已确认的 `surface_pattern`；
 - 图样只在 `effectivePatternBoundary` 内生效；
 - 不需要生成竹篾、交点、外侧基础编织区或工程预警。
+- 对对象树、来源字段和版本迁移的评审属于接口冻结门禁。
 
 ## 12. 验收案例
 
@@ -467,7 +502,7 @@ E 的输出必须原样保存 `sourceKey`。A 以完整 `sourceKey` 判断结果
 
 ## 13. 评审结论与集成门禁
 
-- B 组第三轮复审已确认 `accepted-for-integration`；D 可以开始提交三组结构集成样例；
-- 最终是否合入 `main` 仍由 A 依据版本兼容策略、E 的消费验证和三组结构集成结果决定；
-- C 的输入合同没有变化，因此 C 的反馈为同步意见，不阻断 D→E 接口；
+- B 组第三轮复审已确认规则方向可进入联调；C 组当前结论为 `changes-requested-for-interface-freeze`；
+- 在 C、E 完成 v0.3.2 独立消费前，不冻结接口，也不以公共接口完成为由请求合入 `main`；
+- 最终是否合入 `main` 由 A 依据版本兼容策略、C/E 消费验证和三组结构集成结果决定；
 - 实物验证缺失不阻断结构联调，但快照和页面必须持续标记 `pending`。

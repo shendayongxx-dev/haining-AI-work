@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "D_STRUCTURE_SNAPSHOT_V0_3.schema.json",
+  "title": "D Structure Snapshot v0.3.2",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schemaVersion", "structureGeneratorVersion", "designId", "designRevision", "generatedFromRevision",
+    "carrierId", "carrierSpecVersion", "weaveId", "weaveSpecVersion", "craftRuleVersion", "sourceKey",
+    "structuralValidation", "craftValidation", "physicalValidation", "strips", "stages"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "0.3" },
+    "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.2" },
+    "designId": { "type": "string", "minLength": 1 },
+    "designRevision": { "type": "integer", "minimum": 0 },
+    "generatedFromRevision": { "type": "integer", "minimum": 0 },
+    "carrierId": { "type": "string", "minLength": 1 },
+    "carrierSpecVersion": { "type": "string", "minLength": 1 },
+    "weaveId": { "type": "string", "minLength": 1 },
+    "weaveSpecVersion": { "type": "string", "minLength": 1 },
+    "craftRuleVersion": { "type": "string", "minLength": 1 },
+    "sourceKey": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion", "structureGeneratorVersion", "designId", "designRevision", "generatedFromRevision",
+        "carrierId", "carrierSpecVersion", "weaveId", "weaveSpecVersion", "craftRuleVersion"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "0.3" },
+        "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.2" },
+        "designId": { "type": "string" },
+        "designRevision": { "type": "integer" },
+        "generatedFromRevision": { "type": "integer" },
+        "carrierId": { "type": "string" },
+        "carrierSpecVersion": { "type": "string" },
+        "weaveId": { "type": "string" },
+        "weaveSpecVersion": { "type": "string" },
+        "craftRuleVersion": { "type": "string" }
+      }
+    },
+    "structuralValidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "validatorVersion"],
+      "properties": {
+        "status": { "const": "passed" },
+        "validatorVersion": { "const": "D-STRUCTURE-VALIDATOR-v0.3.2" }
+      }
+    },
+    "craftValidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "owner"],
+      "properties": { "status": { "const": "pending" }, "owner": { "const": "E" } }
+    },
+    "physicalValidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "owner"],
+      "properties": { "status": { "const": "not-completed" }, "owner": { "const": "B" } }
+    },
+    "strips": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/strip" }
+    },
+    "stages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rawBlank", "trimmedProduct"],
+      "properties": {
+        "rawBlank": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["boundary", "stripIds", "crossings", "weavingOrder"],
+          "properties": {
+            "boundary": { "type": "object" },
+            "stripIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+            "crossings": { "type": "array", "items": { "type": "object" } },
+            "weavingOrder": { "type": "array", "items": { "type": "object" } }
+          }
+        },
+        "trimmedProduct": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["boundary", "effectivePatternBoundary", "visibleStripIds", "visibleCrossingIds"],
+          "properties": {
+            "boundary": { "type": "object" },
+            "effectivePatternBoundary": { "type": "object" },
+            "visibleStripIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+            "visibleCrossingIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": { "x": { "type": "number" }, "y": { "type": "number" } }
+    },
+    "colorSegment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stripOffsetStartMm", "stripOffsetEndMm", "scope", "color", "paletteId", "sourceElementId", "sourceInputId"
+      ],
+      "properties": {
+        "stripOffsetStartMm": { "type": "number" },
+        "stripOffsetEndMm": { "type": "number" },
+        "scope": { "enum": ["motif", "base", "outer-base"] },
+        "color": { "type": "string" },
+        "paletteId": { "type": ["string", "null"] },
+        "sourceElementId": { "type": ["string", "null"] },
+        "sourceInputId": { "type": ["string", "null"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "scope": { "const": "motif" } } },
+          "then": {
+            "properties": {
+              "paletteId": { "type": "string", "minLength": 1 },
+              "sourceElementId": { "type": "string", "minLength": 1 },
+              "sourceInputId": { "type": "string", "minLength": 1 }
+            }
+          },
+          "else": {
+            "properties": {
+              "paletteId": { "type": "null" },
+              "sourceElementId": { "type": "null" },
+              "sourceInputId": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+    "visibleSegment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "segmentId", "ordinal", "startMm", "endMm", "stripOffsetStartMm", "stripOffsetEndMm",
+        "lengthMm", "crossingIds", "colorSegments"
+      ],
+      "properties": {
+        "segmentId": { "type": "string" },
+        "ordinal": { "type": "integer", "minimum": 1 },
+        "startMm": { "$ref": "#/$defs/point" },
+        "endMm": { "$ref": "#/$defs/point" },
+        "stripOffsetStartMm": { "type": "number" },
+        "stripOffsetEndMm": { "type": "number" },
+        "lengthMm": { "type": "number", "minimum": 0 },
+        "crossingIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "colorSegments": { "type": "array", "items": { "$ref": "#/$defs/colorSegment" }, "minItems": 1 }
+      }
+    },
+    "strip": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stripId", "direction", "order", "axisMm", "widthMm", "thicknessMm", "pitchMm",
+        "rawBlankSegment", "visibleSegments", "stockLengthMm", "rawBlankLengthMm", "visibleLengthMm",
+        "setupAllowanceMm", "trimWasteLengthMm"
+      ],
+      "properties": {
+        "stripId": { "type": "string" },
+        "direction": { "enum": ["warp", "weft"] },
+        "order": { "type": "integer", "minimum": 1 },
+        "axisMm": { "type": "number" },
+        "widthMm": { "type": "number", "exclusiveMinimum": 0 },
+        "thicknessMm": { "type": "number", "exclusiveMinimum": 0 },
+        "pitchMm": { "type": "number", "exclusiveMinimum": 0 },
+        "rawBlankSegment": { "type": "object" },
+        "visibleSegments": { "type": "array", "items": { "$ref": "#/$defs/visibleSegment" } },
+        "stockLengthMm": { "type": ["number", "null"] },
+        "rawBlankLengthMm": { "type": "number", "minimum": 0 },
+        "visibleLengthMm": { "type": "number", "minimum": 0 },
+        "setupAllowanceMm": { "type": ["number", "null"] },
+        "trimWasteLengthMm": { "type": ["number", "null"] }
+      }
+    }
+  },
+  "$comment": "JSON Schema validates shape and nullability. Cross-field equality, ordering, ID backlinks and palette color equality are enforced by validateStructureV03."
+}

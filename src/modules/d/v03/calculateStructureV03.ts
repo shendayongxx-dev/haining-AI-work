@@ -305,13 +305,19 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
   }
   const warnings = [...warningForHandle(input, carrier, crossings), ...edgeWarnings(input, strips, pitchMm)];
   const sourceKey = {
-    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.1' as const,
-    designId: input.designId, generatedFromRevision: input.designRevision, carrierId: input.carrierId,
+    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.2' as const,
+    designId: input.designId, designRevision: input.designRevision, generatedFromRevision: input.designRevision, carrierId: input.carrierId,
     carrierSpecVersion: 'CARRIER-SPEC-v1.2' as const, weaveId: input.weaveId,
     weaveSpecVersion: 'WEAVE-SPEC-v1.2' as const, craftRuleVersion: weave.craftRuleVersion,
   };
   return {
-    ...sourceKey, confirmedGenerationId: input.confirmedGenerationId, validationStatus: 'pending', physicalValidation: 'not-completed', sourceKey,
+    ...sourceKey,
+    confirmedGenerationId: input.confirmedGenerationId,
+    structuralValidation: { status: 'passed' as const, validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.2' as const },
+    craftValidation: { status: 'pending' as const, owner: 'E' as const },
+    physicalValidation: { status: 'not-completed' as const, owner: 'B' as const },
+    sourceKey,
+    strips,
     sourcePattern: input.pattern, coordinateSpace: { widthMm: 210, heightMm: 297, origin: 'top-left', xAxis: 'right', yAxis: 'down' },
     carrierGeometry: { boundary: carrier.boundary, effectivePatternBoundary: carrier.effectivePatternBoundary, handleExclusion: carrier.handleExclusion },
     outerBaseWeaveZone: {
@@ -323,8 +329,11 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
     },
     grid: { warpCount: count, weftCount: count, pitchMm, stripWidthMm: widthMm, clearHoleMm },
     stages: {
-      rawBlank: { boundary: raw, strips, crossings, weavingOrder },
-      trimmedProduct: { boundary: carrier.boundary, effectivePatternBoundary: carrier.effectivePatternBoundary, strips,
+      rawBlank: { boundary: raw, stripIds: strips.map(value => value.stripId), crossings, weavingOrder },
+      trimmedProduct: {
+        boundary: carrier.boundary,
+        effectivePatternBoundary: carrier.effectivePatternBoundary,
+        visibleStripIds: strips.filter(value => value.visibleSegments.length > 0).map(value => value.stripId),
         visibleCrossingIds: crossings.filter(value => value.trimmedProduct.visible).map(value => value.crossingId) },
     },
     engineeringWarnings: warnings,

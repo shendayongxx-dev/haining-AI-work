@@ -1,7 +1,8 @@
 {
   "schemaVersion": "0.3",
-  "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+  "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
   "designId": "design-fan-green-triangle-001-octagon-square-hole",
+  "designRevision": 1,
   "generatedFromRevision": 1,
   "carrierId": "FAN-OCTAGON-170-V1",
   "carrierSpecVersion": "CARRIER-SPEC-v1.2",
@@ -9,12 +10,23 @@
   "weaveSpecVersion": "WEAVE-SPEC-v1.2",
   "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0",
   "confirmedGenerationId": "generation-fan-green-triangle-001",
-  "validationStatus": "pending",
-  "physicalValidation": "not-completed",
+  "structuralValidation": {
+    "status": "passed",
+    "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.2"
+  },
+  "craftValidation": {
+    "status": "pending",
+    "owner": "E"
+  },
+  "physicalValidation": {
+    "status": "not-completed",
+    "owner": "B"
+  },
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.1",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.2",
     "designId": "design-fan-green-triangle-001-octagon-square-hole",
+    "designRevision": 1,
     "generatedFromRevision": 1,
     "carrierId": "FAN-OCTAGON-170-V1",
     "carrierSpecVersion": "CARRIER-SPEC-v1.2",
@@ -22,6 +34,2116 @@
     "weaveSpecVersion": "WEAVE-SPEC-v1.2",
     "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0"
   },
+  "strips": [
+    {
+      "stripId": "V001",
+      "direction": "warp",
+      "order": 1,
+      "axisMm": 15,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 15,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 15,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 0,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V002",
+      "direction": "warp",
+      "order": 2,
+      "axisMm": 30,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 30,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 30,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V002-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 30,
+            "y": 65
+          },
+          "endMm": {
+            "x": 30,
+            "y": 155
+          },
+          "stripOffsetStartMm": 49.5,
+          "stripOffsetEndMm": 139.5,
+          "lengthMm": 90,
+          "crossingIds": [
+            "X-V002-H004",
+            "X-V002-H005",
+            "X-V002-H006",
+            "X-V002-H007",
+            "X-V002-H008",
+            "X-V002-H009",
+            "X-V002-H010"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 49.5,
+              "stripOffsetEndMm": 63.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 63.5,
+              "stripOffsetEndMm": 125.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 125.5,
+              "stripOffsetEndMm": 139.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 90,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V003",
+      "direction": "warp",
+      "order": 3,
+      "axisMm": 45,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 45,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 45,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V003-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 45,
+            "y": 50
+          },
+          "endMm": {
+            "x": 45,
+            "y": 170
+          },
+          "stripOffsetStartMm": 34.5,
+          "stripOffsetEndMm": 154.5,
+          "lengthMm": 120,
+          "crossingIds": [
+            "X-V003-H003",
+            "X-V003-H004",
+            "X-V003-H005",
+            "X-V003-H006",
+            "X-V003-H007",
+            "X-V003-H008",
+            "X-V003-H009",
+            "X-V003-H010",
+            "X-V003-H011"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 34.5,
+              "stripOffsetEndMm": 48.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 48.5,
+              "stripOffsetEndMm": 140.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 140.5,
+              "stripOffsetEndMm": 154.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 120,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V004",
+      "direction": "warp",
+      "order": 4,
+      "axisMm": 60,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 60,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 60,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V004-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 60,
+            "y": 35
+          },
+          "endMm": {
+            "x": 60,
+            "y": 185
+          },
+          "stripOffsetStartMm": 19.5,
+          "stripOffsetEndMm": 169.5,
+          "lengthMm": 150,
+          "crossingIds": [
+            "X-V004-H002",
+            "X-V004-H003",
+            "X-V004-H004",
+            "X-V004-H005",
+            "X-V004-H006",
+            "X-V004-H007",
+            "X-V004-H008",
+            "X-V004-H009",
+            "X-V004-H010",
+            "X-V004-H011",
+            "X-V004-H012"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 33.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 33.5,
+              "stripOffsetEndMm": 155.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 155.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 150,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V005",
+      "direction": "warp",
+      "order": 5,
+      "axisMm": 75,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 75,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 75,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V005-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 75,
+            "y": 25
+          },
+          "endMm": {
+            "x": 75,
+            "y": 195
+          },
+          "stripOffsetStartMm": 9.5,
+          "stripOffsetEndMm": 179.5,
+          "lengthMm": 170,
+          "crossingIds": [
+            "X-V005-H002",
+            "X-V005-H003",
+            "X-V005-H004",
+            "X-V005-H005",
+            "X-V005-H006",
+            "X-V005-H007",
+            "X-V005-H008",
+            "X-V005-H009",
+            "X-V005-H010",
+            "X-V005-H011",
+            "X-V005-H012"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 9.5,
+              "stripOffsetEndMm": 19.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 118,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 118,
+              "stripOffsetEndMm": 129.5,
+              "scope": "motif",
+              "color": "#315F3A",
+              "paletteId": "green-01",
+              "sourceElementId": "element-green-triangle-001",
+              "sourceInputId": "stroke-green-triangle-001"
+            },
+            {
+              "stripOffsetStartMm": 129.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 169.5,
+              "stripOffsetEndMm": 179.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 170,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V006",
+      "direction": "warp",
+      "order": 6,
+      "axisMm": 90,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 90,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 90,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V006-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 90,
+            "y": 25
+          },
+          "endMm": {
+            "x": 90,
+            "y": 195
+          },
+          "stripOffsetStartMm": 9.5,
+          "stripOffsetEndMm": 179.5,
+          "lengthMm": 170,
+          "crossingIds": [
+            "X-V006-H002",
+            "X-V006-H003",
+            "X-V006-H004",
+            "X-V006-H005",
+            "X-V006-H006",
+            "X-V006-H007",
+            "X-V006-H008",
+            "X-V006-H009",
+            "X-V006-H010",
+            "X-V006-H011",
+            "X-V006-H012"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 9.5,
+              "stripOffsetEndMm": 19.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 84,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 84,
+              "stripOffsetEndMm": 129.5,
+              "scope": "motif",
+              "color": "#315F3A",
+              "paletteId": "green-01",
+              "sourceElementId": "element-green-triangle-001",
+              "sourceInputId": "stroke-green-triangle-001"
+            },
+            {
+              "stripOffsetStartMm": 129.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 169.5,
+              "stripOffsetEndMm": 179.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 170,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V007",
+      "direction": "warp",
+      "order": 7,
+      "axisMm": 105,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 105,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 105,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V007-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 105,
+            "y": 25
+          },
+          "endMm": {
+            "x": 105,
+            "y": 195
+          },
+          "stripOffsetStartMm": 9.5,
+          "stripOffsetEndMm": 179.5,
+          "lengthMm": 170,
+          "crossingIds": [
+            "X-V007-H002",
+            "X-V007-H003",
+            "X-V007-H004",
+            "X-V007-H005",
+            "X-V007-H006",
+            "X-V007-H007",
+            "X-V007-H008",
+            "X-V007-H009",
+            "X-V007-H010",
+            "X-V007-H011",
+            "X-V007-H012"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 9.5,
+              "stripOffsetEndMm": 19.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 49.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 49.5,
+              "stripOffsetEndMm": 129.5,
+              "scope": "motif",
+              "color": "#315F3A",
+              "paletteId": "green-01",
+              "sourceElementId": "element-green-triangle-001",
+              "sourceInputId": "stroke-green-triangle-001"
+            },
+            {
+              "stripOffsetStartMm": 129.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 169.5,
+              "stripOffsetEndMm": 179.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 170,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V008",
+      "direction": "warp",
+      "order": 8,
+      "axisMm": 120,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 120,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 120,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V008-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 120,
+            "y": 25
+          },
+          "endMm": {
+            "x": 120,
+            "y": 195
+          },
+          "stripOffsetStartMm": 9.5,
+          "stripOffsetEndMm": 179.5,
+          "lengthMm": 170,
+          "crossingIds": [
+            "X-V008-H002",
+            "X-V008-H003",
+            "X-V008-H004",
+            "X-V008-H005",
+            "X-V008-H006",
+            "X-V008-H007",
+            "X-V008-H008",
+            "X-V008-H009",
+            "X-V008-H010",
+            "X-V008-H011",
+            "X-V008-H012"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 9.5,
+              "stripOffsetEndMm": 19.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 84,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 84,
+              "stripOffsetEndMm": 129.5,
+              "scope": "motif",
+              "color": "#315F3A",
+              "paletteId": "green-01",
+              "sourceElementId": "element-green-triangle-001",
+              "sourceInputId": "stroke-green-triangle-001"
+            },
+            {
+              "stripOffsetStartMm": 129.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 169.5,
+              "stripOffsetEndMm": 179.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 170,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V009",
+      "direction": "warp",
+      "order": 9,
+      "axisMm": 135,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 135,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 135,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V009-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 135,
+            "y": 25
+          },
+          "endMm": {
+            "x": 135,
+            "y": 195
+          },
+          "stripOffsetStartMm": 9.5,
+          "stripOffsetEndMm": 179.5,
+          "lengthMm": 170,
+          "crossingIds": [
+            "X-V009-H002",
+            "X-V009-H003",
+            "X-V009-H004",
+            "X-V009-H005",
+            "X-V009-H006",
+            "X-V009-H007",
+            "X-V009-H008",
+            "X-V009-H009",
+            "X-V009-H010",
+            "X-V009-H011",
+            "X-V009-H012"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 9.5,
+              "stripOffsetEndMm": 19.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 118,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 118,
+              "stripOffsetEndMm": 129.5,
+              "scope": "motif",
+              "color": "#315F3A",
+              "paletteId": "green-01",
+              "sourceElementId": "element-green-triangle-001",
+              "sourceInputId": "stroke-green-triangle-001"
+            },
+            {
+              "stripOffsetStartMm": 129.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 169.5,
+              "stripOffsetEndMm": 179.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 170,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V010",
+      "direction": "warp",
+      "order": 10,
+      "axisMm": 150,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 150,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 150,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V010-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 150,
+            "y": 35
+          },
+          "endMm": {
+            "x": 150,
+            "y": 185
+          },
+          "stripOffsetStartMm": 19.5,
+          "stripOffsetEndMm": 169.5,
+          "lengthMm": 150,
+          "crossingIds": [
+            "X-V010-H002",
+            "X-V010-H003",
+            "X-V010-H004",
+            "X-V010-H005",
+            "X-V010-H006",
+            "X-V010-H007",
+            "X-V010-H008",
+            "X-V010-H009",
+            "X-V010-H010",
+            "X-V010-H011",
+            "X-V010-H012"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 33.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 33.5,
+              "stripOffsetEndMm": 155.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 155.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 150,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V011",
+      "direction": "warp",
+      "order": 11,
+      "axisMm": 165,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 165,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 165,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V011-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 165,
+            "y": 50
+          },
+          "endMm": {
+            "x": 165,
+            "y": 170
+          },
+          "stripOffsetStartMm": 34.5,
+          "stripOffsetEndMm": 154.5,
+          "lengthMm": 120,
+          "crossingIds": [
+            "X-V011-H003",
+            "X-V011-H004",
+            "X-V011-H005",
+            "X-V011-H006",
+            "X-V011-H007",
+            "X-V011-H008",
+            "X-V011-H009",
+            "X-V011-H010",
+            "X-V011-H011"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 34.5,
+              "stripOffsetEndMm": 48.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 48.5,
+              "stripOffsetEndMm": 140.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 140.5,
+              "stripOffsetEndMm": 154.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 120,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V012",
+      "direction": "warp",
+      "order": 12,
+      "axisMm": 180,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 180,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 180,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "V012-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 180,
+            "y": 65
+          },
+          "endMm": {
+            "x": 180,
+            "y": 155
+          },
+          "stripOffsetStartMm": 49.5,
+          "stripOffsetEndMm": 139.5,
+          "lengthMm": 90,
+          "crossingIds": [
+            "X-V012-H004",
+            "X-V012-H005",
+            "X-V012-H006",
+            "X-V012-H007",
+            "X-V012-H008",
+            "X-V012-H009",
+            "X-V012-H010"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 49.5,
+              "stripOffsetEndMm": 63.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 63.5,
+              "stripOffsetEndMm": 125.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 125.5,
+              "stripOffsetEndMm": 139.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 90,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "V013",
+      "direction": "warp",
+      "order": 13,
+      "axisMm": 195,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 195,
+          "y": 15.5
+        },
+        "endMm": {
+          "x": 195,
+          "y": 204.5
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 0,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H001",
+      "direction": "weft",
+      "order": 1,
+      "axisMm": 20,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 20
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 20
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 0,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H002",
+      "direction": "weft",
+      "order": 2,
+      "axisMm": 35,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 35
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 35
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H002-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 60,
+            "y": 35
+          },
+          "endMm": {
+            "x": 150,
+            "y": 35
+          },
+          "stripOffsetStartMm": 49.5,
+          "stripOffsetEndMm": 139.5,
+          "lengthMm": 90,
+          "crossingIds": [
+            "X-V004-H002",
+            "X-V005-H002",
+            "X-V006-H002",
+            "X-V007-H002",
+            "X-V008-H002",
+            "X-V009-H002",
+            "X-V010-H002"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 49.5,
+              "stripOffsetEndMm": 63.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 63.5,
+              "stripOffsetEndMm": 125.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 125.5,
+              "stripOffsetEndMm": 139.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 90,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H003",
+      "direction": "weft",
+      "order": 3,
+      "axisMm": 50,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 50
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 50
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H003-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 45,
+            "y": 50
+          },
+          "endMm": {
+            "x": 165,
+            "y": 50
+          },
+          "stripOffsetStartMm": 34.5,
+          "stripOffsetEndMm": 154.5,
+          "lengthMm": 120,
+          "crossingIds": [
+            "X-V003-H003",
+            "X-V004-H003",
+            "X-V005-H003",
+            "X-V006-H003",
+            "X-V007-H003",
+            "X-V008-H003",
+            "X-V009-H003",
+            "X-V010-H003",
+            "X-V011-H003"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 34.5,
+              "stripOffsetEndMm": 48.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 48.5,
+              "stripOffsetEndMm": 140.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 140.5,
+              "stripOffsetEndMm": 154.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 120,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H004",
+      "direction": "weft",
+      "order": 4,
+      "axisMm": 65,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 65
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 65
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H004-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 30,
+            "y": 65
+          },
+          "endMm": {
+            "x": 180,
+            "y": 65
+          },
+          "stripOffsetStartMm": 19.5,
+          "stripOffsetEndMm": 169.5,
+          "lengthMm": 150,
+          "crossingIds": [
+            "X-V002-H004",
+            "X-V003-H004",
+            "X-V004-H004",
+            "X-V005-H004",
+            "X-V006-H004",
+            "X-V007-H004",
+            "X-V008-H004",
+            "X-V009-H004",
+            "X-V010-H004",
+            "X-V011-H004",
+            "X-V012-H004"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 33.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 33.5,
+              "stripOffsetEndMm": 155.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 155.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 150,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H005",
+      "direction": "weft",
+      "order": 5,
+      "axisMm": 80,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 80
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 80
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H005-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 20,
+            "y": 80
+          },
+          "endMm": {
+            "x": 190,
+            "y": 80
+          },
+          "stripOffsetStartMm": 9.5,
+          "stripOffsetEndMm": 179.5,
+          "lengthMm": 170,
+          "crossingIds": [
+            "X-V002-H005",
+            "X-V003-H005",
+            "X-V004-H005",
+            "X-V005-H005",
+            "X-V006-H005",
+            "X-V007-H005",
+            "X-V008-H005",
+            "X-V009-H005",
+            "X-V010-H005",
+            "X-V011-H005",
+            "X-V012-H005"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 9.5,
+              "stripOffsetEndMm": 19.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 88,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 88,
+              "stripOffsetEndMm": 101,
+              "scope": "motif",
+              "color": "#315F3A",
+              "paletteId": "green-01",
+              "sourceElementId": "element-green-triangle-001",
+              "sourceInputId": "stroke-green-triangle-001"
+            },
+            {
+              "stripOffsetStartMm": 101,
+              "stripOffsetEndMm": 169.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 169.5,
+              "stripOffsetEndMm": 179.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 170,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H006",
+      "direction": "weft",
+      "order": 6,
+      "axisMm": 95,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 95
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 95
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H006-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 20,
+            "y": 95
+          },
+          "endMm": {
+            "x": 190,
+            "y": 95
+          },
+          "stripOffsetStartMm": 9.5,
+          "stripOffsetEndMm": 179.5,
+          "lengthMm": 170,
+          "crossingIds": [
+            "X-V002-H006",
+            "X-V003-H006",
+            "X-V004-H006",
+            "X-V005-H006",
+            "X-V006-H006",
+            "X-V007-H006",
+            "X-V008-H006",
+            "X-V009-H006",
+            "X-V010-H006",
+            "X-V011-H006",
+            "X-V012-H006"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 9.5,
+              "stripOffsetEndMm": 19.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 81.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 81.5,
+              "stripOffsetEndMm": 107.5,
+              "scope": "motif",
+              "color": "#315F3A",
+              "paletteId": "green-01",
+              "sourceElementId": "element-green-triangle-001",
+              "sourceInputId": "stroke-green-triangle-001"
+            },
+            {
+              "stripOffsetStartMm": 107.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 169.5,
+              "stripOffsetEndMm": 179.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 170,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H007",
+      "direction": "weft",
+      "order": 7,
+      "axisMm": 110,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 110
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 110
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H007-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 20,
+            "y": 110
+          },
+          "endMm": {
+            "x": 190,
+            "y": 110
+          },
+          "stripOffsetStartMm": 9.5,
+          "stripOffsetEndMm": 179.5,
+          "lengthMm": 170,
+          "crossingIds": [
+            "X-V002-H007",
+            "X-V003-H007",
+            "X-V004-H007",
+            "X-V005-H007",
+            "X-V006-H007",
+            "X-V007-H007",
+            "X-V008-H007",
+            "X-V009-H007",
+            "X-V010-H007",
+            "X-V011-H007",
+            "X-V012-H007"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 9.5,
+              "stripOffsetEndMm": 19.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 75,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 75,
+              "stripOffsetEndMm": 114,
+              "scope": "motif",
+              "color": "#315F3A",
+              "paletteId": "green-01",
+              "sourceElementId": "element-green-triangle-001",
+              "sourceInputId": "stroke-green-triangle-001"
+            },
+            {
+              "stripOffsetStartMm": 114,
+              "stripOffsetEndMm": 169.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 169.5,
+              "stripOffsetEndMm": 179.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 170,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H008",
+      "direction": "weft",
+      "order": 8,
+      "axisMm": 125,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 125
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 125
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H008-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 20,
+            "y": 125
+          },
+          "endMm": {
+            "x": 190,
+            "y": 125
+          },
+          "stripOffsetStartMm": 9.5,
+          "stripOffsetEndMm": 179.5,
+          "lengthMm": 170,
+          "crossingIds": [
+            "X-V002-H008",
+            "X-V003-H008",
+            "X-V004-H008",
+            "X-V005-H008",
+            "X-V006-H008",
+            "X-V007-H008",
+            "X-V008-H008",
+            "X-V009-H008",
+            "X-V010-H008",
+            "X-V011-H008",
+            "X-V012-H008"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 9.5,
+              "stripOffsetEndMm": 19.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 68,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 68,
+              "stripOffsetEndMm": 121,
+              "scope": "motif",
+              "color": "#315F3A",
+              "paletteId": "green-01",
+              "sourceElementId": "element-green-triangle-001",
+              "sourceInputId": "stroke-green-triangle-001"
+            },
+            {
+              "stripOffsetStartMm": 121,
+              "stripOffsetEndMm": 169.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 169.5,
+              "stripOffsetEndMm": 179.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 170,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H009",
+      "direction": "weft",
+      "order": 9,
+      "axisMm": 140,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 140
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 140
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H009-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 20,
+            "y": 140
+          },
+          "endMm": {
+            "x": 190,
+            "y": 140
+          },
+          "stripOffsetStartMm": 9.5,
+          "stripOffsetEndMm": 179.5,
+          "lengthMm": 170,
+          "crossingIds": [
+            "X-V002-H009",
+            "X-V003-H009",
+            "X-V004-H009",
+            "X-V005-H009",
+            "X-V006-H009",
+            "X-V007-H009",
+            "X-V008-H009",
+            "X-V009-H009",
+            "X-V010-H009",
+            "X-V011-H009",
+            "X-V012-H009"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 9.5,
+              "stripOffsetEndMm": 19.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 61.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 61.5,
+              "stripOffsetEndMm": 127.5,
+              "scope": "motif",
+              "color": "#315F3A",
+              "paletteId": "green-01",
+              "sourceElementId": "element-green-triangle-001",
+              "sourceInputId": "stroke-green-triangle-001"
+            },
+            {
+              "stripOffsetStartMm": 127.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 169.5,
+              "stripOffsetEndMm": 179.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 170,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H010",
+      "direction": "weft",
+      "order": 10,
+      "axisMm": 155,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 155
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 155
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H010-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 30,
+            "y": 155
+          },
+          "endMm": {
+            "x": 180,
+            "y": 155
+          },
+          "stripOffsetStartMm": 19.5,
+          "stripOffsetEndMm": 169.5,
+          "lengthMm": 150,
+          "crossingIds": [
+            "X-V002-H010",
+            "X-V003-H010",
+            "X-V004-H010",
+            "X-V005-H010",
+            "X-V006-H010",
+            "X-V007-H010",
+            "X-V008-H010",
+            "X-V009-H010",
+            "X-V010-H010",
+            "X-V011-H010",
+            "X-V012-H010"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 19.5,
+              "stripOffsetEndMm": 33.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 33.5,
+              "stripOffsetEndMm": 155.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 155.5,
+              "stripOffsetEndMm": 169.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 150,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H011",
+      "direction": "weft",
+      "order": 11,
+      "axisMm": 170,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 170
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 170
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H011-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 45,
+            "y": 170
+          },
+          "endMm": {
+            "x": 165,
+            "y": 170
+          },
+          "stripOffsetStartMm": 34.5,
+          "stripOffsetEndMm": 154.5,
+          "lengthMm": 120,
+          "crossingIds": [
+            "X-V003-H011",
+            "X-V004-H011",
+            "X-V005-H011",
+            "X-V006-H011",
+            "X-V007-H011",
+            "X-V008-H011",
+            "X-V009-H011",
+            "X-V010-H011",
+            "X-V011-H011"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 34.5,
+              "stripOffsetEndMm": 48.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 48.5,
+              "stripOffsetEndMm": 140.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 140.5,
+              "stripOffsetEndMm": 154.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 120,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H012",
+      "direction": "weft",
+      "order": 12,
+      "axisMm": 185,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 185
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 185
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [
+        {
+          "segmentId": "H012-S01",
+          "ordinal": 1,
+          "startMm": {
+            "x": 60,
+            "y": 185
+          },
+          "endMm": {
+            "x": 150,
+            "y": 185
+          },
+          "stripOffsetStartMm": 49.5,
+          "stripOffsetEndMm": 139.5,
+          "lengthMm": 90,
+          "crossingIds": [
+            "X-V004-H012",
+            "X-V005-H012",
+            "X-V006-H012",
+            "X-V007-H012",
+            "X-V008-H012",
+            "X-V009-H012",
+            "X-V010-H012"
+          ],
+          "colorSegments": [
+            {
+              "stripOffsetStartMm": 49.5,
+              "stripOffsetEndMm": 63.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 63.5,
+              "stripOffsetEndMm": 125.5,
+              "scope": "base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            },
+            {
+              "stripOffsetStartMm": 125.5,
+              "stripOffsetEndMm": 139.5,
+              "scope": "outer-base",
+              "color": "#D9BC83",
+              "paletteId": null,
+              "sourceElementId": null,
+              "sourceInputId": null
+            }
+          ]
+        }
+      ],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 90,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    },
+    {
+      "stripId": "H013",
+      "direction": "weft",
+      "order": 13,
+      "axisMm": 200,
+      "widthMm": 9,
+      "thicknessMm": 0.5,
+      "pitchMm": 15,
+      "rawBlankSegment": {
+        "startMm": {
+          "x": 10.5,
+          "y": 200
+        },
+        "endMm": {
+          "x": 199.5,
+          "y": 200
+        },
+        "lengthMm": 189
+      },
+      "visibleSegments": [],
+      "stockLengthMm": null,
+      "rawBlankLengthMm": 189,
+      "visibleLengthMm": 0,
+      "setupAllowanceMm": null,
+      "trimWasteLengthMm": null
+    }
+  ],
   "sourcePattern": {
     "resultType": "surface_pattern",
     "patternId": "pattern-fan-green-triangle-001",
@@ -209,2115 +2331,33 @@
         "width": 189,
         "height": 189
       },
-      "strips": [
-        {
-          "stripId": "V001",
-          "direction": "warp",
-          "order": 1,
-          "axisMm": 15,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 15,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 15,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 0,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V002",
-          "direction": "warp",
-          "order": 2,
-          "axisMm": 30,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 30,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 30,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V002-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 30,
-                "y": 65
-              },
-              "endMm": {
-                "x": 30,
-                "y": 155
-              },
-              "stripOffsetStartMm": 49.5,
-              "stripOffsetEndMm": 139.5,
-              "lengthMm": 90,
-              "crossingIds": [
-                "X-V002-H004",
-                "X-V002-H005",
-                "X-V002-H006",
-                "X-V002-H007",
-                "X-V002-H008",
-                "X-V002-H009",
-                "X-V002-H010"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 49.5,
-                  "stripOffsetEndMm": 63.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 63.5,
-                  "stripOffsetEndMm": 125.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 125.5,
-                  "stripOffsetEndMm": 139.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 90,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V003",
-          "direction": "warp",
-          "order": 3,
-          "axisMm": 45,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 45,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 45,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V003-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 45,
-                "y": 50
-              },
-              "endMm": {
-                "x": 45,
-                "y": 170
-              },
-              "stripOffsetStartMm": 34.5,
-              "stripOffsetEndMm": 154.5,
-              "lengthMm": 120,
-              "crossingIds": [
-                "X-V003-H003",
-                "X-V003-H004",
-                "X-V003-H005",
-                "X-V003-H006",
-                "X-V003-H007",
-                "X-V003-H008",
-                "X-V003-H009",
-                "X-V003-H010",
-                "X-V003-H011"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 34.5,
-                  "stripOffsetEndMm": 48.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 48.5,
-                  "stripOffsetEndMm": 140.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 140.5,
-                  "stripOffsetEndMm": 154.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 120,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V004",
-          "direction": "warp",
-          "order": 4,
-          "axisMm": 60,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 60,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 60,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V004-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 60,
-                "y": 35
-              },
-              "endMm": {
-                "x": 60,
-                "y": 185
-              },
-              "stripOffsetStartMm": 19.5,
-              "stripOffsetEndMm": 169.5,
-              "lengthMm": 150,
-              "crossingIds": [
-                "X-V004-H002",
-                "X-V004-H003",
-                "X-V004-H004",
-                "X-V004-H005",
-                "X-V004-H006",
-                "X-V004-H007",
-                "X-V004-H008",
-                "X-V004-H009",
-                "X-V004-H010",
-                "X-V004-H011",
-                "X-V004-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 33.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 33.5,
-                  "stripOffsetEndMm": 155.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 155.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 150,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V005",
-          "direction": "warp",
-          "order": 5,
-          "axisMm": 75,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 75,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 75,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V005-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 75,
-                "y": 25
-              },
-              "endMm": {
-                "x": 75,
-                "y": 195
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V005-H002",
-                "X-V005-H003",
-                "X-V005-H004",
-                "X-V005-H005",
-                "X-V005-H006",
-                "X-V005-H007",
-                "X-V005-H008",
-                "X-V005-H009",
-                "X-V005-H010",
-                "X-V005-H011",
-                "X-V005-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 118,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 118,
-                  "stripOffsetEndMm": 129.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 129.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V006",
-          "direction": "warp",
-          "order": 6,
-          "axisMm": 90,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 90,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 90,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V006-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 90,
-                "y": 25
-              },
-              "endMm": {
-                "x": 90,
-                "y": 195
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V006-H002",
-                "X-V006-H003",
-                "X-V006-H004",
-                "X-V006-H005",
-                "X-V006-H006",
-                "X-V006-H007",
-                "X-V006-H008",
-                "X-V006-H009",
-                "X-V006-H010",
-                "X-V006-H011",
-                "X-V006-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 84,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 84,
-                  "stripOffsetEndMm": 129.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 129.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V007",
-          "direction": "warp",
-          "order": 7,
-          "axisMm": 105,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 105,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 105,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V007-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 105,
-                "y": 25
-              },
-              "endMm": {
-                "x": 105,
-                "y": 195
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V007-H002",
-                "X-V007-H003",
-                "X-V007-H004",
-                "X-V007-H005",
-                "X-V007-H006",
-                "X-V007-H007",
-                "X-V007-H008",
-                "X-V007-H009",
-                "X-V007-H010",
-                "X-V007-H011",
-                "X-V007-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 49.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 49.5,
-                  "stripOffsetEndMm": 129.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 129.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V008",
-          "direction": "warp",
-          "order": 8,
-          "axisMm": 120,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 120,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 120,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V008-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 120,
-                "y": 25
-              },
-              "endMm": {
-                "x": 120,
-                "y": 195
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V008-H002",
-                "X-V008-H003",
-                "X-V008-H004",
-                "X-V008-H005",
-                "X-V008-H006",
-                "X-V008-H007",
-                "X-V008-H008",
-                "X-V008-H009",
-                "X-V008-H010",
-                "X-V008-H011",
-                "X-V008-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 84,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 84,
-                  "stripOffsetEndMm": 129.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 129.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V009",
-          "direction": "warp",
-          "order": 9,
-          "axisMm": 135,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 135,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 135,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V009-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 135,
-                "y": 25
-              },
-              "endMm": {
-                "x": 135,
-                "y": 195
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V009-H002",
-                "X-V009-H003",
-                "X-V009-H004",
-                "X-V009-H005",
-                "X-V009-H006",
-                "X-V009-H007",
-                "X-V009-H008",
-                "X-V009-H009",
-                "X-V009-H010",
-                "X-V009-H011",
-                "X-V009-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 118,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 118,
-                  "stripOffsetEndMm": 129.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 129.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V010",
-          "direction": "warp",
-          "order": 10,
-          "axisMm": 150,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 150,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 150,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V010-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 150,
-                "y": 35
-              },
-              "endMm": {
-                "x": 150,
-                "y": 185
-              },
-              "stripOffsetStartMm": 19.5,
-              "stripOffsetEndMm": 169.5,
-              "lengthMm": 150,
-              "crossingIds": [
-                "X-V010-H002",
-                "X-V010-H003",
-                "X-V010-H004",
-                "X-V010-H005",
-                "X-V010-H006",
-                "X-V010-H007",
-                "X-V010-H008",
-                "X-V010-H009",
-                "X-V010-H010",
-                "X-V010-H011",
-                "X-V010-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 33.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 33.5,
-                  "stripOffsetEndMm": 155.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 155.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 150,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V011",
-          "direction": "warp",
-          "order": 11,
-          "axisMm": 165,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 165,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 165,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V011-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 165,
-                "y": 50
-              },
-              "endMm": {
-                "x": 165,
-                "y": 170
-              },
-              "stripOffsetStartMm": 34.5,
-              "stripOffsetEndMm": 154.5,
-              "lengthMm": 120,
-              "crossingIds": [
-                "X-V011-H003",
-                "X-V011-H004",
-                "X-V011-H005",
-                "X-V011-H006",
-                "X-V011-H007",
-                "X-V011-H008",
-                "X-V011-H009",
-                "X-V011-H010",
-                "X-V011-H011"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 34.5,
-                  "stripOffsetEndMm": 48.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 48.5,
-                  "stripOffsetEndMm": 140.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 140.5,
-                  "stripOffsetEndMm": 154.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 120,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V012",
-          "direction": "warp",
-          "order": 12,
-          "axisMm": 180,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 180,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 180,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V012-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 180,
-                "y": 65
-              },
-              "endMm": {
-                "x": 180,
-                "y": 155
-              },
-              "stripOffsetStartMm": 49.5,
-              "stripOffsetEndMm": 139.5,
-              "lengthMm": 90,
-              "crossingIds": [
-                "X-V012-H004",
-                "X-V012-H005",
-                "X-V012-H006",
-                "X-V012-H007",
-                "X-V012-H008",
-                "X-V012-H009",
-                "X-V012-H010"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 49.5,
-                  "stripOffsetEndMm": 63.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 63.5,
-                  "stripOffsetEndMm": 125.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 125.5,
-                  "stripOffsetEndMm": 139.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 90,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V013",
-          "direction": "warp",
-          "order": 13,
-          "axisMm": 195,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 195,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 195,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 0,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H001",
-          "direction": "weft",
-          "order": 1,
-          "axisMm": 20,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 20
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 20
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 0,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H002",
-          "direction": "weft",
-          "order": 2,
-          "axisMm": 35,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 35
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 35
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H002-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 60,
-                "y": 35
-              },
-              "endMm": {
-                "x": 150,
-                "y": 35
-              },
-              "stripOffsetStartMm": 49.5,
-              "stripOffsetEndMm": 139.5,
-              "lengthMm": 90,
-              "crossingIds": [
-                "X-V004-H002",
-                "X-V005-H002",
-                "X-V006-H002",
-                "X-V007-H002",
-                "X-V008-H002",
-                "X-V009-H002",
-                "X-V010-H002"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 49.5,
-                  "stripOffsetEndMm": 63.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 63.5,
-                  "stripOffsetEndMm": 125.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 125.5,
-                  "stripOffsetEndMm": 139.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 90,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H003",
-          "direction": "weft",
-          "order": 3,
-          "axisMm": 50,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 50
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 50
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H003-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 45,
-                "y": 50
-              },
-              "endMm": {
-                "x": 165,
-                "y": 50
-              },
-              "stripOffsetStartMm": 34.5,
-              "stripOffsetEndMm": 154.5,
-              "lengthMm": 120,
-              "crossingIds": [
-                "X-V003-H003",
-                "X-V004-H003",
-                "X-V005-H003",
-                "X-V006-H003",
-                "X-V007-H003",
-                "X-V008-H003",
-                "X-V009-H003",
-                "X-V010-H003",
-                "X-V011-H003"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 34.5,
-                  "stripOffsetEndMm": 48.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 48.5,
-                  "stripOffsetEndMm": 140.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 140.5,
-                  "stripOffsetEndMm": 154.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 120,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H004",
-          "direction": "weft",
-          "order": 4,
-          "axisMm": 65,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 65
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 65
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H004-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 30,
-                "y": 65
-              },
-              "endMm": {
-                "x": 180,
-                "y": 65
-              },
-              "stripOffsetStartMm": 19.5,
-              "stripOffsetEndMm": 169.5,
-              "lengthMm": 150,
-              "crossingIds": [
-                "X-V002-H004",
-                "X-V003-H004",
-                "X-V004-H004",
-                "X-V005-H004",
-                "X-V006-H004",
-                "X-V007-H004",
-                "X-V008-H004",
-                "X-V009-H004",
-                "X-V010-H004",
-                "X-V011-H004",
-                "X-V012-H004"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 33.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 33.5,
-                  "stripOffsetEndMm": 155.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 155.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 150,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H005",
-          "direction": "weft",
-          "order": 5,
-          "axisMm": 80,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 80
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 80
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H005-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 20,
-                "y": 80
-              },
-              "endMm": {
-                "x": 190,
-                "y": 80
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V002-H005",
-                "X-V003-H005",
-                "X-V004-H005",
-                "X-V005-H005",
-                "X-V006-H005",
-                "X-V007-H005",
-                "X-V008-H005",
-                "X-V009-H005",
-                "X-V010-H005",
-                "X-V011-H005",
-                "X-V012-H005"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 88,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 88,
-                  "stripOffsetEndMm": 101,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 101,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H006",
-          "direction": "weft",
-          "order": 6,
-          "axisMm": 95,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 95
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 95
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H006-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 20,
-                "y": 95
-              },
-              "endMm": {
-                "x": 190,
-                "y": 95
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V002-H006",
-                "X-V003-H006",
-                "X-V004-H006",
-                "X-V005-H006",
-                "X-V006-H006",
-                "X-V007-H006",
-                "X-V008-H006",
-                "X-V009-H006",
-                "X-V010-H006",
-                "X-V011-H006",
-                "X-V012-H006"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 81.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 81.5,
-                  "stripOffsetEndMm": 107.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 107.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H007",
-          "direction": "weft",
-          "order": 7,
-          "axisMm": 110,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 110
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 110
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H007-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 20,
-                "y": 110
-              },
-              "endMm": {
-                "x": 190,
-                "y": 110
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V002-H007",
-                "X-V003-H007",
-                "X-V004-H007",
-                "X-V005-H007",
-                "X-V006-H007",
-                "X-V007-H007",
-                "X-V008-H007",
-                "X-V009-H007",
-                "X-V010-H007",
-                "X-V011-H007",
-                "X-V012-H007"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 75,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 75,
-                  "stripOffsetEndMm": 114,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 114,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H008",
-          "direction": "weft",
-          "order": 8,
-          "axisMm": 125,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 125
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 125
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H008-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 20,
-                "y": 125
-              },
-              "endMm": {
-                "x": 190,
-                "y": 125
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V002-H008",
-                "X-V003-H008",
-                "X-V004-H008",
-                "X-V005-H008",
-                "X-V006-H008",
-                "X-V007-H008",
-                "X-V008-H008",
-                "X-V009-H008",
-                "X-V010-H008",
-                "X-V011-H008",
-                "X-V012-H008"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 68,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 68,
-                  "stripOffsetEndMm": 121,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 121,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H009",
-          "direction": "weft",
-          "order": 9,
-          "axisMm": 140,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 140
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 140
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H009-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 20,
-                "y": 140
-              },
-              "endMm": {
-                "x": 190,
-                "y": 140
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V002-H009",
-                "X-V003-H009",
-                "X-V004-H009",
-                "X-V005-H009",
-                "X-V006-H009",
-                "X-V007-H009",
-                "X-V008-H009",
-                "X-V009-H009",
-                "X-V010-H009",
-                "X-V011-H009",
-                "X-V012-H009"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 61.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 61.5,
-                  "stripOffsetEndMm": 127.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 127.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H010",
-          "direction": "weft",
-          "order": 10,
-          "axisMm": 155,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 155
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 155
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H010-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 30,
-                "y": 155
-              },
-              "endMm": {
-                "x": 180,
-                "y": 155
-              },
-              "stripOffsetStartMm": 19.5,
-              "stripOffsetEndMm": 169.5,
-              "lengthMm": 150,
-              "crossingIds": [
-                "X-V002-H010",
-                "X-V003-H010",
-                "X-V004-H010",
-                "X-V005-H010",
-                "X-V006-H010",
-                "X-V007-H010",
-                "X-V008-H010",
-                "X-V009-H010",
-                "X-V010-H010",
-                "X-V011-H010",
-                "X-V012-H010"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 33.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 33.5,
-                  "stripOffsetEndMm": 155.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 155.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 150,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H011",
-          "direction": "weft",
-          "order": 11,
-          "axisMm": 170,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 170
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 170
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H011-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 45,
-                "y": 170
-              },
-              "endMm": {
-                "x": 165,
-                "y": 170
-              },
-              "stripOffsetStartMm": 34.5,
-              "stripOffsetEndMm": 154.5,
-              "lengthMm": 120,
-              "crossingIds": [
-                "X-V003-H011",
-                "X-V004-H011",
-                "X-V005-H011",
-                "X-V006-H011",
-                "X-V007-H011",
-                "X-V008-H011",
-                "X-V009-H011",
-                "X-V010-H011",
-                "X-V011-H011"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 34.5,
-                  "stripOffsetEndMm": 48.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 48.5,
-                  "stripOffsetEndMm": 140.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 140.5,
-                  "stripOffsetEndMm": 154.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 120,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H012",
-          "direction": "weft",
-          "order": 12,
-          "axisMm": 185,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 185
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 185
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H012-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 60,
-                "y": 185
-              },
-              "endMm": {
-                "x": 150,
-                "y": 185
-              },
-              "stripOffsetStartMm": 49.5,
-              "stripOffsetEndMm": 139.5,
-              "lengthMm": 90,
-              "crossingIds": [
-                "X-V004-H012",
-                "X-V005-H012",
-                "X-V006-H012",
-                "X-V007-H012",
-                "X-V008-H012",
-                "X-V009-H012",
-                "X-V010-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 49.5,
-                  "stripOffsetEndMm": 63.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 63.5,
-                  "stripOffsetEndMm": 125.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 125.5,
-                  "stripOffsetEndMm": 139.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 90,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H013",
-          "direction": "weft",
-          "order": 13,
-          "axisMm": 200,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 200
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 200
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 0,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        }
+      "stripIds": [
+        "V001",
+        "V002",
+        "V003",
+        "V004",
+        "V005",
+        "V006",
+        "V007",
+        "V008",
+        "V009",
+        "V010",
+        "V011",
+        "V012",
+        "V013",
+        "H001",
+        "H002",
+        "H003",
+        "H004",
+        "H005",
+        "H006",
+        "H007",
+        "H008",
+        "H009",
+        "H010",
+        "H011",
+        "H012",
+        "H013"
       ],
       "crossings": [
         {
@@ -8319,2115 +8359,29 @@
           ]
         ]
       },
-      "strips": [
-        {
-          "stripId": "V001",
-          "direction": "warp",
-          "order": 1,
-          "axisMm": 15,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 15,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 15,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 0,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V002",
-          "direction": "warp",
-          "order": 2,
-          "axisMm": 30,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 30,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 30,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V002-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 30,
-                "y": 65
-              },
-              "endMm": {
-                "x": 30,
-                "y": 155
-              },
-              "stripOffsetStartMm": 49.5,
-              "stripOffsetEndMm": 139.5,
-              "lengthMm": 90,
-              "crossingIds": [
-                "X-V002-H004",
-                "X-V002-H005",
-                "X-V002-H006",
-                "X-V002-H007",
-                "X-V002-H008",
-                "X-V002-H009",
-                "X-V002-H010"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 49.5,
-                  "stripOffsetEndMm": 63.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 63.5,
-                  "stripOffsetEndMm": 125.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 125.5,
-                  "stripOffsetEndMm": 139.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 90,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V003",
-          "direction": "warp",
-          "order": 3,
-          "axisMm": 45,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 45,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 45,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V003-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 45,
-                "y": 50
-              },
-              "endMm": {
-                "x": 45,
-                "y": 170
-              },
-              "stripOffsetStartMm": 34.5,
-              "stripOffsetEndMm": 154.5,
-              "lengthMm": 120,
-              "crossingIds": [
-                "X-V003-H003",
-                "X-V003-H004",
-                "X-V003-H005",
-                "X-V003-H006",
-                "X-V003-H007",
-                "X-V003-H008",
-                "X-V003-H009",
-                "X-V003-H010",
-                "X-V003-H011"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 34.5,
-                  "stripOffsetEndMm": 48.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 48.5,
-                  "stripOffsetEndMm": 140.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 140.5,
-                  "stripOffsetEndMm": 154.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 120,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V004",
-          "direction": "warp",
-          "order": 4,
-          "axisMm": 60,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 60,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 60,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V004-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 60,
-                "y": 35
-              },
-              "endMm": {
-                "x": 60,
-                "y": 185
-              },
-              "stripOffsetStartMm": 19.5,
-              "stripOffsetEndMm": 169.5,
-              "lengthMm": 150,
-              "crossingIds": [
-                "X-V004-H002",
-                "X-V004-H003",
-                "X-V004-H004",
-                "X-V004-H005",
-                "X-V004-H006",
-                "X-V004-H007",
-                "X-V004-H008",
-                "X-V004-H009",
-                "X-V004-H010",
-                "X-V004-H011",
-                "X-V004-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 33.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 33.5,
-                  "stripOffsetEndMm": 155.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 155.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 150,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V005",
-          "direction": "warp",
-          "order": 5,
-          "axisMm": 75,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 75,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 75,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V005-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 75,
-                "y": 25
-              },
-              "endMm": {
-                "x": 75,
-                "y": 195
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V005-H002",
-                "X-V005-H003",
-                "X-V005-H004",
-                "X-V005-H005",
-                "X-V005-H006",
-                "X-V005-H007",
-                "X-V005-H008",
-                "X-V005-H009",
-                "X-V005-H010",
-                "X-V005-H011",
-                "X-V005-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 118,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 118,
-                  "stripOffsetEndMm": 129.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 129.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V006",
-          "direction": "warp",
-          "order": 6,
-          "axisMm": 90,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 90,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 90,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V006-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 90,
-                "y": 25
-              },
-              "endMm": {
-                "x": 90,
-                "y": 195
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V006-H002",
-                "X-V006-H003",
-                "X-V006-H004",
-                "X-V006-H005",
-                "X-V006-H006",
-                "X-V006-H007",
-                "X-V006-H008",
-                "X-V006-H009",
-                "X-V006-H010",
-                "X-V006-H011",
-                "X-V006-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 84,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 84,
-                  "stripOffsetEndMm": 129.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 129.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V007",
-          "direction": "warp",
-          "order": 7,
-          "axisMm": 105,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 105,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 105,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V007-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 105,
-                "y": 25
-              },
-              "endMm": {
-                "x": 105,
-                "y": 195
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V007-H002",
-                "X-V007-H003",
-                "X-V007-H004",
-                "X-V007-H005",
-                "X-V007-H006",
-                "X-V007-H007",
-                "X-V007-H008",
-                "X-V007-H009",
-                "X-V007-H010",
-                "X-V007-H011",
-                "X-V007-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 49.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 49.5,
-                  "stripOffsetEndMm": 129.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 129.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V008",
-          "direction": "warp",
-          "order": 8,
-          "axisMm": 120,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 120,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 120,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V008-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 120,
-                "y": 25
-              },
-              "endMm": {
-                "x": 120,
-                "y": 195
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V008-H002",
-                "X-V008-H003",
-                "X-V008-H004",
-                "X-V008-H005",
-                "X-V008-H006",
-                "X-V008-H007",
-                "X-V008-H008",
-                "X-V008-H009",
-                "X-V008-H010",
-                "X-V008-H011",
-                "X-V008-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 84,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 84,
-                  "stripOffsetEndMm": 129.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 129.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V009",
-          "direction": "warp",
-          "order": 9,
-          "axisMm": 135,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 135,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 135,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V009-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 135,
-                "y": 25
-              },
-              "endMm": {
-                "x": 135,
-                "y": 195
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V009-H002",
-                "X-V009-H003",
-                "X-V009-H004",
-                "X-V009-H005",
-                "X-V009-H006",
-                "X-V009-H007",
-                "X-V009-H008",
-                "X-V009-H009",
-                "X-V009-H010",
-                "X-V009-H011",
-                "X-V009-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 118,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 118,
-                  "stripOffsetEndMm": 129.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 129.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V010",
-          "direction": "warp",
-          "order": 10,
-          "axisMm": 150,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 150,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 150,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V010-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 150,
-                "y": 35
-              },
-              "endMm": {
-                "x": 150,
-                "y": 185
-              },
-              "stripOffsetStartMm": 19.5,
-              "stripOffsetEndMm": 169.5,
-              "lengthMm": 150,
-              "crossingIds": [
-                "X-V010-H002",
-                "X-V010-H003",
-                "X-V010-H004",
-                "X-V010-H005",
-                "X-V010-H006",
-                "X-V010-H007",
-                "X-V010-H008",
-                "X-V010-H009",
-                "X-V010-H010",
-                "X-V010-H011",
-                "X-V010-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 33.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 33.5,
-                  "stripOffsetEndMm": 155.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 155.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 150,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V011",
-          "direction": "warp",
-          "order": 11,
-          "axisMm": 165,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 165,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 165,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V011-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 165,
-                "y": 50
-              },
-              "endMm": {
-                "x": 165,
-                "y": 170
-              },
-              "stripOffsetStartMm": 34.5,
-              "stripOffsetEndMm": 154.5,
-              "lengthMm": 120,
-              "crossingIds": [
-                "X-V011-H003",
-                "X-V011-H004",
-                "X-V011-H005",
-                "X-V011-H006",
-                "X-V011-H007",
-                "X-V011-H008",
-                "X-V011-H009",
-                "X-V011-H010",
-                "X-V011-H011"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 34.5,
-                  "stripOffsetEndMm": 48.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 48.5,
-                  "stripOffsetEndMm": 140.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 140.5,
-                  "stripOffsetEndMm": 154.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 120,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V012",
-          "direction": "warp",
-          "order": 12,
-          "axisMm": 180,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 180,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 180,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "V012-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 180,
-                "y": 65
-              },
-              "endMm": {
-                "x": 180,
-                "y": 155
-              },
-              "stripOffsetStartMm": 49.5,
-              "stripOffsetEndMm": 139.5,
-              "lengthMm": 90,
-              "crossingIds": [
-                "X-V012-H004",
-                "X-V012-H005",
-                "X-V012-H006",
-                "X-V012-H007",
-                "X-V012-H008",
-                "X-V012-H009",
-                "X-V012-H010"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 49.5,
-                  "stripOffsetEndMm": 63.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 63.5,
-                  "stripOffsetEndMm": 125.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 125.5,
-                  "stripOffsetEndMm": 139.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 90,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "V013",
-          "direction": "warp",
-          "order": 13,
-          "axisMm": 195,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 195,
-              "y": 15.5
-            },
-            "endMm": {
-              "x": 195,
-              "y": 204.5
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 0,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H001",
-          "direction": "weft",
-          "order": 1,
-          "axisMm": 20,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 20
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 20
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 0,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H002",
-          "direction": "weft",
-          "order": 2,
-          "axisMm": 35,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 35
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 35
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H002-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 60,
-                "y": 35
-              },
-              "endMm": {
-                "x": 150,
-                "y": 35
-              },
-              "stripOffsetStartMm": 49.5,
-              "stripOffsetEndMm": 139.5,
-              "lengthMm": 90,
-              "crossingIds": [
-                "X-V004-H002",
-                "X-V005-H002",
-                "X-V006-H002",
-                "X-V007-H002",
-                "X-V008-H002",
-                "X-V009-H002",
-                "X-V010-H002"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 49.5,
-                  "stripOffsetEndMm": 63.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 63.5,
-                  "stripOffsetEndMm": 125.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 125.5,
-                  "stripOffsetEndMm": 139.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 90,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H003",
-          "direction": "weft",
-          "order": 3,
-          "axisMm": 50,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 50
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 50
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H003-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 45,
-                "y": 50
-              },
-              "endMm": {
-                "x": 165,
-                "y": 50
-              },
-              "stripOffsetStartMm": 34.5,
-              "stripOffsetEndMm": 154.5,
-              "lengthMm": 120,
-              "crossingIds": [
-                "X-V003-H003",
-                "X-V004-H003",
-                "X-V005-H003",
-                "X-V006-H003",
-                "X-V007-H003",
-                "X-V008-H003",
-                "X-V009-H003",
-                "X-V010-H003",
-                "X-V011-H003"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 34.5,
-                  "stripOffsetEndMm": 48.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 48.5,
-                  "stripOffsetEndMm": 140.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 140.5,
-                  "stripOffsetEndMm": 154.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 120,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H004",
-          "direction": "weft",
-          "order": 4,
-          "axisMm": 65,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 65
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 65
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H004-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 30,
-                "y": 65
-              },
-              "endMm": {
-                "x": 180,
-                "y": 65
-              },
-              "stripOffsetStartMm": 19.5,
-              "stripOffsetEndMm": 169.5,
-              "lengthMm": 150,
-              "crossingIds": [
-                "X-V002-H004",
-                "X-V003-H004",
-                "X-V004-H004",
-                "X-V005-H004",
-                "X-V006-H004",
-                "X-V007-H004",
-                "X-V008-H004",
-                "X-V009-H004",
-                "X-V010-H004",
-                "X-V011-H004",
-                "X-V012-H004"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 33.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 33.5,
-                  "stripOffsetEndMm": 155.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 155.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 150,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H005",
-          "direction": "weft",
-          "order": 5,
-          "axisMm": 80,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 80
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 80
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H005-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 20,
-                "y": 80
-              },
-              "endMm": {
-                "x": 190,
-                "y": 80
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V002-H005",
-                "X-V003-H005",
-                "X-V004-H005",
-                "X-V005-H005",
-                "X-V006-H005",
-                "X-V007-H005",
-                "X-V008-H005",
-                "X-V009-H005",
-                "X-V010-H005",
-                "X-V011-H005",
-                "X-V012-H005"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 88,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 88,
-                  "stripOffsetEndMm": 101,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 101,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H006",
-          "direction": "weft",
-          "order": 6,
-          "axisMm": 95,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 95
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 95
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H006-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 20,
-                "y": 95
-              },
-              "endMm": {
-                "x": 190,
-                "y": 95
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V002-H006",
-                "X-V003-H006",
-                "X-V004-H006",
-                "X-V005-H006",
-                "X-V006-H006",
-                "X-V007-H006",
-                "X-V008-H006",
-                "X-V009-H006",
-                "X-V010-H006",
-                "X-V011-H006",
-                "X-V012-H006"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 81.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 81.5,
-                  "stripOffsetEndMm": 107.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 107.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H007",
-          "direction": "weft",
-          "order": 7,
-          "axisMm": 110,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 110
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 110
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H007-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 20,
-                "y": 110
-              },
-              "endMm": {
-                "x": 190,
-                "y": 110
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V002-H007",
-                "X-V003-H007",
-                "X-V004-H007",
-                "X-V005-H007",
-                "X-V006-H007",
-                "X-V007-H007",
-                "X-V008-H007",
-                "X-V009-H007",
-                "X-V010-H007",
-                "X-V011-H007",
-                "X-V012-H007"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 75,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 75,
-                  "stripOffsetEndMm": 114,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 114,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H008",
-          "direction": "weft",
-          "order": 8,
-          "axisMm": 125,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 125
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 125
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H008-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 20,
-                "y": 125
-              },
-              "endMm": {
-                "x": 190,
-                "y": 125
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V002-H008",
-                "X-V003-H008",
-                "X-V004-H008",
-                "X-V005-H008",
-                "X-V006-H008",
-                "X-V007-H008",
-                "X-V008-H008",
-                "X-V009-H008",
-                "X-V010-H008",
-                "X-V011-H008",
-                "X-V012-H008"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 68,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 68,
-                  "stripOffsetEndMm": 121,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 121,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H009",
-          "direction": "weft",
-          "order": 9,
-          "axisMm": 140,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 140
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 140
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H009-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 20,
-                "y": 140
-              },
-              "endMm": {
-                "x": 190,
-                "y": 140
-              },
-              "stripOffsetStartMm": 9.5,
-              "stripOffsetEndMm": 179.5,
-              "lengthMm": 170,
-              "crossingIds": [
-                "X-V002-H009",
-                "X-V003-H009",
-                "X-V004-H009",
-                "X-V005-H009",
-                "X-V006-H009",
-                "X-V007-H009",
-                "X-V008-H009",
-                "X-V009-H009",
-                "X-V010-H009",
-                "X-V011-H009",
-                "X-V012-H009"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 9.5,
-                  "stripOffsetEndMm": 19.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 61.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 61.5,
-                  "stripOffsetEndMm": 127.5,
-                  "scope": "motif",
-                  "color": "#315F3A",
-                  "paletteId": "green-01",
-                  "sourceElementId": "element-green-triangle-001",
-                  "sourceInputId": "stroke-green-triangle-001"
-                },
-                {
-                  "stripOffsetStartMm": 127.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 169.5,
-                  "stripOffsetEndMm": 179.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 170,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H010",
-          "direction": "weft",
-          "order": 10,
-          "axisMm": 155,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 155
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 155
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H010-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 30,
-                "y": 155
-              },
-              "endMm": {
-                "x": 180,
-                "y": 155
-              },
-              "stripOffsetStartMm": 19.5,
-              "stripOffsetEndMm": 169.5,
-              "lengthMm": 150,
-              "crossingIds": [
-                "X-V002-H010",
-                "X-V003-H010",
-                "X-V004-H010",
-                "X-V005-H010",
-                "X-V006-H010",
-                "X-V007-H010",
-                "X-V008-H010",
-                "X-V009-H010",
-                "X-V010-H010",
-                "X-V011-H010",
-                "X-V012-H010"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 19.5,
-                  "stripOffsetEndMm": 33.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 33.5,
-                  "stripOffsetEndMm": 155.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 155.5,
-                  "stripOffsetEndMm": 169.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 150,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H011",
-          "direction": "weft",
-          "order": 11,
-          "axisMm": 170,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 170
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 170
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H011-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 45,
-                "y": 170
-              },
-              "endMm": {
-                "x": 165,
-                "y": 170
-              },
-              "stripOffsetStartMm": 34.5,
-              "stripOffsetEndMm": 154.5,
-              "lengthMm": 120,
-              "crossingIds": [
-                "X-V003-H011",
-                "X-V004-H011",
-                "X-V005-H011",
-                "X-V006-H011",
-                "X-V007-H011",
-                "X-V008-H011",
-                "X-V009-H011",
-                "X-V010-H011",
-                "X-V011-H011"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 34.5,
-                  "stripOffsetEndMm": 48.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 48.5,
-                  "stripOffsetEndMm": 140.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 140.5,
-                  "stripOffsetEndMm": 154.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 120,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H012",
-          "direction": "weft",
-          "order": 12,
-          "axisMm": 185,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 185
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 185
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [
-            {
-              "segmentId": "H012-S01",
-              "ordinal": 1,
-              "startMm": {
-                "x": 60,
-                "y": 185
-              },
-              "endMm": {
-                "x": 150,
-                "y": 185
-              },
-              "stripOffsetStartMm": 49.5,
-              "stripOffsetEndMm": 139.5,
-              "lengthMm": 90,
-              "crossingIds": [
-                "X-V004-H012",
-                "X-V005-H012",
-                "X-V006-H012",
-                "X-V007-H012",
-                "X-V008-H012",
-                "X-V009-H012",
-                "X-V010-H012"
-              ],
-              "colorSegments": [
-                {
-                  "stripOffsetStartMm": 49.5,
-                  "stripOffsetEndMm": 63.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 63.5,
-                  "stripOffsetEndMm": 125.5,
-                  "scope": "base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                },
-                {
-                  "stripOffsetStartMm": 125.5,
-                  "stripOffsetEndMm": 139.5,
-                  "scope": "outer-base",
-                  "color": "#D9BC83",
-                  "paletteId": null,
-                  "sourceElementId": null,
-                  "sourceInputId": null
-                }
-              ]
-            }
-          ],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 90,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        },
-        {
-          "stripId": "H013",
-          "direction": "weft",
-          "order": 13,
-          "axisMm": 200,
-          "widthMm": 9,
-          "thicknessMm": 0.5,
-          "pitchMm": 15,
-          "rawBlankSegment": {
-            "startMm": {
-              "x": 10.5,
-              "y": 200
-            },
-            "endMm": {
-              "x": 199.5,
-              "y": 200
-            },
-            "lengthMm": 189
-          },
-          "visibleSegments": [],
-          "stockLengthMm": null,
-          "rawBlankLengthMm": 189,
-          "visibleLengthMm": 0,
-          "setupAllowanceMm": null,
-          "trimWasteLengthMm": null
-        }
+      "visibleStripIds": [
+        "V002",
+        "V003",
+        "V004",
+        "V005",
+        "V006",
+        "V007",
+        "V008",
+        "V009",
+        "V010",
+        "V011",
+        "V012",
+        "H002",
+        "H003",
+        "H004",
+        "H005",
+        "H006",
+        "H007",
+        "H008",
+        "H009",
+        "H010",
+        "H011",
+        "H012"
       ],
       "visibleCrossingIds": [
         "X-V004-H002",

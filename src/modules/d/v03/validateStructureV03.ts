@@ -24,7 +24,7 @@ function pointOnBoundary(point: { x: number; y: number }, boundary: Shape) {
 }
 
 export function validateStructureV03(snapshot: StructureSnapshotV03): ValidationReportV03 {
-  const strips = snapshot.stages.rawBlank.strips;
+  const strips = snapshot.strips;
   const crossings = snapshot.stages.rawBlank.crossings;
   const operations = snapshot.stages.rawBlank.weavingOrder;
   const stripMap = new Map(strips.map(strip => [strip.stripId, strip]));
@@ -72,11 +72,33 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
   const nullableMaterials = strips.every(strip => strip.stockLengthMm === null && strip.setupAllowanceMm === null && strip.trimWasteLengthMm === null);
   const boundary = snapshot.carrierGeometry.boundary as Shape;
   const boundaryEndpoints = strips.every(strip => strip.visibleSegments.every(segment => pointOnBoundary(segment.startMm, boundary) && pointOnBoundary(segment.endMm, boundary)));
-  const sourceKey = snapshot.sourceKey.designId === snapshot.designId
-    && snapshot.sourceKey.generatedFromRevision === snapshot.generatedFromRevision
-    && snapshot.sourceKey.carrierId === snapshot.carrierId && snapshot.sourceKey.weaveId === snapshot.weaveId;
+  const sourceKeyFields = [
+    'schemaVersion', 'structureGeneratorVersion', 'designId', 'designRevision', 'generatedFromRevision',
+    'carrierId', 'carrierSpecVersion', 'weaveId', 'weaveSpecVersion', 'craftRuleVersion',
+  ] as const;
+  const sourceKey = sourceKeyFields.every(field => snapshot[field] === snapshot.sourceKey[field]);
+  const uniqueCanonicalStrips = new Set(strips.map(strip => strip.stripId)).size === strips.length;
+  const rawStripIds = snapshot.stages.rawBlank.stripIds;
+  const rawStageIndexExact = rawStripIds.length === strips.length
+    && rawStripIds.every((stripId, index) => stripId === strips[index].stripId);
+  const expectedVisibleStripIds = strips.filter(strip => strip.visibleSegments.length > 0).map(strip => strip.stripId);
+  const trimmedStageIndexExact = snapshot.stages.trimmedProduct.visibleStripIds.length === expectedVisibleStripIds.length
+    && snapshot.stages.trimmedProduct.visibleStripIds.every((stripId, index) => stripId === expectedVisibleStripIds[index]);
+  const segmentOrdering = strips.every(strip => strip.visibleSegments.every((segment, index, all) => index === 0
+    || segment.stripOffsetStartMm >= all[index - 1].stripOffsetStartMm));
+  const palette = new Map(snapshot.sourcePattern.palette.map(entry => [entry.paletteId, entry.color]));
+  const colorSourceSemantics = strips.every(strip => strip.visibleSegments.every(segment => segment.colorSegments.every(color => color.scope === 'motif'
+    ? color.paletteId !== null && color.sourceElementId !== null && color.sourceInputId !== null && palette.get(color.paletteId) === color.color
+    : color.paletteId === null && color.sourceElementId === null && color.sourceInputId === null)));
+  const revisionCurrent = snapshot.designRevision === snapshot.generatedFromRevision;
   const checks: ValidationCheck[] = [
     { id: 'source-key-complete', pass: sourceKey, details: '完整来源键与快照顶层字段一致。' },
+    { id: 'revision-current', pass: revisionCurrent, details: 'designRevision 与 generatedFromRevision 一致。' },
+    { id: 'canonical-strips-unique', pass: uniqueCanonicalStrips, details: '顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。' },
+    { id: 'raw-stage-strip-index', pass: rawStageIndexExact, details: 'rawBlank.stripIds 与顶层 strips[] 顺序及数量完全一致。' },
+    { id: 'trimmed-stage-strip-index', pass: trimmedStageIndexExact, details: 'trimmedProduct.visibleStripIds 仅索引具有可见段的顶层竹条。' },
+    { id: 'segment-offset-order', pass: segmentOrdering, details: '所有 visibleSegments[] 按 stripOffsetStartMm 升序排列。' },
+    { id: 'color-source-semantics', pass: colorSourceSemantics, details: 'motif 来源字段必填，base/outer-base 来源字段统一为 null。' },
     { id: 'crossing-matrix-count', pass: crossings.length === expected, details: `${crossings.length}/${expected} 个毛坯交点。` },
     { id: 'weave-matrix-exact', pass: matrixExact, details: `全部交点的 topStripId 与 ${snapshot.weaveId} 权威循环矩阵一致。` },
     { id: 'weaving-order-links', pass: Boolean(operationLinks), details: `${operations.length} 条操作均关联交点、工作条与挑压动作。` },

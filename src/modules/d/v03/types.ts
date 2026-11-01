@@ -101,8 +101,9 @@ export type EngineeringWarningV03 = {
 
 export type StructureSnapshotV03 = {
   schemaVersion: '0.3';
-  structureGeneratorVersion: 'D-STRUCTURE-v0.3.1';
+  structureGeneratorVersion: 'D-STRUCTURE-v0.3.2';
   designId: string;
+  designRevision: number;
   generatedFromRevision: number;
   confirmedGenerationId: string;
   carrierId: CarrierId;
@@ -110,12 +111,14 @@ export type StructureSnapshotV03 = {
   weaveId: WeaveId;
   weaveSpecVersion: 'WEAVE-SPEC-v1.2';
   craftRuleVersion: string;
-  validationStatus: 'pending';
-  physicalValidation: 'not-completed';
+  structuralValidation: { status: 'passed'; validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.2' };
+  craftValidation: { status: 'pending'; owner: 'E' };
+  physicalValidation: { status: 'not-completed'; owner: 'B' };
   sourceKey: {
     schemaVersion: '0.3';
-    structureGeneratorVersion: 'D-STRUCTURE-v0.3.1';
+    structureGeneratorVersion: 'D-STRUCTURE-v0.3.2';
     designId: string;
+    designRevision: number;
     generatedFromRevision: number;
     carrierId: CarrierId;
     carrierSpecVersion: 'CARRIER-SPEC-v1.2';
@@ -123,6 +126,7 @@ export type StructureSnapshotV03 = {
     weaveSpecVersion: 'WEAVE-SPEC-v1.2';
     craftRuleVersion: string;
   };
+  strips: StripV03[];
   sourcePattern: SurfacePattern;
   coordinateSpace: { widthMm: 210; heightMm: 297; origin: 'top-left'; xAxis: 'right'; yAxis: 'down' };
   carrierGeometry: {
@@ -139,8 +143,13 @@ export type StructureSnapshotV03 = {
   };
   grid: { warpCount: number; weftCount: number; pitchMm: number; stripWidthMm: number; clearHoleMm: number };
   stages: {
-    rawBlank: { boundary: unknown; strips: StripV03[]; crossings: CrossingV03[]; weavingOrder: WeavingOperationV03[] };
-    trimmedProduct: { boundary: unknown; effectivePatternBoundary: unknown; strips: StripV03[]; visibleCrossingIds: string[] };
+    rawBlank: { boundary: unknown; stripIds: string[]; crossings: CrossingV03[]; weavingOrder: WeavingOperationV03[] };
+    trimmedProduct: {
+      boundary: unknown;
+      effectivePatternBoundary: unknown;
+      visibleStripIds: string[];
+      visibleCrossingIds: string[];
+    };
   };
   engineeringWarnings: EngineeringWarningV03[];
   materialAccounting: {

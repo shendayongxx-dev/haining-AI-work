@@ -1,7 +1,8 @@
 # FAN-ROUND-170-V1 + CROSS-COURSE-2X2-V1 验证报告
 
 - 自动检查：通过
-- 快照状态：`pending`
+- 结构验证：`passed`
+- 工艺验证：`pending`
 - 实物验证：`not-completed`
 - 毛坯竹条：42 根
 - 毛坯交点：441 个
@@ -13,6 +14,12 @@
 | 检查项 | 结果 | 说明 |
 |---|---|---|
 | `source-key-complete` | PASS | 完整来源键与快照顶层字段一致。 |
+| `revision-current` | PASS | designRevision 与 generatedFromRevision 一致。 |
+| `canonical-strips-unique` | PASS | 顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。 |
+| `raw-stage-strip-index` | PASS | rawBlank.stripIds 与顶层 strips[] 顺序及数量完全一致。 |
+| `trimmed-stage-strip-index` | PASS | trimmedProduct.visibleStripIds 仅索引具有可见段的顶层竹条。 |
+| `segment-offset-order` | PASS | 所有 visibleSegments[] 按 stripOffsetStartMm 升序排列。 |
+| `color-source-semantics` | PASS | motif 来源字段必填，base/outer-base 来源字段统一为 null。 |
 | `crossing-matrix-count` | PASS | 441/441 个毛坯交点。 |
 | `weave-matrix-exact` | PASS | 全部交点的 topStripId 与 CROSS-COURSE-2X2-V1 权威循环矩阵一致。 |
 | `weaving-order-links` | PASS | 441 条操作均关联交点、工作条与挑压动作。 |
