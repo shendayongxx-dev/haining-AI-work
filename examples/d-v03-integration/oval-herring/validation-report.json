@@ -1,0 +1,57 @@
+{
+  "caseId": "FAN-OVAL-150X180-V1__HERRING-3X3-V1",
+  "checkedAt": "2026-11-01",
+  "pass": true,
+  "checks": [
+    {
+      "id": "source-key-complete",
+      "pass": true,
+      "details": "完整来源键与快照顶层字段一致。"
+    },
+    {
+      "id": "crossing-matrix-count",
+      "pass": true,
+      "details": "441/441 个毛坯交点。"
+    },
+    {
+      "id": "weave-matrix-exact",
+      "pass": true,
+      "details": "全部交点的 topStripId 与 HERRING-3X3-V1 权威循环矩阵一致。"
+    },
+    {
+      "id": "weaving-order-links",
+      "pass": true,
+      "details": "441 条操作均关联交点、工作条与挑压动作。"
+    },
+    {
+      "id": "weaving-order-sequence",
+      "pass": true,
+      "details": "每根纬条的操作按经条顺序完整排列，可直接分组生成逐条编织步骤。"
+    },
+    {
+      "id": "visible-segment-backlinks",
+      "pass": true,
+      "details": "259 个裁切后可见交点具有双向 segmentId/crossingId 引用。"
+    },
+    {
+      "id": "color-segment-coverage",
+      "pass": true,
+      "details": "颜色段连续覆盖全部可见段，坐标为原竹条毛坯起点偏移。"
+    },
+    {
+      "id": "boundary-clipping-endpoints",
+      "pass": true,
+      "details": "全部可见段端点位于载体边界，未发现整页直条残留。"
+    },
+    {
+      "id": "unknown-materials-null",
+      "pass": true,
+      "details": "未确认备料长度、余量及裁切余量全部为 null。"
+    },
+    {
+      "id": "risk-status-pending",
+      "pass": true,
+      "details": "0 项风险均保持 review/pending。"
+    }
+  ]
+}
