@@ -1,5 +1,7 @@
 # D v0.3.3 三组共同案例
 
+[公共合同制品与验证命令](./ARTIFACT_MANIFEST.md)
+
 | 案例 | 完整 JSON | SVG 预览 | PNG 截图 | 交点矩阵 | 检查报告 |
 |---|---|---|---|---|---|
 | FAN-ROUND-170-V1 + CROSS-COURSE-2X2-V1 | [JSON](./round-cross-course/structure-snapshot.json) | [SVG](./round-cross-course/preview.svg) | [PNG](./round-cross-course/preview.png) | [CSV](./round-cross-course/crossing-matrix.csv) | [报告](./round-cross-course/validation-report.md) |
@@ -19,3 +21,5 @@
 验证结构合同：
 
 `node scripts/verify-d-v03-cases.mjs`
+
+来源合同篡改失败测试见 `ARTIFACT_MANIFEST.md`。

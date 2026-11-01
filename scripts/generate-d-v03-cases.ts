@@ -112,6 +112,8 @@ SVG 仅作结构预览；JSON 是 E 组消费的权威数据源。
 
 writeFileSync(join(outputRoot, 'README.md'), `# D v0.3.3 三组共同案例
 
+[公共合同制品与验证命令](./ARTIFACT_MANIFEST.md)
+
 | 案例 | 完整 JSON | SVG 预览 | PNG 截图 | 交点矩阵 | 检查报告 |
 |---|---|---|---|---|---|
 ${cases.map(entry => `| ${entry.carrierId} + ${entry.weaveId} | [JSON](./${entry.slug}/structure-snapshot.json) | [SVG](./${entry.slug}/preview.svg) | [PNG](./${entry.slug}/preview.png) | [CSV](./${entry.slug}/crossing-matrix.csv) | [报告](./${entry.slug}/validation-report.md) |`).join('\n')}
@@ -129,4 +131,6 @@ ${cases.map(entry => `| ${entry.carrierId} + ${entry.weaveId} | [JSON](./${entry
 验证结构合同：
 
 \`node scripts/verify-d-v03-cases.mjs\`
+
+来源合同篡改失败测试见 \`ARTIFACT_MANIFEST.md\`。
 `);
