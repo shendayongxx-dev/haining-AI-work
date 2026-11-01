@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.2",
+  "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+  "geometryAuthority": "This JSON is authoritative; SVG and PNG are generated previews.",
+  "geometryTolerance": { "maxChordErrorMm": 0.25, "closureErrorMm": 0.05, "intersectionToleranceMm": 0.01 },
+  "coordinateSpace": { "id": "A4_MM_210X297", "widthMm": 210, "heightMm": 297, "origin": "top-left", "xAxis": "right", "yAxis": "down" },
+  "common": {
+    "edgeFinishWidthMm": 10,
+    "generationMode": "raw-blank-then-trim",
+    "outerBaseWeaveRule": {
+      "zone": "boundary minus effectivePatternBoundary",
+      "required": true,
+      "appearance": "base weave without user motif/color override",
+      "continuity": ["stripId", "direction", "pitch", "widthMm", "crossingPhase"],
+      "forbidden": ["blank", "radialStripeSubstitute", "textureStretch", "cycleResetAtEffectiveBoundary"]
+    },
+    "supportedWeaves": ["CROSS-COURSE-2X2-V1", "HERRING-3X3-V1", "SQUARE-HOLE-1X1-V1"],
+    "denseGrid": { "warpCount": 21, "weftCount": 21, "stripCount": 42, "stockLengthPerStripMm": 290, "baseTotalLengthMm": 12180 },
+    "openGrid": { "warpCount": 13, "weftCount": 13, "stripCount": 26, "stripWidthMm": 9, "clearHoleMm": 6, "pitchMm": 15, "stockLengthPerStripMm": 290, "baseTotalLengthMm": 7540 }
+  },
+  "carriers": [
+    {
+      "carrierId": "FAN-ROUND-170-V1", "specRevision": "1.2", "name": "圆形／月圆式",
+      "rawBlankBoundary": { "type": "rect", "x": 10.5, "y": 15.5, "width": 189, "height": 189 },
+      "boundary": { "type": "circle", "cx": 105, "cy": 110, "r": 85 },
+      "effectivePatternBoundary": { "type": "circle", "cx": 105, "cy": 110, "r": 75 },
+      "outerBaseWeaveZone": { "operation": "boundary-minus-effectivePatternBoundary", "baseWeaveRequired": true },
+      "handleExclusion": { "version": "ROUND-HANDLE-v1.1", "xMin": 95, "xMax": 115, "yMin": 170, "yMax": 195 },
+      "outlineFile": "轮廓图/FAN-ROUND-170-V1.svg"
+    },
+    {
+      "carrierId": "FAN-OVAL-150X180-V1", "specRevision": "1.2", "name": "长圆式",
+      "rawBlankBoundary": { "type": "rect", "x": 10.5, "y": 15.5, "width": 189, "height": 189 },
+      "boundary": { "type": "ellipse", "cx": 105, "cy": 110, "rx": 75, "ry": 90 },
+      "effectivePatternBoundary": { "type": "ellipse", "cx": 105, "cy": 110, "rx": 65, "ry": 80 },
+      "outerBaseWeaveZone": { "operation": "boundary-minus-effectivePatternBoundary", "baseWeaveRequired": true },
+      "handleExclusion": { "xMin": 95, "xMax": 115, "yMin": 190, "yMax": 210 },
+      "outlineFile": "轮廓图/FAN-OVAL-150X180-V1.svg"
+    },
+    {
+      "carrierId": "FAN-OCTAGON-170-V1", "specRevision": "1.2", "name": "八角式",
+      "rawBlankBoundary": { "type": "rect", "x": 10.5, "y": 15.5, "width": 189, "height": 189 },
+      "boundary": { "type": "polygon", "pointsMm": [[70,25],[140,25],[190,75],[190,145],[140,195],[70,195],[20,145],[20,75]] },
+      "effectivePatternBoundary": { "type": "polygon", "derivation": { "method": "parallel-edge-euclidean-inset", "distanceMm": 10, "cornerJoin": "miter" }, "pointsMm": [[74.142,35],[135.858,35],[180,79.142],[180,140.858],[135.858,185],[74.142,185],[30,140.858],[30,79.142]] },
+      "outerBaseWeaveZone": { "operation": "boundary-minus-effectivePatternBoundary", "baseWeaveRequired": true },
+      "handleExclusion": { "xMin": 95, "xMax": 115, "yMin": 185, "yMax": 205 },
+      "outlineFile": "轮廓图/FAN-OCTAGON-170-V1.svg"
+    }
+  ]
+}

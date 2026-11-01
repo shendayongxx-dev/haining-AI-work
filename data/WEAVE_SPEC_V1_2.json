@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.2",
+  "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+  "matrixConvention": { "row": "weft index from top to bottom", "column": "warp index from left to right", "W": "weft is top", "V": "warp is top" },
+  "unit": "mm",
+  "weaves": [
+    {
+      "weaveId": "CROSS-COURSE-2X2-V1", "name": "十字编（课程版）", "craftRuleVersion": "CRAFT-CROSS-COURSE-v1.1", "gridType": "orthogonal-dense",
+      "topLayerMatrix": [["W","W","V","V"],["V","W","W","V"],["V","V","W","W"],["W","V","V","W"]]
+    },
+    {
+      "weaveId": "HERRING-3X3-V1", "name": "人字编（压三挑三）", "craftRuleVersion": "CRAFT-HERRING-3X3-v1.0", "gridType": "orthogonal-dense-shifted",
+      "topLayerMatrix": [["W","W","W","V","V","V"],["W","W","V","V","V","W"],["W","V","V","V","W","W"],["V","V","V","W","W","W"],["V","V","W","W","W","V"],["V","W","W","W","V","V"]]
+    },
+    {
+      "weaveId": "SQUARE-HOLE-1X1-V1", "name": "四角孔编", "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0", "gridType": "orthogonal-open",
+      "topLayerMatrix": [["W","V"],["V","W"]], "stripWidthMm": 9, "clearHoleMm": 6, "pitchMm": 15, "parameterStatus": "pending physical validation"
+    }
+  ],
+  "edgeAcceptanceRules": {
+    "shortStrip": "Any trimmed visible strip segment shorter than 2*pitchMm must be flagged for manual reinforcement review.",
+    "squareHole": "No open half-hole may terminate unsecured at the final edge; edge cells must be captured by the edge finish.",
+    "corner": "At polygon or lobe valleys, strips intersecting the edge within one strip width of the corner require reinforcement flagging.",
+    "status": "engineering checks only; thresholds remain pending physical validation"
+  }
+}
