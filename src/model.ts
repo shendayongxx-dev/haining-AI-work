@@ -2,6 +2,7 @@ export type Carrier = 'fan' | 'custom';
 export type InputChannel = 'drawing' | 'text' | 'referenceImage';
 export type Step = 'carrier' | 'input' | 'generating' | 'confirm' | 'weave' | 'edit' | 'check' | 'materials';
 export type Point = { x: number; y: number };
+export type CarrierRef = { carrierId: 'FAN-ROUND-170-V1' | 'FAN-OVAL-150X180-V1' | 'FAN-OCTAGON-170-V1'; carrierSpecVersion: 'CARRIER-SPEC-v1.2' };
 export type GenerationIssue = {
   id: string;
   code: string;
@@ -36,19 +37,21 @@ export type CarrierShape = {
     holes: { holeId: string; closed: boolean; pointsMm: Point[] }[];
   }[];
 };
-export type Candidate = {
+type CandidateBase = {
   generationId: string;
   generationRevision: number;
   inputVersionId: string;
   status: 'succeeded' | 'failed';
-  resultType: 'surface_pattern' | 'carrier_shape';
   generatorVersion: string;
   issues: GenerationIssue[];
-  result: SurfacePattern | CarrierShape;
   label: string;
   // Compatibility projection for A's current layout and D's visual fixture.
   // D should consume `result` when its structured adapter lands.
   pointsMm: Point[];
   color: string;
 };
+export type Candidate = CandidateBase & (
+  | { carrierRef: CarrierRef; resultType: 'surface_pattern'; result: SurfacePattern }
+  | { carrierRef: null; resultType: 'carrier_shape'; result: CarrierShape }
+);
 
