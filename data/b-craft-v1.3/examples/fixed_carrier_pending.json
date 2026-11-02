@@ -1,0 +1,11 @@
+{
+  "checkId":"CHK-ROUND-CROSS-001",
+  "status":"pending",
+  "assessmentScope":"structural-and-craft-screening",
+  "productionReady":false,
+  "physicalValidation":"not-completed",
+  "sourceKey":{"schemaVersion":"1.3","designVersion":"DESIGN-001","designRevision":3,"carrierType":"fixed","carrierId":"FAN-ROUND-170-V1","customBoundaryHash":null,"carrierSpecVersion":"CARRIER-SPEC-v1.2","weaveId":"CROSS-COURSE-2X2-V1","weaveSpecVersion":"WEAVE-SPEC-v1.2","craftRuleVersion":"CRAFT-CROSS-COURSE-v1.1","structureGeneratorVersion":"D-GEN-v0.3","craftCheckEngineVersion":"E-CHECK-v1.0","evidenceSetVersion":"B-EVIDENCE-v1.3"},
+  "summary":{"passedCount":8,"failedCount":0,"pendingCount":1},
+  "issues":[{"issueId":"ISSUE-001","ruleId":"EDGE_FINISH_EVIDENCE","status":"pending","severity":"review","location":{"carrierSpace":"A4_MM_210X297","pointMm":null,"region":"edgeFinishZone","boundaryRef":"boundary","stripId":null,"segmentId":null,"crossingId":null},"reason":"缺少圆周收边和柄口加固的实物记录。","suggestion":"补充实物照片、材料规格、收边方式和尺寸偏差后重新检查。","basis":{"documentId":"CARRIER-SPEC-v1.2","rulePath":"round.edgeFinish","evidenceLevel":"physical-validated","evidenceRecordIds":[]},"evidenceStatus":"missing"}],
+  "disabledOutputs":{"materialBom":{"enabled":false},"tutorial":{"enabled":false},"formalExport":{"enabled":false},"weavingOrder":{"mode":"structure-preview-only"}}
+}

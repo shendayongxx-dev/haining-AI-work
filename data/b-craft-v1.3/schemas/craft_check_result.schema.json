@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "craft_check_result.schema.json",
+  "title": "B-E Craft Check Result v1.3",
+  "type": "object",
+  "required": ["checkId","status","assessmentScope","productionReady","sourceKey","summary","issues","disabledOutputs"],
+  "properties": {
+    "checkId": {"type":"string"},
+    "status": {"enum":["passed","failed","pending","stale"]},
+    "assessmentScope": {"const":"structural-and-craft-screening"},
+    "productionReady": {"const":false},
+    "physicalValidation": {"enum":["not-completed","partial","completed"]},
+    "sourceKey": {
+      "type":"object",
+      "required":["schemaVersion","designVersion","designRevision","carrierType","weaveId","weaveSpecVersion","structureGeneratorVersion","craftCheckEngineVersion","evidenceSetVersion"],
+      "properties": {
+        "schemaVersion":{"type":"string"},"designVersion":{"type":"string"},"designRevision":{"type":"integer"},
+        "carrierType":{"enum":["fixed","custom"]},"carrierId":{"type":["string","null"]},"customBoundaryHash":{"type":["string","null"]},
+        "carrierSpecVersion":{"type":["string","null"]},"weaveId":{"type":"string"},"weaveSpecVersion":{"type":"string"},
+        "craftRuleVersion":{"type":"string"},"structureGeneratorVersion":{"type":"string"},"craftCheckEngineVersion":{"type":"string"},"evidenceSetVersion":{"type":"string"}
+      }
+    },
+    "summary": {"type":"object","required":["passedCount","failedCount","pendingCount"],"properties":{"passedCount":{"type":"integer"},"failedCount":{"type":"integer"},"pendingCount":{"type":"integer"}}},
+    "issues": {"type":"array","items":{"type":"object","required":["issueId","ruleId","status","location","reason","suggestion","basis","evidenceStatus"],"properties":{"issueId":{"type":"string"},"ruleId":{"type":"string"},"status":{"enum":["failed","pending"]},"severity":{"enum":["error","review","info"]},"location":{"type":"object"},"reason":{"type":"string"},"suggestion":{"type":"string"},"basis":{"type":"object"},"evidenceStatus":{"enum":["documented","structure-tested","physical-validated","missing"]}}}},
+    "disabledOutputs": {"type":"object"}
+  }
+}

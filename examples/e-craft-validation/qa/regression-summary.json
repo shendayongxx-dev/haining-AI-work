@@ -3,15 +3,15 @@
   "baseCommit": "8c4ebe6",
   "branch": "codex/e-craft-validation",
   "dVersion": "D-STRUCTURE-v0.3.6",
-  "ruleSetVersion": "E-CRAFT-RULES-0.1",
+  "ruleSetVersion": "E-CRAFT-RULES-0.2",
   "programTests": {
-    "passed": 30,
-    "total": 30,
+    "passed": 35,
+    "total": 35,
     "command": "node scripts/test-e-craft.mjs"
   },
   "browserTests": {
-    "passed": 10,
-    "total": 10,
+    "passed": 11,
+    "total": 11,
     "command": "node scripts/qa-e-craft-browser.mjs"
   },
   "build": {
@@ -22,5 +22,8 @@
   "tutorialAllowed": false,
   "exportAllowed": false,
   "physicalValidation": "not-completed",
-  "craftAcceptance": "pending B evidence"
+  "craftAcceptance": "pending B evidence",
+  "bRuleSetVersion": "B-CRAFT-CHECK-v1.3",
+  "evidenceSetVersion": "B-EVIDENCE-v1.3",
+  "contractStatus": "Partial B v1.3 rule integration; full public result mapping pending review"
 }

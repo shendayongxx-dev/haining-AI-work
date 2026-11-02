@@ -15,11 +15,12 @@ export type CraftIssue = {
 };
 export type CraftResult = {
   schemaVersion:'E-CRAFT-0.1'; engineVersion:string; ruleSetVersion:string;
+  bRuleSetVersion:string; evidenceSetVersion:string;
   designId:string; designRevision:number; kind:CraftInput['kind']; status:CraftStatus;
   structuralStatus:'passed'|'failed'|'pending';
   sourceKey:StructureSnapshotV03['sourceKey']|null;
   inputDigest:string; issues:CraftIssue[];
   evaluatedRuleIds:string[];
-  physicalValidation:'not-completed';
+  physicalValidation:'not-completed'; productionReady:false;
   formalMaterialsAllowed:false; tutorialAllowed:false; exportAllowed:false;
 };

@@ -12,8 +12,8 @@ import fixture from '../examples/d-v03-integration/round-cross-course/structure-
 const carriers:CarrierId[]=['FAN-ROUND-170-V1','FAN-OVAL-150X180-V1','FAN-OCTAGON-170-V1'];
 const weaves:WeaveId[]=['CROSS-1X1-V1','CROSS-COURSE-2X2-V1','HERRING-3X3-V1','SQUARE-HOLE-1X1-V1'];
 function fan(carrierId:CarrierId=carriers[0],weaveId:WeaveId=weaves[1],gridParameters?:{warpCount:number;weftCount:number;stripWidthMm:number;pitchMm:number}):CraftInput&{kind:'fixed-fan'}{
- const snapshot=calculateStructureV03({designId:'e-regression-fan',designRevision:1,carrierId,weaveId,
-   creativeSource:fixture.creativeSource,pattern:fixture.sourcePattern,baseColor:'#C4A879',gridParameters});
+ const snapshot=structuredClone(calculateStructureV03({designId:'e-regression-fan',designRevision:1,carrierId,weaveId,
+   creativeSource:fixture.creativeSource,pattern:fixture.sourcePattern,baseColor:'#C4A879',gridParameters}));
  return{kind:'fixed-fan',snapshot,current:{designId:snapshot.designId,designRevision:1,confirmedGenerationId:snapshot.confirmedGenerationId}};
 }
 function custom(points=[{x:35,y:40},{x:175,y:40},{x:175,y:200},{x:35,y:200},{x:35,y:40}],weaveId:WeaveId=weaves[1]):CraftInput&{kind:'custom'}{
@@ -24,7 +24,7 @@ function custom(points=[{x:35,y:40},{x:175,y:40},{x:175,y:200},{x:35,y:200},{x:3
 }
 function closed(r:Awaited<ReturnType<typeof validateCraft>>){assert.equal(r.status,'pending');assert.equal(r.formalMaterialsAllowed,false);assert.equal(r.tutorialAllowed,false);assert.equal(r.exportAllowed,false);}
 for(const c of carriers)for(const w of weaves)test(`${c} / ${w} consumes but does not certify craft`,async()=>{
- const input=fan(c,w),r=await validateCraft(input);assert.equal(r.structuralStatus,'passed',JSON.stringify(r.issues.filter(x=>x.status==='failed')));closed(r);
+ const input=fan(c,w),r=await validateCraft(input);assert.equal(r.structuralStatus,'passed',JSON.stringify(r.issues.filter(x=>x.status==='failed')));if(w==='CROSS-1X1-V1'){assert.equal(r.status,'failed');assert.ok(r.issues.some(x=>x.ruleId==='UNSUPPORTED_WEAVE'));}else closed(r);
  assert.deepEqual(r.sourceKey,input.snapshot.sourceKey);assert.ok(r.issues.every(x=>x.ruleId&&x.location.path&&x.reason&&x.suggestion&&x.evidence.reference));
 });
 test('parameterized fan remains consumable without pretending defaults are craft limits',async()=>{
@@ -48,7 +48,7 @@ test('input property order does not invalidate fingerprint',async()=>{
  const d=fan(),other={current:d.current,snapshot:d.snapshot,kind:d.kind};assert.equal(await craftInputDigest(d),await craftInputDigest(other));
 });
 for(const w of weaves)test(`custom convex shape / ${w} enters actual checks`,async()=>{
- const r=await validateCraft(custom(undefined,w));assert.equal(r.structuralStatus,'passed',JSON.stringify(r.issues.filter(x=>x.status==='failed')));closed(r);assert.equal(r.sourceKey,null);
+ const r=await validateCraft(custom(undefined,w));assert.equal(r.structuralStatus,'passed',JSON.stringify(r.issues.filter(x=>x.status==='failed')));if(w==='CROSS-1X1-V1')assert.equal(r.status,'failed');else closed(r);assert.equal(r.sourceKey,null);
 });
 const concave=[{x:30,y:30},{x:180,y:30},{x:180,y:200},{x:140,y:200},{x:140,y:80},{x:70,y:80},{x:70,y:200},{x:30,y:200},{x:30,y:30}];
 test('concave shape with multiple segments is checked without new material identities',async()=>{
@@ -93,7 +93,7 @@ test('upstream blocking issue and wrong custom weave rule version are rejected',
 });
 test('zero engineering warnings still requires B evidence, and E rule version rejects old output',async()=>{
  const d=fan(carriers[1],weaves[2]),r=await validateCraft(d);
- assert.equal(d.snapshot.engineeringWarnings.length,0);closed(r);assert.equal(r.issues.filter(x=>x.domain==='evidence').length,4);
+ assert.equal(d.snapshot.engineeringWarnings.length,0);closed(r);assert.equal(r.issues.filter(x=>x.domain==='evidence').length,1);
  assert.equal(acceptCraftResult(r.inputDigest,{...r,ruleSetVersion:'old'}),null);
 });
 test('write traceable fan and custom outputs for A review',async()=>{
@@ -101,4 +101,29 @@ test('write traceable fan and custom outputs for A review',async()=>{
  for(const [name,input] of [['fixed-fan',fan()],['custom-concave',custom(concave)]] as const){
   writeFileSync(`examples/e-craft-validation/${name}.json`,JSON.stringify({input,result:await validateCraft(input)},null,2)+'\n');
  }
+});
+test('B v1.3 boundary and handle modifications reject an otherwise consistent snapshot',async()=>{
+ for(const field of ['boundary','effectivePatternBoundary','handleExclusion']){
+  const d=fan(),geometry=d.snapshot.carrierGeometry as Record<string,any>;
+  if(field==='handleExclusion')geometry[field].xMin+=1;else geometry[field].r+=1;
+  const r=await validateCraft(d);assert.equal(r.status,'failed');assert.ok(r.issues.some(x=>x.ruleId==='BOUNDARY_GEOMETRY_MATCH'));
+ }
+});
+test('B v1.3 identifies missing mandatory fields as pending rather than craft failure',async()=>{
+ for(const field of ['sourceKey','patternPlacement','carrierId']){
+  const d=fan();delete (d.snapshot as any)[field];const r=await validateCraft(d);
+  assert.equal(r.status,'pending',JSON.stringify(r.issues));assert.equal(r.structuralStatus,'pending');assert.ok(r.issues.some(x=>x.ruleId==='INPUT_REQUIRED_FIELDS'));
+ }
+});
+test('B v1.3 square hole measurements remain pending and custom context is not fabricated',async()=>{
+ const r=await validateCraft(fan(carriers[2],weaves[3]));assert.ok(r.issues.some(x=>x.ruleId==='SQUARE_HOLE_PARAMETER_EVIDENCE'&&x.status==='pending'));
+ const c=await validateCraft(custom());for(const rule of ['CUSTOM_CONTEXT_COMPLETE','CUSTOM_HANDLE_CONTEXT','CUSTOM_EDGE_FINISH_EVIDENCE'])assert.ok(c.issues.some(x=>x.ruleId===rule));
+});
+test('B v1.3 raw blank coverage rejects cropped blank without inventing production margin',async()=>{
+ const d=fan();(d.snapshot.stages.rawBlank.boundary as any).height=50;
+ const r=await validateCraft(d);assert.equal(r.status,'failed');assert.ok(r.issues.some(x=>x.ruleId==='RAW_BLANK_COVERS_BOUNDARY'));
+});
+test('B evidence and ruleset versions are bound to result acceptance',async()=>{
+ const d=fan(),r=await validateCraft(d);assert.equal(r.bRuleSetVersion,'B-CRAFT-CHECK-v1.3');assert.equal(r.evidenceSetVersion,'B-EVIDENCE-v1.3');assert.equal(r.productionReady,false);
+ assert.equal(acceptCraftResult(r.inputDigest,{...r,evidenceSetVersion:'old'}),null);assert.equal(acceptCraftResult(r.inputDigest,{...r,bRuleSetVersion:'old'}),null);
 });

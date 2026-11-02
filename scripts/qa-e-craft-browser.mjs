@@ -45,9 +45,11 @@ try{
   await send('Input.dispatchKeyEvent',{type:'keyDown',key:'ArrowLeft',code:'ArrowLeft',windowsVirtualKeyCode:37});await send('Input.dispatchKeyEvent',{type:'keyUp',key:'ArrowLeft',code:'ArrowLeft',windowsVirtualKeyCode:37});await wait(150);
   await inspect();
   await check('edited parameters trigger a new revision check',async()=>before!==await text('[data-testid=craft-status]'));
+  await byText('返回编辑');await byText('平编演示');await inspect();
+  await check('B v1.3 rejects demo plain weave for formal craft checking',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.status==="failed"&&document.querySelector(".craft-check").textContent.includes("不在 B v1.3")'));
   await click('.logo');await byText('自定义形状');await generate('叶片');await inspect();
   await check('custom leaf has independent structural checks and pending craft',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.structure==="passed"&&document.querySelector("[data-testid=craft-status]").dataset.status==="pending"'));
-  await check('custom boundary evidence is requested',()=>evaluate('document.querySelector(".craft-check").textContent.includes("窄颈")'));
+  await check('B v1.3 custom effective area and handle context are requested',()=>evaluate('document.querySelector(".craft-check").textContent.includes("有效图样区")'));
   await byText('查看问题位置');
   await check('custom issue locates actual strip on geometry',()=>evaluate('document.querySelector("[data-testid=craft-location]").textContent.includes("mm")&&!!document.querySelector(".craft-locator svg line")'));
   const desktop=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});writeFileSync(path.join(out,'desktop.png'),Buffer.from(desktop.data,'base64'));

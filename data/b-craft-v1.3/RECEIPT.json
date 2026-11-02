@@ -1,0 +1,10 @@
+{
+  "receivedOn": "2026-11-02",
+  "source": "user supplied B handoff archive",
+  "archiveName": "竹编DIY_B组_E工艺检查交接包_v1.3(1).zip",
+  "archiveSha256": "DD4DC364066414E71210444A95FAC65FC866622EABB6ADD6EEF15B86E26EDC1C",
+  "originalFileCount": 9,
+  "originalContentModified": false,
+  "acceptance": "rules accepted for implementation; public result contract mapping pending A/B/D review",
+  "physicalEvidenceIncluded": false
+}

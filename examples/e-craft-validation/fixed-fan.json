@@ -19706,8 +19706,11 @@
   },
   "result": {
     "schemaVersion": "E-CRAFT-0.1",
-    "engineVersion": "E-CRAFT-ENGINE-0.1",
-    "ruleSetVersion": "E-CRAFT-RULES-0.1",
+    "engineVersion": "E-CRAFT-ENGINE-0.2",
+    "ruleSetVersion": "E-CRAFT-RULES-0.2",
+    "bRuleSetVersion": "B-CRAFT-CHECK-v1.3",
+    "evidenceSetVersion": "B-EVIDENCE-v1.3",
+    "productionReady": false,
     "designId": "e-regression-fan",
     "designRevision": 1,
     "kind": "fixed-fan",
@@ -19726,7 +19729,7 @@
       "craftRuleVersion": "CRAFT-CROSS-COURSE-v1.1",
       "patternPlacementKey": "1:0:0:0:105:110"
     },
-    "inputDigest": "26c88f6a84aca113fa39766da927704daeaef9273ddd651fb6d0848a9c7e4e0f",
+    "inputDigest": "4b6412236bded4e7d47d2a58615377b62770ca2572591afd509889b97804abb2",
     "issues": [
       {
         "id": "WARN-ROUND-HANDLE-REINFORCEMENT",
@@ -19750,66 +19753,18 @@
         }
       },
       {
-        "id": "E-B-MATERIAL",
-        "ruleId": "E-B-MATERIAL",
+        "id": "EDGE_FINISH_EVIDENCE",
+        "ruleId": "EDGE_FINISH_EVIDENCE",
         "domain": "evidence",
         "status": "pending",
-        "title": "材料规格与状态",
-        "reason": "当前没有登记覆盖本设计的 B 规则确认及实物验收依据。",
-        "suggestion": "请 B 提供竹篾宽厚容差、材质状态和对应规则版本。",
+        "title": "收边与连接实物依据",
+        "reason": "B v1.3 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。",
+        "suggestion": "B v1.3 已提供确定性规则；仍需补充当前载体的收边、连接照片、材料记录和尺寸偏差，才能评估该项。",
         "location": {
           "path": "fixed-fan"
         },
         "evidence": {
-          "reference": "docs/handoffs/E_CRAFT_B_EVIDENCE_REQUEST.md",
-          "verification": "missing"
-        }
-      },
-      {
-        "id": "E-B-APPLICABILITY",
-        "ruleId": "E-B-APPLICABILITY",
-        "domain": "evidence",
-        "status": "pending",
-        "title": "载体与编法适用性",
-        "reason": "当前没有登记覆盖本设计的 B 规则确认及实物验收依据。",
-        "suggestion": "请 B 确认当前载体、编法及参数范围是否适用。",
-        "location": {
-          "path": "fixed-fan"
-        },
-        "evidence": {
-          "reference": "docs/handoffs/E_CRAFT_B_EVIDENCE_REQUEST.md",
-          "verification": "missing"
-        }
-      },
-      {
-        "id": "E-B-EDGE",
-        "ruleId": "E-B-EDGE",
-        "domain": "evidence",
-        "status": "pending",
-        "title": "边缘、连接与加固",
-        "reason": "当前没有登记覆盖本设计的 B 规则确认及实物验收依据。",
-        "suggestion": "请 B 提供收边、扇柄或连接处的判定规则及试编依据。",
-        "location": {
-          "path": "fixed-fan"
-        },
-        "evidence": {
-          "reference": "docs/handoffs/E_CRAFT_B_EVIDENCE_REQUEST.md",
-          "verification": "missing"
-        }
-      },
-      {
-        "id": "E-B-PHYSICAL",
-        "ruleId": "E-B-PHYSICAL",
-        "domain": "evidence",
-        "status": "pending",
-        "title": "实物试编与验收",
-        "reason": "当前没有登记覆盖本设计的 B 规则确认及实物验收依据。",
-        "suggestion": "请 B 提供覆盖当前组合和参数范围的试编记录及验收结论。",
-        "location": {
-          "path": "fixed-fan"
-        },
-        "evidence": {
-          "reference": "docs/handoffs/E_CRAFT_B_EVIDENCE_REQUEST.md",
+          "reference": "data/b-craft-v1.3/03_验证依据与待补记录.md",
           "verification": "missing"
         }
       }

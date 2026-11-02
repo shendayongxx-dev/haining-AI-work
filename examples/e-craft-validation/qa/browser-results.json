@@ -21,11 +21,15 @@
       "pass": true
     },
     {
+      "name": "B v1.3 rejects demo plain weave for formal craft checking",
+      "pass": true
+    },
+    {
       "name": "custom leaf has independent structural checks and pending craft",
       "pass": true
     },
     {
-      "name": "custom boundary evidence is requested",
+      "name": "B v1.3 custom effective area and handle context are requested",
       "pass": true
     },
     {

@@ -1844,93 +1844,80 @@
   },
   "result": {
     "schemaVersion": "E-CRAFT-0.1",
-    "engineVersion": "E-CRAFT-ENGINE-0.1",
-    "ruleSetVersion": "E-CRAFT-RULES-0.1",
+    "engineVersion": "E-CRAFT-ENGINE-0.2",
+    "ruleSetVersion": "E-CRAFT-RULES-0.2",
+    "bRuleSetVersion": "B-CRAFT-CHECK-v1.3",
+    "evidenceSetVersion": "B-EVIDENCE-v1.3",
+    "productionReady": false,
     "designId": "e-regression-custom",
     "designRevision": 1,
     "kind": "custom",
     "status": "pending",
     "structuralStatus": "passed",
     "sourceKey": null,
-    "inputDigest": "3362edfbc43854705bd8540d01dece03ae16f6088cc801a0fa6a806000bdbf39",
+    "inputDigest": "7f2fdacf8c47d38dd6637b72e76e51e888e730acd697f3dafd82ed964771ee5f",
     "issues": [
       {
-        "id": "E-B-MATERIAL",
-        "ruleId": "E-B-MATERIAL",
+        "id": "B13-CUSTOM_CONTEXT_COMPLETE-customContext",
+        "ruleId": "CUSTOM_CONTEXT_COMPLETE",
         "domain": "evidence",
         "status": "pending",
-        "title": "材料规格与状态",
-        "reason": "当前没有登记覆盖本设计的 B 规则确认及实物验收依据。",
-        "suggestion": "请 B 提供竹篾宽厚容差、材质状态和对应规则版本。",
+        "title": "B v1.3 必要上下文待补齐",
+        "reason": "当前自定义 D v0.2 快照未提供正式有效图样区、毛坯边界和连接结构声明。",
+        "suggestion": "请 A/D 对齐这些上下文字段；不要把外轮廓直接当有效区或毛坯。",
         "location": {
-          "path": "custom"
+          "path": "customContext"
         },
         "evidence": {
-          "reference": "docs/handoffs/E_CRAFT_B_EVIDENCE_REQUEST.md",
+          "reference": "data/b-craft-v1.3/01_工艺检查规则与适用范围.md#CUSTOM_CONTEXT_COMPLETE",
           "verification": "missing"
         }
       },
       {
-        "id": "E-B-APPLICABILITY",
-        "ruleId": "E-B-APPLICABILITY",
+        "id": "B13-CUSTOM_HANDLE_CONTEXT-handleContext",
+        "ruleId": "CUSTOM_HANDLE_CONTEXT",
         "domain": "evidence",
         "status": "pending",
-        "title": "载体与编法适用性",
-        "reason": "当前没有登记覆盖本设计的 B 规则确认及实物验收依据。",
-        "suggestion": "请 B 确认当前载体、编法及参数范围是否适用。",
+        "title": "B v1.3 必要上下文待补齐",
+        "reason": "尚未明确当前形状有无手柄／连接结构。",
+        "suggestion": "请 A/C/D 明确无手柄，或提供柄口、禁入和加固区域。",
         "location": {
-          "path": "custom"
+          "path": "handleContext"
         },
         "evidence": {
-          "reference": "docs/handoffs/E_CRAFT_B_EVIDENCE_REQUEST.md",
+          "reference": "data/b-craft-v1.3/01_工艺检查规则与适用范围.md#CUSTOM_HANDLE_CONTEXT",
           "verification": "missing"
         }
       },
       {
-        "id": "E-B-EDGE",
-        "ruleId": "E-B-EDGE",
+        "id": "EDGE_FINISH_EVIDENCE",
+        "ruleId": "EDGE_FINISH_EVIDENCE",
         "domain": "evidence",
         "status": "pending",
-        "title": "边缘、连接与加固",
-        "reason": "当前没有登记覆盖本设计的 B 规则确认及实物验收依据。",
-        "suggestion": "请 B 提供收边、扇柄或连接处的判定规则及试编依据。",
+        "title": "收边与连接实物依据",
+        "reason": "B v1.3 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。",
+        "suggestion": "B v1.3 已提供确定性规则；仍需补充当前载体的收边、连接照片、材料记录和尺寸偏差，才能评估该项。",
         "location": {
           "path": "custom"
         },
         "evidence": {
-          "reference": "docs/handoffs/E_CRAFT_B_EVIDENCE_REQUEST.md",
+          "reference": "data/b-craft-v1.3/03_验证依据与待补记录.md",
           "verification": "missing"
         }
       },
       {
-        "id": "E-B-PHYSICAL",
-        "ruleId": "E-B-PHYSICAL",
+        "id": "CUSTOM_EDGE_FINISH_EVIDENCE",
+        "ruleId": "CUSTOM_EDGE_FINISH_EVIDENCE",
         "domain": "evidence",
         "status": "pending",
-        "title": "实物试编与验收",
-        "reason": "当前没有登记覆盖本设计的 B 规则确认及实物验收依据。",
-        "suggestion": "请 B 提供覆盖当前组合和参数范围的试编记录及验收结论。",
+        "title": "自定义形状收边依据",
+        "reason": "B v1.3 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。",
+        "suggestion": "请 B 补充当前自定义曲线、凹角、残段的收边记录；现有确定性几何检查不代替实物验证。",
         "location": {
           "path": "custom"
         },
         "evidence": {
-          "reference": "docs/handoffs/E_CRAFT_B_EVIDENCE_REQUEST.md",
-          "verification": "missing"
-        }
-      },
-      {
-        "id": "E-B-CUSTOM-GEOMETRY",
-        "ruleId": "E-B-CUSTOM-GEOMETRY",
-        "domain": "evidence",
-        "status": "pending",
-        "title": "自定义形状工艺边界",
-        "reason": "当前没有登记覆盖本设计的 B 规则确认及实物验收依据。",
-        "suggestion": "请 B 确认窄颈、凹角、残段、孔洞及多连通轮廓的适用边界与验证记录。",
-        "location": {
-          "path": "custom"
-        },
-        "evidence": {
-          "reference": "docs/handoffs/E_CRAFT_B_EVIDENCE_REQUEST.md",
+          "reference": "data/b-craft-v1.3/03_验证依据与待补记录.md",
           "verification": "missing"
         }
       }
