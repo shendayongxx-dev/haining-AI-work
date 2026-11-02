@@ -110,7 +110,7 @@ SVG 仅作结构预览；JSON 是 E 组消费的权威数据源。
   writeFileSync(join(directory, 'validation-report.md'), report);
 }
 
-writeFileSync(join(outputRoot, 'README.md'), `# D v0.3.5 三组共同案例
+writeFileSync(join(outputRoot, 'README.md'), `# D v0.3.6 三组共同案例
 
 [公共合同制品与验证命令](./ARTIFACT_MANIFEST.md)
 
@@ -118,7 +118,7 @@ writeFileSync(join(outputRoot, 'README.md'), `# D v0.3.5 三组共同案例
 |---|---|---|---|---|---|
 ${cases.map(entry => `| ${entry.carrierId} + ${entry.weaveId} | [JSON](./${entry.slug}/structure-snapshot.json) | [SVG](./${entry.slug}/preview.svg) | [PNG](./${entry.slug}/preview.png) | [CSV](./${entry.slug}/crossing-matrix.csv) | [报告](./${entry.slug}/validation-report.md) |`).join('\n')}
 
-三组案例统一使用 C 的绿色三角形 \`surface_pattern\` 作为联调图样。完整结构由 D v0.3.5 同一次计算生成 JSON 与 SVG；E 应读取 JSON，不从 SVG 取数。顶层 \`strips[]\` 是唯一完整竹条对象树，阶段对象只保存 ID 索引。\`creativeSource\` 与不可变 \`sourcePattern\` 保存 C 的完整来源链。
+三组案例统一使用 C 的绿色三角形 \`surface_pattern\` 作为联调图样。完整结构由 D v0.3.6 同一次计算生成 JSON 与 SVG；E 应读取 JSON，不从 SVG 取数。顶层 \`strips[]\` 是唯一完整竹条对象树，阶段对象只保存 ID 索引。\`creativeSource\` 与不可变 \`sourcePattern\` 保存 C 的完整来源链，\`patternPlacement\` 记录 D 的图样缩放。
 
 未确定的 \`stockLengthMm\`、\`setupAllowanceMm\`、\`trimWasteLengthMm\` 均为 \`null\`。D 结构验证为 \`passed\`；E 工艺与 B 实物状态保持 \`pending\` / \`not-completed\`。
 

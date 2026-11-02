@@ -82,7 +82,7 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
   const boundaryEndpoints = strips.every(strip => strip.visibleSegments.every(segment => pointOnBoundary(segment.startMm, boundary) && pointOnBoundary(segment.endMm, boundary)));
   const sourceKeyFields = [
     'schemaVersion', 'structureGeneratorVersion', 'designId', 'designRevision', 'generatedFromRevision',
-    'carrierId', 'carrierSpecVersion', 'weaveId', 'weaveSpecVersion', 'craftRuleVersion',
+    'carrierId', 'carrierSpecVersion', 'weaveId', 'weaveSpecVersion', 'craftRuleVersion', 'patternPlacementKey',
   ] as const;
   const sourceKey = sourceKeyFields.every(field => snapshot[field] === snapshot.sourceKey[field]);
   const uniqueCanonicalStrips = new Set(strips.map(strip => strip.stripId)).size === strips.length;
@@ -117,6 +117,13 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
       && sourceElements.get(color.sourceElementId)?.paletteId === color.paletteId
     : color.paletteId === null && color.sourceElementId === null && color.sourceInputId === null)));
   const revisionCurrent = snapshot.designRevision === snapshot.generatedFromRevision;
+  const placement = snapshot.patternPlacement;
+  const expectedPlacementKey = [placement.scale, placement.rotationDeg, placement.offsetMm.x, placement.offsetMm.y,
+    placement.pivotMm.x, placement.pivotMm.y].join(':');
+  const patternPlacementValid = Number.isFinite(placement.scale) && placement.scale > 0
+    && Number.isFinite(placement.rotationDeg) && Number.isFinite(placement.offsetMm.x) && Number.isFinite(placement.offsetMm.y)
+    && Number.isFinite(placement.pivotMm.x) && Number.isFinite(placement.pivotMm.y)
+    && snapshot.patternPlacementKey === expectedPlacementKey;
   const creativeSource = snapshot.confirmedGenerationId === snapshot.creativeSource.confirmedGenerationId
     && snapshot.creativeSource.resultType === 'surface_pattern'
     && snapshot.creativeSource.resultId === snapshot.sourcePattern.patternId
@@ -134,6 +141,7 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
     { id: 'source-palette-ids-unique', pass: paletteIdsUnique, details: 'sourcePattern.paletteId 在图样内唯一。' },
     { id: 'source-element-ids-unique', pass: elementIdsUnique, details: 'sourcePattern.elementId 在图样内唯一。' },
     { id: 'source-pattern-shape', pass: sourcePatternShape, details: '元素类型、点列、色板引用、层级和变换结构有效。' },
+    { id: 'pattern-placement', pass: patternPlacementValid, details: 'D 图样放置参数可复算，不修改 C 原始 sourcePattern。' },
     { id: 'canonical-strips-unique', pass: uniqueCanonicalStrips, details: '顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。' },
     { id: 'raw-stage-strip-index', pass: rawStageIndexExact, details: 'rawBlank.stripIds 与顶层 strips[] 顺序及数量完全一致。' },
     { id: 'trimmed-stage-strip-index', pass: trimmedStageIndexExact, details: 'trimmedProduct.visibleStripIds 仅索引具有可见段的顶层竹条。' },

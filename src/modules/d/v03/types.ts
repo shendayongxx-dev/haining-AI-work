@@ -6,6 +6,7 @@ export type WeaveId = 'CROSS-1X1-V1' | 'CROSS-COURSE-2X2-V1' | 'HERRING-3X3-V1' 
 export type WeaveSpecVersion = 'WEAVE-SPEC-v1.2' | 'D-CANDIDATE-WEAVE-v0.1';
 export type Direction = 'warp' | 'weft';
 export type SegmentScope = 'motif' | 'base' | 'outer-base';
+export type PatternPlacementV03 = { scale: number; rotationDeg: number; offsetMm: PointMm; pivotMm: PointMm };
 
 export type StructureV03Input = {
   designId: string;
@@ -22,6 +23,7 @@ export type StructureV03Input = {
   pattern: SurfacePattern;
   baseColor: string;
   gridParameters?: { warpCount: number; weftCount: number; stripWidthMm: number; pitchMm: number };
+  patternPlacement?: PatternPlacementV03;
 };
 
 export type ColorSegmentV03 = {
@@ -110,7 +112,7 @@ export type EngineeringWarningV03 = {
 
 export type StructureSnapshotV03 = {
   schemaVersion: '0.3';
-  structureGeneratorVersion: 'D-STRUCTURE-v0.3.5';
+  structureGeneratorVersion: 'D-STRUCTURE-v0.3.6';
   designId: string;
   designRevision: number;
   generatedFromRevision: number;
@@ -120,12 +122,14 @@ export type StructureSnapshotV03 = {
   weaveId: WeaveId;
   weaveSpecVersion: WeaveSpecVersion;
   craftRuleVersion: string;
-  structuralValidation: { status: 'passed'; validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.5' };
+  patternPlacementKey: string;
+  patternPlacement: PatternPlacementV03;
+  structuralValidation: { status: 'passed'; validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.6' };
   craftValidation: { status: 'pending'; owner: 'E' };
   physicalValidation: { status: 'not-completed'; owner: 'B' };
   sourceKey: {
     schemaVersion: '0.3';
-    structureGeneratorVersion: 'D-STRUCTURE-v0.3.5';
+    structureGeneratorVersion: 'D-STRUCTURE-v0.3.6';
     designId: string;
     designRevision: number;
     generatedFromRevision: number;
@@ -134,6 +138,7 @@ export type StructureSnapshotV03 = {
     weaveId: WeaveId;
     weaveSpecVersion: WeaveSpecVersion;
     craftRuleVersion: string;
+    patternPlacementKey: string;
   };
   creativeSource: {
     confirmedGenerationId: string;

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.3",
-  "structureGeneratorVersion": "D-STRUCTURE-v0.3.5",
+  "structureGeneratorVersion": "D-STRUCTURE-v0.3.6",
   "designId": "design-fan-green-triangle-001-octagon-square-hole",
   "designRevision": 1,
   "generatedFromRevision": 1,
@@ -9,10 +9,23 @@
   "weaveId": "SQUARE-HOLE-1X1-V1",
   "weaveSpecVersion": "WEAVE-SPEC-v1.2",
   "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0",
+  "patternPlacementKey": "1:0:0:0:105:110",
   "confirmedGenerationId": "generation-fan-green-triangle-001",
+  "patternPlacement": {
+    "scale": 1,
+    "rotationDeg": 0,
+    "offsetMm": {
+      "x": 0,
+      "y": 0
+    },
+    "pivotMm": {
+      "x": 105,
+      "y": 110
+    }
+  },
   "structuralValidation": {
     "status": "passed",
-    "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.5"
+    "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.6"
   },
   "craftValidation": {
     "status": "pending",
@@ -24,7 +37,7 @@
   },
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.5",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.6",
     "designId": "design-fan-green-triangle-001-octagon-square-hole",
     "designRevision": 1,
     "generatedFromRevision": 1,
@@ -32,7 +45,8 @@
     "carrierSpecVersion": "CARRIER-SPEC-v1.2",
     "weaveId": "SQUARE-HOLE-1X1-V1",
     "weaveSpecVersion": "WEAVE-SPEC-v1.2",
-    "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0"
+    "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0",
+    "patternPlacementKey": "1:0:0:0:105:110"
   },
   "creativeSource": {
     "confirmedGenerationId": "generation-fan-green-triangle-001",

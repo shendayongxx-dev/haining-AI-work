@@ -1,14 +1,15 @@
-# D → A / E：v0.3.5 四编法参数化联调
+# D → A / E：v0.3.6 四编法参数化联调
 
 状态：`ready-for-integration-review`。本次是 v0.3.4 的向后兼容扩展，不代表工艺或实物验证通过。
 
 ## 改动
 
 - 圆形、长圆式、八角式统一支持平编、课程版十字编、人字编和四角孔编。
-- 四种编法统一使用 D v0.3.5 结构生成器，不再让圆扇平编走旧版固定路径。
-- `StructureV03Input.gridParameters` 可调整 `warpCount`、`weftCount`、`stripWidthMm` 和 `pitchMm`。
+- 四种编法统一使用 D v0.3.6 结构生成器，不再让圆扇平编走旧版固定路径。
+- `StructureV03Input.gridParameters` 接收 `warpCount`、`weftCount`、`stripWidthMm` 和系统自动计算的 `pitchMm`。页面只开放条数和宽度，间距与净孔为只读结果。
+- `patternPlacement.scale` 记录 60%～140% 图样大小；C 的 `sourcePattern` 保持不变，D 依据放置参数重算颜色段。
 - 参数改变后重新生成 `strips`、`crossings`、`visibleSegments`、`weavingOrder` 和 `grid`，不存在仅修改 SVG 的情况。
-- 网格必须从四个方向完整覆盖 189×189 mm 毛坯，且 `pitchMm >= stripWidthMm`。页面调整条数或宽度时会自动重算间距；调整间距时会匹配最近的奇数条数。
+- 网格必须从四个方向完整覆盖 189×189 mm 毛坯，且 `pitchMm >= stripWidthMm`。页面调整条数或宽度时会自动重算间距，不再开放间距滑杆。
 
 ## 平编身份
 

@@ -44,6 +44,11 @@
       "details": "元素类型、点列、色板引用、层级和变换结构有效。"
     },
     {
+      "id": "pattern-placement",
+      "pass": true,
+      "details": "D 图样放置参数可复算，不修改 C 原始 sourcePattern。"
+    },
+    {
       "id": "canonical-strips-unique",
       "pass": true,
       "details": "顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。"

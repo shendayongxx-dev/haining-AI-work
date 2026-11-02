@@ -21,6 +21,7 @@
 | `source-palette-ids-unique` | PASS | sourcePattern.paletteId 在图样内唯一。 |
 | `source-element-ids-unique` | PASS | sourcePattern.elementId 在图样内唯一。 |
 | `source-pattern-shape` | PASS | 元素类型、点列、色板引用、层级和变换结构有效。 |
+| `pattern-placement` | PASS | D 图样放置参数可复算，不修改 C 原始 sourcePattern。 |
 | `canonical-strips-unique` | PASS | 顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。 |
 | `raw-stage-strip-index` | PASS | rawBlank.stripIds 与顶层 strips[] 顺序及数量完全一致。 |
 | `trimmed-stage-strip-index` | PASS | trimmedProduct.visibleStripIds 仅索引具有可见段的顶层竹条。 |

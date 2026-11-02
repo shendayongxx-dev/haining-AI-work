@@ -56,6 +56,14 @@ try {
       assert.equal(adjusted.grid.weftCount, 15);
       assert.equal(adjusted.grid.stripWidthMm, 6);
       assert.equal(Math.abs((adjusted.grid.warpCount - 1) * adjusted.grid.pitchMm + adjusted.grid.stripWidthMm - 189) < .05, true);
+      const scaled = calculateStructureV03({
+        designId: 'web-integration-scaled', designRevision: 4,
+        creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
+        carrierId, weaveId, pattern, baseColor: '#C4A879', patternPlacement: { scale: 1.3, rotationDeg: 0, offsetMm: { x: 0, y: 0 }, pivotMm: { x: 105, y: 110 } },
+      });
+      assert.deepEqual(scaled.sourcePattern, pattern);
+      assert.equal(scaled.patternPlacement.scale, 1.3);
+      assert.notDeepEqual(scaled.strips.map(strip => strip.visibleSegments.map(segment => segment.colorSegments)), snapshot.strips.map(strip => strip.visibleSegments.map(segment => segment.colorSegments)));
       assert.throws(() => calculateStructureV03({
         designId: 'web-integration-sparse', designRevision: 3,
         creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
@@ -64,7 +72,7 @@ try {
       }), /complete raw blank/);
     }
   }
-  console.log('PASS all 12 fixed-fan and weave combinations with adjustable grids');
+  console.log('PASS all 12 fixed-fan and weave combinations with adjustable grids and pattern scale');
 } finally {
   await server.close();
 }

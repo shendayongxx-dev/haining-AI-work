@@ -3,7 +3,7 @@ import type { PointMm, SurfacePattern } from '../types';
 import { applyPatternTransform } from '../../../data/patternTransform.mjs';
 import { resolveWeaveSpec } from './weaveRegistry';
 import type {
-  CarrierId, ColorSegmentV03, CrossingV03, Direction, EngineeringWarningV03,
+  CarrierId, ColorSegmentV03, CrossingV03, Direction, EngineeringWarningV03, PatternPlacementV03,
   StripV03, StructureSnapshotV03, StructureV03Input, VisibleSegmentV03, WeaveId, WeavingOperationV03,
 } from './types';
 
@@ -127,25 +127,26 @@ function visibleIntervals(direction: Direction, axisMm: number, raw: Rect, bound
   return intervals;
 }
 
-function rotateScale(point: PointMm, pattern: SurfacePattern): PointMm {
-  return applyPatternTransform(point, {
+function rotateScale(point: PointMm, pattern: SurfacePattern, placement: PatternPlacementV03): PointMm {
+  const sourceTransformed = applyPatternTransform(point, {
     ...pattern.transform,
     pivotMm: { x: pattern.coordinateSpace.width / 2, y: 110 },
   });
+  return applyPatternTransform(sourceTransformed, placement);
 }
 
-function motifAt(pattern: SurfacePattern, point: PointMm) {
+function motifAt(pattern: SurfacePattern, placement: PatternPlacementV03, point: PointMm) {
   const palette = new Map(pattern.palette.map(entry => [entry.paletteId, entry.color]));
   const element = [...pattern.elements].sort((a, b) => b.zIndex - a.zIndex)
     .find(entry => entry.kind === 'polygon' && pointInPolygon(point, entry.pointsMm.map(value => {
-      const transformed = rotateScale(value, pattern);
+      const transformed = rotateScale(value, pattern, placement);
       return [transformed.x, transformed.y];
     })));
   return element ? { color: palette.get(element.paletteId) ?? '#315F3A', paletteId: element.paletteId, sourceElementId: element.elementId, sourceInputId: element.sourceInputId } : null;
 }
 
 function colorSegments(direction: Direction, axisMm: number, startCoordinate: number, endCoordinate: number,
-  rawStart: number, effective: Boundary, pattern: SurfacePattern, baseColor: string): ColorSegmentV03[] {
+  rawStart: number, effective: Boundary, pattern: SurfacePattern, placement: PatternPlacementV03, baseColor: string): ColorSegmentV03[] {
   const step = .5;
   const result: ColorSegmentV03[] = [];
   for (let coordinate = startCoordinate; coordinate < endCoordinate - 1e-9;) {
@@ -153,7 +154,7 @@ function colorSegments(direction: Direction, axisMm: number, startCoordinate: nu
     const middle = (coordinate + next) / 2;
     const point = direction === 'warp' ? { x: axisMm, y: middle } : { x: middle, y: axisMm };
     const inEffective = pointInBoundary(point, effective);
-    const motif = inEffective ? motifAt(pattern, point) : null;
+    const motif = inEffective ? motifAt(pattern, placement, point) : null;
     const value: Omit<ColorSegmentV03, 'stripOffsetStartMm' | 'stripOffsetEndMm'> = motif
       ? { scope: 'motif', color: motif.color, paletteId: motif.paletteId, sourceElementId: motif.sourceElementId, sourceInputId: motif.sourceInputId }
       : { scope: inEffective ? 'base' : 'outer-base', color: baseColor, paletteId: null, sourceElementId: null, sourceInputId: null };
@@ -171,7 +172,7 @@ function colorSegments(direction: Direction, axisMm: number, startCoordinate: nu
 }
 
 function buildStrip(direction: Direction, order: number, axisMm: number, widthMm: number, pitchMm: number,
-  raw: Rect, boundary: Boundary, effective: Boundary, pattern: SurfacePattern, baseColor: string): StripV03 {
+  raw: Rect, boundary: Boundary, effective: Boundary, pattern: SurfacePattern, placement: PatternPlacementV03, baseColor: string): StripV03 {
   const stripId = `${direction === 'warp' ? 'V' : 'H'}${pad(order)}`;
   const rawStartCoordinate = direction === 'warp' ? raw.y : raw.x;
   const rawEndCoordinate = rawStartCoordinate + (direction === 'warp' ? raw.height : raw.width);
@@ -189,7 +190,7 @@ function buildStrip(direction: Direction, order: number, axisMm: number, widthMm
       stripOffsetEndMm: round(interval.end - rawStartCoordinate),
       lengthMm: round(interval.end - interval.start),
       crossingIds: [],
-      colorSegments: colorSegments(direction, axisMm, interval.start, interval.end, rawStartCoordinate, effective, pattern, baseColor),
+      colorSegments: colorSegments(direction, axisMm, interval.start, interval.end, rawStartCoordinate, effective, pattern, placement, baseColor),
     };
   });
   return {
@@ -271,12 +272,15 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
     throw new Error('gridParameters must cover the complete raw blank');
   }
   const clearHoleMm = round(Math.max(0, pitchMm - widthMm));
+  const patternPlacement = input.patternPlacement ?? { scale: 1, rotationDeg: 0, offsetMm: { x: 0, y: 0 }, pivotMm: { x: 105, y: 110 } };
+  const patternPlacementKey = [patternPlacement.scale, patternPlacement.rotationDeg, patternPlacement.offsetMm.x,
+    patternPlacement.offsetMm.y, patternPlacement.pivotMm.x, patternPlacement.pivotMm.y].join(':');
   const firstWarp = raw.x + (raw.width - ((warpCount - 1) * pitchMm + widthMm)) / 2 + widthMm / 2;
   const firstWeft = raw.y + (raw.height - ((weftCount - 1) * pitchMm + widthMm)) / 2 + widthMm / 2;
   const warps = Array.from({ length: warpCount }, (_, index) => buildStrip('warp', index + 1, firstWarp + index * pitchMm,
-    widthMm, pitchMm, raw, carrier.boundary, carrier.effectivePatternBoundary, input.pattern, input.baseColor));
+    widthMm, pitchMm, raw, carrier.boundary, carrier.effectivePatternBoundary, input.pattern, patternPlacement, input.baseColor));
   const wefts = Array.from({ length: weftCount }, (_, index) => buildStrip('weft', index + 1, firstWeft + index * pitchMm,
-    widthMm, pitchMm, raw, carrier.boundary, carrier.effectivePatternBoundary, input.pattern, input.baseColor));
+    widthMm, pitchMm, raw, carrier.boundary, carrier.effectivePatternBoundary, input.pattern, patternPlacement, input.baseColor));
   const strips = [...warps, ...wefts];
   const crossings: CrossingV03[] = [];
   const weavingOrder: WeavingOperationV03[] = [];
@@ -309,15 +313,16 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
   }
   const warnings = [...warningForHandle(input, carrier, crossings), ...edgeWarnings(input, strips, pitchMm)];
   const sourceKey = {
-    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.5' as const,
+    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.6' as const,
     designId: input.designId, designRevision: input.designRevision, generatedFromRevision: input.designRevision, carrierId: input.carrierId,
     carrierSpecVersion: 'CARRIER-SPEC-v1.2' as const, weaveId: input.weaveId,
-    weaveSpecVersion: weave.weaveSpecVersion, craftRuleVersion: weave.craftRuleVersion,
+    weaveSpecVersion: weave.weaveSpecVersion, craftRuleVersion: weave.craftRuleVersion, patternPlacementKey,
   };
   return {
     ...sourceKey,
     confirmedGenerationId: input.creativeSource.confirmedGenerationId,
-    structuralValidation: { status: 'passed' as const, validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.5' as const },
+    patternPlacement,
+    structuralValidation: { status: 'passed' as const, validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.6' as const },
     craftValidation: { status: 'pending' as const, owner: 'E' as const },
     physicalValidation: { status: 'not-completed' as const, owner: 'B' as const },
     sourceKey,
