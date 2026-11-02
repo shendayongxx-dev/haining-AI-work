@@ -29,6 +29,8 @@ try {
     assert.match(candidateSvg, new RegExp(`<${shapeTag} `));
     assert.match(structureSvg, new RegExp(`<${shapeTag} `));
     assert.match(structureSvg, /viewBox="0 0 210 297"/);
+    assert.match(structureSvg, /<clipPath id="product-boundary">/);
+    assert.equal((structureSvg.match(/clip-path="url\(#product-boundary\)"/g) ?? []).length, 2);
     console.log(`PASS ${fixture} candidate and structure SVG`);
   }
   const pattern = JSON.parse(readFileSync(new URL('../examples/d-v03-integration/round-cross-course/structure-snapshot.json', import.meta.url), 'utf8')).sourcePattern;

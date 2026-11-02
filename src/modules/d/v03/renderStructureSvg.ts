@@ -68,11 +68,14 @@ export function renderStructureSvg(snapshot: StructureSnapshotV03) {
     return topPatch(strip, start, end, colorAt(strip, crossing.positionMm));
   }).join('\n');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 297" width="840" height="1188">
-  <defs><filter id="lift" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0.5" dy="0.7" stdDeviation="0.55" flood-color="#3f2c16" flood-opacity="0.55"/></filter></defs>
+  <defs>
+    <filter id="lift" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0.5" dy="0.7" stdDeviation="0.55" flood-color="#3f2c16" flood-opacity="0.55"/></filter>
+    <clipPath id="product-boundary">${shape(boundary, '')}</clipPath>
+  </defs>
   <rect width="210" height="297" fill="#f7f3e9"/>
   ${shape(boundary, 'fill="#ead7ad" stroke="none"')}
-  <g>${base}</g>
-  <g>${patches}</g>
+  <g clip-path="url(#product-boundary)">${base}</g>
+  <g clip-path="url(#product-boundary)">${patches}</g>
   ${shape(effective, 'fill="none" stroke="#8f6b3f" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.8"')}
   ${shape(boundary, 'fill="none" stroke="#9b6637" stroke-width="2"')}
   <text x="105" y="215" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="5" fill="#4d3b27">${esc(snapshot.carrierId)} · ${esc(snapshot.weaveId)}</text>
