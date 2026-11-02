@@ -1,6 +1,6 @@
 {
   "caseId": "FAN-ROUND-170-V1__CROSS-COURSE-2X2-V1",
-  "checkedAt": "2026-11-01",
+  "checkedAt": "2026-11-02",
   "pass": true,
   "checks": [
     {
@@ -21,7 +21,27 @@
     {
       "id": "upstream-generation-domain",
       "pass": true,
-      "details": "C generationIssues 保存在 creativeSource 中，未混入 D engineeringWarnings。"
+      "details": "C generationIssues 独立保存，且 issue.generatorVersion 与 creativeSource.generatorVersion 一致。"
+    },
+    {
+      "id": "source-coordinate-space",
+      "pass": true,
+      "details": "C 图样坐标为 210×297 mm、topLeft、X向右、Y向下。"
+    },
+    {
+      "id": "source-palette-ids-unique",
+      "pass": true,
+      "details": "sourcePattern.paletteId 在图样内唯一。"
+    },
+    {
+      "id": "source-element-ids-unique",
+      "pass": true,
+      "details": "sourcePattern.elementId 在图样内唯一。"
+    },
+    {
+      "id": "source-pattern-shape",
+      "pass": true,
+      "details": "元素类型、点列、色板引用、层级和变换结构有效。"
     },
     {
       "id": "canonical-strips-unique",

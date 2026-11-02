@@ -1,4 +1,4 @@
-# D → C：结构快照 v0.3.3 来源合同收敛回复
+# D → C：结构快照 v0.3.4 来源校验器收敛回复
 
 状态：`changes-addressed-awaiting-source-review`
 
@@ -13,7 +13,7 @@ D 已接受 C 对 v0.3 公共接口提案的两轮评审意见。本轮在对象
 
 ## 2. v0.2 → v0.3 迁移
 
-- v0.3.3 同时保留 `designRevision` 和 `generatedFromRevision`；
+- v0.3.4 同时保留 `designRevision` 和 `generatedFromRevision`；
 - A/E 按 `schemaVersion` 双读，v0.2 保留旧路径，v0.3 读取顶层 `strips[]`；
 - 缺少完整 `sourceKey` 的 v0.2 快照标记为 `legacy-unverifiable`，不得复用旧检查、材料结果或教程；
 - 迁移方案见 `docs/handoffs/D_V02_TO_V03_MIGRATION.md`。
@@ -24,7 +24,7 @@ D 已接受 C 对 v0.3 公共接口提案的两轮评审意见。本轮在对象
 {
   "structuralValidation": {
     "status": "passed",
-    "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.3"
+    "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.4"
   },
   "craftValidation": {
     "status": "pending",
@@ -51,7 +51,7 @@ D 已接受 C 对 v0.3 公共接口提案的两轮评审意见。本轮在对象
 
 ## 5. 范围措辞
 
-文档已改为“六种候选载体、三种候选编法”。v0.3.3 是 D→E 数据能力扩展，不自动改变 A 当前的 `fan | custom` 产品枚举，也不表示任何组合已通过实物验证。
+文档已改为“六种候选载体、三种候选编法”。v0.3.4 是 D→E 数据能力扩展，不自动改变 A 当前的 `fan | custom` 产品枚举，也不表示任何组合已通过实物验证。
 
 ## 6. C 来源合同
 
@@ -61,8 +61,16 @@ D 已接受 C 对 v0.3 公共接口提案的两轮评审意见。本轮在对象
 - `paletteId/sourceElementId/sourceInputId` 从 C 结果原样复制，D 不重命名或推导；
 - C 的 `generationIssues`、D 的 `engineeringWarnings`、E 的 `validationIssues` 三域分离；
 - D 负责按载体有效区投影、裁切和生成 `outer-base`，C 不负责竹篾级裁切；
-- 本版明确只冻结三组固定载体的 `surface_pattern`，`carrier_shape` 排除在 v0.3.3 范围外。
+- 本版明确只冻结三组固定载体的 `surface_pattern`，`carrier_shape` 排除在 v0.3.4 范围外。
 
-## 7. 当前门禁
+## 7. 来源完整性负向校验
 
-三组案例已按 v0.3.3 重生成并通过 D 侧结构回归。请 C 复核来源合同与范围排除；请 E 重新独立消费。C/E 均无阻断意见后，再由 A 决定是否冻结和合入 `main`。
+- 坐标空间必须固定为 210×297 mm、topLeft、X 向右、Y 向下；
+- 每个 C `generationIssue.generatorVersion` 必须等于 `creativeSource.generatorVersion`；
+- `paletteId` 在单一图样内必须唯一；
+- `elementId` 在单一图样内必须唯一；
+- JSON Schema 完整约束 palette、elements、点列、zIndex 和 transform；运行时校验补充 ID 唯一性与跨字段引用。
+
+## 8. 当前门禁
+
+三组案例已按 v0.3.4 重生成并通过 D 侧结构回归。请 C 复核四项来源完整性负向测试；请 E 重新独立消费。C/E 均无阻断意见后，再由 A 决定是否冻结和合入 `main`。

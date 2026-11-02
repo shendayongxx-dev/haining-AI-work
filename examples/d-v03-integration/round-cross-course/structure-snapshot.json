@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.3",
-  "structureGeneratorVersion": "D-STRUCTURE-v0.3.3",
+  "structureGeneratorVersion": "D-STRUCTURE-v0.3.4",
   "designId": "design-fan-green-triangle-001-round-cross-course",
   "designRevision": 1,
   "generatedFromRevision": 1,
@@ -12,7 +12,7 @@
   "confirmedGenerationId": "generation-fan-green-triangle-001",
   "structuralValidation": {
     "status": "passed",
-    "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.3"
+    "validatorVersion": "D-STRUCTURE-VALIDATOR-v0.3.4"
   },
   "craftValidation": {
     "status": "pending",
@@ -24,7 +24,7 @@
   },
   "sourceKey": {
     "schemaVersion": "0.3",
-    "structureGeneratorVersion": "D-STRUCTURE-v0.3.3",
+    "structureGeneratorVersion": "D-STRUCTURE-v0.3.4",
     "designId": "design-fan-green-triangle-001-round-cross-course",
     "designRevision": 1,
     "generatedFromRevision": 1,

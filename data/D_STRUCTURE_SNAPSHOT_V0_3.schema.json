@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "D_STRUCTURE_SNAPSHOT_V0_3.schema.json",
-  "title": "D Structure Snapshot v0.3.3",
+  "title": "D Structure Snapshot v0.3.4",
   "type": "object",
   "additionalProperties": true,
   "required": [
@@ -11,7 +11,7 @@
   ],
   "properties": {
     "schemaVersion": { "const": "0.3" },
-    "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.3" },
+    "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.4" },
     "designId": { "type": "string", "minLength": 1 },
     "designRevision": { "type": "integer", "minimum": 0 },
     "generatedFromRevision": { "type": "integer", "minimum": 0 },
@@ -30,7 +30,7 @@
       ],
       "properties": {
         "schemaVersion": { "const": "0.3" },
-        "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.3" },
+        "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.4" },
         "designId": { "type": "string" },
         "designRevision": { "type": "integer" },
         "generatedFromRevision": { "type": "integer" },
@@ -47,7 +47,7 @@
       "required": ["status", "validatorVersion"],
       "properties": {
         "status": { "const": "passed" },
-        "validatorVersion": { "const": "D-STRUCTURE-VALIDATOR-v0.3.3" }
+        "validatorVersion": { "const": "D-STRUCTURE-VALIDATOR-v0.3.4" }
       }
     },
     "craftValidation": {
@@ -85,10 +85,43 @@
       "required": ["patternId", "coordinateSpace", "palette", "elements", "transform"],
       "properties": {
         "patternId": { "type": "string", "minLength": 1 },
-        "coordinateSpace": { "type": "object" },
-        "palette": { "type": "array", "items": { "type": "object" } },
-        "elements": { "type": "array", "items": { "type": "object" } },
-        "transform": { "type": "object" }
+        "coordinateSpace": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["unit", "width", "height", "origin", "xAxis", "yAxis"],
+          "properties": {
+            "unit": { "const": "mm" },
+            "width": { "const": 210 },
+            "height": { "const": 297 },
+            "origin": { "const": "topLeft" },
+            "xAxis": { "const": "right" },
+            "yAxis": { "const": "down" }
+          }
+        },
+        "palette": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["paletteId", "color"],
+            "properties": {
+              "paletteId": { "type": "string", "minLength": 1 },
+              "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+            }
+          }
+        },
+        "elements": { "type": "array", "items": { "$ref": "#/$defs/patternElement" } },
+        "transform": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scale", "rotationDeg", "offsetMm"],
+          "properties": {
+            "scale": { "type": "number", "exclusiveMinimum": 0 },
+            "rotationDeg": { "type": "number" },
+            "offsetMm": { "$ref": "#/$defs/point" }
+          }
+        }
       }
     },
     "strips": {
@@ -144,6 +177,27 @@
       "additionalProperties": false,
       "required": ["x", "y"],
       "properties": { "x": { "type": "number" }, "y": { "type": "number" } }
+    },
+    "patternElement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["elementId", "sourceInputId", "kind", "paletteId", "zIndex", "pointsMm"],
+      "properties": {
+        "elementId": { "type": "string", "minLength": 1 },
+        "sourceInputId": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["polygon", "polyline"] },
+        "paletteId": { "type": "string", "minLength": 1 },
+        "zIndex": { "type": "number" },
+        "pointsMm": { "type": "array", "items": { "$ref": "#/$defs/point" } },
+        "strokeWidthMm": { "type": "number", "exclusiveMinimum": 0 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "polygon" } } },
+          "then": { "properties": { "pointsMm": { "minItems": 3 } } },
+          "else": { "properties": { "pointsMm": { "minItems": 2 } } }
+        }
+      ]
     },
     "colorSegment": {
       "type": "object",

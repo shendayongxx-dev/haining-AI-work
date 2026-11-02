@@ -318,7 +318,7 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
   }
   const warnings = [...warningForHandle(input, carrier, crossings), ...edgeWarnings(input, strips, pitchMm)];
   const sourceKey = {
-    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.3' as const,
+    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.4' as const,
     designId: input.designId, designRevision: input.designRevision, generatedFromRevision: input.designRevision, carrierId: input.carrierId,
     carrierSpecVersion: 'CARRIER-SPEC-v1.2' as const, weaveId: input.weaveId,
     weaveSpecVersion: 'WEAVE-SPEC-v1.2' as const, craftRuleVersion: weave.craftRuleVersion,
@@ -326,7 +326,7 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
   return {
     ...sourceKey,
     confirmedGenerationId: input.creativeSource.confirmedGenerationId,
-    structuralValidation: { status: 'passed' as const, validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.3' as const },
+    structuralValidation: { status: 'passed' as const, validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.4' as const },
     craftValidation: { status: 'pending' as const, owner: 'E' as const },
     physicalValidation: { status: 'not-completed' as const, owner: 'B' as const },
     sourceKey,

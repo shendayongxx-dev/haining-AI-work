@@ -108,7 +108,7 @@ export type EngineeringWarningV03 = {
 
 export type StructureSnapshotV03 = {
   schemaVersion: '0.3';
-  structureGeneratorVersion: 'D-STRUCTURE-v0.3.3';
+  structureGeneratorVersion: 'D-STRUCTURE-v0.3.4';
   designId: string;
   designRevision: number;
   generatedFromRevision: number;
@@ -118,12 +118,12 @@ export type StructureSnapshotV03 = {
   weaveId: WeaveId;
   weaveSpecVersion: 'WEAVE-SPEC-v1.2';
   craftRuleVersion: string;
-  structuralValidation: { status: 'passed'; validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.3' };
+  structuralValidation: { status: 'passed'; validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.4' };
   craftValidation: { status: 'pending'; owner: 'E' };
   physicalValidation: { status: 'not-completed'; owner: 'B' };
   sourceKey: {
     schemaVersion: '0.3';
-    structureGeneratorVersion: 'D-STRUCTURE-v0.3.3';
+    structureGeneratorVersion: 'D-STRUCTURE-v0.3.4';
     designId: string;
     designRevision: number;
     generatedFromRevision: number;

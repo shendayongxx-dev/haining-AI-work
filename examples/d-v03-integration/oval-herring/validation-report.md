@@ -16,7 +16,11 @@
 | `source-key-complete` | PASS | 完整来源键与快照顶层字段一致。 |
 | `revision-current` | PASS | designRevision 与 generatedFromRevision 一致。 |
 | `creative-source-complete` | PASS | C 确认生成、生成版本、适配器版本、输入版本和 patternId 可独立追溯。 |
-| `upstream-generation-domain` | PASS | C generationIssues 保存在 creativeSource 中，未混入 D engineeringWarnings。 |
+| `upstream-generation-domain` | PASS | C generationIssues 独立保存，且 issue.generatorVersion 与 creativeSource.generatorVersion 一致。 |
+| `source-coordinate-space` | PASS | C 图样坐标为 210×297 mm、topLeft、X向右、Y向下。 |
+| `source-palette-ids-unique` | PASS | sourcePattern.paletteId 在图样内唯一。 |
+| `source-element-ids-unique` | PASS | sourcePattern.elementId 在图样内唯一。 |
+| `source-pattern-shape` | PASS | 元素类型、点列、色板引用、层级和变换结构有效。 |
 | `canonical-strips-unique` | PASS | 顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。 |
 | `raw-stage-strip-index` | PASS | rawBlank.stripIds 与顶层 strips[] 顺序及数量完全一致。 |
 | `trimmed-stage-strip-index` | PASS | trimmedProduct.visibleStripIds 仅索引具有可见段的顶层竹条。 |
