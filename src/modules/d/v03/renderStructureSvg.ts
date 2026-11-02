@@ -38,9 +38,34 @@ function line(strip: StripV03, start: PointMm, end: PointMm, color: string, extr
 }
 
 function topPatch(strip: StripV03, start: PointMm, end: PointMm, color: string) {
-  return `${line({ ...strip, widthMm: strip.widthMm + .7 }, start, end, '#ead7ad')}
-${line({ ...strip, widthMm: strip.widthMm + .3 }, start, end, '#3c2816', 'opacity="0.35"')}
+  return `${line({ ...strip, widthMm: strip.widthMm + .35 }, start, end, '#3c2816', 'opacity="0.22"')}
 ${line(strip, start, end, color, 'filter="url(#lift)"')}`;
+}
+
+type TopRun = { strip: StripV03; start: number; end: number; color: string };
+
+function topRuns(snapshot: StructureSnapshotV03, stripMap: Map<string, StripV03>) {
+  const intervals = new Map<string, TopRun[]>();
+  for (const crossing of snapshot.stages.rawBlank.crossings) {
+    if (!crossing.trimmedProduct.visible) continue;
+    const strip = stripMap.get(crossing.topStripId);
+    if (!strip) continue;
+    const lower = stripMap.get(crossing.topStripId === crossing.warpStripId ? crossing.weftStripId : crossing.warpStripId);
+    const half = Math.min(strip.pitchMm / 2, (lower?.widthMm ?? strip.widthMm) / 2 + .25);
+    const coordinate = strip.direction === 'warp' ? crossing.positionMm.y : crossing.positionMm.x;
+    const run = { strip, start: coordinate - half, end: coordinate + half, color: colorAt(strip, crossing.positionMm) };
+    intervals.set(strip.stripId, [...(intervals.get(strip.stripId) ?? []), run]);
+  }
+  return [...intervals.values()].flatMap(values => {
+    const sorted = values.sort((a, b) => a.start - b.start);
+    const merged: TopRun[] = [];
+    for (const value of sorted) {
+      const previous = merged.at(-1);
+      if (previous && previous.color === value.color && value.start <= previous.end + .01) previous.end = Math.max(previous.end, value.end);
+      else merged.push({ ...value });
+    }
+    return merged;
+  });
 }
 
 export function renderStructureSvg(snapshot: StructureSnapshotV03) {
@@ -57,26 +82,19 @@ export function renderStructureSvg(snapshot: StructureSnapshotV03) {
     return `${line({ ...strip, widthMm: strip.widthMm + .5 }, start, end, '#4b351d', 'opacity="0.18"')}
 ${line(strip, start, end, directionalShade(color.color, strip.direction))}`;
   }))).join('\n');
-  const patches = snapshot.stages.rawBlank.crossings.filter(crossing => crossing.trimmedProduct.visible).map(crossing => {
-    const strip = stripMap.get(crossing.topStripId);
-    if (!strip) return '';
-    const lower = stripMap.get(crossing.topStripId === crossing.warpStripId ? crossing.weftStripId : crossing.warpStripId);
-    const half = Math.min(strip.pitchMm / 2, (lower?.widthMm ?? strip.widthMm) / 2 + .25);
-    const start = strip.direction === 'warp'
-      ? { x: crossing.positionMm.x, y: crossing.positionMm.y - half }
-      : { x: crossing.positionMm.x - half, y: crossing.positionMm.y };
-    const end = strip.direction === 'warp'
-      ? { x: crossing.positionMm.x, y: crossing.positionMm.y + half }
-      : { x: crossing.positionMm.x + half, y: crossing.positionMm.y };
-    return topPatch(strip, start, end, colorAt(strip, crossing.positionMm));
+  const runs = topRuns(snapshot, stripMap);
+  const patches = runs.map(run => {
+    const start = run.strip.direction === 'warp' ? { x: run.strip.axisMm, y: run.start } : { x: run.start, y: run.strip.axisMm };
+    const end = run.strip.direction === 'warp' ? { x: run.strip.axisMm, y: run.end } : { x: run.end, y: run.strip.axisMm };
+    return topPatch(run.strip, start, end, run.color);
   }).join('\n');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 297" width="840" height="1188">
   <defs>
-    <filter id="lift" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0.65" dy="0.9" stdDeviation="0.7" flood-color="#2f1f11" flood-opacity="0.72"/></filter>
+    <filter id="lift" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0.45" dy="0.6" stdDeviation="0.45" flood-color="#2f1f11" flood-opacity="0.48"/></filter>
     <clipPath id="product-boundary">${shape(boundary, '')}</clipPath>
   </defs>
   <g clip-path="url(#product-boundary)">${base}</g>
-  <g clip-path="url(#product-boundary)">${patches}</g>
+  <g clip-path="url(#product-boundary)" data-weave-id="${esc(snapshot.weaveId)}" data-top-runs="${runs.length}">${patches}</g>
   ${shape(effective, 'fill="none" stroke="#8f6b3f" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.8"')}
   ${shape(boundary, 'fill="none" stroke="#9b6637" stroke-width="2"')}
 </svg>`;
