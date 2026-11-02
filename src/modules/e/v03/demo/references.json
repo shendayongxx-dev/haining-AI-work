@@ -1,0 +1,129 @@
+{
+  "sourceCommit": "2b05e523e5101e620ed5272ba299492f3dc6885f",
+  "notice": "B v1.2步骤参考图；尚未确认与每条自动操作一一对应。",
+  "groups": [
+    {
+      "key": "cross",
+      "label": "课程版十字编",
+      "images": [
+        {
+          "url": "/e-reference/cross-1.png",
+          "label": "课程版十字编参考图1",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image1.png"
+        },
+        {
+          "url": "/e-reference/cross-2.jpeg",
+          "label": "课程版十字编参考图2",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image2.jpeg"
+        },
+        {
+          "url": "/e-reference/cross-3.jpeg",
+          "label": "课程版十字编参考图3",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image3.jpeg"
+        },
+        {
+          "url": "/e-reference/cross-4.png",
+          "label": "课程版十字编参考图4",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image4.png"
+        },
+        {
+          "url": "/e-reference/cross-5.jpeg",
+          "label": "课程版十字编参考图5",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image5.jpeg"
+        },
+        {
+          "url": "/e-reference/cross-6.png",
+          "label": "课程版十字编参考图6",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image6.png"
+        },
+        {
+          "url": "/e-reference/cross-7.jpeg",
+          "label": "课程版十字编参考图7",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image7.jpeg"
+        },
+        {
+          "url": "/e-reference/cross-8.jpeg",
+          "label": "课程版十字编参考图8",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image8.jpeg"
+        },
+        {
+          "url": "/e-reference/cross-9.jpeg",
+          "label": "课程版十字编参考图9",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image9.jpeg"
+        },
+        {
+          "url": "/e-reference/cross-10.jpeg",
+          "label": "课程版十字编参考图10",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image10.jpeg"
+        },
+        {
+          "url": "/e-reference/cross-11.jpeg",
+          "label": "课程版十字编参考图11",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image11.jpeg"
+        },
+        {
+          "url": "/e-reference/cross-12.jpeg",
+          "label": "课程版十字编参考图12",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image12.jpeg"
+        },
+        {
+          "url": "/e-reference/cross-13.jpeg",
+          "label": "课程版十字编参考图13",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image13.jpeg"
+        },
+        {
+          "url": "/e-reference/cross-14.jpeg",
+          "label": "课程版十字编参考图14",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/01_十字编/步骤图片/image14.jpeg"
+        }
+      ]
+    },
+    {
+      "key": "herring",
+      "label": "人字编",
+      "images": [
+        {
+          "url": "/e-reference/herring-1.png",
+          "label": "人字编参考图1",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/02_人字编/步骤图片/人字编_页面-1.png"
+        },
+        {
+          "url": "/e-reference/herring-2.png",
+          "label": "人字编参考图2",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/02_人字编/步骤图片/人字编_页面-2.png"
+        },
+        {
+          "url": "/e-reference/herring-3.png",
+          "label": "人字编参考图3",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/02_人字编/步骤图片/人字编_页面-3.png"
+        },
+        {
+          "url": "/e-reference/herring-4.png",
+          "label": "人字编参考图4",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/02_人字编/步骤图片/人字编_页面-4.png"
+        }
+      ]
+    },
+    {
+      "key": "hole",
+      "label": "四角孔编",
+      "images": [
+        {
+          "url": "/e-reference/hole-1.png",
+          "label": "四角孔编参考图1",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/03_四角孔编/步骤图片/四角孔编_页面-1.png"
+        },
+        {
+          "url": "/e-reference/hole-2.png",
+          "label": "四角孔编参考图2",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/03_四角孔编/步骤图片/四角孔编_页面-2.png"
+        },
+        {
+          "url": "/e-reference/hole-3.png",
+          "label": "四角孔编参考图3",
+          "originalPath": "竹编DIY_B组最终交接包_v1.2/01_核心编法/03_四角孔编/步骤图片/四角孔编_页面-3.png"
+        }
+      ]
+    }
+  ]
+}

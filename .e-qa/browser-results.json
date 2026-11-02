@@ -1,0 +1,69 @@
+{
+  "results": [
+    {
+      "name": "initial round result renders",
+      "pass": true
+    },
+    {
+      "name": "unknown stock is not replaced by geometric length",
+      "pass": true
+    },
+    {
+      "name": "strip ID click locates actual snapshot",
+      "pass": true
+    },
+    {
+      "name": "invisible operation switches to raw blank",
+      "pass": true
+    },
+    {
+      "name": "operation sequence advances",
+      "pass": true
+    },
+    {
+      "name": "case change expires previous results",
+      "pass": true
+    },
+    {
+      "name": "oval inspection reads corrected snapshot",
+      "pass": true
+    },
+    {
+      "name": "no warnings does not imply craft pass",
+      "pass": true
+    },
+    {
+      "name": "octagon case consumes correctly",
+      "pass": true
+    },
+    {
+      "name": "engineering warning locates snapshot data",
+      "pass": true
+    },
+    {
+      "name": "B reference images load",
+      "pass": true
+    },
+    {
+      "name": "generator-only change expires results",
+      "pass": true
+    },
+    {
+      "name": "late result is rejected in browser",
+      "pass": true
+    },
+    {
+      "name": "invalid JSON reports error without blanking current design",
+      "pass": true
+    },
+    {
+      "name": "mobile has no page-level horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "no browser runtime exceptions",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

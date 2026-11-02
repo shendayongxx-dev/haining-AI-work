@@ -1,0 +1,29 @@
+{
+  "reviewDate": "2026-11-02",
+  "dCommit": "8e9fba7042124b8939dee2ae0cacb12a23faff8b",
+  "generatorVersion": "D-STRUCTURE-v0.3.4",
+  "independentConsumer": "src/modules/e/v03/consume.mjs",
+  "inputs": [
+    {
+      "caseId": "round-cross-course",
+      "path": "examples/d-v03-integration/round-cross-course/structure-snapshot.json",
+      "sha256": "87ffd65f2f2e84e98fb9719967baa10cb1d0974b9dfb1d7905c408f4c6173805"
+    },
+    {
+      "caseId": "oval-herring",
+      "path": "examples/d-v03-integration/oval-herring/structure-snapshot.json",
+      "sha256": "2495f84567bc8110d65c0d0359b9f09f9e99e276baa7ebabb44317e80e1cc5c7"
+    },
+    {
+      "caseId": "octagon-square-hole",
+      "path": "examples/d-v03-integration/octagon-square-hole/structure-snapshot.json",
+      "sha256": "84132e08e1822c9428f250ebf194b8d1199d76097b2c020f37379cf82aa07ea8"
+    }
+  ],
+  "unitTests": {
+    "passed": 27,
+    "total": 27,
+    "log": ".e-qa/unit-v034.log"
+  },
+  "browserResults": ".e-qa/browser-results.json"
+}

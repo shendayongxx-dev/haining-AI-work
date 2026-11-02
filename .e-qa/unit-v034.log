@@ -1,0 +1,35 @@
+✔ all three v0.3.4 snapshots can enter the browser without rewriting IDs (6.5402ms)
+✔ invalid schema, incomplete stages, malformed points and unsafe load sizes are rejected (13.8781ms)
+✔ round consumer can group 441 operations into 21 steps without guessing stock (5.7889ms)
+✔ ellipse boundary cases with invisible/non-null references remain reported (3.0244ms)
+✔ six octagon boundary references must not silently disappear (1.7213ms)
+✔ all ten source components independently invalidate both checks and tutorial/material outputs (2.4887ms)
+✔ a delayed result cannot replace newer accepted results (2.0819ms)
+✔ object key order does not expire source keys or cause duplicate stage discrepancies (4.957ms)
+✔ operation-action corruption and zero-stock substitution are rejected (8.1955ms)
+✔ D v0.3.4 all three inputs pass structural consumption while craft stays pending (6.1408ms)
+✔ ellipse tangencies are invisible with both segment references and operation references null (0.1824ms)
+✔ all six octagon boundary points become visible with bidirectional links (0.2517ms)
+✔ generator-only upgrade rejects v0.3.0 even when design revision is unchanged (8.7606ms)
+✔ reintroducing an invisible non-null segment or omitting an octagon backlink is rejected (7.0942ms)
+✔ v0.3.4 preserves the complete ten-field source key on all E outputs for every case (4.5926ms)
+✔ v0.3.4 independently rejects creative result ID (3.7898ms)
+✔ v0.3.4 independently rejects unsupported carrier shape result (4.6373ms)
+✔ v0.3.4 independently rejects palette color (3.3861ms)
+✔ v0.3.4 independently rejects source input renamed (3.5508ms)
+✔ v0.3.4 independently rejects generator missing (3.8215ms)
+✔ v0.3.4 independently rejects coordinate origin (3.5508ms)
+✔ v0.3.4 independently rejects issue generator mismatch (3.715ms)
+✔ v0.3.4 independently rejects duplicate palette (3.3148ms)
+✔ v0.3.4 independently rejects duplicate element (3.5735ms)
+✔ v0.3.4 independently rejects raw strip index (3.4102ms)
+✔ v0.3.4 independently rejects visible strip index (3.342ms)
+✔ v0.3.4 independently rejects stale revision with consistent source key (4.0666ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 186.2548
