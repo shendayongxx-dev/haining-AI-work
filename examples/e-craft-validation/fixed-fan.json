@@ -19706,10 +19706,10 @@
   },
   "result": {
     "schemaVersion": "E-CRAFT-0.1",
-    "engineVersion": "E-CRAFT-ENGINE-0.2",
-    "ruleSetVersion": "E-CRAFT-RULES-0.2",
-    "bRuleSetVersion": "B-CRAFT-CHECK-v1.3",
-    "evidenceSetVersion": "B-EVIDENCE-v1.3",
+    "engineVersion": "E-CRAFT-ENGINE-0.3",
+    "ruleSetVersion": "E-CRAFT-RULES-0.3",
+    "bRuleSetVersion": "B-CRAFT-CHECK-v1.5",
+    "evidenceSetVersion": "B-EVIDENCE-v1.5",
     "productionReady": false,
     "designId": "e-regression-fan",
     "designRevision": 1,
@@ -19729,8 +19729,731 @@
       "craftRuleVersion": "CRAFT-CROSS-COURSE-v1.1",
       "patternPlacementKey": "1:0:0:0:105:110"
     },
-    "inputDigest": "4b6412236bded4e7d47d2a58615377b62770ca2572591afd509889b97804abb2",
+    "inputDigest": "a9728c4ec29f92492a515365005e109f13eab35b2e29bac0984b33ebe255242a",
     "issues": [
+      {
+        "id": "E15-OUTER_BASE_WEAVE_CONTINUITY",
+        "ruleId": "OUTER_BASE_WEAVE_CONTINUITY",
+        "domain": "evidence",
+        "status": "pending",
+        "title": "外侧基础编织连续性",
+        "reason": "已复核连续性合同、全局身份与相位；D 当前颜色段采用 0.5 mm 采样，有效区边缘的分区精度合同尚未确认，不将合同声明等同于精确分区已通过。",
+        "suggestion": "补齐本规则所需上下文和验证依据后重新检查；不得用默认值代替缺失的工艺数据。",
+        "location": {
+          "path": "OUTER_BASE_WEAVE_CONTINUITY"
+        },
+        "evidence": {
+          "reference": "B-OUTER-BASE-WEAVE-v1.1#OUTER_BASE_WEAVE_CONTINUITY",
+          "verification": "missing"
+        }
+      },
+      {
+        "id": "E15-HANDLE_MOTIF_EXCLUSION",
+        "ruleId": "HANDLE_MOTIF_EXCLUSION",
+        "domain": "evidence",
+        "status": "pending",
+        "title": "重点图案与柄区避让",
+        "reason": "尚无重点图案边界或明确无重点图案的输入合同，不能推断不适用。",
+        "suggestion": "补齐本规则所需上下文和验证依据后重新检查；不得用默认值代替缺失的工艺数据。",
+        "location": {
+          "path": "HANDLE_MOTIF_EXCLUSION"
+        },
+        "evidence": {
+          "reference": "carrier-handle-context#HANDLE_MOTIF_EXCLUSION",
+          "verification": "missing"
+        }
+      },
+      {
+        "id": "E15-HANDLE_REINFORCEMENT_REQUIRED",
+        "ruleId": "HANDLE_REINFORCEMENT_REQUIRED",
+        "domain": "craft",
+        "status": "pending",
+        "title": "柄口连接加固",
+        "reason": "手柄区保留基础竹编，图样需避让且连接区域需人工复核加固。",
+        "suggestion": "请 B 核对该位置的边缘、加固或连接要求；不能将待复核预警直接判为工艺不合格。",
+        "location": {
+          "path": "engineeringWarnings",
+          "crossingId": "X-V010-H018",
+          "positionMm": {
+            "x": 105,
+            "y": 182.5
+          }
+        },
+        "evidence": {
+          "reference": "CARRIER-SPEC-v1.2.carriers[FAN-ROUND-170-V1].handleExclusion@ROUND-HANDLE-v1.1",
+          "verification": "engineering-only"
+        }
+      },
+      {
+        "id": "E15-EDGE_FINISH_EVIDENCE",
+        "ruleId": "EDGE_FINISH_EVIDENCE",
+        "domain": "evidence",
+        "status": "pending",
+        "title": "收边验证依据",
+        "reason": "B v1.5 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。",
+        "suggestion": "B v1.5 已提供确定性规则；仍需补充当前载体的收边、连接照片、材料记录和尺寸偏差，才能评估该项。",
+        "location": {
+          "path": "fixed-fan"
+        },
+        "evidence": {
+          "reference": "data/b-craft-v1.5/03_验证依据与待补记录.md",
+          "verification": "missing"
+        }
+      }
+    ],
+    "evaluatedRuleIds": [
+      "E-STRUCTURE-source-key-and-specifications",
+      "E-STRUCTURE-creative-source-contract",
+      "E-STRUCTURE-strip-identities-and-material-fields",
+      "E-STRUCTURE-segments-colors-and-boundary",
+      "E-STRUCTURE-crossings-bidirectional-links-and-matrix",
+      "E-STRUCTURE-weaving-steps-consumption",
+      "E-STRUCTURE-engineering-warning-consumption",
+      "E-STRUCTURE-outer-base-and-accounting-contract"
+    ],
+    "physicalValidation": "not-completed",
+    "formalMaterialsAllowed": false,
+    "tutorialAllowed": false,
+    "exportAllowed": false,
+    "ruleResults": [
+      {
+        "ruleId": "INPUT_REQUIRED_FIELDS",
+        "status": "passed",
+        "participatesInAggregate": true,
+        "reason": "当前可消费结构的基础来源和必要字段已复核；自定义完整上下文另行记录。",
+        "basis": {
+          "documentId": "B-CRAFT-CHECK-v1.5",
+          "rulePath": "INPUT_REQUIRED_FIELDS",
+          "evidenceLevel": "documented",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "FIXED_CARRIER_ID_MATCH",
+        "status": "passed",
+        "participatesInAggregate": true,
+        "reason": "已按 B 正式载体 ID、规范和几何进行独立比较。",
+        "basis": {
+          "documentId": "CARRIER-SPEC-v1.2",
+          "rulePath": "FIXED_CARRIER_ID_MATCH",
+          "evidenceLevel": "documented",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "BOUNDARY_GEOMETRY_MATCH",
+        "status": "passed",
+        "participatesInAggregate": true,
+        "reason": "已按 B 正式载体 ID、规范和几何进行独立比较。",
+        "basis": {
+          "documentId": "carriers.json",
+          "rulePath": "BOUNDARY_GEOMETRY_MATCH",
+          "evidenceLevel": "documented",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "CUSTOM_CONTEXT_COMPLETE",
+        "status": "notApplicable",
+        "participatesInAggregate": false,
+        "reason": "当前为固定载体，此自定义规则不适用。",
+        "basis": {
+          "documentId": "B-CRAFT-CHECK-v1.5",
+          "rulePath": "CUSTOM_CONTEXT_COMPLETE",
+          "evidenceLevel": "documented",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "CUSTOM_BOUNDARY_CLOSED",
+        "status": "notApplicable",
+        "participatesInAggregate": false,
+        "reason": "当前为固定载体，此自定义规则不适用。",
+        "basis": {
+          "documentId": "deterministic-geometry",
+          "rulePath": "CUSTOM_BOUNDARY_CLOSED",
+          "evidenceLevel": "structure-tested",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "CUSTOM_BOUNDARY_SIMPLE",
+        "status": "notApplicable",
+        "participatesInAggregate": false,
+        "reason": "当前为固定载体，此自定义规则不适用。",
+        "basis": {
+          "documentId": "deterministic-geometry",
+          "rulePath": "CUSTOM_BOUNDARY_SIMPLE",
+          "evidenceLevel": "structure-tested",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "EFFECTIVE_BOUNDARY_INSIDE",
+        "status": "passed",
+        "participatesInAggregate": true,
+        "reason": "正式外轮廓和有效区均与 B 锁定且内含的规范几何一致。",
+        "basis": {
+          "documentId": "CARRIER-SPEC-v1.2",
+          "rulePath": "EFFECTIVE_BOUNDARY_INSIDE",
+          "evidenceLevel": "structure-tested",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "RAW_BLANK_COVERS_BOUNDARY",
+        "status": "passed",
+        "participatesInAggregate": true,
+        "reason": "已以边界极值复核矩形毛坯覆盖正式外轮廓。",
+        "basis": {
+          "documentId": "raw-blank-then-trim",
+          "rulePath": "RAW_BLANK_COVERS_BOUNDARY",
+          "evidenceLevel": "structure-tested",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "OUTER_BASE_WEAVE_CONTINUITY",
+        "status": "pending",
+        "participatesInAggregate": true,
+        "reason": "已复核连续性合同、全局身份与相位；D 当前颜色段采用 0.5 mm 采样，有效区边缘的分区精度合同尚未确认，不将合同声明等同于精确分区已通过。",
+        "basis": {
+          "documentId": "B-OUTER-BASE-WEAVE-v1.1",
+          "rulePath": "OUTER_BASE_WEAVE_CONTINUITY",
+          "evidenceLevel": "structure-tested",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "WEAVE_MATRIX_MATCH",
+        "status": "passed",
+        "participatesInAggregate": true,
+        "reason": "已按当前 weaveId 的矩阵独立复核现有交点及挑压关系。",
+        "basis": {
+          "documentId": "WEAVE-SPEC-v1.2",
+          "rulePath": "WEAVE_MATRIX_MATCH.CROSS_4X4_PHASE",
+          "evidenceLevel": "structure-tested",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "STRIP_ID_TRACEABLE",
+        "status": "passed",
+        "participatesInAggregate": true,
+        "reason": "原竹条、可见段、交点的正反向引用完整。",
+        "basis": {
+          "documentId": "D-E-SNAPSHOT-v0.3",
+          "rulePath": "STRIP_ID_TRACEABLE",
+          "evidenceLevel": "structure-tested",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "COLOR_SEGMENT_COVERAGE",
+        "status": "passed",
+        "participatesInAggregate": true,
+        "reason": "可见段颜色连续覆盖及来源已复核。",
+        "basis": {
+          "documentId": "D-E-SNAPSHOT-v0.3",
+          "rulePath": "COLOR_SEGMENT_COVERAGE",
+          "evidenceLevel": "structure-tested",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "HANDLE_MOTIF_EXCLUSION",
+        "status": "pending",
+        "participatesInAggregate": true,
+        "reason": "尚无重点图案边界或明确无重点图案的输入合同，不能推断不适用。",
+        "basis": {
+          "documentId": "carrier-handle-context",
+          "rulePath": "HANDLE_MOTIF_EXCLUSION",
+          "evidenceLevel": "documented",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "SHORT_VISIBLE_SEGMENT",
+        "status": "passed",
+        "participatesInAggregate": true,
+        "reason": "当前工程筛查未检出短于两倍中心间距的段；不代表实物安全阈值已验证。",
+        "basis": {
+          "documentId": "pending-physical-validation",
+          "rulePath": "SHORT_VISIBLE_SEGMENT",
+          "evidenceLevel": "documented",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "OPEN_HALF_HOLE_AT_EDGE",
+        "status": "notApplicable",
+        "participatesInAggregate": false,
+        "reason": "当前编法不是四角孔编。",
+        "basis": {
+          "documentId": "pending-physical-validation",
+          "rulePath": "OPEN_HALF_HOLE_AT_EDGE",
+          "evidenceLevel": "documented",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "CORNER_OR_VALLEY_REINFORCEMENT",
+        "status": "notApplicable",
+        "participatesInAggregate": false,
+        "reason": "当前正式外轮廓为圆或椭圆，没有多边形转角或瓣谷。",
+        "basis": {
+          "documentId": "pending-physical-validation",
+          "rulePath": "CORNER_OR_VALLEY_REINFORCEMENT",
+          "evidenceLevel": "documented",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "HANDLE_REINFORCEMENT_REQUIRED",
+        "status": "pending",
+        "participatesInAggregate": true,
+        "reason": "手柄区保留基础竹编，图样需避让且连接区域需人工复核加固。",
+        "basis": {
+          "documentId": "pending-physical-validation",
+          "rulePath": "HANDLE_REINFORCEMENT_REQUIRED",
+          "evidenceLevel": "documented",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "EDGE_FINISH_EVIDENCE",
+        "status": "pending",
+        "participatesInAggregate": true,
+        "reason": "B v1.5 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。",
+        "basis": {
+          "documentId": "physical-record-required",
+          "rulePath": "EDGE_FINISH_EVIDENCE",
+          "evidenceLevel": "physical-validated",
+          "evidenceRecordIds": []
+        }
+      },
+      {
+        "ruleId": "SQUARE_HOLE_PARAMETER_EVIDENCE",
+        "status": "notApplicable",
+        "participatesInAggregate": false,
+        "reason": "当前编法不是四角孔编。",
+        "basis": {
+          "documentId": "physical-record-required",
+          "rulePath": "SQUARE_HOLE_PARAMETER_EVIDENCE",
+          "evidenceLevel": "physical-validated",
+          "evidenceRecordIds": []
+        }
+      }
+    ],
+    "summary": {
+      "passedCount": 9,
+      "failedCount": 0,
+      "pendingCount": 4,
+      "notApplicableCount": 6
+    },
+    "assessmentKey": {
+      "resultSchemaVersion": "1.5",
+      "craftRuleSetVersion": "B-CRAFT-CHECK-v1.5",
+      "evidenceSetVersion": "B-EVIDENCE-v1.5",
+      "craftCheckEngineVersion": "E-CRAFT-ENGINE-0.3",
+      "carrierType": "fixed",
+      "carrierId": "FAN-ROUND-170-V1",
+      "carrierContextHash": "sha256:2962128d3cb3e58e7ed1e7fcf59062e0ca87c539f205bcb7fb13bb31975940c3",
+      "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+      "weaveId": "CROSS-COURSE-2X2-V1",
+      "weaveSpecVersion": "WEAVE-SPEC-v1.2"
+    },
+    "screening": {
+      "checkId": "E15-a9728c4ec29f92492a515365005e109f13eab35b2e29bac0984b33ebe255242a",
+      "status": "pending",
+      "assessmentScope": "structural-and-craft-screening",
+      "productionReady": false,
+      "physicalValidation": "not-completed",
+      "sourceKey": {
+        "schemaVersion": "0.3",
+        "structureGeneratorVersion": "D-STRUCTURE-v0.3.6",
+        "designId": "e-regression-fan",
+        "designRevision": 1,
+        "generatedFromRevision": 1,
+        "carrierId": "FAN-ROUND-170-V1",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "CROSS-COURSE-2X2-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+        "craftRuleVersion": "CRAFT-CROSS-COURSE-v1.1",
+        "patternPlacementKey": "1:0:0:0:105:110"
+      },
+      "assessmentKey": {
+        "resultSchemaVersion": "1.5",
+        "craftRuleSetVersion": "B-CRAFT-CHECK-v1.5",
+        "evidenceSetVersion": "B-EVIDENCE-v1.5",
+        "craftCheckEngineVersion": "E-CRAFT-ENGINE-0.3",
+        "carrierType": "fixed",
+        "carrierId": "FAN-ROUND-170-V1",
+        "carrierContextHash": "sha256:2962128d3cb3e58e7ed1e7fcf59062e0ca87c539f205bcb7fb13bb31975940c3",
+        "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+        "weaveId": "CROSS-COURSE-2X2-V1",
+        "weaveSpecVersion": "WEAVE-SPEC-v1.2"
+      },
+      "summary": {
+        "passedCount": 9,
+        "failedCount": 0,
+        "pendingCount": 4,
+        "notApplicableCount": 6
+      },
+      "ruleResults": [
+        {
+          "ruleId": "INPUT_REQUIRED_FIELDS",
+          "status": "passed",
+          "participatesInAggregate": true,
+          "reason": "当前可消费结构的基础来源和必要字段已复核；自定义完整上下文另行记录。",
+          "basis": {
+            "documentId": "B-CRAFT-CHECK-v1.5",
+            "rulePath": "INPUT_REQUIRED_FIELDS",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "FIXED_CARRIER_ID_MATCH",
+          "status": "passed",
+          "participatesInAggregate": true,
+          "reason": "已按 B 正式载体 ID、规范和几何进行独立比较。",
+          "basis": {
+            "documentId": "CARRIER-SPEC-v1.2",
+            "rulePath": "FIXED_CARRIER_ID_MATCH",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "BOUNDARY_GEOMETRY_MATCH",
+          "status": "passed",
+          "participatesInAggregate": true,
+          "reason": "已按 B 正式载体 ID、规范和几何进行独立比较。",
+          "basis": {
+            "documentId": "carriers.json",
+            "rulePath": "BOUNDARY_GEOMETRY_MATCH",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "CUSTOM_CONTEXT_COMPLETE",
+          "status": "notApplicable",
+          "participatesInAggregate": false,
+          "reason": "当前为固定载体，此自定义规则不适用。",
+          "basis": {
+            "documentId": "B-CRAFT-CHECK-v1.5",
+            "rulePath": "CUSTOM_CONTEXT_COMPLETE",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "CUSTOM_BOUNDARY_CLOSED",
+          "status": "notApplicable",
+          "participatesInAggregate": false,
+          "reason": "当前为固定载体，此自定义规则不适用。",
+          "basis": {
+            "documentId": "deterministic-geometry",
+            "rulePath": "CUSTOM_BOUNDARY_CLOSED",
+            "evidenceLevel": "structure-tested",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "CUSTOM_BOUNDARY_SIMPLE",
+          "status": "notApplicable",
+          "participatesInAggregate": false,
+          "reason": "当前为固定载体，此自定义规则不适用。",
+          "basis": {
+            "documentId": "deterministic-geometry",
+            "rulePath": "CUSTOM_BOUNDARY_SIMPLE",
+            "evidenceLevel": "structure-tested",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "EFFECTIVE_BOUNDARY_INSIDE",
+          "status": "passed",
+          "participatesInAggregate": true,
+          "reason": "正式外轮廓和有效区均与 B 锁定且内含的规范几何一致。",
+          "basis": {
+            "documentId": "CARRIER-SPEC-v1.2",
+            "rulePath": "EFFECTIVE_BOUNDARY_INSIDE",
+            "evidenceLevel": "structure-tested",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "RAW_BLANK_COVERS_BOUNDARY",
+          "status": "passed",
+          "participatesInAggregate": true,
+          "reason": "已以边界极值复核矩形毛坯覆盖正式外轮廓。",
+          "basis": {
+            "documentId": "raw-blank-then-trim",
+            "rulePath": "RAW_BLANK_COVERS_BOUNDARY",
+            "evidenceLevel": "structure-tested",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "OUTER_BASE_WEAVE_CONTINUITY",
+          "status": "pending",
+          "participatesInAggregate": true,
+          "reason": "已复核连续性合同、全局身份与相位；D 当前颜色段采用 0.5 mm 采样，有效区边缘的分区精度合同尚未确认，不将合同声明等同于精确分区已通过。",
+          "basis": {
+            "documentId": "B-OUTER-BASE-WEAVE-v1.1",
+            "rulePath": "OUTER_BASE_WEAVE_CONTINUITY",
+            "evidenceLevel": "structure-tested",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "WEAVE_MATRIX_MATCH",
+          "status": "passed",
+          "participatesInAggregate": true,
+          "reason": "已按当前 weaveId 的矩阵独立复核现有交点及挑压关系。",
+          "basis": {
+            "documentId": "WEAVE-SPEC-v1.2",
+            "rulePath": "WEAVE_MATRIX_MATCH.CROSS_4X4_PHASE",
+            "evidenceLevel": "structure-tested",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "STRIP_ID_TRACEABLE",
+          "status": "passed",
+          "participatesInAggregate": true,
+          "reason": "原竹条、可见段、交点的正反向引用完整。",
+          "basis": {
+            "documentId": "D-E-SNAPSHOT-v0.3",
+            "rulePath": "STRIP_ID_TRACEABLE",
+            "evidenceLevel": "structure-tested",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "COLOR_SEGMENT_COVERAGE",
+          "status": "passed",
+          "participatesInAggregate": true,
+          "reason": "可见段颜色连续覆盖及来源已复核。",
+          "basis": {
+            "documentId": "D-E-SNAPSHOT-v0.3",
+            "rulePath": "COLOR_SEGMENT_COVERAGE",
+            "evidenceLevel": "structure-tested",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "HANDLE_MOTIF_EXCLUSION",
+          "status": "pending",
+          "participatesInAggregate": true,
+          "reason": "尚无重点图案边界或明确无重点图案的输入合同，不能推断不适用。",
+          "basis": {
+            "documentId": "carrier-handle-context",
+            "rulePath": "HANDLE_MOTIF_EXCLUSION",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "SHORT_VISIBLE_SEGMENT",
+          "status": "passed",
+          "participatesInAggregate": true,
+          "reason": "当前工程筛查未检出短于两倍中心间距的段；不代表实物安全阈值已验证。",
+          "basis": {
+            "documentId": "pending-physical-validation",
+            "rulePath": "SHORT_VISIBLE_SEGMENT",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "OPEN_HALF_HOLE_AT_EDGE",
+          "status": "notApplicable",
+          "participatesInAggregate": false,
+          "reason": "当前编法不是四角孔编。",
+          "basis": {
+            "documentId": "pending-physical-validation",
+            "rulePath": "OPEN_HALF_HOLE_AT_EDGE",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "CORNER_OR_VALLEY_REINFORCEMENT",
+          "status": "notApplicable",
+          "participatesInAggregate": false,
+          "reason": "当前正式外轮廓为圆或椭圆，没有多边形转角或瓣谷。",
+          "basis": {
+            "documentId": "pending-physical-validation",
+            "rulePath": "CORNER_OR_VALLEY_REINFORCEMENT",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "HANDLE_REINFORCEMENT_REQUIRED",
+          "status": "pending",
+          "participatesInAggregate": true,
+          "reason": "手柄区保留基础竹编，图样需避让且连接区域需人工复核加固。",
+          "basis": {
+            "documentId": "pending-physical-validation",
+            "rulePath": "HANDLE_REINFORCEMENT_REQUIRED",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "EDGE_FINISH_EVIDENCE",
+          "status": "pending",
+          "participatesInAggregate": true,
+          "reason": "B v1.5 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。",
+          "basis": {
+            "documentId": "physical-record-required",
+            "rulePath": "EDGE_FINISH_EVIDENCE",
+            "evidenceLevel": "physical-validated",
+            "evidenceRecordIds": []
+          }
+        },
+        {
+          "ruleId": "SQUARE_HOLE_PARAMETER_EVIDENCE",
+          "status": "notApplicable",
+          "participatesInAggregate": false,
+          "reason": "当前编法不是四角孔编。",
+          "basis": {
+            "documentId": "physical-record-required",
+            "rulePath": "SQUARE_HOLE_PARAMETER_EVIDENCE",
+            "evidenceLevel": "physical-validated",
+            "evidenceRecordIds": []
+          }
+        }
+      ],
+      "issues": [
+        {
+          "issueId": "E15-OUTER_BASE_WEAVE_CONTINUITY",
+          "ruleId": "OUTER_BASE_WEAVE_CONTINUITY",
+          "status": "pending",
+          "severity": "review",
+          "reason": "已复核连续性合同、全局身份与相位；D 当前颜色段采用 0.5 mm 采样，有效区边缘的分区精度合同尚未确认，不将合同声明等同于精确分区已通过。",
+          "suggestion": "补齐本规则所需上下文和验证依据后重新检查；不得用默认值代替缺失的工艺数据。",
+          "location": {
+            "carrierSpace": "A4_MM_210X297",
+            "pointMm": null,
+            "region": "OUTER_BASE_WEAVE_CONTINUITY",
+            "boundaryRef": null,
+            "stripId": null,
+            "segmentId": null,
+            "crossingId": null
+          },
+          "basis": {
+            "documentId": "B-OUTER-BASE-WEAVE-v1.1",
+            "rulePath": "OUTER_BASE_WEAVE_CONTINUITY",
+            "evidenceLevel": "structure-tested",
+            "evidenceRecordIds": []
+          },
+          "evidenceStatus": "missing"
+        },
+        {
+          "issueId": "E15-HANDLE_MOTIF_EXCLUSION",
+          "ruleId": "HANDLE_MOTIF_EXCLUSION",
+          "status": "pending",
+          "severity": "review",
+          "reason": "尚无重点图案边界或明确无重点图案的输入合同，不能推断不适用。",
+          "suggestion": "补齐本规则所需上下文和验证依据后重新检查；不得用默认值代替缺失的工艺数据。",
+          "location": {
+            "carrierSpace": "A4_MM_210X297",
+            "pointMm": null,
+            "region": "HANDLE_MOTIF_EXCLUSION",
+            "boundaryRef": null,
+            "stripId": null,
+            "segmentId": null,
+            "crossingId": null
+          },
+          "basis": {
+            "documentId": "carrier-handle-context",
+            "rulePath": "HANDLE_MOTIF_EXCLUSION",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          },
+          "evidenceStatus": "missing"
+        },
+        {
+          "issueId": "E15-HANDLE_REINFORCEMENT_REQUIRED",
+          "ruleId": "HANDLE_REINFORCEMENT_REQUIRED",
+          "status": "pending",
+          "severity": "review",
+          "reason": "手柄区保留基础竹编，图样需避让且连接区域需人工复核加固。",
+          "suggestion": "请 B 核对该位置的边缘、加固或连接要求；不能将待复核预警直接判为工艺不合格。",
+          "location": {
+            "carrierSpace": "A4_MM_210X297",
+            "pointMm": {
+              "x": 105,
+              "y": 182.5
+            },
+            "region": "engineeringWarnings",
+            "boundaryRef": null,
+            "stripId": null,
+            "segmentId": null,
+            "crossingId": "X-V010-H018"
+          },
+          "basis": {
+            "documentId": "pending-physical-validation",
+            "rulePath": "HANDLE_REINFORCEMENT_REQUIRED",
+            "evidenceLevel": "documented",
+            "evidenceRecordIds": []
+          },
+          "evidenceStatus": "documented"
+        },
+        {
+          "issueId": "E15-EDGE_FINISH_EVIDENCE",
+          "ruleId": "EDGE_FINISH_EVIDENCE",
+          "status": "pending",
+          "severity": "review",
+          "reason": "B v1.5 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。",
+          "suggestion": "B v1.5 已提供确定性规则；仍需补充当前载体的收边、连接照片、材料记录和尺寸偏差，才能评估该项。",
+          "location": {
+            "carrierSpace": "A4_MM_210X297",
+            "pointMm": null,
+            "region": "fixed-fan",
+            "boundaryRef": null,
+            "stripId": null,
+            "segmentId": null,
+            "crossingId": null
+          },
+          "basis": {
+            "documentId": "physical-record-required",
+            "rulePath": "EDGE_FINISH_EVIDENCE",
+            "evidenceLevel": "physical-validated",
+            "evidenceRecordIds": []
+          },
+          "evidenceStatus": "missing"
+        }
+      ],
+      "disabledOutputs": {
+        "materialBom": {
+          "enabled": false,
+          "reason": "材料余量未经实物验证。"
+        },
+        "tutorial": {
+          "enabled": false,
+          "reason": "制作流程转换留待后续开发。"
+        },
+        "formalExport": {
+          "enabled": false,
+          "reason": "未开放正式导出。"
+        },
+        "productionApproval": {
+          "enabled": false,
+          "reason": "未获实物制作批准。"
+        },
+        "weavingOrder": {
+          "mode": "structure-preview-only"
+        }
+      }
+    },
+    "diagnostics": [
       {
         "id": "WARN-ROUND-HANDLE-REINFORCEMENT",
         "ruleId": "HANDLE_REINFORCEMENT_REQUIRED",
@@ -19758,30 +20481,16 @@
         "domain": "evidence",
         "status": "pending",
         "title": "收边与连接实物依据",
-        "reason": "B v1.3 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。",
-        "suggestion": "B v1.3 已提供确定性规则；仍需补充当前载体的收边、连接照片、材料记录和尺寸偏差，才能评估该项。",
+        "reason": "B v1.5 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。",
+        "suggestion": "B v1.5 已提供确定性规则；仍需补充当前载体的收边、连接照片、材料记录和尺寸偏差，才能评估该项。",
         "location": {
           "path": "fixed-fan"
         },
         "evidence": {
-          "reference": "data/b-craft-v1.3/03_验证依据与待补记录.md",
+          "reference": "data/b-craft-v1.5/03_验证依据与待补记录.md",
           "verification": "missing"
         }
       }
-    ],
-    "evaluatedRuleIds": [
-      "E-STRUCTURE-source-key-and-specifications",
-      "E-STRUCTURE-creative-source-contract",
-      "E-STRUCTURE-strip-identities-and-material-fields",
-      "E-STRUCTURE-segments-colors-and-boundary",
-      "E-STRUCTURE-crossings-bidirectional-links-and-matrix",
-      "E-STRUCTURE-weaving-steps-consumption",
-      "E-STRUCTURE-engineering-warning-consumption",
-      "E-STRUCTURE-outer-base-and-accounting-contract"
-    ],
-    "physicalValidation": "not-completed",
-    "formalMaterialsAllowed": false,
-    "tutorialAllowed": false,
-    "exportAllowed": false
+    ]
   }
 }

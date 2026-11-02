@@ -1,0 +1,9 @@
+{
+  "receivedOn": "2026-11-02",
+  "source": "user supplied B v1.5 package, rule definition and result schema copied without edits",
+  "archiveSha256": "07B6122350B244D4566784656E8092D9AB6FFBF4D1E4CE32FA229B7D526C9731",
+  "ruleSetVersion": "B-CRAFT-CHECK-v1.5",
+  "evidenceSetVersion": "B-EVIDENCE-v1.5",
+  "physicalEvidenceIncluded": false,
+  "publicAdapterStatus": "E branch proposal; A/D naming and context hash contract pending"
+}

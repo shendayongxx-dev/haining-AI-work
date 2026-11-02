@@ -1,0 +1,25 @@
+{
+  "dCommit": "d1f9ceb8d3d6e591f6c3ff7a1bc164e93c4a203f",
+  "fixtures": [
+    {
+      "path": "examples/d-v03-integration/round-cross-course/structure-snapshot.json",
+      "gitBlob": "89d74e3026c88886ec41dce8f42b9e3d62c8ac75",
+      "matchesDCommit": true
+    },
+    {
+      "path": "examples/d-v03-integration/oval-herring/structure-snapshot.json",
+      "gitBlob": "ebe734facf455e8c9ae240e64054a633f3c320a1",
+      "matchesDCommit": true
+    },
+    {
+      "path": "examples/d-v03-integration/octagon-square-hole/structure-snapshot.json",
+      "gitBlob": "d846c89573d857deae668f519e29868cfb0b28d4",
+      "matchesDCommit": true
+    },
+    {
+      "path": "examples/d-to-e-invalidation/round-cross-course.revision-2.json",
+      "gitBlob": "2d7c8cf40697ea0178b94b21616a807e873e5b2b",
+      "matchesDCommit": true
+    }
+  ]
+}

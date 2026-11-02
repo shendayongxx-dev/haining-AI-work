@@ -5,6 +5,7 @@ import { consumeV03, SOURCE_FIELDS } from './v03/consume.mjs';
 import { checkCustomStructure } from './validateCustom';
 import { ENGINE_VERSION, RULE_SET_VERSION, B_RULES, B_RULE_SET_VERSION, EVIDENCE_SET_VERSION, evidenceRequirements, customEvidenceRequirement } from './craftRules';
 import {screenBContext} from './bScreening';
+import {finalizeCraftResult,assertScreeningConsistency} from './ruleLedger';
 import type { CraftInput, CraftIssue, CraftResult, CraftStatus } from './craftTypes';
 export type { CraftInput, CraftIssue, CraftResult } from './craftTypes';
 
@@ -21,6 +22,12 @@ export function aggregateCraftStatus(issues:Pick<CraftIssue,'status'>[],coverage
   return issues.some(x=>x.status==='failed')?'failed':!coverageComplete||issues.some(x=>x.status==='pending')?'pending':'passed';
 }
 export function acceptCraftResult(currentDigest:string,incoming:CraftResult,previous:CraftResult|null=null):CraftResult|null {
+  try{assertScreeningConsistency(incoming.screening);
+    if(incoming.status!==incoming.screening.status||stable(incoming.summary)!==stable(incoming.screening.summary)
+      ||stable(incoming.ruleResults)!==stable(incoming.screening.ruleResults)||stable(incoming.assessmentKey)!==stable(incoming.screening.assessmentKey)
+      ||incoming.screening.checkId!=='E15-'+incoming.inputDigest
+      ||(incoming.sourceKey!==null&&stable(incoming.sourceKey)!==stable(incoming.screening.sourceKey)))return previous;
+  }catch{return previous;}
   return incoming.engineVersion===ENGINE_VERSION && incoming.ruleSetVersion===RULE_SET_VERSION && incoming.bRuleSetVersion===B_RULE_SET_VERSION
     && incoming.evidenceSetVersion===EVIDENCE_SET_VERSION && incoming.inputDigest===currentDigest?incoming:previous;
 }
@@ -45,7 +52,7 @@ export async function validateCraft(input:CraftInput):Promise<CraftResult>{
         structuralStatus='pending';
         issues.push({id:'B13-INPUT_REQUIRED_FIELDS',ruleId:'INPUT_REQUIRED_FIELDS',domain:'evidence',status:'pending',title:'结构必要字段缺失',
           reason:`缺少：${missing.join('、')}`,suggestion:'请 D 补齐当前版本快照字段，再重新检查；缺字段不能直接解释为工艺不合格。',
-          location:{path:missing[0]},evidence:{reference:'data/b-craft-v1.3/data/craft_check_rules_v1.3.json#INPUT_REQUIRED_FIELDS',verification:'missing'}});
+          location:{path:missing[0]},evidence:{reference:'data/b-craft-v1.5/data/craft_check_rules_v1.5.json#INPUT_REQUIRED_FIELDS',verification:'missing'}});
       }else{
       const resolved=resolveWeaveSpec(d.weaveId);
       const result=consumeV03(d,{carrier,weave:{...weave,weaveSpecVersion:resolved.weaveSpecVersion,weaves:[resolved]}});
@@ -76,14 +83,14 @@ export async function validateCraft(input:CraftInput):Promise<CraftResult>{
   if(issues.some(x=>x.domain==='structure'&&x.status==='failed'))structuralStatus='failed';
   const requirements=input.kind==='custom'?[...evidenceRequirements,customEvidenceRequirement]:evidenceRequirements;
   for(const r of requirements)issues.push({id:r.id,ruleId:r.id,domain:'evidence',status:'pending',title:r.title,
-    reason:'B v1.3 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。',suggestion:r.request,location:{path:input.kind},
-    evidence:{reference:'data/b-craft-v1.3/03_验证依据与待补记录.md',verification:'missing'}});
+    reason:'B v1.5 已交付规则，但当前未提供覆盖本设计的收边与连接实物验收记录。',suggestion:r.request,location:{path:input.kind},
+    evidence:{reference:'data/b-craft-v1.5/03_验证依据与待补记录.md',verification:'missing'}});
   // No B-verified acceptance registry exists yet. Zero warnings never imply full craft coverage.
   const coverageComplete=false;
-  return {schemaVersion:'E-CRAFT-0.1',engineVersion:ENGINE_VERSION,ruleSetVersion:RULE_SET_VERSION,
+  return finalizeCraftResult(input,{schemaVersion:'E-CRAFT-0.1',engineVersion:ENGINE_VERSION,ruleSetVersion:RULE_SET_VERSION,
     bRuleSetVersion:B_RULE_SET_VERSION,evidenceSetVersion:EVIDENCE_SET_VERSION,productionReady:false,
     designId:context.designId,designRevision:context.designRevision,kind:input.kind,status:aggregateCraftStatus(issues,coverageComplete),
     structuralStatus,sourceKey:input.kind==='fixed-fan'?structuredClone(input.snapshot.sourceKey??null):null,
     inputDigest:await craftInputDigest(input),issues,evaluatedRuleIds,
-    physicalValidation:'not-completed',formalMaterialsAllowed:false,tutorialAllowed:false,exportAllowed:false};
+    physicalValidation:'not-completed',formalMaterialsAllowed:false,tutorialAllowed:false,exportAllowed:false});
 }

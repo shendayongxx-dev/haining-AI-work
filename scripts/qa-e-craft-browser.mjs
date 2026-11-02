@@ -36,6 +36,7 @@ try{
   async function inspect(){await byText('提交工艺检查');await until('!!document.querySelector("[data-testid=craft-status]")');}
   await generate('绿色三角形');await inspect();
   await check('fixed fan enters actual E checks and remains pending',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.structure==="passed"&&document.querySelector("[data-testid=craft-status]").dataset.status==="pending"'));
+  await check('19-rule summary is visible',()=>evaluate('document.querySelector("[data-testid=rule-summary]").textContent.includes("19")'));
   await check('issues include reasons recommendations and rule references',()=>evaluate('!!document.querySelector(".craft-suggestion")&&!!document.querySelector(".craft-issue details")'));
   await check('formal output entry stays closed',()=>evaluate('![...document.querySelectorAll("button")].some(b=>/导出|查看演示资料|正式材料/.test(b.textContent))'));
   const before=await text('[data-testid=craft-status]');await byText('返回编辑');
@@ -46,10 +47,11 @@ try{
   await inspect();
   await check('edited parameters trigger a new revision check',async()=>before!==await text('[data-testid=craft-status]'));
   await byText('返回编辑');await byText('平编演示');await inspect();
-  await check('B v1.3 rejects demo plain weave for formal craft checking',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.status==="failed"&&document.querySelector(".craft-check").textContent.includes("不在 B v1.3")'));
+  await check('B v1.5 rejects demo plain weave for formal craft checking',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.status==="failed"&&document.querySelector(".craft-check").textContent.includes("不在 B v1.5")'));
   await click('.logo');await byText('自定义形状');await generate('叶片');await inspect();
   await check('custom leaf has independent structural checks and pending craft',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.structure==="passed"&&document.querySelector("[data-testid=craft-status]").dataset.status==="pending"'));
-  await check('B v1.3 custom effective area and handle context are requested',()=>evaluate('document.querySelector(".craft-check").textContent.includes("有效图样区")'));
+  await check('B v1.5 custom effective area and handle context are requested',()=>evaluate('document.querySelector(".craft-check").textContent.includes("有效图样区")'));
+  await check('custom handle child is counted only once through parent',()=>evaluate('(()=>{const ids=[...document.querySelectorAll(".craft-issue details p:first-of-type")].map(e=>e.textContent);return ids.filter(x=>x==="CUSTOM_CONTEXT_COMPLETE").length===1&&!ids.includes("CUSTOM_HANDLE_CONTEXT");})()'));
   await byText('查看问题位置');
   await check('custom issue locates actual strip on geometry',()=>evaluate('document.querySelector("[data-testid=craft-location]").textContent.includes("mm")&&!!document.querySelector(".craft-locator svg line")'));
   const desktop=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});writeFileSync(path.join(out,'desktop.png'),Buffer.from(desktop.data,'base64'));

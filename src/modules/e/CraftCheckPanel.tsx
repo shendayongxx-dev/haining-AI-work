@@ -26,6 +26,7 @@ export default function CraftCheckPanel({input,onBack}:{input:CraftInput|null;on
     <header><p className="kicker">05 / 工艺检查</p><h1>工艺状态：{error?'检查异常':!input?'尚无可检查结构':result?labels[result.status]:'检查中'}</h1>
       <p>固定扇面与自定义形状均进入同一检查流程。结构复核通过不代表实物可制作。</p>
       {result&&<p data-testid="craft-status" data-status={result.status} data-structure={result.structuralStatus}>设计版本 {result.designRevision} · 结构复核：{labels[result.structuralStatus]} · 工艺：{labels[result.status]}</p>}
+      {result&&<p data-testid="rule-summary">规则记录 {result.ruleResults.length} 项：通过 {result.summary.passedCount} · 需修改 {result.summary.failedCount} · 待验证 {result.summary.pendingCount} · 不适用 {result.summary.notApplicableCount}</p>}
       {error&&<p role="alert">{error}，请返回编辑后重新检查。</p>}
       {!input&&<p role="alert">请先确认创意结果并选择编法，再提交检查。</p>}
     </header>
@@ -51,6 +52,7 @@ export default function CraftCheckPanel({input,onBack}:{input:CraftInput|null;on
       <p className="warning">本阶段只开发工艺检查。制作流程转换、正式材料清单、教程及导出尚未开放。</p>
       <details><summary>来源与检查版本</summary><p>{result?.engineVersion} / {result?.ruleSetVersion}</p><p>本次输入指纹：{result?.inputDigest}</p>
         <p>{input?.kind==='custom'?'自定义快照仍是 v0.2，没有完整 D sourceKey；E 使用当前输入与完整快照指纹防止结果复用。':'固定扇面沿用完整 D sourceKey（含 patternPlacementKey）。'}</p></details>
+      {result&&<details><summary>逐条规则记录</summary>{result.ruleResults.map(r=><p key={r.ruleId}><code>{r.ruleId}</code>：{r.status==='notApplicable'?'不适用':labels[r.status]}<br/>{r.reason}</p>)}</details>}
     </aside></div><div className="actions center"><button onClick={onBack}>返回编辑</button></div>
   </div>;
 }

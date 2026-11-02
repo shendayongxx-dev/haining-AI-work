@@ -5,6 +5,10 @@
       "pass": true
     },
     {
+      "name": "19-rule summary is visible",
+      "pass": true
+    },
+    {
       "name": "issues include reasons recommendations and rule references",
       "pass": true
     },
@@ -21,7 +25,7 @@
       "pass": true
     },
     {
-      "name": "B v1.3 rejects demo plain weave for formal craft checking",
+      "name": "B v1.5 rejects demo plain weave for formal craft checking",
       "pass": true
     },
     {
@@ -29,7 +33,11 @@
       "pass": true
     },
     {
-      "name": "B v1.3 custom effective area and handle context are requested",
+      "name": "B v1.5 custom effective area and handle context are requested",
+      "pass": true
+    },
+    {
+      "name": "custom handle child is counted only once through parent",
       "pass": true
     },
     {
