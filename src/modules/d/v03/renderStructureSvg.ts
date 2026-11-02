@@ -9,7 +9,7 @@ const esc = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&
 function directionalShade(color: string, direction: StripV03['direction']) {
   const match = color.match(/^#([0-9a-f]{6})$/i);
   if (!match) return color;
-  const amount = direction === 'warp' ? 24 : -18;
+  const amount = direction === 'warp' ? 7 : -7;
   const value = Number.parseInt(match[1], 16);
   const channels = [value >> 16, (value >> 8) & 255, value & 255]
     .map(channel => Math.max(0, Math.min(255, channel + amount)).toString(16).padStart(2, '0'));
@@ -37,9 +37,13 @@ function line(strip: StripV03, start: PointMm, end: PointMm, color: string, extr
   return `<line x1="${start.x}" y1="${start.y}" x2="${end.x}" y2="${end.y}" stroke="${esc(color)}" stroke-width="${strip.widthMm}" stroke-linecap="butt" ${extra}/>`;
 }
 
-function topPatch(strip: StripV03, start: PointMm, end: PointMm, color: string) {
-  return `${line({ ...strip, widthMm: strip.widthMm + .35 }, start, end, '#3c2816', 'opacity="0.22"')}
-${line(strip, start, end, color, 'filter="url(#lift)"')}`;
+function topPatch(strip: StripV03, start: PointMm, end: PointMm, color: string, breakColor: string) {
+  const highlightStart = strip.direction === 'warp' ? { x: start.x - .45, y: start.y } : { x: start.x, y: start.y - .45 };
+  const highlightEnd = strip.direction === 'warp' ? { x: end.x - .45, y: end.y } : { x: end.x, y: end.y - .45 };
+  return `${line({ ...strip, widthMm: strip.widthMm + 1.2 }, start, end, breakColor)}
+${line({ ...strip, widthMm: strip.widthMm + .65 }, start, end, '#2f2117', 'opacity="0.38" filter="url(#lift)"')}
+${line(strip, start, end, color)}
+${line({ ...strip, widthMm: Math.max(.45, strip.widthMm * .08) }, highlightStart, highlightEnd, '#fff8e8', 'opacity="0.24"')}`;
 }
 
 type TopRun = { strip: StripV03; start: number; end: number; color: string };
@@ -70,8 +74,9 @@ function topRuns(snapshot: StructureSnapshotV03, stripMap: Map<string, StripV03>
 
 export function renderStructureSvg(snapshot: StructureSnapshotV03) {
   const boundary = snapshot.carrierGeometry.boundary as Shape;
-  const effective = snapshot.carrierGeometry.effectivePatternBoundary as Shape;
   const strips = snapshot.strips;
+  const openWeave = snapshot.weaveId === 'SQUARE-HOLE-1X1-V1';
+  const breakColor = '#cfb98f';
   const stripMap = new Map(strips.map(strip => [strip.stripId, strip]));
   const base = strips.flatMap(strip => strip.visibleSegments.flatMap(segment => segment.colorSegments.map(color => {
     const rawStart = strip.direction === 'warp' ? strip.rawBlankSegment.startMm.y : strip.rawBlankSegment.startMm.x;
@@ -86,16 +91,16 @@ ${line(strip, start, end, directionalShade(color.color, strip.direction))}`;
   const patches = runs.map(run => {
     const start = run.strip.direction === 'warp' ? { x: run.strip.axisMm, y: run.start } : { x: run.start, y: run.strip.axisMm };
     const end = run.strip.direction === 'warp' ? { x: run.strip.axisMm, y: run.end } : { x: run.end, y: run.strip.axisMm };
-    return topPatch(run.strip, start, end, run.color);
+    return topPatch(run.strip, start, end, run.color, breakColor);
   }).join('\n');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 297" width="840" height="1188">
   <defs>
     <filter id="lift" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0.45" dy="0.6" stdDeviation="0.45" flood-color="#2f1f11" flood-opacity="0.48"/></filter>
     <clipPath id="product-boundary">${shape(boundary, '')}</clipPath>
   </defs>
+${openWeave ? '' : `  ${shape(boundary, `fill="${breakColor}"`)}\n`}
   <g clip-path="url(#product-boundary)">${base}</g>
   <g clip-path="url(#product-boundary)" data-weave-id="${esc(snapshot.weaveId)}" data-top-runs="${runs.length}">${patches}</g>
-  ${shape(effective, 'fill="none" stroke="#8f6b3f" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.8"')}
   ${shape(boundary, 'fill="none" stroke="#9b6637" stroke-width="2"')}
 </svg>`;
 }
