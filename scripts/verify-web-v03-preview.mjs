@@ -11,6 +11,7 @@ try {
   const { renderStructureSvg } = await server.ssrLoadModule('/src/modules/d/v03/renderStructureSvg.ts');
   const { calculateStructureV03 } = await server.ssrLoadModule('/src/modules/d/v03/calculateStructureV03.ts');
   const { validateStructureV03 } = await server.ssrLoadModule('/src/modules/d/v03/validateStructureV03.ts');
+  const { weaveForFanPreview } = await server.ssrLoadModule('/src/data/fanPreviewSelection.ts');
   const home = renderToStaticMarkup(React.createElement(App));
   for (const id of ['FAN-ROUND-170-V1', 'FAN-OVAL-150X180-V1', 'FAN-OCTAGON-170-V1']) {
     assert.match(home, new RegExp(`title="${id} · [^"]+"`));
@@ -48,6 +49,28 @@ try {
     }
   }
   console.log('PASS all 9 fixed-fan and weave combinations');
+  const confirmed = {
+    carrierRef: { carrierId: 'FAN-ROUND-170-V1', carrierSpecVersion: 'CARRIER-SPEC-v1.2' },
+    resultType: 'surface_pattern', result: pattern,
+  };
+  const switchedPreview = renderToStaticMarkup(React.createElement(FanPreview, { candidate: confirmed, carrierId: 'FAN-OCTAGON-170-V1' }));
+  assert.match(switchedPreview, /aria-label="八角式表面图样候选"/);
+  assert.match(switchedPreview, /<polygon points="70,25 140,25/);
+  assert.equal(confirmed.carrierRef.carrierId, 'FAN-ROUND-170-V1');
+  const switchedSnapshot = calculateStructureV03({
+    designId: 'same-confirmed-idea', designRevision: 2,
+    creativeSource: { confirmedGenerationId: 'same-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'same-input', generationIssues: [] },
+    carrierId: 'FAN-OCTAGON-170-V1', weaveId: 'HERRING-3X3-V1', pattern: confirmed.result, baseColor: '#C4A879',
+  });
+  assert.equal(switchedSnapshot.carrierId, 'FAN-OCTAGON-170-V1');
+  assert.equal(switchedSnapshot.creativeSource.confirmedGenerationId, 'same-generation');
+  assert.deepEqual(switchedSnapshot.sourcePattern, pattern);
+  assert.equal(validateStructureV03(switchedSnapshot).pass, true);
+  console.log('PASS confirmed idea reused on another fixed fan without regeneration');
+  assert.equal(weaveForFanPreview('CROSS-1X1-V1', 'FAN-OCTAGON-170-V1'), 'CROSS-COURSE-2X2-V1');
+  assert.equal(weaveForFanPreview('HERRING-3X3-V1', 'FAN-OCTAGON-170-V1'), 'HERRING-3X3-V1');
+  assert.equal(weaveForFanPreview('CROSS-1X1-V1', 'FAN-ROUND-170-V1'), 'CROSS-1X1-V1');
+  console.log('PASS weave selection stays usable when switching fixed fans');
 } finally {
   await server.close();
 }

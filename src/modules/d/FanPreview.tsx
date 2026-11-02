@@ -2,16 +2,17 @@ import { useId } from 'react';
 import type { Candidate, CarrierShape, SurfacePattern } from '../../model';
 import FixedFanShape from '../../FixedFanShape';
 import { fixedFanRef, resolveFixedFan } from '../../data/fixedFanRegistry';
+import type { FixedFanCarrierId } from '../../data/fixedFanRegistry';
 
-export type PreviewProps = { candidate?: Candidate | null; grid?: boolean; density?: number; stripWidth?: number; color?: string; weave?: string; scale?: number };
+export type PreviewProps = { candidate?: Candidate | null; carrierId?: FixedFanCarrierId; grid?: boolean; density?: number; stripWidth?: number; color?: string; weave?: string; scale?: number };
 
 // Candidate-stage fixture; StructurePreview remains the authoritative edit-stage snapshot.
-export default function FanPreview({ candidate, grid = false, stripWidth = 3, color, scale = 100 }: PreviewProps) {
+export default function FanPreview({ candidate, carrierId, grid = false, stripWidth = 3, color, scale = 100 }: PreviewProps) {
   const clipId = useId();
   const custom = candidate?.resultType === 'carrier_shape';
   const pattern = candidate?.resultType === 'surface_pattern' ? candidate.result as SurfacePattern : null;
   const shape = custom ? candidate.result as CarrierShape : null;
-  const fanId = candidate?.carrierRef?.carrierId ?? 'FAN-ROUND-170-V1';
+  const fanId = carrierId ?? candidate?.carrierRef?.carrierId ?? 'FAN-ROUND-170-V1';
   const fan = resolveFixedFan(fixedFanRef(fanId));
   const xLines = Array.from({ length: 22 }, (_, i) => 20 + i * 8);
   const yLines = Array.from({ length: 22 }, (_, i) => 25 + i * 8);
