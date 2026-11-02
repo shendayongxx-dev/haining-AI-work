@@ -54,8 +54,8 @@ try {
   }
   assert.equal(availableCombinations, 10);
   assert.equal(canAdjustFanStructure('FAN-ROUND-170-V1'), true);
-  assert.equal(canAdjustFanStructure('FAN-OVAL-150X180-V1'), false);
-  assert.equal(canAdjustFanStructure('FAN-OCTAGON-170-V1'), false);
+  assert.equal(canAdjustFanStructure('FAN-OVAL-150X180-V1'), true);
+  assert.equal(canAdjustFanStructure('FAN-OCTAGON-170-V1'), true);
   assert.equal(isFanWeaveAllowed('FAN-OVAL-150X180-V1', 'CROSS-1X1-V1'), false);
   const adjustedRound = calculateStructureV03({
     designId: 'round-adjusted', designRevision: 3,
@@ -67,7 +67,22 @@ try {
   assert.equal(validateStructureV03(adjustedRound).pass, true);
   assert.equal(adjustedRound.grid.warpCount, 15);
   assert.equal(adjustedRound.patternPlacement.scale, 1.3);
-  console.log('PASS 10 enabled combinations; only round fan enables flat weave and parameter controls');
+  for (const carrierId of ['FAN-OVAL-150X180-V1', 'FAN-OCTAGON-170-V1']) {
+    for (const weaveId of ['CROSS-COURSE-2X2-V1', 'HERRING-3X3-V1', 'SQUARE-HOLE-1X1-V1']) {
+      const adjusted = calculateStructureV03({
+        designId: 'non-round-adjusted', designRevision: 3,
+        creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
+        carrierId, weaveId, pattern, baseColor: '#aa9966',
+        gridParameters: { warpCount: 15, weftCount: 15, stripWidthMm: 6, pitchMm: (189-6)/14 },
+        patternPlacement: { scale: 1.3, rotationDeg: 0, offsetMm: { x: 0, y: 0 }, pivotMm: { x: 105, y: 110 } },
+      });
+      assert.equal(validateStructureV03(adjusted).pass, true, `${carrierId} + ${weaveId} adjusted`);
+      assert.equal(adjusted.grid.warpCount, 15);
+      assert.equal(adjusted.patternPlacement.scale, 1.3);
+      assert.ok(adjusted.strips.some(strip => strip.visibleSegments.some(segment => segment.colorSegments.some(color => color.scope === 'base' && color.color.toLowerCase() === '#aa9966'))));
+    }
+  }
+  console.log('PASS 10 enabled combinations; flat weave only on round fan; parameters on all three fans');
   const confirmed = {
     carrierRef: { carrierId: 'FAN-ROUND-170-V1', carrierSpecVersion: 'CARRIER-SPEC-v1.2' },
     resultType: 'surface_pattern', result: pattern,
