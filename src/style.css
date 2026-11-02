@@ -67,14 +67,15 @@
 .app.edit-page{background:radial-gradient(circle at 77% 7%,#4a3527 0,#27201b 28%,#1c1714 68%);color:#233e32}
 .app.edit-page .topbar{color:#f5eee2;background:linear-gradient(90deg,#140f0eeb,#160f0dbb 47%,#150f0d75),url('./assets/bamboo-round-fan-scene.png') center 38%/cover;border-bottom:1px solid #eee2d029}
 .app.edit-page .topbar>span{color:#d9c9b3}
-.app.edit-page .flow{max-width:none;margin:0;padding:22px clamp(22px,5vw,88px);justify-content:center;gap:clamp(14px,2.5vw,44px);background:#1b1613;border-bottom:1px solid #eee2d01c}
-.app.edit-page .flow-step{color:#c9bfb1}
+.app.edit-page .flow{max-width:none;margin:0;padding:18px clamp(22px,5vw,88px);justify-content:center;gap:clamp(8px,1.2vw,18px);background:transparent;border:0}
+.app.edit-page .flow-step{min-height:48px;padding:9px 14px;color:#d5cbc0;background:#ffffff0d;border:1px solid #f5eadb33;border-radius:12px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .app.edit-page .flow-step b{border-color:#a99b8b;color:#eee4d5}
 .app.edit-page .flow-step.done{color:#d8cec0}
 .app.edit-page .flow-step.done b{border-color:#b6a998}
-.app.edit-page .flow-step.on{color:#d6eddb}
+.app.edit-page .flow-step.on{color:#e3f4e6;background:#0f624738;border-color:#a6cfb078}
 .app.edit-page .flow-step.on b{background:#0f6247;border-color:#9bc6a9;color:#fff}
 .app.edit-page .studio{gap:16px;padding:18px clamp(14px,1.7vw,30px) 30px}
-.app.edit-page .studio>aside,.app.edit-page .studio-main{background:rgba(255,254,250,.94);border:1px solid #ffffff91;box-shadow:0 10px 28px #08060524;backdrop-filter:blur(8px) saturate(105%);-webkit-backdrop-filter:blur(8px) saturate(105%)}
-@media(max-width:720px){.app.edit-page .flow{justify-content:flex-start;padding:16px 18px}.app.edit-page .studio{gap:12px;padding:12px}}
+.app.edit-page .studio>aside,.app.edit-page .studio-main{background:rgba(255,254,250,.94);border:1px solid #ffffff91;border-radius:12px;box-shadow:0 10px 28px #08060524;backdrop-filter:blur(8px) saturate(105%);-webkit-backdrop-filter:blur(8px) saturate(105%)}
+.app.edit-page .studio-section,.app.edit-page .preview,.app.edit-page .mini,.app.edit-page .option-grid button,.app.edit-page .fan-variant-grid button,.app.edit-page .weave-catalog button,.app.edit-page .material-photo{border-radius:12px}
+@media(max-width:720px){.app.edit-page .flow{justify-content:flex-start;padding:14px 18px;overflow-x:auto}.app.edit-page .flow-step{flex:none}.app.edit-page .flow-step span{display:inline}.app.edit-page .studio{gap:12px;padding:12px}}
 
