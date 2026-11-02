@@ -14,7 +14,6 @@ export default function CustomStructurePreview({ snapshot }: { snapshot: CustomS
       </filter>
     </defs>
     <g clipPath={`url(#${clipId})`}>
-      <path d={path} fill="#cfb98f" fillOpacity=".42" />
       {snapshot.strips.list.map(strip => <g key={strip.id} data-strip-id={strip.id}>
         <line x1={strip.startMm.x} y1={strip.startMm.y} x2={strip.endMm.x} y2={strip.endMm.y} stroke="#3c291b" strokeOpacity=".36" strokeWidth={strip.widthMm+.6} />
         <line x1={strip.startMm.x} y1={strip.startMm.y} x2={strip.endMm.x} y2={strip.endMm.y} className={`weave-strip weave-strip-${strip.direction}`} stroke={strip.color} strokeWidth={strip.widthMm} />

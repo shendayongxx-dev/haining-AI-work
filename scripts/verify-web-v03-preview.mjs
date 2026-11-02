@@ -33,6 +33,8 @@ try {
     assert.match(structureSvg, new RegExp(`<${shapeTag} `));
     assert.match(structureSvg, /viewBox="0 0 210 297"/);
     assert.match(structureSvg, /<clipPath id="product-boundary">/);
+    assert.doesNotMatch(structureSvg, /<text\b|<rect\b/);
+    assert.doesNotMatch(structureSvg, /fill="#ead7ad" stroke="none"/);
     assert.equal((structureSvg.match(/clip-path="url\(#product-boundary\)"/g) ?? []).length, 2);
     console.log(`PASS ${fixture} candidate and structure SVG`);
   }

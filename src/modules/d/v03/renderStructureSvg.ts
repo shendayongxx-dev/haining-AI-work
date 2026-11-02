@@ -75,13 +75,9 @@ ${line(strip, start, end, directionalShade(color.color, strip.direction))}`;
     <filter id="lift" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0.65" dy="0.9" stdDeviation="0.7" flood-color="#2f1f11" flood-opacity="0.72"/></filter>
     <clipPath id="product-boundary">${shape(boundary, '')}</clipPath>
   </defs>
-  <rect width="210" height="297" fill="#f7f3e9"/>
-  ${shape(boundary, 'fill="#ead7ad" stroke="none"')}
   <g clip-path="url(#product-boundary)">${base}</g>
   <g clip-path="url(#product-boundary)">${patches}</g>
   ${shape(effective, 'fill="none" stroke="#8f6b3f" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.8"')}
   ${shape(boundary, 'fill="none" stroke="#9b6637" stroke-width="2"')}
-  <text x="105" y="215" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="5" fill="#4d3b27">${esc(snapshot.carrierId)} · ${esc(snapshot.weaveId)}</text>
-  <text x="105" y="223" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="4" fill="#8a552d">结构联调预览 · 工艺与实物 pending</text>
 </svg>`;
 }
