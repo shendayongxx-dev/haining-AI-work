@@ -1,12 +1,12 @@
-# D v0.3.4 制品清单
+# D v0.3.6 制品清单
 
 评审状态：`contract-accepted-pending-artifact-verification`
 
 ## 获取方式
 
 - 分支：`d/fan-structure-snapshot-v0.2`
-- 生成器版本：`D-STRUCTURE-v0.3.4`
-- 结构校验器：`D-STRUCTURE-VALIDATOR-v0.3.4`
+- 生成器版本：`D-STRUCTURE-v0.3.6`
+- 结构校验器：`D-STRUCTURE-VALIDATOR-v0.3.6`
 
 ## 公共合同制品
 
@@ -15,7 +15,8 @@
 - 结构生成器：`src/modules/d/v03/calculateStructureV03.ts`
 - 运行时校验器：`src/modules/d/v03/validateStructureV03.ts`
 - v0.2→v0.3 迁移文档：`docs/handoffs/D_V02_TO_V03_MIGRATION.md`
-- v0.3.4 接口提案：`docs/handoffs/D_STRUCTURE_SNAPSHOT_V1.2_INTERFACE_PROPOSAL.md`
+- v0.3.4 基础接口提案：`docs/handoffs/D_STRUCTURE_SNAPSHOT_V1.2_INTERFACE_PROPOSAL.md`
+- v0.3.6 参数化编法交接：`docs/handoffs/D_TO_A_E_V036_PARAMETERIZED_WEAVE_HANDOFF.md`
 - C 复审回复：`docs/handoffs/D_TO_C_V03_4_REVIEW_RESPONSE.md`
 
 ## 三组案例

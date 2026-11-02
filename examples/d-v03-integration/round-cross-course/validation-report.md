@@ -21,12 +21,16 @@
 | `source-palette-ids-unique` | PASS | sourcePattern.paletteId 在图样内唯一。 |
 | `source-element-ids-unique` | PASS | sourcePattern.elementId 在图样内唯一。 |
 | `source-pattern-shape` | PASS | 元素类型、点列、色板引用、层级和变换结构有效。 |
+| `pattern-placement` | PASS | D 图样放置参数可复算，不修改 C 原始 sourcePattern。 |
 | `canonical-strips-unique` | PASS | 顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。 |
 | `raw-stage-strip-index` | PASS | rawBlank.stripIds 与顶层 strips[] 顺序及数量完全一致。 |
 | `trimmed-stage-strip-index` | PASS | trimmedProduct.visibleStripIds 仅索引具有可见段的顶层竹条。 |
 | `segment-offset-order` | PASS | 所有 visibleSegments[] 按 stripOffsetStartMm 升序排列。 |
 | `color-source-semantics` | PASS | motif 来源字段必填，base/outer-base 来源字段统一为 null。 |
 | `crossing-matrix-count` | PASS | 441/441 个毛坯交点。 |
+| `weave-spec-version` | PASS | 编法 ID 与规则版本一致，平编保持 D 候选身份。 |
+| `grid-parameters-valid` | PASS | 经纬数量、竹条宽度、中心间距和净孔可复算。 |
+| `grid-fits-raw-blank` | PASS | 参数化网格从四个方向完整覆盖毛坯边界。 |
 | `weave-matrix-exact` | PASS | 全部交点的 topStripId 与 CROSS-COURSE-2X2-V1 权威循环矩阵一致。 |
 | `weaving-order-links` | PASS | 441 条操作均关联交点、工作条与挑压动作。 |
 | `weaving-order-sequence` | PASS | 每根纬条的操作按经条顺序完整排列，可直接分组生成逐条编织步骤。 |

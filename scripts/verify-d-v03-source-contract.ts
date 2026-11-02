@@ -22,7 +22,7 @@ function expectFailure(name: string, mutate: (snapshot: StructureSnapshotV03) =>
 }
 
 const baseline = validateStructureV03(original);
-if (!baseline.pass) throw new Error('Baseline v0.3.4 fixture must pass before tamper tests.');
+if (!baseline.pass) throw new Error('Baseline v0.3.6 fixture must pass before tamper tests.');
 console.log('PASS baseline source contract');
 
 expectFailure('sourceKey designRevision mismatch', snapshot => {
@@ -33,9 +33,13 @@ expectFailure('creative resultId mismatch', snapshot => {
   snapshot.creativeSource.resultId = 'pattern-tampered';
 }, 'creative-source-complete');
 
-expectFailure('carrier_shape outside v0.3.4 scope', snapshot => {
+expectFailure('carrier_shape outside v0.3.6 scope', snapshot => {
   (snapshot.creativeSource as { resultType: string }).resultType = 'carrier_shape';
 }, 'creative-source-complete');
+
+expectFailure('pattern placement key mismatch', snapshot => {
+  snapshot.patternPlacement.scale = 1.2;
+}, 'pattern-placement');
 
 expectFailure('palette color mismatch', snapshot => {
   snapshot.sourcePattern.palette[0].color = '#000000';

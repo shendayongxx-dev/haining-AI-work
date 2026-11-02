@@ -44,6 +44,11 @@
       "details": "元素类型、点列、色板引用、层级和变换结构有效。"
     },
     {
+      "id": "pattern-placement",
+      "pass": true,
+      "details": "D 图样放置参数可复算，不修改 C 原始 sourcePattern。"
+    },
+    {
       "id": "canonical-strips-unique",
       "pass": true,
       "details": "顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。"
@@ -72,6 +77,21 @@
       "id": "crossing-matrix-count",
       "pass": true,
       "details": "441/441 个毛坯交点。"
+    },
+    {
+      "id": "weave-spec-version",
+      "pass": true,
+      "details": "编法 ID 与规则版本一致，平编保持 D 候选身份。"
+    },
+    {
+      "id": "grid-parameters-valid",
+      "pass": true,
+      "details": "经纬数量、竹条宽度、中心间距和净孔可复算。"
+    },
+    {
+      "id": "grid-fits-raw-blank",
+      "pass": true,
+      "details": "参数化网格从四个方向完整覆盖毛坯边界。"
     },
     {
       "id": "weave-matrix-exact",

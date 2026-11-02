@@ -12,6 +12,7 @@ try {
   const { calculateStructureV03 } = await server.ssrLoadModule('/src/modules/d/v03/calculateStructureV03.ts');
   const { validateStructureV03 } = await server.ssrLoadModule('/src/modules/d/v03/validateStructureV03.ts');
   const { weaveForFanPreview } = await server.ssrLoadModule('/src/data/fanPreviewSelection.ts');
+  const { canAdjustFanStructure, isFanWeaveAllowed } = await server.ssrLoadModule('/src/data/fanPreviewSelection.ts');
   const home = renderToStaticMarkup(React.createElement(App));
   for (const id of ['FAN-ROUND-170-V1', 'FAN-OVAL-150X180-V1', 'FAN-OCTAGON-170-V1']) {
     assert.match(home, new RegExp(`title="${id} · [^"]+"`));
@@ -35,8 +36,11 @@ try {
     console.log(`PASS ${fixture} candidate and structure SVG`);
   }
   const pattern = JSON.parse(readFileSync(new URL('../examples/d-v03-integration/round-cross-course/structure-snapshot.json', import.meta.url), 'utf8')).sourcePattern;
+  let availableCombinations = 0;
   for (const carrierId of ['FAN-ROUND-170-V1', 'FAN-OVAL-150X180-V1', 'FAN-OCTAGON-170-V1']) {
-    for (const weaveId of ['CROSS-COURSE-2X2-V1', 'HERRING-3X3-V1', 'SQUARE-HOLE-1X1-V1']) {
+    for (const weaveId of ['CROSS-1X1-V1', 'CROSS-COURSE-2X2-V1', 'HERRING-3X3-V1', 'SQUARE-HOLE-1X1-V1']) {
+      if (!isFanWeaveAllowed(carrierId, weaveId)) continue;
+      availableCombinations += 1;
       const snapshot = calculateStructureV03({
         designId: 'web-integration-check', designRevision: 1,
         creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
@@ -48,7 +52,22 @@ try {
       assert.equal(snapshot.physicalValidation.status, 'not-completed');
     }
   }
-  console.log('PASS all 9 fixed-fan and weave combinations');
+  assert.equal(availableCombinations, 10);
+  assert.equal(canAdjustFanStructure('FAN-ROUND-170-V1'), true);
+  assert.equal(canAdjustFanStructure('FAN-OVAL-150X180-V1'), false);
+  assert.equal(canAdjustFanStructure('FAN-OCTAGON-170-V1'), false);
+  assert.equal(isFanWeaveAllowed('FAN-OVAL-150X180-V1', 'CROSS-1X1-V1'), false);
+  const adjustedRound = calculateStructureV03({
+    designId: 'round-adjusted', designRevision: 3,
+    creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
+    carrierId: 'FAN-ROUND-170-V1', weaveId: 'CROSS-1X1-V1', pattern, baseColor: '#C4A879',
+    gridParameters: { warpCount: 15, weftCount: 15, stripWidthMm: 6, pitchMm: (189-6)/14 },
+    patternPlacement: { scale: 1.3, rotationDeg: 0, offsetMm: { x: 0, y: 0 }, pivotMm: { x: 105, y: 110 } },
+  });
+  assert.equal(validateStructureV03(adjustedRound).pass, true);
+  assert.equal(adjustedRound.grid.warpCount, 15);
+  assert.equal(adjustedRound.patternPlacement.scale, 1.3);
+  console.log('PASS 10 enabled combinations; only round fan enables flat weave and parameter controls');
   const confirmed = {
     carrierRef: { carrierId: 'FAN-ROUND-170-V1', carrierSpecVersion: 'CARRIER-SPEC-v1.2' },
     resultType: 'surface_pattern', result: pattern,
