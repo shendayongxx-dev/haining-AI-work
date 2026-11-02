@@ -1,4 +1,5 @@
 import {useEffect,useRef,useState} from 'react';
+import type {ReactNode} from 'react';
 import {acceptCraftResult,craftInputDigest,validateCraft} from './validation';
 import type {CraftInput,CraftIssue,CraftResult} from './craftTypes';
 import './craft.css';
@@ -7,7 +8,7 @@ const weaveNames:Record<string,string>={'CROSS-1X1-V1':'平编演示','CROSS-COU
 const carrierNames:Record<string,string>={'FAN-ROUND-170-V1':'圆形扇面','FAN-OVAL-150X180-V1':'长圆扇面','FAN-OCTAGON-170-V1':'八角扇面'};
 const labels={passed:'通过',failed:'需修改',pending:'待确认',notApplicable:'不适用'};
 
-export default function CraftCheckPanel({input,onBack,onPreview,onUseSupportedWeave}:{input:CraftInput|null;onBack:()=>void;onPreview?:(result:CraftResult)=>void;onUseSupportedWeave?:()=>void}){
+export default function CraftCheckPanel({input,preview,onBack,onPreview,onUseSupportedWeave}:{input:CraftInput|null;preview?:ReactNode;onBack:()=>void;onPreview?:(result:CraftResult)=>void;onUseSupportedWeave?:()=>void}){
   const [result,setResult]=useState<CraftResult|null>(null);
   const [error,setError]=useState('');
   const [focus,setFocus]=useState<CraftIssue|null>(null);
@@ -53,6 +54,7 @@ export default function CraftCheckPanel({input,onBack,onPreview,onUseSupportedWe
         <h1>{title}</h1><p className="craft-lead">{explanation}</p>
         {verdict==='clear'&&<p className="craft-boundary-note">实物制作还没有完成验证。下一页是结构拆解预览，正式材料清单和制作教程暂未开放。</p>}
       </div>
+      {preview&&<div className="craft-preview-card"><span>本次检查的方案</span>{preview}<small>与上一页编辑预览一致</small></div>}
     </section>
     {verdict==='blocked'&&<section className="craft-decision" aria-label="问题与解决方案">
       <span className="craft-section-label">发现的问题</span><h2>{unsupported?'当前编法不在制作检查范围':failed[0]?.title??'当前结构需要修改'}</h2>
@@ -65,7 +67,7 @@ export default function CraftCheckPanel({input,onBack,onPreview,onUseSupportedWe
       </div>}
     </section>}
     {verdict==='clear'&&<section className="craft-decision craft-decision-clear" aria-label="检查结论">
-      <span className="craft-section-label">本次结论</span><h2>没有发现结构阻断问题</h2>
+      <span className="craft-section-label">接下来</span><h2>查看当前设计的结构拆解</h2>
       <p>当前编法、竹条和交点可以继续用于结构拆解预览。收边、柄口连接和材料准备还需要实物试编确认。</p>
       {canContinue&&<button className="primary" type="button" onClick={()=>onPreview(result!)}>进入下一步：结构拆解预览 →</button>}
     </section>}

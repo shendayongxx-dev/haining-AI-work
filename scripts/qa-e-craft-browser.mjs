@@ -41,7 +41,9 @@ try{
     await byText('确认当前结果');await byText('十字编（课程版）');await byText('进入编辑预览');
   }
   async function inspect(){await byText('提交工艺检查');await until('!!document.querySelector("[data-testid=craft-status]")');}
-  await generate('绿色三角形');await inspect();
+  await generate('绿色三角形');await wait(650);
+  const editShot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});writeFileSync(path.join(out,'edit-reference.png'),Buffer.from(editShot.data,'base64'));
+  await inspect();
   await check('fixed fan enters actual E checks and remains pending',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.structure==="passed"&&document.querySelector("[data-testid=craft-status]").dataset.status==="pending"'));
   await check('clear decision and next step are prominent',()=>evaluate('document.querySelector(".craft-verdict h1").textContent.includes("结构检查通过")&&[...document.querySelectorAll("button")].some(b=>b.textContent.includes("进入下一步：结构拆解预览"))'));
   await check('19-rule records are available behind one disclosure',()=>evaluate('document.querySelector(".craft-technical>summary").textContent.includes("19")'));
