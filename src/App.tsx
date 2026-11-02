@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Candidate, Carrier, InputChannel, Point, Step, SurfacePattern } from './model';
+import { Candidate, Carrier, Point, Step, SurfacePattern } from './model';
 import Fan from './modules/d/FanPreview';
 import CustomStructurePreview from './modules/d/CustomStructurePreview';
 import DrawingCanvas from './DrawingCanvas';
@@ -20,6 +20,7 @@ const steps: { id: Step; label: string }[] = [
   { id: 'check', label: '工艺检查' }, { id: 'materials', label: '制作资料' },
 ];
 type Stroke = Point[];
+type InputMode = 'drawing' | 'imageText' | 'gesture';
 
 const fanVariants = [
   { id: 'FAN-ROUND-170-V1', name: '圆形／月圆式', status: '当前联调' },
@@ -54,9 +55,10 @@ export default function App() {
   const [step,setStep]=useState<Step>('carrier');
   const [carrier,setCarrier]=useState<Carrier>('fan');
   const [fanVariantId,setFanVariantId]=useState<FixedFanCarrierId>('FAN-ROUND-170-V1');
-  const [channel,setChannel]=useState<InputChannel>('drawing');
+  const [channel,setChannel]=useState<InputMode>('drawing');
   const [text,setText]=useState('');
   const [file,setFile]=useState<File|null>(null);
+  const [inputImageUrl,setInputImageUrl]=useState<string|null>(null);
   const [strokes,setStrokes]=useState<Stroke[]>([]);
   const [candidate,setCandidate]=useState<Candidate|null>(null);
   const [confirmed,setConfirmed]=useState<Candidate|null>(null);
@@ -97,6 +99,12 @@ export default function App() {
   },[confirmed,fanVariantId,weave,revision,baseColor,paletteOverrides,density,width,size]);
   useEffect(()=>()=>{if(timer.current)clearTimeout(timer.current);},[]);
   useEffect(()=>{
+    if(!file){setInputImageUrl(null);return;}
+    const url=URL.createObjectURL(file);
+    setInputImageUrl(url);
+    return ()=>URL.revokeObjectURL(url);
+  },[file]);
+  useEffect(()=>{
     if(step!=='carrier'||!homeScrollRef.current)return;
     const root=homeScrollRef.current;
     const observer=new IntersectionObserver(entries=>{
@@ -122,7 +130,7 @@ export default function App() {
   const updateGridDensity=(next:number)=>{setDensity(next);setRevision(n=>n+1);};
   const updateGridWidth=(next:number)=>{setWidth(next);setRevision(n=>n+1);};
   const invalidateGeneration=()=>{if(timer.current)clearTimeout(timer.current);generationCounter.current+=1;};
-  const chooseCarrier=(next:Carrier)=>{if(next!==carrier){invalidateGeneration();setCarrier(next);setStrokes([]);setCandidate(null);setWeave('');}};
+  const chooseCarrier=(next:Carrier)=>{if(next!==carrier){invalidateGeneration();setCarrier(next);setChannel('drawing');setStrokes([]);setFile(null);setText('');setCandidate(null);setWeave('');}};
   const chooseFanVariant=(next:string)=>{
     if(next===fanVariantId)return;
     const nextId=next as FixedFanCarrierId;
@@ -137,12 +145,17 @@ export default function App() {
   };
   function generate(){
     if(channel==='drawing'&&!strokes.length)return setNotice('请先绘制，或使用绿色三角形联调样例。');
-    if(channel==='text'&&!text.trim())return setNotice('请输入创意描述。');
-    if(channel==='referenceImage'&&!file)return setNotice('请选择参考图。');
+    if(channel==='gesture')return setNotice('手势控制尚未接入，当前请选择鼠标绘制或图文绘制。');
+    if(channel==='imageText'){
+      if(!file)return setNotice('请先上传参考图。');
+      if(!['image/png','image/jpeg','image/webp'].includes(file.type))return setNotice('参考图仅支持 PNG、JPEG 或 WebP。');
+      if(!text.trim())return setNotice('请描述希望从参考图提取、改造或保留的内容。');
+      return setNotice('图文生成模型尚未接入：当前无法生成新的纹样参考图或自定义载体形状。输入已保留，可继续编辑。');
+    }
     const inputId=crypto.randomUUID();go('generating');
     const generationRevision=++generationCounter.current;
     timer.current=setTimeout(()=>{
-      const base={channel,inputVersionId:inputId,generationRevision,text,file,strokes};
+      const base={channel:'drawing' as const,inputVersionId:inputId,generationRevision,strokes};
       const request:GenerationInput=carrier==='fan'?{...base,carrier:'fan',carrierRef:fixedFanRef(fanVariantId)}:{...base,carrier:'custom',carrierRef:null};
       void generateCandidate(request)
         .then(result => { if(generationCounter.current!==generationRevision)return;setCandidate(result); setStep('confirm'); })
@@ -172,7 +185,32 @@ export default function App() {
           <span className="story-side-label" aria-hidden="true">竹 · 人 · 生 活</span><span className="story-index">03 / 03</span>
         </section>
       </div>}
-      {step==='input'&&<div className="input-page"><div className="heading"><p className="kicker">01 / 输入创意</p><h1>让灵感有形</h1><p>当前载体：{carrier==='fan'?`${resolveFixedFan(fixedFanRef(fanVariantId)).name} · 表面图样`:'自定义形状 · 几何载体'}</p></div><div className="input-box"><div className="channels"><button className={channel==='drawing'?'active':''} onClick={()=>setChannel('drawing')}>✎　直接绘制</button><button className={channel==='text'?'active':''} onClick={()=>setChannel('text')}>T　文字描述</button><button className={channel==='referenceImage'?'active':''} onClick={()=>setChannel('referenceImage')}>▧　参考图</button></div>{channel==='drawing'&&<><DrawingCanvas carrier={carrier} fanVariantId={fanVariantId} strokes={strokes} onChange={setStrokes}/>{carrier==='fan'&&<button className="link" onClick={()=>setStrokes([[{x:105,y:65},{x:70,y:145},{x:140,y:145},{x:105,y:65}]])}>使用绿色三角形联调样例</button>}</>}{channel==='text'&&<><textarea maxLength={500} value={text} onChange={e=>setText(e.target.value)} placeholder="描述你想要的竹编图样或形状……"/><p className="muted">{text.length}/500 · 绿色三角形和自定义叶片可做结构化联调；其他描述等待真实模型适配器</p></>}{channel==='referenceImage'&&<label className="upload"><strong>{file?file.name:'选择一张参考图'}</strong><small>PNG / JPEG / WebP · 当前完成格式和候选接口验证，assetRef 与视觉模型待 A 接入</small><input type="file" accept="image/png,image/jpeg,image/webp" onChange={e=>setFile(e.target.files?.[0]??null)}/></label>}{notice&&<p className="notice" role="alert">{notice}</p>}<div className="actions"><button onClick={()=>go('carrier')}>← 返回载体</button><button className="primary" onClick={generate}>生成候选 →</button></div></div></div>}
+      {step==='input'&&<div className="input-page">
+        <div className="heading"><p className="kicker">01 / 输入创意</p><h1>让灵感有形</h1>
+          <p>当前载体：{carrier==='fan'?resolveFixedFan(fixedFanRef(fanVariantId)).name+' · 表面图样':'自定义形状 · 几何载体'}</p></div>
+        <div className="input-box">
+          <div className="channels" role="group" aria-label="创意输入方式">
+            <button type="button" className={channel==='drawing'?'active':''} aria-pressed={channel==='drawing'} onClick={()=>{setChannel('drawing');setNotice('');}}>✎　鼠标绘制</button>
+            <button type="button" className={channel==='imageText'?'active':''} aria-pressed={channel==='imageText'} onClick={()=>{setChannel('imageText');setNotice('');}}>▧　图文绘制</button>
+            {carrier==='custom'&&<button type="button" disabled title="后续接入" aria-label="手势控制，后续接入">◌　手势控制 · 待接入</button>}
+          </div>
+          {channel==='drawing'&&<><DrawingCanvas carrier={carrier} fanVariantId={fanVariantId} strokes={strokes} onChange={setStrokes}/>
+            {carrier==='fan'&&<button className="link" onClick={()=>setStrokes([[{x:105,y:65},{x:70,y:145},{x:140,y:145},{x:105,y:65}]])}>使用绿色三角形联调样例</button>}</>}
+          {channel==='imageText'&&<div className="image-text-input">
+            <p className="muted">{carrier==='fan'?'上传参考图并描述想提取的物品或纹样；生成结果应是应用于扇面的新图样参考图。':'上传参考图并描述想提取的轮廓；生成结果应是可作为竹编载体的自定义形状。'}</p>
+            <label className="upload"><strong>{file?file.name:'选择参考图'}</strong><small>PNG / JPEG / WebP</small>
+              <input type="file" accept="image/png,image/jpeg,image/webp" onChange={e=>setFile(e.target.files?.[0]??null)}/></label>
+            {inputImageUrl&&<img className="input-reference-preview" src={inputImageUrl} alt="已选择的参考图"/>}
+            <label className="image-prompt" htmlFor="image-prompt">描述要从参考图提取和调整的内容
+              <textarea id="image-prompt" maxLength={500} value={text} onChange={e=>setText(e.target.value)}
+                placeholder={carrier==='fan'?'例如：提取照片中的燕子，简化成适合扇面竹编的纹样':'例如：提取叶片外轮廓，生成可编织的自定义载体形状'}/></label>
+            <p className="muted">{text.length}/500 · 图文生成模型尚未接入，当前不会用演示图形代替生成结果。</p>
+          </div>}
+          {notice&&<p className="notice" role="alert">{notice}</p>}
+          <div className="actions"><button onClick={()=>go('carrier')}>← 返回载体</button>
+            <button className="primary" onClick={generate}>{channel==='imageText'?'生成参考图 →':'生成候选 →'}</button></div>
+        </div>
+      </div>}
       {step==='generating'&&<div className="generating"><div className="orbit"><Fan grid/></div><p className="kicker">创意转译</p><h1>正在编织你的 <em>灵感</em></h1><p>正在为你的创意生成候选设计。</p><div className="bar"><i/></div><button className="link" onClick={()=>{invalidateGeneration();go('input');}}>返回修改</button></div>}
       {step==='confirm'&&candidate&&<div className="confirm"><div className="result-card"><Fan candidate={candidate}/><small>候选结果 · {candidate.resultType}</small></div><section><p className="kicker">02 / 结果确认</p><h1>{carrier==='fan'?'表面图样预览':'候选载体形状'}</h1><p>{candidate.label}</p><div className="detail">坐标单位 <b>mm</b>　生成版本 <b>{candidate.generationRevision}</b>　状态 <b>尚未确认</b></div>{candidate.issues.map(issue=><p key={issue.id} className="notice" role={issue.severity==='blocking'?'alert':'status'}>{issue.message}</p>)}<p className="muted">确认创意结果后选择编法；此确认不代表工艺通过。旧正式设计仅在确认新候选时替换。</p><div className="actions"><button onClick={()=>go('input')}>返回修改</button><button onClick={generate}>重新生成</button><button className="primary" disabled={!canConfirmCandidate(candidate)} onClick={confirm}>确认当前结果 →</button></div></section></div>}
       {step==='weave'&&confirmed&&<div className="weave-page"><div className="heading"><p className="kicker">03 / 选择编法</p><h1>为图样选择织法</h1><p>三种扇面和自定义形状均可选择四种编法；工艺仍待验证。</p></div><div className="weaves">{<button className={weave==='CROSS-1X1-V1'?'selected':''} onClick={()=>selectWeave('CROSS-1X1-V1')}><b>▦</b><strong>平编演示</strong><small>CROSS-1X1-V1 · 结构联调</small></button>}{targetWeaves.map(item=><button key={item.id} className={weave===item.id?'selected':''} onClick={()=>selectWeave(item.id)}><b>▧</b><strong>{item.name}</strong><small>{item.id} · 结构联调</small></button>)}</div><div className="actions center"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" disabled={!weave} onClick={()=>go('edit')}>进入编辑预览 →</button></div></div>}
