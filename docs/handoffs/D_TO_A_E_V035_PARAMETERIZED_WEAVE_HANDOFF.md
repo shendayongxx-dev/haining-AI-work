@@ -8,7 +8,7 @@
 - 四种编法统一使用 D v0.3.5 结构生成器，不再让圆扇平编走旧版固定路径。
 - `StructureV03Input.gridParameters` 可调整 `warpCount`、`weftCount`、`stripWidthMm` 和 `pitchMm`。
 - 参数改变后重新生成 `strips`、`crossings`、`visibleSegments`、`weavingOrder` 和 `grid`，不存在仅修改 SVG 的情况。
-- 网格必须完整位于 189×189 mm 毛坯内，且 `pitchMm >= stripWidthMm`。
+- 网格必须从四个方向完整覆盖 189×189 mm 毛坯，且 `pitchMm >= stripWidthMm`。页面调整条数或宽度时会自动重算间距；调整间距时会匹配最近的奇数条数。
 
 ## 平编身份
 
@@ -30,6 +30,6 @@
 ## 验证
 
 - 三种载体 × 四种编法，共 12 种默认组合通过。
-- 12 种组合使用 15×15、6 mm 宽、10 mm 间距重新生成后全部通过。
+- 12 种组合使用 15×15、6 mm 宽及自动铺满间距重新生成后全部通过。
 - 来源合同的 10 项篡改测试继续全部拒绝。
 - TypeScript 和 Vite 生产构建通过。

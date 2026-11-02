@@ -63,8 +63,8 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
     && Math.abs(snapshot.grid.clearHoleMm - (snapshot.grid.pitchMm - snapshot.grid.stripWidthMm)) < .01;
   const rawBoundary = snapshot.stages.rawBlank.boundary as { type?: string; width?: number; height?: number };
   const gridFitsRawBlank = rawBoundary.type === 'rect' && typeof rawBoundary.width === 'number' && typeof rawBoundary.height === 'number'
-    && (snapshot.grid.warpCount - 1) * snapshot.grid.pitchMm + snapshot.grid.stripWidthMm <= rawBoundary.width + .01
-    && (snapshot.grid.weftCount - 1) * snapshot.grid.pitchMm + snapshot.grid.stripWidthMm <= rawBoundary.height + .01;
+    && Math.abs((snapshot.grid.warpCount - 1) * snapshot.grid.pitchMm + snapshot.grid.stripWidthMm - rawBoundary.width) < .05
+    && Math.abs((snapshot.grid.weftCount - 1) * snapshot.grid.pitchMm + snapshot.grid.stripWidthMm - rawBoundary.height) < .05;
   const matrixExact = crossings.every(crossing => {
     const warpIndex = Number(crossing.warpStripId.slice(1)) - 1;
     const weftIndex = Number(crossing.weftStripId.slice(1)) - 1;
@@ -142,7 +142,7 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
     { id: 'crossing-matrix-count', pass: crossings.length === expected, details: `${crossings.length}/${expected} 个毛坯交点。` },
     { id: 'weave-spec-version', pass: weaveVersionExact, details: '编法 ID 与规则版本一致，平编保持 D 候选身份。' },
     { id: 'grid-parameters-valid', pass: gridParametersValid, details: '经纬数量、竹条宽度、中心间距和净孔可复算。' },
-    { id: 'grid-fits-raw-blank', pass: gridFitsRawBlank, details: '参数化网格完整位于毛坯边界内。' },
+    { id: 'grid-fits-raw-blank', pass: gridFitsRawBlank, details: '参数化网格从四个方向完整覆盖毛坯边界。' },
     { id: 'weave-matrix-exact', pass: matrixExact, details: `全部交点的 topStripId 与 ${snapshot.weaveId} 权威循环矩阵一致。` },
     { id: 'weaving-order-links', pass: Boolean(operationLinks), details: `${operations.length} 条操作均关联交点、工作条与挑压动作。` },
     { id: 'weaving-order-sequence', pass: operationSequence, details: '每根纬条的操作按经条顺序完整排列，可直接分组生成逐条编织步骤。' },

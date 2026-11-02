@@ -49,10 +49,19 @@ try {
         designId: 'web-integration-adjusted', designRevision: 2,
         creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
         carrierId, weaveId, pattern, baseColor: '#C4A879',
-        gridParameters: { warpCount: 15, weftCount: 15, stripWidthMm: 6, pitchMm: 10 },
+        gridParameters: { warpCount: 15, weftCount: 15, stripWidthMm: 6, pitchMm: (189 - 6) / 14 },
       });
       assert.equal(validateStructureV03(adjusted).pass, true);
-      assert.deepEqual(adjusted.grid, { warpCount: 15, weftCount: 15, stripWidthMm: 6, pitchMm: 10, clearHoleMm: 4 });
+      assert.equal(adjusted.grid.warpCount, 15);
+      assert.equal(adjusted.grid.weftCount, 15);
+      assert.equal(adjusted.grid.stripWidthMm, 6);
+      assert.equal(Math.abs((adjusted.grid.warpCount - 1) * adjusted.grid.pitchMm + adjusted.grid.stripWidthMm - 189) < .05, true);
+      assert.throws(() => calculateStructureV03({
+        designId: 'web-integration-sparse', designRevision: 3,
+        creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
+        carrierId, weaveId, pattern, baseColor: '#C4A879',
+        gridParameters: { warpCount: 15, weftCount: 15, stripWidthMm: 6, pitchMm: 10 },
+      }), /complete raw blank/);
     }
   }
   console.log('PASS all 12 fixed-fan and weave combinations with adjustable grids');

@@ -86,7 +86,7 @@
     {
       "id": "grid-fits-raw-blank",
       "pass": true,
-      "details": "参数化网格完整位于毛坯边界内。"
+      "details": "参数化网格从四个方向完整覆盖毛坯边界。"
     },
     {
       "id": "weave-matrix-exact",

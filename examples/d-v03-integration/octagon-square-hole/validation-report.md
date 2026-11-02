@@ -29,7 +29,7 @@
 | `crossing-matrix-count` | PASS | 169/169 个毛坯交点。 |
 | `weave-spec-version` | PASS | 编法 ID 与规则版本一致，平编保持 D 候选身份。 |
 | `grid-parameters-valid` | PASS | 经纬数量、竹条宽度、中心间距和净孔可复算。 |
-| `grid-fits-raw-blank` | PASS | 参数化网格完整位于毛坯边界内。 |
+| `grid-fits-raw-blank` | PASS | 参数化网格从四个方向完整覆盖毛坯边界。 |
 | `weave-matrix-exact` | PASS | 全部交点的 topStripId 与 SQUARE-HOLE-1X1-V1 权威循环矩阵一致。 |
 | `weaving-order-links` | PASS | 169 条操作均关联交点、工作条与挑压动作。 |
 | `weaving-order-sequence` | PASS | 每根纬条的操作按经条顺序完整排列，可直接分组生成逐条编织步骤。 |

@@ -266,8 +266,9 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
   const { warpCount, weftCount, stripWidthMm: widthMm, pitchMm } = grid;
   if (warpCount < 3 || weftCount < 3 || widthMm <= 0 || pitchMm < widthMm) throw new Error('Invalid gridParameters');
   const raw = carrier.rawBlankBoundary;
-  if ((warpCount - 1) * pitchMm + widthMm > raw.width + .01 || (weftCount - 1) * pitchMm + widthMm > raw.height + .01) {
-    throw new Error('gridParameters exceed raw blank');
+  if (Math.abs((warpCount - 1) * pitchMm + widthMm - raw.width) > .05
+    || Math.abs((weftCount - 1) * pitchMm + widthMm - raw.height) > .05) {
+    throw new Error('gridParameters must cover the complete raw blank');
   }
   const clearHoleMm = round(Math.max(0, pitchMm - widthMm));
   const firstWarp = raw.x + (raw.width - ((warpCount - 1) * pitchMm + widthMm)) / 2 + widthMm / 2;
