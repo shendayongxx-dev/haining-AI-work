@@ -2,7 +2,8 @@ import type { PointMm, SurfacePattern } from '../types';
 import type { GenerationIssue } from '../../../model';
 
 export type CarrierId = 'FAN-ROUND-170-V1' | 'FAN-OVAL-150X180-V1' | 'FAN-OCTAGON-170-V1';
-export type WeaveId = 'CROSS-COURSE-2X2-V1' | 'HERRING-3X3-V1' | 'SQUARE-HOLE-1X1-V1';
+export type WeaveId = 'CROSS-1X1-V1' | 'CROSS-COURSE-2X2-V1' | 'HERRING-3X3-V1' | 'SQUARE-HOLE-1X1-V1';
+export type WeaveSpecVersion = 'WEAVE-SPEC-v1.2' | 'D-CANDIDATE-WEAVE-v0.1';
 export type Direction = 'warp' | 'weft';
 export type SegmentScope = 'motif' | 'base' | 'outer-base';
 
@@ -20,6 +21,7 @@ export type StructureV03Input = {
   weaveId: WeaveId;
   pattern: SurfacePattern;
   baseColor: string;
+  gridParameters?: { warpCount: number; weftCount: number; stripWidthMm: number; pitchMm: number };
 };
 
 export type ColorSegmentV03 = {
@@ -108,7 +110,7 @@ export type EngineeringWarningV03 = {
 
 export type StructureSnapshotV03 = {
   schemaVersion: '0.3';
-  structureGeneratorVersion: 'D-STRUCTURE-v0.3.4';
+  structureGeneratorVersion: 'D-STRUCTURE-v0.3.5';
   designId: string;
   designRevision: number;
   generatedFromRevision: number;
@@ -116,21 +118,21 @@ export type StructureSnapshotV03 = {
   carrierId: CarrierId;
   carrierSpecVersion: 'CARRIER-SPEC-v1.2';
   weaveId: WeaveId;
-  weaveSpecVersion: 'WEAVE-SPEC-v1.2';
+  weaveSpecVersion: WeaveSpecVersion;
   craftRuleVersion: string;
-  structuralValidation: { status: 'passed'; validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.4' };
+  structuralValidation: { status: 'passed'; validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.5' };
   craftValidation: { status: 'pending'; owner: 'E' };
   physicalValidation: { status: 'not-completed'; owner: 'B' };
   sourceKey: {
     schemaVersion: '0.3';
-    structureGeneratorVersion: 'D-STRUCTURE-v0.3.4';
+    structureGeneratorVersion: 'D-STRUCTURE-v0.3.5';
     designId: string;
     designRevision: number;
     generatedFromRevision: number;
     carrierId: CarrierId;
     carrierSpecVersion: 'CARRIER-SPEC-v1.2';
     weaveId: WeaveId;
-    weaveSpecVersion: 'WEAVE-SPEC-v1.2';
+    weaveSpecVersion: WeaveSpecVersion;
     craftRuleVersion: string;
   };
   creativeSource: {

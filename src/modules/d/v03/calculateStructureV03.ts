@@ -1,7 +1,7 @@
 import carrierSpecJson from '../../../../data/CARRIER_SPEC_V1_2.json';
-import weaveSpecJson from '../../../../data/WEAVE_SPEC_V1_2.json';
 import type { PointMm, SurfacePattern } from '../types';
 import { applyPatternTransform } from '../../../data/patternTransform.mjs';
+import { resolveWeaveSpec } from './weaveRegistry';
 import type {
   CarrierId, ColorSegmentV03, CrossingV03, Direction, EngineeringWarningV03,
   StripV03, StructureSnapshotV03, StructureV03Input, VisibleSegmentV03, WeaveId, WeavingOperationV03,
@@ -16,13 +16,7 @@ type CarrierSpec = {
   carrierId: CarrierId; rawBlankBoundary: Rect; boundary: Boundary; effectivePatternBoundary: Boundary;
   handleExclusion: { version?: string; xMin: number; xMax: number; yMin: number; yMax: number };
 };
-type WeaveSpec = {
-  weaveId: WeaveId; craftRuleVersion: string; gridType: string; topLayerMatrix: string[][];
-  stripWidthMm?: number; clearHoleMm?: number; pitchMm?: number;
-};
-
 const carrierSpec = carrierSpecJson as unknown as { carriers: CarrierSpec[] };
-const weaveSpec = weaveSpecJson as unknown as { weaves: WeaveSpec[] };
 const round = (value: number) => Math.round(value * 100) / 100;
 const pad = (value: number) => String(value).padStart(3, '0');
 const mmDistance = (a: PointMm, b: PointMm) => Math.hypot(a.x - b.x, a.y - b.y);
@@ -43,12 +37,6 @@ function cloneSurfacePattern(pattern: SurfacePattern): SurfacePattern {
 function carrierById(id: CarrierId) {
   const value = carrierSpec.carriers.find(entry => entry.carrierId === id);
   if (!value) throw new Error(`Unsupported carrierId: ${id}`);
-  return value;
-}
-
-function weaveById(id: WeaveId) {
-  const value = weaveSpec.weaves.find(entry => entry.weaveId === id);
-  if (!value) throw new Error(`Unsupported weaveId: ${id}`);
   return value;
 }
 
@@ -269,18 +257,24 @@ function edgeWarnings(input: StructureV03Input, strips: StripV03[], pitchMm: num
 
 export function calculateStructureV03(input: StructureV03Input): StructureSnapshotV03 {
   const carrier = carrierById(input.carrierId);
-  const weave = weaveById(input.weaveId);
+  const weave = resolveWeaveSpec(input.weaveId);
   const open = weave.gridType === 'orthogonal-open';
-  const count = open ? 13 : 21;
-  const widthMm = open ? 9 : 9;
-  const pitchMm = open ? 15 : 9;
-  const clearHoleMm = open ? 6 : 0;
+  const defaults = open
+    ? { warpCount: 13, weftCount: 13, stripWidthMm: 9, pitchMm: 15 }
+    : { warpCount: 21, weftCount: 21, stripWidthMm: 9, pitchMm: 9 };
+  const grid = input.gridParameters ?? defaults;
+  const { warpCount, weftCount, stripWidthMm: widthMm, pitchMm } = grid;
+  if (warpCount < 3 || weftCount < 3 || widthMm <= 0 || pitchMm < widthMm) throw new Error('Invalid gridParameters');
   const raw = carrier.rawBlankBoundary;
-  const firstWarp = raw.x + widthMm / 2;
-  const firstWeft = raw.y + widthMm / 2;
-  const warps = Array.from({ length: count }, (_, index) => buildStrip('warp', index + 1, firstWarp + index * pitchMm,
+  if ((warpCount - 1) * pitchMm + widthMm > raw.width + .01 || (weftCount - 1) * pitchMm + widthMm > raw.height + .01) {
+    throw new Error('gridParameters exceed raw blank');
+  }
+  const clearHoleMm = round(Math.max(0, pitchMm - widthMm));
+  const firstWarp = raw.x + (raw.width - ((warpCount - 1) * pitchMm + widthMm)) / 2 + widthMm / 2;
+  const firstWeft = raw.y + (raw.height - ((weftCount - 1) * pitchMm + widthMm)) / 2 + widthMm / 2;
+  const warps = Array.from({ length: warpCount }, (_, index) => buildStrip('warp', index + 1, firstWarp + index * pitchMm,
     widthMm, pitchMm, raw, carrier.boundary, carrier.effectivePatternBoundary, input.pattern, input.baseColor));
-  const wefts = Array.from({ length: count }, (_, index) => buildStrip('weft', index + 1, firstWeft + index * pitchMm,
+  const wefts = Array.from({ length: weftCount }, (_, index) => buildStrip('weft', index + 1, firstWeft + index * pitchMm,
     widthMm, pitchMm, raw, carrier.boundary, carrier.effectivePatternBoundary, input.pattern, input.baseColor));
   const strips = [...warps, ...wefts];
   const crossings: CrossingV03[] = [];
@@ -314,15 +308,15 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
   }
   const warnings = [...warningForHandle(input, carrier, crossings), ...edgeWarnings(input, strips, pitchMm)];
   const sourceKey = {
-    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.4' as const,
+    schemaVersion: '0.3' as const, structureGeneratorVersion: 'D-STRUCTURE-v0.3.5' as const,
     designId: input.designId, designRevision: input.designRevision, generatedFromRevision: input.designRevision, carrierId: input.carrierId,
     carrierSpecVersion: 'CARRIER-SPEC-v1.2' as const, weaveId: input.weaveId,
-    weaveSpecVersion: 'WEAVE-SPEC-v1.2' as const, craftRuleVersion: weave.craftRuleVersion,
+    weaveSpecVersion: weave.weaveSpecVersion, craftRuleVersion: weave.craftRuleVersion,
   };
   return {
     ...sourceKey,
     confirmedGenerationId: input.creativeSource.confirmedGenerationId,
-    structuralValidation: { status: 'passed' as const, validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.4' as const },
+    structuralValidation: { status: 'passed' as const, validatorVersion: 'D-STRUCTURE-VALIDATOR-v0.3.5' as const },
     craftValidation: { status: 'pending' as const, owner: 'E' as const },
     physicalValidation: { status: 'not-completed' as const, owner: 'B' as const },
     sourceKey,
@@ -342,7 +336,7 @@ export function calculateStructureV03(input: StructureV03Input): StructureSnapsh
       continuity: { preserveStripId: true, preserveOrder: true, preserveDirection: true, preservePitch: true,
         preserveWidth: true, preserveThickness: true, preserveCrossingPhase: true, preserveWeavingOrder: true },
     },
-    grid: { warpCount: count, weftCount: count, pitchMm, stripWidthMm: widthMm, clearHoleMm },
+    grid: { warpCount, weftCount, pitchMm, stripWidthMm: widthMm, clearHoleMm },
     stages: {
       rawBlank: { boundary: raw, stripIds: strips.map(value => value.stripId), crossings, weavingOrder },
       trimmedProduct: {

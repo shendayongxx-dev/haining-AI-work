@@ -35,7 +35,7 @@ try {
   }
   const pattern = JSON.parse(readFileSync(new URL('../examples/d-v03-integration/round-cross-course/structure-snapshot.json', import.meta.url), 'utf8')).sourcePattern;
   for (const carrierId of ['FAN-ROUND-170-V1', 'FAN-OVAL-150X180-V1', 'FAN-OCTAGON-170-V1']) {
-    for (const weaveId of ['CROSS-COURSE-2X2-V1', 'HERRING-3X3-V1', 'SQUARE-HOLE-1X1-V1']) {
+    for (const weaveId of ['CROSS-1X1-V1', 'CROSS-COURSE-2X2-V1', 'HERRING-3X3-V1', 'SQUARE-HOLE-1X1-V1']) {
       const snapshot = calculateStructureV03({
         designId: 'web-integration-check', designRevision: 1,
         creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
@@ -45,9 +45,17 @@ try {
       assert.equal(report.pass, true, `${carrierId} + ${weaveId}: ${report.checks.filter(check => !check.pass).map(check => check.id).join(', ')}`);
       assert.equal(snapshot.craftValidation.status, 'pending');
       assert.equal(snapshot.physicalValidation.status, 'not-completed');
+      const adjusted = calculateStructureV03({
+        designId: 'web-integration-adjusted', designRevision: 2,
+        creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
+        carrierId, weaveId, pattern, baseColor: '#C4A879',
+        gridParameters: { warpCount: 15, weftCount: 15, stripWidthMm: 6, pitchMm: 10 },
+      });
+      assert.equal(validateStructureV03(adjusted).pass, true);
+      assert.deepEqual(adjusted.grid, { warpCount: 15, weftCount: 15, stripWidthMm: 6, pitchMm: 10, clearHoleMm: 4 });
     }
   }
-  console.log('PASS all 9 fixed-fan and weave combinations');
+  console.log('PASS all 12 fixed-fan and weave combinations with adjustable grids');
 } finally {
   await server.close();
 }

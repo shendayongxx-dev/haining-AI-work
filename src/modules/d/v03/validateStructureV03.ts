@@ -1,5 +1,5 @@
 import type { StructureSnapshotV03 } from './types';
-import weaveSpecJson from '../../../../data/WEAVE_SPEC_V1_2.json';
+import { resolveWeaveSpec } from './weaveRegistry';
 
 export type ValidationCheck = { id: string; pass: boolean; details: string };
 export type ValidationReportV03 = { caseId: string; checkedAt: string; pass: boolean; checks: ValidationCheck[] };
@@ -56,11 +56,19 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
     return crossing && crossing.weftStripId === operation.workingStripId && crossing.warpStripId === operation.referenceStripId
       && (operation.action === 'over') === (crossing.topStripId === operation.workingStripId);
   });
-  const weave = weaveSpecJson.weaves.find(value => value.weaveId === snapshot.weaveId);
-  const matrixExact = Boolean(weave) && crossings.every(crossing => {
+  const weave = resolveWeaveSpec(snapshot.weaveId);
+  const weaveVersionExact = snapshot.weaveSpecVersion === weave.weaveSpecVersion;
+  const gridParametersValid = snapshot.grid.warpCount >= 3 && snapshot.grid.weftCount >= 3
+    && snapshot.grid.stripWidthMm > 0 && snapshot.grid.pitchMm >= snapshot.grid.stripWidthMm
+    && Math.abs(snapshot.grid.clearHoleMm - (snapshot.grid.pitchMm - snapshot.grid.stripWidthMm)) < .01;
+  const rawBoundary = snapshot.stages.rawBlank.boundary as { type?: string; width?: number; height?: number };
+  const gridFitsRawBlank = rawBoundary.type === 'rect' && typeof rawBoundary.width === 'number' && typeof rawBoundary.height === 'number'
+    && (snapshot.grid.warpCount - 1) * snapshot.grid.pitchMm + snapshot.grid.stripWidthMm <= rawBoundary.width + .01
+    && (snapshot.grid.weftCount - 1) * snapshot.grid.pitchMm + snapshot.grid.stripWidthMm <= rawBoundary.height + .01;
+  const matrixExact = crossings.every(crossing => {
     const warpIndex = Number(crossing.warpStripId.slice(1)) - 1;
     const weftIndex = Number(crossing.weftStripId.slice(1)) - 1;
-    const expectedTop = weave!.topLayerMatrix[weftIndex % weave!.topLayerMatrix.length][warpIndex % weave!.topLayerMatrix[0].length] === 'W'
+    const expectedTop = weave.topLayerMatrix[weftIndex % weave.topLayerMatrix.length][warpIndex % weave.topLayerMatrix[0].length] === 'W'
       ? crossing.weftStripId : crossing.warpStripId;
     return crossing.topStripId === expectedTop;
   });
@@ -132,6 +140,9 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
     { id: 'segment-offset-order', pass: segmentOrdering, details: '所有 visibleSegments[] 按 stripOffsetStartMm 升序排列。' },
     { id: 'color-source-semantics', pass: colorSourceSemantics, details: 'motif 来源字段必填，base/outer-base 来源字段统一为 null。' },
     { id: 'crossing-matrix-count', pass: crossings.length === expected, details: `${crossings.length}/${expected} 个毛坯交点。` },
+    { id: 'weave-spec-version', pass: weaveVersionExact, details: '编法 ID 与规则版本一致，平编保持 D 候选身份。' },
+    { id: 'grid-parameters-valid', pass: gridParametersValid, details: '经纬数量、竹条宽度、中心间距和净孔可复算。' },
+    { id: 'grid-fits-raw-blank', pass: gridFitsRawBlank, details: '参数化网格完整位于毛坯边界内。' },
     { id: 'weave-matrix-exact', pass: matrixExact, details: `全部交点的 topStripId 与 ${snapshot.weaveId} 权威循环矩阵一致。` },
     { id: 'weaving-order-links', pass: Boolean(operationLinks), details: `${operations.length} 条操作均关联交点、工作条与挑压动作。` },
     { id: 'weaving-order-sequence', pass: operationSequence, details: '每根纬条的操作按经条顺序完整排列，可直接分组生成逐条编织步骤。' },

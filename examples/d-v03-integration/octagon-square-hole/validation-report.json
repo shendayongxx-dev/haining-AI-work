@@ -74,6 +74,21 @@
       "details": "169/169 个毛坯交点。"
     },
     {
+      "id": "weave-spec-version",
+      "pass": true,
+      "details": "编法 ID 与规则版本一致，平编保持 D 候选身份。"
+    },
+    {
+      "id": "grid-parameters-valid",
+      "pass": true,
+      "details": "经纬数量、竹条宽度、中心间距和净孔可复算。"
+    },
+    {
+      "id": "grid-fits-raw-blank",
+      "pass": true,
+      "details": "参数化网格完整位于毛坯边界内。"
+    },
+    {
       "id": "weave-matrix-exact",
       "pass": true,
       "details": "全部交点的 topStripId 与 SQUARE-HOLE-1X1-V1 权威循环矩阵一致。"

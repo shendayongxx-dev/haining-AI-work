@@ -9,7 +9,7 @@ const esc = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&
 function directionalShade(color: string, direction: StripV03['direction']) {
   const match = color.match(/^#([0-9a-f]{6})$/i);
   if (!match) return color;
-  const amount = direction === 'warp' ? 12 : -8;
+  const amount = direction === 'warp' ? 24 : -18;
   const value = Number.parseInt(match[1], 16);
   const channels = [value >> 16, (value >> 8) & 255, value & 255]
     .map(channel => Math.max(0, Math.min(255, channel + amount)).toString(16).padStart(2, '0'));
@@ -38,7 +38,7 @@ function line(strip: StripV03, start: PointMm, end: PointMm, color: string, extr
 }
 
 function topPatch(strip: StripV03, start: PointMm, end: PointMm, color: string) {
-  return `${line({ ...strip, widthMm: strip.widthMm + .65 }, start, end, '#4b351d', 'opacity="0.22"')}
+  return `${line({ ...strip, widthMm: strip.widthMm + 1.1 }, start, end, '#3c2816', 'opacity="0.4"')}
 ${line(strip, start, end, color, 'filter="url(#lift)"')}`;
 }
 
@@ -53,12 +53,13 @@ export function renderStructureSvg(snapshot: StructureSnapshotV03) {
     const endCoordinate = rawStart + color.stripOffsetEndMm;
     const start = strip.direction === 'warp' ? { x: strip.axisMm, y: startCoordinate } : { x: startCoordinate, y: strip.axisMm };
     const end = strip.direction === 'warp' ? { x: strip.axisMm, y: endCoordinate } : { x: endCoordinate, y: strip.axisMm };
-    return line(strip, start, end, directionalShade(color.color, strip.direction));
+    return `${line({ ...strip, widthMm: strip.widthMm + .5 }, start, end, '#4b351d', 'opacity="0.18"')}
+${line(strip, start, end, directionalShade(color.color, strip.direction))}`;
   }))).join('\n');
   const patches = snapshot.stages.rawBlank.crossings.filter(crossing => crossing.trimmedProduct.visible).map(crossing => {
     const strip = stripMap.get(crossing.topStripId);
     if (!strip) return '';
-    const half = strip.widthMm * .64;
+    const half = strip.widthMm * .76;
     const start = strip.direction === 'warp'
       ? { x: crossing.positionMm.x, y: crossing.positionMm.y - half }
       : { x: crossing.positionMm.x - half, y: crossing.positionMm.y };
@@ -69,7 +70,7 @@ export function renderStructureSvg(snapshot: StructureSnapshotV03) {
   }).join('\n');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 297" width="840" height="1188">
   <defs>
-    <filter id="lift" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0.5" dy="0.7" stdDeviation="0.55" flood-color="#3f2c16" flood-opacity="0.55"/></filter>
+    <filter id="lift" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0.65" dy="0.9" stdDeviation="0.7" flood-color="#2f1f11" flood-opacity="0.72"/></filter>
     <clipPath id="product-boundary">${shape(boundary, '')}</clipPath>
   </defs>
   <rect width="210" height="297" fill="#f7f3e9"/>

@@ -1,17 +1,17 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "D_STRUCTURE_SNAPSHOT_V0_3.schema.json",
-  "title": "D Structure Snapshot v0.3.4",
+  "title": "D Structure Snapshot v0.3.5",
   "type": "object",
   "additionalProperties": true,
   "required": [
     "schemaVersion", "structureGeneratorVersion", "designId", "designRevision", "generatedFromRevision", "confirmedGenerationId",
     "carrierId", "carrierSpecVersion", "weaveId", "weaveSpecVersion", "craftRuleVersion", "sourceKey", "creativeSource", "sourcePattern",
-    "structuralValidation", "craftValidation", "physicalValidation", "strips", "stages"
+    "structuralValidation", "craftValidation", "physicalValidation", "grid", "strips", "stages"
   ],
   "properties": {
     "schemaVersion": { "const": "0.3" },
-    "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.4" },
+    "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.5" },
     "designId": { "type": "string", "minLength": 1 },
     "designRevision": { "type": "integer", "minimum": 0 },
     "generatedFromRevision": { "type": "integer", "minimum": 0 },
@@ -30,7 +30,7 @@
       ],
       "properties": {
         "schemaVersion": { "const": "0.3" },
-        "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.4" },
+        "structureGeneratorVersion": { "const": "D-STRUCTURE-v0.3.5" },
         "designId": { "type": "string" },
         "designRevision": { "type": "integer" },
         "generatedFromRevision": { "type": "integer" },
@@ -47,7 +47,7 @@
       "required": ["status", "validatorVersion"],
       "properties": {
         "status": { "const": "passed" },
-        "validatorVersion": { "const": "D-STRUCTURE-VALIDATOR-v0.3.4" }
+        "validatorVersion": { "const": "D-STRUCTURE-VALIDATOR-v0.3.5" }
       }
     },
     "craftValidation": {
@@ -61,6 +61,18 @@
       "additionalProperties": false,
       "required": ["status", "owner"],
       "properties": { "status": { "const": "not-completed" }, "owner": { "const": "B" } }
+    },
+    "grid": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["warpCount", "weftCount", "pitchMm", "stripWidthMm", "clearHoleMm"],
+      "properties": {
+        "warpCount": { "type": "integer", "minimum": 3 },
+        "weftCount": { "type": "integer", "minimum": 3 },
+        "pitchMm": { "type": "number", "exclusiveMinimum": 0 },
+        "stripWidthMm": { "type": "number", "exclusiveMinimum": 0 },
+        "clearHoleMm": { "type": "number", "minimum": 0 }
+      }
     },
     "creativeSource": {
       "type": "object",
