@@ -1,9 +1,10 @@
 import type { CarrierShape, GenerationIssue, Point } from '../../model';
+import type { WeaveId } from './v03/types';
 
 export type CustomStructureParameters = { density: number; stripWidthMm: number; warpColor: string; weftColor: string; shapeScale: number };
 export type CustomStructureInput = {
   schemaVersion: '0.2'; designId: string; designRevision: number; confirmedGenerationId: string;
-  shape: CarrierShape; generationIssues: GenerationIssue[]; weaveId: 'CROSS-1X1-V1'; parameters: CustomStructureParameters;
+  shape: CarrierShape; generationIssues: GenerationIssue[]; weaveId: WeaveId; parameters: CustomStructureParameters;
 };
 export type CustomStrip = {
   id: string; direction: 'warp' | 'weft'; axisIndex: number; segmentIndex: number; axisMm: number;
@@ -15,7 +16,7 @@ export type CustomCrossing = {
 export type CustomStructureSnapshot = {
   schemaVersion: '0.2'; designId: string; designRevision: number; generatedFromRevision: number;
   confirmedGenerationId: string; shapeId: string; coordinateSpace: CarrierShape['coordinateSpace']; boundary: Point[];
-  weave: { id: 'CROSS-1X1-V1'; rule: 'over-under-1-1' }; parameters: CustomStructureParameters;
+  weave: { id: WeaveId; rule: string }; parameters: CustomStructureParameters;
   strips: { list: CustomStrip[] }; interlace: { crossings: CustomCrossing[] };
   craft: { status: 'pending'; pendingReason: string };
 };

@@ -38,7 +38,8 @@ function line(strip: StripV03, start: PointMm, end: PointMm, color: string, extr
 }
 
 function topPatch(strip: StripV03, start: PointMm, end: PointMm, color: string) {
-  return `${line({ ...strip, widthMm: strip.widthMm + 1.1 }, start, end, '#3c2816', 'opacity="0.4"')}
+  return `${line({ ...strip, widthMm: strip.widthMm + .7 }, start, end, '#ead7ad')}
+${line({ ...strip, widthMm: strip.widthMm + .3 }, start, end, '#3c2816', 'opacity="0.35"')}
 ${line(strip, start, end, color, 'filter="url(#lift)"')}`;
 }
 
@@ -59,7 +60,8 @@ ${line(strip, start, end, directionalShade(color.color, strip.direction))}`;
   const patches = snapshot.stages.rawBlank.crossings.filter(crossing => crossing.trimmedProduct.visible).map(crossing => {
     const strip = stripMap.get(crossing.topStripId);
     if (!strip) return '';
-    const half = strip.widthMm * .76;
+    const lower = stripMap.get(crossing.topStripId === crossing.warpStripId ? crossing.weftStripId : crossing.warpStripId);
+    const half = Math.min(strip.pitchMm / 2, (lower?.widthMm ?? strip.widthMm) / 2 + .25);
     const start = strip.direction === 'warp'
       ? { x: crossing.positionMm.x, y: crossing.positionMm.y - half }
       : { x: crossing.positionMm.x - half, y: crossing.positionMm.y };

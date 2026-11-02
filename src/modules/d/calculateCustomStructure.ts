@@ -1,5 +1,6 @@
 import type { Candidate, CarrierShape, Point } from '../../model';
 import type { CustomCrossing, CustomStrip, CustomStructureInput, CustomStructureResult } from './customTypes';
+import { resolveWeaveSpec } from './v03/weaveRegistry';
 
 const EPSILON = 1e-7;
 const roundMm = (value: number) => Math.round(value * 10000) / 10000;
@@ -12,10 +13,10 @@ function polygonArea(points: Point[]){return Math.abs(points.reduce((sum,p,i)=>{
 function lineIntervals(points: Point[],axis: number,vertical: boolean){const values:number[]=[];for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length],aa=vertical?a.x:a.y,bb=vertical?b.x:b.y;if((aa<=axis&&bb>axis)||(bb<=axis&&aa>axis)){const t=(axis-aa)/(bb-aa);values.push((vertical?a.y:a.x)+t*((vertical?b.y:b.x)-(vertical?a.y:a.x)));}}values.sort((a,b)=>a-b);const result:[number,number][]=[];for(let i=0;i+1<values.length;i+=2)if(values[i+1]-values[i]>EPSILON)result.push([values[i],values[i+1]]);return result;}
 const insideSegment=(value:number,start:number,end:number)=>value>=Math.min(start,end)-EPSILON&&value<=Math.max(start,end)+EPSILON;
 
-export function adaptConfirmedCustomCandidate(candidate: Candidate,options: Omit<CustomStructureInput,'schemaVersion'|'confirmedGenerationId'|'shape'|'generationIssues'|'weaveId'>):CustomStructureInput{
+export function adaptConfirmedCustomCandidate(candidate: Candidate,options: Omit<CustomStructureInput,'schemaVersion'|'confirmedGenerationId'|'shape'|'generationIssues'>):CustomStructureInput{
   if(candidate.status!=='succeeded'||candidate.resultType!=='carrier_shape')throw new Error('CUSTOM_SHAPE_NOT_CONFIRMED');
   if(candidate.issues.some(issue=>issue.severity==='blocking'))throw new Error('CUSTOM_SHAPE_HAS_BLOCKING_ISSUE');
-  return{schemaVersion:'0.2',confirmedGenerationId:candidate.generationId,shape:candidate.result as CarrierShape,generationIssues:candidate.issues,weaveId:'CROSS-1X1-V1',...options};
+  return{schemaVersion:'0.2',confirmedGenerationId:candidate.generationId,shape:candidate.result as CarrierShape,generationIssues:candidate.issues,...options};
 }
 
 export function calculateCustomStructure(input:CustomStructureInput):CustomStructureResult{
@@ -38,6 +39,11 @@ export function calculateCustomStructure(input:CustomStructureInput):CustomStruc
   for(let i=0;i<density;i++){const x=roundMm(scaledMinX+(scaledMaxX-scaledMinX)*(i+.5)/density);lineIntervals(boundary,x,true).forEach(([start,end],segmentIndex)=>strips.push({id:`V${String(i+1).padStart(3,'0')}-S${String(segmentIndex+1).padStart(2,'0')}`,direction:'warp',axisIndex:i,segmentIndex,axisMm:x,widthMm:parameters.stripWidthMm,color:parameters.warpColor,startMm:{x,y:roundMm(start)},endMm:{x,y:roundMm(end)},geometryLengthMm:roundMm(end-start)}));}
   for(let i=0;i<density;i++){const y=roundMm(scaledMinY+(scaledMaxY-scaledMinY)*(i+.5)/density);lineIntervals(boundary,y,false).forEach(([start,end],segmentIndex)=>strips.push({id:`H${String(i+1).padStart(3,'0')}-S${String(segmentIndex+1).padStart(2,'0')}`,direction:'weft',axisIndex:i,segmentIndex,axisMm:y,widthMm:parameters.stripWidthMm,color:parameters.weftColor,startMm:{x:roundMm(start),y},endMm:{x:roundMm(end),y},geometryLengthMm:roundMm(end-start)}));}
   const warps=strips.filter(s=>s.direction==='warp'),wefts=strips.filter(s=>s.direction==='weft'),crossings:CustomCrossing[]=[];
-  for(const warp of warps)for(const weft of wefts)if(insideSegment(weft.axisMm,warp.startMm.y,warp.endMm.y)&&insideSegment(warp.axisMm,weft.startMm.x,weft.endMm.x))crossings.push({id:`X-${warp.id}-${weft.id}`,warpStripId:warp.id,weftStripId:weft.id,positionMm:{x:warp.axisMm,y:weft.axisMm},top:(warp.axisIndex+weft.axisIndex)%2===0?'weft':'warp'});
-  return{status:'ok',snapshot:{schemaVersion:'0.2',designId:input.designId,designRevision:input.designRevision,generatedFromRevision:input.designRevision,confirmedGenerationId:input.confirmedGenerationId,shapeId:shape.shapeId,coordinateSpace:space,boundary,weave:{id:input.weaveId,rule:'over-under-1-1'},parameters,strips:{list:strips},interlace:{crossings},craft:{status:'pending',pendingReason:'自定义形状的最小窄颈、残段和边缘收边规则待 B 组验证。'}}};
+  const weaveSpec=resolveWeaveSpec(input.weaveId);
+  for(const warp of warps)for(const weft of wefts)if(insideSegment(weft.axisMm,warp.startMm.y,warp.endMm.y)&&insideSegment(warp.axisMm,weft.startMm.x,weft.endMm.x)){
+    const matrix=weaveSpec.topLayerMatrix;
+    const top=matrix[weft.axisIndex%matrix.length][warp.axisIndex%matrix[0].length]==='W'?'weft':'warp';
+    crossings.push({id:`X-${warp.id}-${weft.id}`,warpStripId:warp.id,weftStripId:weft.id,positionMm:{x:warp.axisMm,y:weft.axisMm},top});
+  }
+  return{status:'ok',snapshot:{schemaVersion:'0.2',designId:input.designId,designRevision:input.designRevision,generatedFromRevision:input.designRevision,confirmedGenerationId:input.confirmedGenerationId,shapeId:shape.shapeId,coordinateSpace:space,boundary,weave:{id:input.weaveId,rule:weaveSpec.craftRuleVersion},parameters,strips:{list:strips},interlace:{crossings},craft:{status:'pending',pendingReason:'自定义形状的最小窄颈、残段和边缘收边规则待 B 组验证。'}}};
 }
