@@ -45,7 +45,7 @@ ${line(strip, start, end, color, 'filter="url(#lift)"')}`;
 export function renderStructureSvg(snapshot: StructureSnapshotV03) {
   const boundary = snapshot.carrierGeometry.boundary as Shape;
   const effective = snapshot.carrierGeometry.effectivePatternBoundary as Shape;
-  const strips = snapshot.stages.rawBlank.strips;
+  const strips = snapshot.strips;
   const stripMap = new Map(strips.map(strip => [strip.stripId, strip]));
   const base = strips.flatMap(strip => strip.visibleSegments.flatMap(segment => segment.colorSegments.map(color => {
     const rawStart = strip.direction === 'warp' ? strip.rawBlankSegment.startMm.y : strip.rawBlankSegment.startMm.x;

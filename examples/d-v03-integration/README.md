@@ -1,4 +1,6 @@
-# D v0.3 三组共同案例
+# D v0.3.4 三组共同案例
+
+[公共合同制品与验证命令](./ARTIFACT_MANIFEST.md)
 
 | 案例 | 完整 JSON | SVG 预览 | PNG 截图 | 交点矩阵 | 检查报告 |
 |---|---|---|---|---|---|
@@ -6,9 +8,9 @@
 | FAN-OVAL-150X180-V1 + HERRING-3X3-V1 | [JSON](./oval-herring/structure-snapshot.json) | [SVG](./oval-herring/preview.svg) | [PNG](./oval-herring/preview.png) | [CSV](./oval-herring/crossing-matrix.csv) | [报告](./oval-herring/validation-report.md) |
 | FAN-OCTAGON-170-V1 + SQUARE-HOLE-1X1-V1 | [JSON](./octagon-square-hole/structure-snapshot.json) | [SVG](./octagon-square-hole/preview.svg) | [PNG](./octagon-square-hole/preview.png) | [CSV](./octagon-square-hole/crossing-matrix.csv) | [报告](./octagon-square-hole/validation-report.md) |
 
-三组案例统一使用 C 的绿色三角形 `surface_pattern` 作为联调图样。完整结构由 D v0.3 同一次计算生成 JSON 与 SVG；E 应读取 JSON，不从 SVG 取数。
+三组案例统一使用 C 的绿色三角形 `surface_pattern` 作为联调图样。完整结构由 D v0.3.4 同一次计算生成 JSON 与 SVG；E 应读取 JSON，不从 SVG 取数。顶层 `strips[]` 是唯一完整竹条对象树，阶段对象只保存 ID 索引。`creativeSource` 与不可变 `sourcePattern` 保存 C 的完整来源链。
 
-未确定的 `stockLengthMm`、`setupAllowanceMm`、`trimWasteLengthMm` 均为 `null`。所有工艺与实物状态保持 `pending` / `not-completed`。
+未确定的 `stockLengthMm`、`setupAllowanceMm`、`trimWasteLengthMm` 均为 `null`。D 结构验证为 `passed`；E 工艺与 B 实物状态保持 `pending` / `not-completed`。
 
 ## 复现与验证
 
@@ -19,3 +21,5 @@
 验证结构合同：
 
 `node scripts/verify-d-v03-cases.mjs`
+
+来源合同篡改失败测试见 `ARTIFACT_MANIFEST.md`。

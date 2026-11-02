@@ -1,12 +1,72 @@
 {
   "caseId": "FAN-ROUND-170-V1__CROSS-COURSE-2X2-V1",
-  "checkedAt": "2026-11-01",
+  "checkedAt": "2026-11-02",
   "pass": true,
   "checks": [
     {
       "id": "source-key-complete",
       "pass": true,
       "details": "完整来源键与快照顶层字段一致。"
+    },
+    {
+      "id": "revision-current",
+      "pass": true,
+      "details": "designRevision 与 generatedFromRevision 一致。"
+    },
+    {
+      "id": "creative-source-complete",
+      "pass": true,
+      "details": "C 确认生成、生成版本、适配器版本、输入版本和 patternId 可独立追溯。"
+    },
+    {
+      "id": "upstream-generation-domain",
+      "pass": true,
+      "details": "C generationIssues 独立保存，且 issue.generatorVersion 与 creativeSource.generatorVersion 一致。"
+    },
+    {
+      "id": "source-coordinate-space",
+      "pass": true,
+      "details": "C 图样坐标为 210×297 mm、topLeft、X向右、Y向下。"
+    },
+    {
+      "id": "source-palette-ids-unique",
+      "pass": true,
+      "details": "sourcePattern.paletteId 在图样内唯一。"
+    },
+    {
+      "id": "source-element-ids-unique",
+      "pass": true,
+      "details": "sourcePattern.elementId 在图样内唯一。"
+    },
+    {
+      "id": "source-pattern-shape",
+      "pass": true,
+      "details": "元素类型、点列、色板引用、层级和变换结构有效。"
+    },
+    {
+      "id": "canonical-strips-unique",
+      "pass": true,
+      "details": "顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。"
+    },
+    {
+      "id": "raw-stage-strip-index",
+      "pass": true,
+      "details": "rawBlank.stripIds 与顶层 strips[] 顺序及数量完全一致。"
+    },
+    {
+      "id": "trimmed-stage-strip-index",
+      "pass": true,
+      "details": "trimmedProduct.visibleStripIds 仅索引具有可见段的顶层竹条。"
+    },
+    {
+      "id": "segment-offset-order",
+      "pass": true,
+      "details": "所有 visibleSegments[] 按 stripOffsetStartMm 升序排列。"
+    },
+    {
+      "id": "color-source-semantics",
+      "pass": true,
+      "details": "motif 来源字段必填，base/outer-base 来源字段统一为 null。"
     },
     {
       "id": "crossing-matrix-count",
