@@ -71,6 +71,7 @@ try {
   assert.equal(adjustedRound.grid.warpCount, 15);
   assert.equal(adjustedRound.patternPlacement.scale, 1.3);
   const roundTopPatterns = new Set();
+  const roundVisuals = new Set();
   for (const weaveId of ['CROSS-1X1-V1', 'CROSS-COURSE-2X2-V1', 'HERRING-3X3-V1', 'SQUARE-HOLE-1X1-V1']) {
     const recolored = { ...pattern, palette: pattern.palette.map(entry => ({ ...entry, color: '#0e6652' })) };
     const snapshot = calculateStructureV03({ designId: 'color-and-weave-check', designRevision: 4,
@@ -78,10 +79,25 @@ try {
       carrierId: 'FAN-ROUND-170-V1', weaveId, pattern: recolored, baseColor: '#d6aa77' });
     assert.equal(validateStructureV03(snapshot).pass, true);
     assert.ok(snapshot.strips.some(strip => strip.visibleSegments.some(segment => segment.colorSegments.some(color => color.scope === 'motif' && color.color === '#0e6652'))));
-    assert.match(renderStructureSvg(snapshot), /filter="url\(#lift\)"/);
+    const structureSvg = renderStructureSvg(snapshot);
+    assert.match(structureSvg, /filter="url\(#lift\)"/);
+    assert.match(structureSvg, /data-top-runs="\d+"/);
+    assert.doesNotMatch(structureSvg, /#ead7ad/i);
+    roundVisuals.add(structureSvg.replace(/ data-(?:weave-id|top-runs)="[^"]+"/g, ''));
     roundTopPatterns.add(`${snapshot.grid.pitchMm}:`+snapshot.stages.rawBlank.crossings.slice(0, 36).map(crossing => crossing.topStripId === crossing.weftStripId ? 'W' : 'V').join(''));
   }
   assert.equal(roundTopPatterns.size, 4);
+  assert.equal(roundVisuals.size, 4);
+  const squareHoleAdjustedWidth = 7;
+  const squareHoleAdjustedCount = 17;
+  const squareHoleAdjustedPitch = (189-squareHoleAdjustedWidth)/(squareHoleAdjustedCount-1);
+  const adjustedSquareHole = calculateStructureV03({ designId: 'square-hole-adjusted', designRevision: 5,
+    creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
+    carrierId: 'FAN-ROUND-170-V1', weaveId: 'SQUARE-HOLE-1X1-V1', pattern, baseColor: '#d6aa77',
+    gridParameters: { warpCount: squareHoleAdjustedCount, weftCount: squareHoleAdjustedCount,
+      stripWidthMm: squareHoleAdjustedWidth, pitchMm: squareHoleAdjustedPitch } });
+  assert.equal(validateStructureV03(adjustedSquareHole).pass, true);
+  assert.ok(adjustedSquareHole.grid.clearHoleMm >= 2);
   const twoColorPattern = {
     ...pattern,
     palette: [{ paletteId: 'green-01', color: '#0E6652' }, { paletteId: 'accent-02', color: '#B65B43' }],
