@@ -1,0 +1,132 @@
+{
+  "caseId": "FAN-OCTAGON-170-V1__SQUARE-HOLE-1X1-V1",
+  "checkedAt": "2026-11-02",
+  "pass": true,
+  "checks": [
+    {
+      "id": "source-key-complete",
+      "pass": true,
+      "details": "完整来源键与快照顶层字段一致。"
+    },
+    {
+      "id": "revision-current",
+      "pass": true,
+      "details": "designRevision 与 generatedFromRevision 一致。"
+    },
+    {
+      "id": "creative-source-complete",
+      "pass": true,
+      "details": "C 确认生成、生成版本、适配器版本、输入版本和 patternId 可独立追溯。"
+    },
+    {
+      "id": "upstream-generation-domain",
+      "pass": true,
+      "details": "C generationIssues 独立保存，且 issue.generatorVersion 与 creativeSource.generatorVersion 一致。"
+    },
+    {
+      "id": "source-coordinate-space",
+      "pass": true,
+      "details": "C 图样坐标为 210×297 mm、topLeft、X向右、Y向下。"
+    },
+    {
+      "id": "source-palette-ids-unique",
+      "pass": true,
+      "details": "sourcePattern.paletteId 在图样内唯一。"
+    },
+    {
+      "id": "source-element-ids-unique",
+      "pass": true,
+      "details": "sourcePattern.elementId 在图样内唯一。"
+    },
+    {
+      "id": "source-pattern-shape",
+      "pass": true,
+      "details": "元素类型、点列、色板引用、层级和变换结构有效。"
+    },
+    {
+      "id": "canonical-strips-unique",
+      "pass": true,
+      "details": "顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。"
+    },
+    {
+      "id": "raw-stage-strip-index",
+      "pass": true,
+      "details": "rawBlank.stripIds 与顶层 strips[] 顺序及数量完全一致。"
+    },
+    {
+      "id": "trimmed-stage-strip-index",
+      "pass": true,
+      "details": "trimmedProduct.visibleStripIds 仅索引具有可见段的顶层竹条。"
+    },
+    {
+      "id": "segment-offset-order",
+      "pass": true,
+      "details": "所有 visibleSegments[] 按 stripOffsetStartMm 升序排列。"
+    },
+    {
+      "id": "color-source-semantics",
+      "pass": true,
+      "details": "motif 来源字段必填，base/outer-base 来源字段统一为 null。"
+    },
+    {
+      "id": "crossing-matrix-count",
+      "pass": true,
+      "details": "169/169 个毛坯交点。"
+    },
+    {
+      "id": "weave-matrix-exact",
+      "pass": true,
+      "details": "全部交点的 topStripId 与 SQUARE-HOLE-1X1-V1 权威循环矩阵一致。"
+    },
+    {
+      "id": "weaving-order-links",
+      "pass": true,
+      "details": "169 条操作均关联交点、工作条与挑压动作。"
+    },
+    {
+      "id": "weaving-order-sequence",
+      "pass": true,
+      "details": "每根纬条的操作按经条顺序完整排列，可直接分组生成逐条编织步骤。"
+    },
+    {
+      "id": "visible-segment-backlinks",
+      "pass": true,
+      "details": "109 个裁切后可见交点具有双向 segmentId/crossingId 引用。"
+    },
+    {
+      "id": "invisible-segment-refs-cleared",
+      "pass": true,
+      "details": "全部 visible=false 交点的成品 segmentId 均为 null。"
+    },
+    {
+      "id": "weaving-order-trimmed-refs",
+      "pass": true,
+      "details": "weavingOrder 的可见状态与两个成品段引用一致。"
+    },
+    {
+      "id": "visible-crossing-ids-exact",
+      "pass": true,
+      "details": "visibleCrossingIds 与 crossings.visible=true 集合完全一致。"
+    },
+    {
+      "id": "color-segment-coverage",
+      "pass": true,
+      "details": "颜色段连续覆盖全部可见段，坐标为原竹条毛坯起点偏移。"
+    },
+    {
+      "id": "boundary-clipping-endpoints",
+      "pass": true,
+      "details": "全部可见段端点位于载体边界，未发现整页直条残留。"
+    },
+    {
+      "id": "unknown-materials-null",
+      "pass": true,
+      "details": "未确认备料长度、余量及裁切余量全部为 null。"
+    },
+    {
+      "id": "risk-status-pending",
+      "pass": true,
+      "details": "2 项风险均保持 review/pending。"
+    }
+  ]
+}
