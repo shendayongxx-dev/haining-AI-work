@@ -9,7 +9,7 @@ const esc = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&
 function directionalShade(color: string, direction: StripV03['direction']) {
   const match = color.match(/^#([0-9a-f]{6})$/i);
   if (!match) return color;
-  const amount = direction === 'warp' ? 24 : -18;
+  const amount = direction === 'warp' ? 7 : -7;
   const value = Number.parseInt(match[1], 16);
   const channels = [value >> 16, (value >> 8) & 255, value & 255]
     .map(channel => Math.max(0, Math.min(255, channel + amount)).toString(16).padStart(2, '0'));
@@ -21,7 +21,7 @@ const shape = (value: Shape, attributes: string) => value.type === 'circle'
     ? `<ellipse cx="${value.cx}" cy="${value.cy}" rx="${value.rx}" ry="${value.ry}" ${attributes}/>`
     : `<polygon points="${value.pointsMm.map(point => point.join(',')).join(' ')}" ${attributes}/>`;
 
-function colorAt(strip: StripV03, point: PointMm) {
+function colorAt(strip: StripV03, point: PointMm, baseColor: string) {
   const start = strip.direction === 'warp' ? strip.rawBlankSegment.startMm.y : strip.rawBlankSegment.startMm.x;
   const coordinate = strip.direction === 'warp' ? point.y : point.x;
   const offset = coordinate - start;
@@ -30,7 +30,7 @@ function colorAt(strip: StripV03, point: PointMm) {
       && (offset < entry.stripOffsetEndMm - .01 || (index === all.length - 1 && offset <= entry.stripOffsetEndMm + .01)));
     if (color) return directionalShade(color.color, strip.direction);
   }
-  return '#D9BC83';
+  return directionalShade(baseColor, strip.direction);
 }
 
 function line(strip: StripV03, start: PointMm, end: PointMm, color: string, extra = '') {
@@ -38,22 +38,25 @@ function line(strip: StripV03, start: PointMm, end: PointMm, color: string, extr
 }
 
 function topPatch(strip: StripV03, start: PointMm, end: PointMm, color: string) {
-  return `${line({ ...strip, widthMm: strip.widthMm + .35 }, start, end, '#3c2816', 'opacity="0.22"')}
-${line(strip, start, end, color, 'filter="url(#lift)"')}`;
+  const highlightStart = strip.direction === 'warp' ? { x: start.x - .45, y: start.y } : { x: start.x, y: start.y - .45 };
+  const highlightEnd = strip.direction === 'warp' ? { x: end.x - .45, y: end.y } : { x: end.x, y: end.y - .45 };
+  return `${line({ ...strip, widthMm: strip.widthMm + 1.2 }, start, end, '#cfb98f')}
+${line({ ...strip, widthMm: strip.widthMm + .65 }, start, end, '#2f2117', 'opacity="0.38" filter="url(#lift)"')}
+${line(strip, start, end, color)}
+${line({ ...strip, widthMm: Math.max(.45, strip.widthMm * .08) }, highlightStart, highlightEnd, '#fff8e8', 'opacity="0.24"')}`;
 }
 
 type TopRun = { strip: StripV03; start: number; end: number; color: string };
 
-function topRuns(snapshot: StructureSnapshotV03, stripMap: Map<string, StripV03>) {
+function topRuns(snapshot: StructureSnapshotV03, stripMap: Map<string, StripV03>, baseColor: string) {
   const intervals = new Map<string, TopRun[]>();
   for (const crossing of snapshot.stages.rawBlank.crossings) {
-    if (!crossing.trimmedProduct.visible) continue;
     const strip = stripMap.get(crossing.topStripId);
     if (!strip) continue;
     const lower = stripMap.get(crossing.topStripId === crossing.warpStripId ? crossing.weftStripId : crossing.warpStripId);
     const half = Math.min(strip.pitchMm / 2, (lower?.widthMm ?? strip.widthMm) / 2 + .25);
     const coordinate = strip.direction === 'warp' ? crossing.positionMm.y : crossing.positionMm.x;
-    const run = { strip, start: coordinate - half, end: coordinate + half, color: colorAt(strip, crossing.positionMm) };
+    const run = { strip, start: coordinate - half, end: coordinate + half, color: colorAt(strip, crossing.positionMm, baseColor) };
     intervals.set(strip.stripId, [...(intervals.get(strip.stripId) ?? []), run]);
   }
   return [...intervals.values()].flatMap(values => {
@@ -70,19 +73,23 @@ function topRuns(snapshot: StructureSnapshotV03, stripMap: Map<string, StripV03>
 
 export function renderStructureSvg(snapshot: StructureSnapshotV03) {
   const boundary = snapshot.carrierGeometry.boundary as Shape;
-  const effective = snapshot.carrierGeometry.effectivePatternBoundary as Shape;
   const strips = snapshot.strips;
   const stripMap = new Map(strips.map(strip => [strip.stripId, strip]));
-  const base = strips.flatMap(strip => strip.visibleSegments.flatMap(segment => segment.colorSegments.map(color => {
+  const baseColor = strips.flatMap(strip => strip.visibleSegments.flatMap(segment => segment.colorSegments))
+    .find(color => color.scope !== 'motif')?.color ?? '#C4A879';
+  // A strip has physical width: its centreline may stop at the boundary while the band still
+  // overlaps the product. Draw the raw band under its colour spans, then clip the entire SVG.
+  const rawBands = strips.map(strip => line(strip, strip.rawBlankSegment.startMm,
+    strip.rawBlankSegment.endMm, directionalShade(baseColor, strip.direction))).join('\n');
+  const colors = strips.flatMap(strip => strip.visibleSegments.flatMap(segment => segment.colorSegments.map(color => {
     const rawStart = strip.direction === 'warp' ? strip.rawBlankSegment.startMm.y : strip.rawBlankSegment.startMm.x;
     const startCoordinate = rawStart + color.stripOffsetStartMm;
     const endCoordinate = rawStart + color.stripOffsetEndMm;
     const start = strip.direction === 'warp' ? { x: strip.axisMm, y: startCoordinate } : { x: startCoordinate, y: strip.axisMm };
     const end = strip.direction === 'warp' ? { x: strip.axisMm, y: endCoordinate } : { x: endCoordinate, y: strip.axisMm };
-    return `${line({ ...strip, widthMm: strip.widthMm + .5 }, start, end, '#4b351d', 'opacity="0.18"')}
-${line(strip, start, end, directionalShade(color.color, strip.direction))}`;
+    return line(strip, start, end, directionalShade(color.color, strip.direction));
   }))).join('\n');
-  const runs = topRuns(snapshot, stripMap);
+  const runs = topRuns(snapshot, stripMap, baseColor);
   const patches = runs.map(run => {
     const start = run.strip.direction === 'warp' ? { x: run.strip.axisMm, y: run.start } : { x: run.start, y: run.strip.axisMm };
     const end = run.strip.direction === 'warp' ? { x: run.strip.axisMm, y: run.end } : { x: run.end, y: run.strip.axisMm };
@@ -93,9 +100,9 @@ ${line(strip, start, end, directionalShade(color.color, strip.direction))}`;
     <filter id="lift" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0.45" dy="0.6" stdDeviation="0.45" flood-color="#2f1f11" flood-opacity="0.48"/></filter>
     <clipPath id="product-boundary">${shape(boundary, '')}</clipPath>
   </defs>
-  <g clip-path="url(#product-boundary)">${base}</g>
+  <g clip-path="url(#product-boundary)">${rawBands}</g>
+  <g clip-path="url(#product-boundary)">${colors}</g>
   <g clip-path="url(#product-boundary)" data-weave-id="${esc(snapshot.weaveId)}" data-top-runs="${runs.length}">${patches}</g>
-  ${shape(effective, 'fill="none" stroke="#8f6b3f" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.8"')}
   ${shape(boundary, 'fill="none" stroke="#9b6637" stroke-width="2"')}
 </svg>`;
 }

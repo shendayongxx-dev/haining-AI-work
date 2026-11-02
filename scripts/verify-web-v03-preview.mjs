@@ -35,7 +35,10 @@ try {
     assert.match(structureSvg, /<clipPath id="product-boundary">/);
     assert.doesNotMatch(structureSvg, /<text\b|<rect\b/);
     assert.doesNotMatch(structureSvg, /fill="#ead7ad" stroke="none"/);
-    assert.equal((structureSvg.match(/clip-path="url\(#product-boundary\)"/g) ?? []).length, 2);
+    assert.doesNotMatch(structureSvg, /<(?:circle|ellipse|polygon)[^>]*fill="#cfb98f"/);
+    assert.equal((structureSvg.match(/clip-path="url\(#product-boundary\)"/g) ?? []).length, 3);
+    const rawBandGroup = structureSvg.match(/<g clip-path="url\(#product-boundary\)">([\s\S]*?)<\/g>/)?.[1] ?? '';
+    assert.equal((rawBandGroup.match(/<line /g) ?? []).length, snapshot.strips.length);
     console.log(`PASS ${fixture} candidate and structure SVG`);
   }
   const pattern = JSON.parse(readFileSync(new URL('../examples/d-v03-integration/round-cross-course/structure-snapshot.json', import.meta.url), 'utf8')).sourcePattern;
