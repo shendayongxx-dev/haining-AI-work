@@ -24,7 +24,7 @@ function pointOnBoundary(point: { x: number; y: number }, boundary: Shape) {
 }
 
 export function validateStructureV03(snapshot: StructureSnapshotV03): ValidationReportV03 {
-  const strips = snapshot.stages.rawBlank.strips;
+  const strips = snapshot.strips;
   const crossings = snapshot.stages.rawBlank.crossings;
   const operations = snapshot.stages.rawBlank.weavingOrder;
   const stripMap = new Map(strips.map(strip => [strip.stripId, strip]));
@@ -72,11 +72,65 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
   const nullableMaterials = strips.every(strip => strip.stockLengthMm === null && strip.setupAllowanceMm === null && strip.trimWasteLengthMm === null);
   const boundary = snapshot.carrierGeometry.boundary as Shape;
   const boundaryEndpoints = strips.every(strip => strip.visibleSegments.every(segment => pointOnBoundary(segment.startMm, boundary) && pointOnBoundary(segment.endMm, boundary)));
-  const sourceKey = snapshot.sourceKey.designId === snapshot.designId
-    && snapshot.sourceKey.generatedFromRevision === snapshot.generatedFromRevision
-    && snapshot.sourceKey.carrierId === snapshot.carrierId && snapshot.sourceKey.weaveId === snapshot.weaveId;
+  const sourceKeyFields = [
+    'schemaVersion', 'structureGeneratorVersion', 'designId', 'designRevision', 'generatedFromRevision',
+    'carrierId', 'carrierSpecVersion', 'weaveId', 'weaveSpecVersion', 'craftRuleVersion',
+  ] as const;
+  const sourceKey = sourceKeyFields.every(field => snapshot[field] === snapshot.sourceKey[field]);
+  const uniqueCanonicalStrips = new Set(strips.map(strip => strip.stripId)).size === strips.length;
+  const rawStripIds = snapshot.stages.rawBlank.stripIds;
+  const rawStageIndexExact = rawStripIds.length === strips.length
+    && rawStripIds.every((stripId, index) => stripId === strips[index].stripId);
+  const expectedVisibleStripIds = strips.filter(strip => strip.visibleSegments.length > 0).map(strip => strip.stripId);
+  const trimmedStageIndexExact = snapshot.stages.trimmedProduct.visibleStripIds.length === expectedVisibleStripIds.length
+    && snapshot.stages.trimmedProduct.visibleStripIds.every((stripId, index) => stripId === expectedVisibleStripIds[index]);
+  const segmentOrdering = strips.every(strip => strip.visibleSegments.every((segment, index, all) => index === 0
+    || segment.stripOffsetStartMm >= all[index - 1].stripOffsetStartMm));
+  const palette = new Map(snapshot.sourcePattern.palette.map(entry => [entry.paletteId, entry.color]));
+  const sourceElements = new Map(snapshot.sourcePattern.elements.map(entry => [entry.elementId, entry]));
+  const paletteIds = snapshot.sourcePattern.palette.map(entry => entry.paletteId);
+  const elementIds = snapshot.sourcePattern.elements.map(entry => entry.elementId);
+  const paletteIdsUnique = new Set(paletteIds).size === paletteIds.length;
+  const elementIdsUnique = new Set(elementIds).size === elementIds.length;
+  const space = snapshot.sourcePattern.coordinateSpace;
+  const coordinateSpaceExact = space.unit === 'mm' && space.width === 210 && space.height === 297
+    && space.origin === 'topLeft' && space.xAxis === 'right' && space.yAxis === 'down';
+  const transform = snapshot.sourcePattern.transform;
+  const sourcePatternShape = Number.isFinite(transform.scale) && transform.scale > 0
+    && Number.isFinite(transform.rotationDeg) && Number.isFinite(transform.offsetMm.x) && Number.isFinite(transform.offsetMm.y)
+    && snapshot.sourcePattern.elements.every(element => palette.has(element.paletteId)
+      && element.elementId.length > 0 && element.sourceInputId.length > 0 && Number.isFinite(element.zIndex)
+      && (element.kind === 'polygon' ? element.pointsMm.length >= 3 : element.pointsMm.length >= 2)
+      && element.pointsMm.every(point => Number.isFinite(point.x) && Number.isFinite(point.y)));
+  const colorSourceSemantics = strips.every(strip => strip.visibleSegments.every(segment => segment.colorSegments.every(color => color.scope === 'motif'
+    ? color.paletteId !== null && color.sourceElementId !== null && color.sourceInputId !== null
+      && palette.get(color.paletteId) === color.color
+      && sourceElements.get(color.sourceElementId)?.sourceInputId === color.sourceInputId
+      && sourceElements.get(color.sourceElementId)?.paletteId === color.paletteId
+    : color.paletteId === null && color.sourceElementId === null && color.sourceInputId === null)));
+  const revisionCurrent = snapshot.designRevision === snapshot.generatedFromRevision;
+  const creativeSource = snapshot.confirmedGenerationId === snapshot.creativeSource.confirmedGenerationId
+    && snapshot.creativeSource.resultType === 'surface_pattern'
+    && snapshot.creativeSource.resultId === snapshot.sourcePattern.patternId
+    && snapshot.creativeSource.generationRevision >= 1
+    && snapshot.creativeSource.generatorVersion.length > 0
+    && snapshot.creativeSource.inputVersionId.length > 0;
+  const upstreamIssueDomain = snapshot.creativeSource.generationIssues.every(issue => issue.generatorVersion === snapshot.creativeSource.generatorVersion
+    && ['info', 'warning', 'blocking'].includes(issue.severity));
   const checks: ValidationCheck[] = [
     { id: 'source-key-complete', pass: sourceKey, details: '完整来源键与快照顶层字段一致。' },
+    { id: 'revision-current', pass: revisionCurrent, details: 'designRevision 与 generatedFromRevision 一致。' },
+    { id: 'creative-source-complete', pass: creativeSource, details: 'C 确认生成、生成版本、适配器版本、输入版本和 patternId 可独立追溯。' },
+    { id: 'upstream-generation-domain', pass: upstreamIssueDomain, details: 'C generationIssues 独立保存，且 issue.generatorVersion 与 creativeSource.generatorVersion 一致。' },
+    { id: 'source-coordinate-space', pass: coordinateSpaceExact, details: 'C 图样坐标为 210×297 mm、topLeft、X向右、Y向下。' },
+    { id: 'source-palette-ids-unique', pass: paletteIdsUnique, details: 'sourcePattern.paletteId 在图样内唯一。' },
+    { id: 'source-element-ids-unique', pass: elementIdsUnique, details: 'sourcePattern.elementId 在图样内唯一。' },
+    { id: 'source-pattern-shape', pass: sourcePatternShape, details: '元素类型、点列、色板引用、层级和变换结构有效。' },
+    { id: 'canonical-strips-unique', pass: uniqueCanonicalStrips, details: '顶层 strips[] 是唯一完整竹条对象树，stripId 无重复。' },
+    { id: 'raw-stage-strip-index', pass: rawStageIndexExact, details: 'rawBlank.stripIds 与顶层 strips[] 顺序及数量完全一致。' },
+    { id: 'trimmed-stage-strip-index', pass: trimmedStageIndexExact, details: 'trimmedProduct.visibleStripIds 仅索引具有可见段的顶层竹条。' },
+    { id: 'segment-offset-order', pass: segmentOrdering, details: '所有 visibleSegments[] 按 stripOffsetStartMm 升序排列。' },
+    { id: 'color-source-semantics', pass: colorSourceSemantics, details: 'motif 来源字段必填，base/outer-base 来源字段统一为 null。' },
     { id: 'crossing-matrix-count', pass: crossings.length === expected, details: `${crossings.length}/${expected} 个毛坯交点。` },
     { id: 'weave-matrix-exact', pass: matrixExact, details: `全部交点的 topStripId 与 ${snapshot.weaveId} 权威循环矩阵一致。` },
     { id: 'weaving-order-links', pass: Boolean(operationLinks), details: `${operations.length} 条操作均关联交点、工作条与挑压动作。` },
@@ -90,5 +144,5 @@ export function validateStructureV03(snapshot: StructureSnapshotV03): Validation
     { id: 'unknown-materials-null', pass: nullableMaterials, details: '未确认备料长度、余量及裁切余量全部为 null。' },
     { id: 'risk-status-pending', pass: snapshot.engineeringWarnings.every(warning => warning.status === 'pending' && warning.severity === 'review'), details: `${snapshot.engineeringWarnings.length} 项风险均保持 review/pending。` },
   ];
-  return { caseId: `${snapshot.carrierId}__${snapshot.weaveId}`, checkedAt: '2026-11-01', pass: checks.every(check => check.pass), checks };
+  return { caseId: `${snapshot.carrierId}__${snapshot.weaveId}`, checkedAt: '2026-11-02', pass: checks.every(check => check.pass), checks };
 }

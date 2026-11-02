@@ -11,7 +11,14 @@ for (const name of cases) {
   const directChecks = [
     snapshot.stages.rawBlank.crossings.length === expected,
     snapshot.stages.rawBlank.weavingOrder.length === expected,
-    snapshot.stages.rawBlank.strips.every(strip => strip.stockLengthMm === null && strip.setupAllowanceMm === null && strip.trimWasteLengthMm === null),
+    snapshot.strips.every(strip => strip.stockLengthMm === null && strip.setupAllowanceMm === null && strip.trimWasteLengthMm === null),
+    snapshot.stages.rawBlank.strips === undefined && snapshot.stages.trimmedProduct.strips === undefined,
+    snapshot.stages.rawBlank.stripIds.length === snapshot.strips.length,
+    snapshot.stages.rawBlank.stripIds.every((stripId, index) => stripId === snapshot.strips[index].stripId),
+    snapshot.confirmedGenerationId === snapshot.creativeSource.confirmedGenerationId,
+    snapshot.creativeSource.resultType === 'surface_pattern',
+    snapshot.creativeSource.resultId === snapshot.sourcePattern.patternId,
+    Array.isArray(snapshot.creativeSource.generationIssues),
     snapshot.engineeringWarnings.every(warning => warning.status === 'pending'),
     matrix.length === snapshot.grid.weftCount + 1 && matrix.every(row => row.split(',').length === snapshot.grid.warpCount + 1),
     snapshot.stages.rawBlank.crossings.filter(crossing => !crossing.trimmedProduct.visible)
@@ -24,6 +31,6 @@ for (const name of cases) {
   ];
   const pass = report.pass && directChecks.every(Boolean);
   failed ||= !pass;
-  console.log(`${pass ? 'PASS' : 'FAIL'} ${name}: ${snapshot.stages.rawBlank.strips.length} strips, ${expected} crossings, ${snapshot.stages.trimmedProduct.visibleCrossingIds.length} visible`);
+  console.log(`${pass ? 'PASS' : 'FAIL'} ${name}: ${snapshot.strips.length} strips, ${expected} crossings, ${snapshot.stages.trimmedProduct.visibleCrossingIds.length} visible`);
 }
 if (failed) process.exitCode = 1;

@@ -4,18 +4,26 @@ import { calculateStructureV03 } from '../src/modules/d/v03/calculateStructureV0
 import { renderStructureSvg } from '../src/modules/d/v03/renderStructureSvg';
 import { validateStructureV03 } from '../src/modules/d/v03/validateStructureV03';
 import type { SurfacePattern } from '../src/modules/d/types';
+import type { GenerationIssue } from '../src/model';
 import type { CarrierId, WeaveId } from '../src/modules/d/v03/types';
 
 type ConfirmedDesign = {
   designId: string;
   designRevision: number;
   confirmedGenerationId: string;
-  generation: { result: SurfacePattern };
+  generation: {
+    generationId: string;
+    generationRevision: number;
+    inputVersionId: string;
+    generatorVersion: string;
+    issues: GenerationIssue[];
+    result: SurfacePattern & { resultType: 'surface_pattern' };
+  };
 };
 
 const root = process.cwd();
 const source = JSON.parse(readFileSync(join(root, 'examples/a-to-d/fan-green-triangle.confirmed-design.json'), 'utf8')) as ConfirmedDesign;
-const pattern = source.generation.result;
+const { resultType: _resultType, ...pattern } = source.generation.result;
 const outputRoot = join(root, 'examples/d-v03-integration');
 const cases: { slug: string; carrierId: CarrierId; weaveId: WeaveId }[] = [
   { slug: 'round-cross-course', carrierId: 'FAN-ROUND-170-V1', weaveId: 'CROSS-COURSE-2X2-V1' },
@@ -30,19 +38,30 @@ for (const entry of cases) {
   const snapshot = calculateStructureV03({
     designId: `${source.designId}-${entry.slug}`,
     designRevision: source.designRevision,
-    confirmedGenerationId: source.confirmedGenerationId,
+    creativeSource: {
+      confirmedGenerationId: source.confirmedGenerationId,
+      generationRevision: source.generation.generationRevision,
+      generatorVersion: source.generation.generatorVersion,
+      inputVersionId: source.generation.inputVersionId,
+      generationIssues: source.generation.issues,
+    },
     carrierId: entry.carrierId,
     weaveId: entry.weaveId,
     pattern,
     baseColor: '#D9BC83',
   });
   const validation = validateStructureV03(snapshot);
+  if (!validation.pass) {
+    const failures = validation.checks.filter(check => !check.pass).map(check => check.id).join(', ');
+    throw new Error(`${entry.slug} failed structural validation: ${failures}`);
+  }
   const report = `# ${entry.carrierId} + ${entry.weaveId} 验证报告
 
 - 自动检查：${validation.pass ? '通过' : '失败'}
-- 快照状态：\`${snapshot.validationStatus}\`
-- 实物验证：\`${snapshot.physicalValidation}\`
-- 毛坯竹条：${snapshot.stages.rawBlank.strips.length} 根
+- 结构验证：\`${snapshot.structuralValidation.status}\`
+- 工艺验证：\`${snapshot.craftValidation.status}\`
+- 实物验证：\`${snapshot.physicalValidation.status}\`
+- 毛坯竹条：${snapshot.strips.length} 根
 - 毛坯交点：${snapshot.stages.rawBlank.crossings.length} 个
 - 裁切后可见交点：${snapshot.stages.trimmedProduct.visibleCrossingIds.length} 个
 - 工程预警：${snapshot.engineeringWarnings.length} 项，均为 \`review/pending\`
@@ -91,15 +110,17 @@ SVG 仅作结构预览；JSON 是 E 组消费的权威数据源。
   writeFileSync(join(directory, 'validation-report.md'), report);
 }
 
-writeFileSync(join(outputRoot, 'README.md'), `# D v0.3 三组共同案例
+writeFileSync(join(outputRoot, 'README.md'), `# D v0.3.4 三组共同案例
+
+[公共合同制品与验证命令](./ARTIFACT_MANIFEST.md)
 
 | 案例 | 完整 JSON | SVG 预览 | PNG 截图 | 交点矩阵 | 检查报告 |
 |---|---|---|---|---|---|
 ${cases.map(entry => `| ${entry.carrierId} + ${entry.weaveId} | [JSON](./${entry.slug}/structure-snapshot.json) | [SVG](./${entry.slug}/preview.svg) | [PNG](./${entry.slug}/preview.png) | [CSV](./${entry.slug}/crossing-matrix.csv) | [报告](./${entry.slug}/validation-report.md) |`).join('\n')}
 
-三组案例统一使用 C 的绿色三角形 \`surface_pattern\` 作为联调图样。完整结构由 D v0.3 同一次计算生成 JSON 与 SVG；E 应读取 JSON，不从 SVG 取数。
+三组案例统一使用 C 的绿色三角形 \`surface_pattern\` 作为联调图样。完整结构由 D v0.3.4 同一次计算生成 JSON 与 SVG；E 应读取 JSON，不从 SVG 取数。顶层 \`strips[]\` 是唯一完整竹条对象树，阶段对象只保存 ID 索引。\`creativeSource\` 与不可变 \`sourcePattern\` 保存 C 的完整来源链。
 
-未确定的 \`stockLengthMm\`、\`setupAllowanceMm\`、\`trimWasteLengthMm\` 均为 \`null\`。所有工艺与实物状态保持 \`pending\` / \`not-completed\`。
+未确定的 \`stockLengthMm\`、\`setupAllowanceMm\`、\`trimWasteLengthMm\` 均为 \`null\`。D 结构验证为 \`passed\`；E 工艺与 B 实物状态保持 \`pending\` / \`not-completed\`。
 
 ## 复现与验证
 
@@ -110,4 +131,6 @@ ${cases.map(entry => `| ${entry.carrierId} + ${entry.weaveId} | [JSON](./${entry
 验证结构合同：
 
 \`node scripts/verify-d-v03-cases.mjs\`
+
+来源合同篡改失败测试见 \`ARTIFACT_MANIFEST.md\`。
 `);
