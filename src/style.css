@@ -63,3 +63,18 @@
 .image-text-input{display:grid;gap:14px;margin-top:18px}.image-text-input .muted{margin:0;line-height:1.7}.input-reference-preview{display:block;max-width:100%;max-height:320px;object-fit:contain;border:1px solid #d7cbb9;border-radius:12px;background:#f5f2e9}.image-prompt{display:grid;gap:10px;font-size:14px}.image-prompt textarea{width:100%;min-height:130px;padding:14px;border:1px solid #bcae9b;border-radius:10px;resize:vertical}.channels button:disabled{opacity:.55}
 @media(max-width:600px){.home-fan-picker>div{grid-template-columns:repeat(2,minmax(0,1fr))}.home-fan-picker button{min-height:50px}.drawing-pad{height:430px}.drawing-pad-custom{height:500px}}
 
+/* The edit workspace borrows the homepage's dark photographic shell; controls retain their existing styling. */
+.app.edit-page{background:radial-gradient(circle at 77% 7%,#4a3527 0,#27201b 28%,#1c1714 68%);color:#233e32}
+.app.edit-page .topbar{color:#f5eee2;background:linear-gradient(90deg,#140f0eeb,#160f0dbb 47%,#150f0d75),url('./assets/bamboo-round-fan-scene.png') center 38%/cover;border-bottom:1px solid #eee2d029}
+.app.edit-page .topbar>span{color:#d9c9b3}
+.app.edit-page .flow{max-width:none;margin:0;padding:22px clamp(22px,5vw,88px);justify-content:center;gap:clamp(14px,2.5vw,44px);background:#1b1613;border-bottom:1px solid #eee2d01c}
+.app.edit-page .flow-step{color:#c9bfb1}
+.app.edit-page .flow-step b{border-color:#a99b8b;color:#eee4d5}
+.app.edit-page .flow-step.done{color:#d8cec0}
+.app.edit-page .flow-step.done b{border-color:#b6a998}
+.app.edit-page .flow-step.on{color:#d6eddb}
+.app.edit-page .flow-step.on b{background:#0f6247;border-color:#9bc6a9;color:#fff}
+.app.edit-page .studio{gap:16px;padding:18px clamp(14px,1.7vw,30px) 30px}
+.app.edit-page .studio>aside,.app.edit-page .studio-main{background:rgba(255,254,250,.94);border:1px solid #ffffff91;box-shadow:0 10px 28px #08060524;backdrop-filter:blur(8px) saturate(105%);-webkit-backdrop-filter:blur(8px) saturate(105%)}
+@media(max-width:720px){.app.edit-page .flow{justify-content:flex-start;padding:16px 18px}.app.edit-page .studio{gap:12px;padding:12px}}
+

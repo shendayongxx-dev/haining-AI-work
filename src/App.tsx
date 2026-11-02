@@ -164,7 +164,7 @@ export default function App() {
   }
   function confirm(){if(!candidate||!canConfirmCandidate(candidate))return;if(carrier==='fan'&&!sameFixedFanRef(candidate.carrierRef,fixedFanRef(fanVariantId)))return setNotice('载体已切换，请重新生成候选。');if(carrier==='custom'&&candidate.carrierRef)return setNotice('候选载体不匹配，请重新生成。');setConfirmed(candidate);setPaletteOverrides({});setRevision(n=>n+1);setWeave('');go('weave');}
   function update(fn:(v:number)=>void,v:number){fn(v);setRevision(n=>n+1);}
-  return <div className={`app ${step==='carrier'?'home':''} ${['edit','check','materials'].includes(step)?'light':''}`}>
+  return <div className={`app ${step==='carrier'?'home':''} ${['edit','check','materials'].includes(step)?'light':''} ${step==='edit'?'edit-page':''}`}>
     <header className="topbar"><button className="logo" onClick={()=>go('carrier')}>竹编 DIY <span>· 创作实验室</span></button><span>以竹为材 · 编织生活的想象</span></header>
     {step!=='carrier'&&<nav className="flow" aria-label="创作流程">{steps.filter(s=>s.id!=='generating').map((s,i)=><div className={`flow-step ${step===s.id?'on':''} ${steps.findIndex(x=>x.id===step)>steps.findIndex(x=>x.id===s.id)?'done':''}`} key={s.id}><b>{i+1}</b><span>{s.label}</span></div>)}</nav>}
     <main key={step} className="scene">
