@@ -7,7 +7,8 @@ import MaterialColorControls from './MaterialColorControls';
 import { adaptConfirmedCandidate, adaptConfirmedCustomCandidate, calculateCustomStructure, calculateFanStructure, StructurePreview } from './modules/d';
 import { canConfirmCandidate, generateCandidate } from './modules/c/generateCandidate';
 import type { GenerationInput } from './modules/c/generateCandidate';
-import { validateDemo } from './modules/e/validation';
+import CraftCheckPanel from './modules/e/CraftCheckPanel';
+import type { CraftInput, CraftResult } from './modules/e/craftTypes';
 import { fixedFanRef, resolveFixedFan, sameFixedFanRef } from './data/fixedFanRegistry';
 import type { FixedFanCarrierId } from './data/fixedFanRegistry';
 import { isFanWeaveAllowed, weaveForFanPreview } from './data/fanPreviewSelection';
@@ -71,6 +72,7 @@ export default function App() {
   const [paletteOverrides,setPaletteOverrides]=useState<Record<string,string>>({});
   const [baseColor,setBaseColor]=useState('#C4A879');
   const [notice,setNotice]=useState('');
+  const [checkedResult,setCheckedResult]=useState<CraftResult|null>(null);
   const [heroMotion,setHeroMotion]=useState({x:0,y:0});
   const [activeScene,setActiveScene]=useState(0);
   const homeScrollRef=useRef<HTMLDivElement|null>(null);
@@ -97,6 +99,11 @@ export default function App() {
       patternPlacement:{scale:size/100,rotationDeg:0,offsetMm:{x:0,y:0},pivotMm:{x:105,y:110}},
     });
   },[confirmed,fanVariantId,weave,revision,baseColor,paletteOverrides,density,width,size]);
+  const craftInput=useMemo<CraftInput|null>(()=>{
+    if(v03Structure&&confirmed)return {kind:'fixed-fan',snapshot:v03Structure,current:{designId:designId.current,designRevision:revision,confirmedGenerationId:confirmed.generationId}};
+    if(customStructure&&confirmed?.resultType==='carrier_shape')return {kind:'custom',input:adaptConfirmedCustomCandidate(confirmed,{designId:designId.current,designRevision:revision,weaveId:weave as WeaveId,parameters:{density,stripWidthMm:width,warpColor:baseColor,weftColor:color,shapeScale:size/100}}),result:customStructure};
+    return null;
+  },[v03Structure,customStructure,confirmed,revision,weave,density,width,baseColor,color,size]);
   useEffect(()=>()=>{if(timer.current)clearTimeout(timer.current);},[]);
   useEffect(()=>{
     if(!file){setInputImageUrl(null);return;}
@@ -113,7 +120,7 @@ export default function App() {
     root.querySelectorAll('.home-slide').forEach(slide=>observer.observe(slide));
     return ()=>observer.disconnect();
   },[step]);
-  const go=(s:Step)=>{setNotice('');setStep(s);};
+  const go=(s:Step)=>{setNotice('');if(s!=='materials')setCheckedResult(null);setStep(s);};
   const patternColors=confirmed?.resultType==='surface_pattern'
     ? confirmed.result.palette.map(entry=>({...entry,color:paletteOverrides[entry.paletteId]??entry.color}))
     : [{paletteId:'custom-weft',color}];
@@ -222,14 +229,15 @@ export default function App() {
           <div className="studio-section"><h2>当前设计</h2><div className="mini"><Fan candidate={confirmed} carrierId={confirmed.resultType==='surface_pattern'?fanVariantId:undefined}/><div><strong>{confirmed.label}</strong><small>已确认 · 版本 {revision}</small></div></div></div>
           <div className="studio-section"><h2>载体类型</h2><div className="option-grid"><button className={carrier==='fan'?'chosen':''} onClick={()=>{if(carrier!=='fan'){chooseCarrier('fan');go('input');}}}><span>◉</span>扇面</button><button className={carrier==='custom'?'chosen':''} onClick={()=>{if(carrier!=='custom'){chooseCarrier('custom');go('input');}}}><span>◇</span>自定义形状</button></div><p className="side-note">扇面与自定义形状的创意结果类型不同。切换这两类需重新输入；同类扇面可在下方直接试换。</p></div>
           {carrier==='fan'&&<div className="studio-section"><h2>扇面形态 <small>直接试换</small></h2><div className="fan-variant-grid">{fanVariants.map(item=><button key={item.id} type="button" className={fanVariantId===item.id?'chosen':''} aria-pressed={fanVariantId===item.id} disabled={item.status==='待开发'} onClick={()=>chooseFanVariant(item.id)} title={`${item.id} · ${item.status}`}><FanOutline id={item.id}/><strong>{item.name}</strong><small>{item.status}</small></button>)}</div><p className="side-note">保留已确认图样并立即重算预览。四种编法均可在已接入扇面直接试换；工艺仍待验证。</p></div>}
-          <div className="studio-section"><h2>基础编法</h2><div className="weave-catalog">{<button type="button" className={weave==='CROSS-1X1-V1'?'chosen':''} onClick={()=>selectWeave('CROSS-1X1-V1')}><strong>平编演示</strong><small>结构联调</small></button>}{targetWeaves.map(item=><button key={item.id} type="button" className={weave===item.id?'chosen':''} onClick={()=>selectWeave(item.id)}><strong>{item.name}</strong><small>结构联调</small></button>)}</div><p className="side-note">三种扇面和自定义形状均可选择四种编法，并支持参数调节。工艺检查仍待 E 接入。</p></div>
+          <div className="studio-section"><h2>基础编法</h2><div className="weave-catalog">{<button type="button" className={weave==='CROSS-1X1-V1'?'chosen':''} onClick={()=>selectWeave('CROSS-1X1-V1')}><strong>平编演示</strong><small>结构联调</small></button>}{targetWeaves.map(item=><button key={item.id} type="button" className={weave===item.id?'chosen':''} onClick={()=>selectWeave(item.id)}><strong>{item.name}</strong><small>结构联调</small></button>)}</div><p className="side-note">三种扇面和自定义形状均可选择四种编法，并支持参数调节；提交后由 E 检查当前设计版本。</p></div>
         </aside>
         <section className="studio-main"><div className="studio-title"><h2>实时预览</h2></div><div className="preview">{v03Structure?<div className="v03-svg" dangerouslySetInnerHTML={{__html:renderStructureSvg(v03Structure)}}/>:customStructure?.status==='ok'?<CustomStructurePreview snapshot={customStructure.snapshot}/>:customStructure?.status==='blocked'?<div className="warning" role="alert">{customStructure.message}<br/><small>{customStructure.code}</small></div>:<Fan candidate={confirmed} carrierId={confirmed.resultType==='surface_pattern'?fanVariantId:undefined}/>}</div></section>
         <aside className="controls">{v03Structure?<><div className="control-head"><h2>扇面结构参数</h2><button onClick={()=>{setDensity(weave==='SQUARE-HOLE-1X1-V1'?13:21);setWidth(9);setSize(100);setBaseColor('#C4A879');setPaletteOverrides({});setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整后同步重算竹条、交点、颜色段与编织顺序；工艺仍待验证。</p><label>经／纬条数 <b>{density}</b><input type="range" min="9" max={maxGridCount} step="2" value={density} onChange={e=>updateGridDensity(Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="2" max={maxStripWidth} step="0.5" value={width} onChange={e=>updateGridWidth(Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" step="1" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><p>自动计算：中心间距 {((189-width)/(density-1)).toFixed(1)} mm · 净孔 {Math.max(0,(189-width)/(density-1)-width).toFixed(1)} mm{previewMinClearHole?`（预览最少保留 ${previewMinClearHole} mm）`:''}</p><MaterialColorControls baseColor={baseColor} patternColors={patternColors} onBaseColorChange={next=>{if(next.toUpperCase()!==baseColor.toUpperCase()){setBaseColor(next);setRevision(n=>n+1);}}} onPatternColorChange={changePatternColor}/></>:<><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(21);setWidth(9);setSize(100);setColor('#315F3A');setBaseColor('#C4A879');setPaletteOverrides({});setRevision(n=>n+1);}}>↻ 重置</button></div><p>默认21经×21纬、9 mm宽，对应B v0.3毛坯规则；调整后仅供结构演示，工艺状态保持待验证。</p><label>竹条数量／方向 <b>{density}</b><input type="range" min="9" max="41" step="1" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="10" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><MaterialColorControls baseColor={baseColor} patternColors={patternColors} onBaseColorChange={next=>{if(next.toUpperCase()!==baseColor.toUpperCase()){setBaseColor(next);setRevision(n=>n+1);}}} onPatternColorChange={changePatternColor}/></>}<div className="actions"><button onClick={()=>go('input')}>重新输入创意</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
       </div>}
-      {step==='check'&&<div className="end"><p className="kicker">05 / 工艺检查</p><div className="end-icon">!</div><h1>工艺状态：{validateDemo(revision).status==='pending'?'待验证':validateDemo(revision).status}</h1><p>当前设计版本 {revision}：{validateDemo(revision).pendingReason}</p><div className="warning">不能宣称可制作，也不能生成正式材料清单或教程。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button className="primary" onClick={()=>go('materials')}>查看演示资料页 →</button></div></div>}
-      {step==='materials'&&<div className="end"><p className="kicker">06 / 制作资料</p><div className="end-icon">▤</div><h1>制作资料等待验证</h1><p>材料清单、竹条编号和图文教程必须对应通过检查的当前设计版本。</p><div className="warning">演示页面，未经工艺验证 · 正式生成与导出暂不可用</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button onClick={()=>go('check')}>查看检查状态</button></div></div>}
+      {step==='check'&&<CraftCheckPanel input={craftInput} onBack={()=>go('edit')} onUseSupportedWeave={()=>{selectWeave('CROSS-COURSE-2X2-V1');go('edit');}} onPreview={result=>{setCheckedResult(result);go('materials');}}/>}
+      {step==='materials'&&<div className="end craft-review"><p className="kicker">06 / 结构拆解预览 · 设计版本 {revision}</p><div className="end-icon">▤</div><h1>结构拆解预览</h1><p>以下顺序由当前 D 结构快照生成，只供核对竹条与交点，不是经过实物验证的制作教程。</p>
+        {checkedResult?.structuralStatus==='passed'&&checkedResult.designRevision===revision&&v03Structure?<><p className="craft-facts">E 检查状态：{checkedResult.status==='failed'?'需修改':checkedResult.status==='pending'?'待验证':'结构筛查通过'}。竹条编号：{v03Structure.strips.map(strip=>strip.stripId).join('、')}。备料长度仍未知。</p><div className="craft-steps">{[...new Set(v03Structure.stages.rawBlank.weavingOrder.map(operation=>operation.step))].map(stepNumber=>{const operations=v03Structure.stages.rawBlank.weavingOrder.filter(operation=>operation.step===stepNumber);return <article key={stepNumber}><strong>第 {stepNumber} 组 · {operations[0]?.workingStripId}</strong><p>依次经过 {operations.length} 个交点；{operations.slice(0,5).map(operation=>`${operation.referenceStripId} ${operation.action==='over'?'在上':'在下'}`).join(' → ')}{operations.length>5?' …':''}</p></article>;})}</div></>:<div className="warning">没有与当前版本对应且通过 E 结构复核的拆解预览，请返回检查。</div>}
+        <div className="warning">工艺与实物验证未完成，正式材料清单、制作教程、导出和制作批准暂不可用。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button onClick={()=>go('check')}>查看检查结果</button></div></div>}
     </main>{step!=='carrier'&&<footer>竹编 DIY · 创作实验室</footer>}
   </div>;
 }
-
