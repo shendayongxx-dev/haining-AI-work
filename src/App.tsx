@@ -66,6 +66,7 @@ export default function App() {
   const [width,setWidth]=useState(9);
   const [size,setSize]=useState(100);
   const [color,setColor]=useState('#315F3A');
+  const [paletteOverrides,setPaletteOverrides]=useState<Record<string,string>>({});
   const [baseColor,setBaseColor]=useState('#C4A879');
   const [notice,setNotice]=useState('');
   const [heroMotion,setHeroMotion]=useState({x:0,y:0});
@@ -89,11 +90,11 @@ export default function App() {
       designId:designId.current,designRevision:revision,
       creativeSource:{confirmedGenerationId:confirmed.generationId,generationRevision:confirmed.generationRevision,generatorVersion:confirmed.generatorVersion,inputVersionId:confirmed.inputVersionId,generationIssues:confirmed.issues},
       carrierId:fanVariantId,weaveId:weave as WeaveId,
-      pattern:{...confirmed.result,palette:confirmed.result.palette.map(entry=>({...entry,color}))} as SurfacePattern,baseColor,
+      pattern:{...confirmed.result,palette:confirmed.result.palette.map(entry=>({...entry,color:paletteOverrides[entry.paletteId]??entry.color}))} as SurfacePattern,baseColor,
       gridParameters:{warpCount:density,weftCount:density,stripWidthMm:width,pitchMm:(189-width)/(density-1)},
       patternPlacement:{scale:size/100,rotationDeg:0,offsetMm:{x:0,y:0},pivotMm:{x:105,y:110}},
     });
-  },[confirmed,fanVariantId,weave,revision,baseColor,color,density,width,size]);
+  },[confirmed,fanVariantId,weave,revision,baseColor,paletteOverrides,density,width,size]);
   useEffect(()=>()=>{if(timer.current)clearTimeout(timer.current);},[]);
   useEffect(()=>{
     if(step!=='carrier'||!homeScrollRef.current)return;
@@ -105,6 +106,17 @@ export default function App() {
     return ()=>observer.disconnect();
   },[step]);
   const go=(s:Step)=>{setNotice('');setStep(s);};
+  const patternColors=confirmed?.resultType==='surface_pattern'
+    ? confirmed.result.palette.map(entry=>({...entry,color:paletteOverrides[entry.paletteId]??entry.color}))
+    : [{paletteId:'custom-weft',color}];
+  const changePatternColor=(paletteId:string,next:string)=>{
+    const normalized=next.toUpperCase();
+    const current=patternColors.find(entry=>entry.paletteId===paletteId)?.color;
+    if(!current||current.toUpperCase()===normalized)return;
+    if(confirmed?.resultType==='surface_pattern')setPaletteOverrides(previous=>({...previous,[paletteId]:normalized}));
+    else setColor(normalized);
+    setRevision(value=>value+1);
+  };
   const selectWeave=(next:string)=>{if(next===weave)return;const open=next==='SQUARE-HOLE-1X1-V1';setWeave(next);setDensity(open?13:21);setWidth(9);setSize(100);setRevision(n=>n+1);};
   const maxGridCount=Math.max(9,Math.min(25,Math.floor(189/width)-(Math.floor(189/width)%2===0?1:0)));
   const updateGridDensity=(next:number)=>{setDensity(next);setRevision(n=>n+1);};
@@ -137,7 +149,7 @@ export default function App() {
         .catch(() => { if(generationCounter.current!==generationRevision)return;setNotice('生成失败，请修改输入后重试。当前已确认设计保持不变。'); setStep('input'); });
     },1300);
   }
-  function confirm(){if(!candidate||!canConfirmCandidate(candidate))return;if(carrier==='fan'&&!sameFixedFanRef(candidate.carrierRef,fixedFanRef(fanVariantId)))return setNotice('载体已切换，请重新生成候选。');if(carrier==='custom'&&candidate.carrierRef)return setNotice('候选载体不匹配，请重新生成。');setConfirmed(candidate);setRevision(n=>n+1);setWeave('');go('weave');}
+  function confirm(){if(!candidate||!canConfirmCandidate(candidate))return;if(carrier==='fan'&&!sameFixedFanRef(candidate.carrierRef,fixedFanRef(fanVariantId)))return setNotice('载体已切换，请重新生成候选。');if(carrier==='custom'&&candidate.carrierRef)return setNotice('候选载体不匹配，请重新生成。');setConfirmed(candidate);setPaletteOverrides({});setRevision(n=>n+1);setWeave('');go('weave');}
   function update(fn:(v:number)=>void,v:number){fn(v);setRevision(n=>n+1);}
   return <div className={`app ${step==='carrier'?'home':''} ${['edit','check','materials'].includes(step)?'light':''}`}>
     <header className="topbar"><button className="logo" onClick={()=>go('carrier')}>竹编 DIY <span>· 创作实验室</span></button><span>以竹为材 · 编织生活的想象</span></header>
@@ -172,7 +184,7 @@ export default function App() {
           <div className="studio-section"><h2>基础编法</h2><div className="weave-catalog">{<button type="button" className={weave==='CROSS-1X1-V1'?'chosen':''} onClick={()=>selectWeave('CROSS-1X1-V1')}><strong>平编演示</strong><small>结构联调</small></button>}{targetWeaves.map(item=><button key={item.id} type="button" className={weave===item.id?'chosen':''} onClick={()=>selectWeave(item.id)}><strong>{item.name}</strong><small>结构联调</small></button>)}</div><p className="side-note">三种扇面和自定义形状均可选择四种编法，并支持参数调节。工艺检查仍待 E 接入。</p></div>
         </aside>
         <section className="studio-main"><div className="studio-title"><h2>实时预览</h2></div><div className="preview">{v03Structure?<div className="v03-svg" dangerouslySetInnerHTML={{__html:renderStructureSvg(v03Structure)}}/>:customStructure?.status==='ok'?<CustomStructurePreview snapshot={customStructure.snapshot}/>:customStructure?.status==='blocked'?<div className="warning" role="alert">{customStructure.message}<br/><small>{customStructure.code}</small></div>:<Fan candidate={confirmed} carrierId={confirmed.resultType==='surface_pattern'?fanVariantId:undefined}/>}</div></section>
-        <aside className="controls">{v03Structure?<><div className="control-head"><h2>扇面结构参数</h2><button onClick={()=>{setDensity(weave==='SQUARE-HOLE-1X1-V1'?13:21);setWidth(9);setSize(100);setBaseColor('#C4A879');setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整后同步重算竹条、交点、颜色段与编织顺序；工艺仍待验证。</p><label>经／纬条数 <b>{density}</b><input type="range" min="9" max={maxGridCount} step="2" value={density} onChange={e=>updateGridDensity(Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="2" max={Math.min(12,189/density)} step="0.5" value={width} onChange={e=>updateGridWidth(Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" step="1" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><p>自动计算：中心间距 {((189-width)/(density-1)).toFixed(1)} mm · 净孔 {Math.max(0,(189-width)/(density-1)-width).toFixed(1)} mm</p><MaterialColorControls baseColor={baseColor} patternColor={color} onBaseColorChange={next=>{if(next.toUpperCase()!==baseColor.toUpperCase()){setBaseColor(next);setRevision(n=>n+1);}}} onPatternColorChange={next=>{if(next.toUpperCase()!==color.toUpperCase()){setColor(next);setRevision(n=>n+1);}}}/></>:<><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(21);setWidth(9);setSize(100);setColor('#315F3A');setBaseColor('#C4A879');setRevision(n=>n+1);}}>↻ 重置</button></div><p>默认21经×21纬、9 mm宽，对应B v0.3毛坯规则；调整后仅供结构演示，工艺状态保持待验证。</p><label>竹条数量／方向 <b>{density}</b><input type="range" min="9" max="41" step="1" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="10" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><MaterialColorControls baseColor={baseColor} patternColor={color} onBaseColorChange={next=>{if(next.toUpperCase()!==baseColor.toUpperCase()){setBaseColor(next);setRevision(n=>n+1);}}} onPatternColorChange={next=>{if(next.toUpperCase()!==color.toUpperCase()){setColor(next);setRevision(n=>n+1);}}}/></>}<div className="actions"><button onClick={()=>go('input')}>重新输入创意</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
+        <aside className="controls">{v03Structure?<><div className="control-head"><h2>扇面结构参数</h2><button onClick={()=>{setDensity(weave==='SQUARE-HOLE-1X1-V1'?13:21);setWidth(9);setSize(100);setBaseColor('#C4A879');setPaletteOverrides({});setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整后同步重算竹条、交点、颜色段与编织顺序；工艺仍待验证。</p><label>经／纬条数 <b>{density}</b><input type="range" min="9" max={maxGridCount} step="2" value={density} onChange={e=>updateGridDensity(Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="2" max={Math.min(12,189/density)} step="0.5" value={width} onChange={e=>updateGridWidth(Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" step="1" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><p>自动计算：中心间距 {((189-width)/(density-1)).toFixed(1)} mm · 净孔 {Math.max(0,(189-width)/(density-1)-width).toFixed(1)} mm</p><MaterialColorControls baseColor={baseColor} patternColors={patternColors} onBaseColorChange={next=>{if(next.toUpperCase()!==baseColor.toUpperCase()){setBaseColor(next);setRevision(n=>n+1);}}} onPatternColorChange={changePatternColor}/></>:<><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(21);setWidth(9);setSize(100);setColor('#315F3A');setBaseColor('#C4A879');setPaletteOverrides({});setRevision(n=>n+1);}}>↻ 重置</button></div><p>默认21经×21纬、9 mm宽，对应B v0.3毛坯规则；调整后仅供结构演示，工艺状态保持待验证。</p><label>竹条数量／方向 <b>{density}</b><input type="range" min="9" max="41" step="1" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="10" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><MaterialColorControls baseColor={baseColor} patternColors={patternColors} onBaseColorChange={next=>{if(next.toUpperCase()!==baseColor.toUpperCase()){setBaseColor(next);setRevision(n=>n+1);}}} onPatternColorChange={changePatternColor}/></>}<div className="actions"><button onClick={()=>go('input')}>重新输入创意</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
       </div>}
       {step==='check'&&<div className="end"><p className="kicker">05 / 工艺检查</p><div className="end-icon">!</div><h1>工艺状态：{validateDemo(revision).status==='pending'?'待验证':validateDemo(revision).status}</h1><p>当前设计版本 {revision}：{validateDemo(revision).pendingReason}</p><div className="warning">不能宣称可制作，也不能生成正式材料清单或教程。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button className="primary" onClick={()=>go('materials')}>查看演示资料页 →</button></div></div>}
       {step==='materials'&&<div className="end"><p className="kicker">06 / 制作资料</p><div className="end-icon">▤</div><h1>制作资料等待验证</h1><p>材料清单、竹条编号和图文教程必须对应通过检查的当前设计版本。</p><div className="warning">演示页面，未经工艺验证 · 正式生成与导出暂不可用</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button onClick={()=>go('check')}>查看检查状态</button></div></div>}

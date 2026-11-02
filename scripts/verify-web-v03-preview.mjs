@@ -82,6 +82,20 @@ try {
     roundTopPatterns.add(`${snapshot.grid.pitchMm}:`+snapshot.stages.rawBlank.crossings.slice(0, 36).map(crossing => crossing.topStripId === crossing.weftStripId ? 'W' : 'V').join(''));
   }
   assert.equal(roundTopPatterns.size, 4);
+  const twoColorPattern = {
+    ...pattern,
+    palette: [{ paletteId: 'green-01', color: '#0E6652' }, { paletteId: 'accent-02', color: '#B65B43' }],
+    elements: [...pattern.elements, {
+      ...pattern.elements[0], elementId: 'accent-element', sourceInputId: 'accent-input', paletteId: 'accent-02', zIndex: 2,
+      pointsMm: [{ x: 90, y: 114 }, { x: 99, y: 130 }, { x: 81, y: 130 }, { x: 90, y: 114 }],
+    }],
+  };
+  const twoColorSnapshot = calculateStructureV03({ designId: 'two-color', designRevision: 2,
+    creativeSource: { confirmedGenerationId: 'fixture-generation', generationRevision: 1, generatorVersion: 'fixture', inputVersionId: 'fixture-input', generationIssues: [] },
+    carrierId: 'FAN-ROUND-170-V1', weaveId: 'CROSS-1X1-V1', pattern: twoColorPattern, baseColor: '#C4A879' });
+  assert.equal(validateStructureV03(twoColorSnapshot).pass, true);
+  const motifColors = new Set(twoColorSnapshot.strips.flatMap(strip => strip.visibleSegments.flatMap(segment => segment.colorSegments.filter(entry => entry.scope === 'motif').map(entry => entry.color))));
+  assert.deepEqual([...motifColors].sort(), ['#0E6652', '#B65B43']);
   for (const carrierId of ['FAN-OVAL-150X180-V1', 'FAN-OCTAGON-170-V1']) {
     for (const weaveId of ['CROSS-1X1-V1', 'CROSS-COURSE-2X2-V1', 'HERRING-3X3-V1', 'SQUARE-HOLE-1X1-V1']) {
       const adjusted = calculateStructureV03({
