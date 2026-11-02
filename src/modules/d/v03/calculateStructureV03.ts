@@ -1,6 +1,7 @@
 import carrierSpecJson from '../../../../data/CARRIER_SPEC_V1_2.json';
 import weaveSpecJson from '../../../../data/WEAVE_SPEC_V1_2.json';
 import type { PointMm, SurfacePattern } from '../types';
+import { applyPatternTransform } from '../../../data/patternTransform.mjs';
 import type {
   CarrierId, ColorSegmentV03, CrossingV03, Direction, EngineeringWarningV03,
   StripV03, StructureSnapshotV03, StructureV03Input, VisibleSegmentV03, WeaveId, WeavingOperationV03,
@@ -139,15 +140,10 @@ function visibleIntervals(direction: Direction, axisMm: number, raw: Rect, bound
 }
 
 function rotateScale(point: PointMm, pattern: SurfacePattern): PointMm {
-  const center = { x: pattern.coordinateSpace.width / 2, y: 110 };
-  const { scale, rotationDeg, offsetMm } = pattern.transform;
-  const angle = rotationDeg * Math.PI / 180;
-  const x = (point.x - center.x) * scale;
-  const y = (point.y - center.y) * scale;
-  return {
-    x: center.x + x * Math.cos(angle) - y * Math.sin(angle) + offsetMm.x,
-    y: center.y + x * Math.sin(angle) + y * Math.cos(angle) + offsetMm.y,
-  };
+  return applyPatternTransform(point, {
+    ...pattern.transform,
+    pivotMm: { x: pattern.coordinateSpace.width / 2, y: 110 },
+  });
 }
 
 function motifAt(pattern: SurfacePattern, point: PointMm) {
