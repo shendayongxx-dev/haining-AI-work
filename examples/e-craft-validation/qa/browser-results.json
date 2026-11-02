@@ -1,0 +1,45 @@
+{
+  "results": [
+    {
+      "name": "fixed fan enters actual E checks and remains pending",
+      "pass": true
+    },
+    {
+      "name": "issues include reasons recommendations and rule references",
+      "pass": true
+    },
+    {
+      "name": "formal output entry stays closed",
+      "pass": true
+    },
+    {
+      "name": "leaving check discards previous visible result",
+      "pass": true
+    },
+    {
+      "name": "edited parameters trigger a new revision check",
+      "pass": true
+    },
+    {
+      "name": "custom leaf has independent structural checks and pending craft",
+      "pass": true
+    },
+    {
+      "name": "custom boundary evidence is requested",
+      "pass": true
+    },
+    {
+      "name": "custom issue locates actual strip on geometry",
+      "pass": true
+    },
+    {
+      "name": "mobile page has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "no browser runtime exceptions",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

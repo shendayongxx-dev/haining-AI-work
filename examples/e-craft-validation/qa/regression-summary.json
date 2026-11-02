@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-02",
+  "baseCommit": "8c4ebe6",
+  "branch": "codex/e-craft-validation",
+  "dVersion": "D-STRUCTURE-v0.3.6",
+  "ruleSetVersion": "E-CRAFT-RULES-0.1",
+  "programTests": {
+    "passed": 30,
+    "total": 30,
+    "command": "node scripts/test-e-craft.mjs"
+  },
+  "browserTests": {
+    "passed": 10,
+    "total": 10,
+    "command": "node scripts/qa-e-craft-browser.mjs"
+  },
+  "build": {
+    "passed": true,
+    "command": "pnpm build"
+  },
+  "formalMaterialsAllowed": false,
+  "tutorialAllowed": false,
+  "exportAllowed": false,
+  "physicalValidation": "not-completed",
+  "craftAcceptance": "pending B evidence"
+}
