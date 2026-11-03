@@ -1,0 +1,32 @@
+{
+  "recordId": "TRIAL-TBD",
+  "status": "pending",
+  "design": {
+    "designId": "TBD",
+    "designRevision": "TBD",
+    "carrierId": "FAN-ROUND-170-V1",
+    "carrierSpecVersion": "CARRIER-SPEC-v1.2",
+    "weaveId": "CROSS-COURSE-2X2-V1",
+    "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+    "structureSourceKey": null
+  },
+  "material": {
+    "materialVersion": "TBD",
+    "speciesAndPart": null,
+    "widthMm": null,
+    "thicknessMm": null,
+    "conditioning": null,
+    "measurementToleranceMm": null
+  },
+  "stripMeasurements": [],
+  "operations": [],
+  "edgeFinish": null,
+  "handleConnection": null,
+  "failures": [],
+  "finishedMeasurements": {},
+  "evidenceFiles": [],
+  "applicableRange": null,
+  "reviewer": null,
+  "reviewedAt": null
+}
+

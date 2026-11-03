@@ -1,0 +1,18 @@
+{
+  "exampleOnly": true,
+  "checkId": "EXAMPLE-CHK-ROUND-CROSS-001",
+  "status": "pending",
+  "assessmentScope": "structural-and-craft-screening",
+  "productionReady": false,
+  "physicalValidation": "not-completed",
+  "sourceKey": {"schemaVersion":"0.3","designId":"DESIGN-001","designRevision":3,"generatedFromRevision":3,"patternPlacementKey":"P-ROUND-001"},
+  "assessmentKey": {"resultSchemaVersion":"1.5","craftRuleSetVersion":"B-CRAFT-CHECK-v1.5","evidenceSetVersion":"B-EVIDENCE-v1.5","craftCheckEngineVersion":"E-CHECK-v1.0","carrierType":"fixed","carrierId":"FAN-ROUND-170-V1","carrierContextHash":"sha256:1111111111111111111111111111111111111111111111111111111111111111","carrierSpecVersion":"CARRIER-SPEC-v1.2","weaveId":"CROSS-COURSE-2X2-V1","weaveSpecVersion":"WEAVE-SPEC-v1.2"},
+  "summary": {"passedCount":1,"failedCount":0,"pendingCount":1,"notApplicableCount":1},
+  "ruleResults": [
+    {"ruleId":"BOUNDARY_GEOMETRY_MATCH","status":"passed","participatesInAggregate":true,"reason":"示例中边界与登记规范一致。","basis":{"documentId":"CARRIER-SPEC-v1.2","rulePath":"round.boundary","evidenceLevel":"documented","evidenceRecordIds":[]}},
+    {"ruleId":"EDGE_FINISH_EVIDENCE","status":"pending","participatesInAggregate":true,"reason":"缺少圆周收边和柄口加固的实物记录。","basis":{"documentId":"CARRIER-SPEC-v1.2","rulePath":"round.edgeFinish","evidenceLevel":"physical-validated","evidenceRecordIds":[]}},
+    {"ruleId":"OPEN_HALF_HOLE_AT_EDGE","status":"notApplicable","participatesInAggregate":false,"reason":"当前编法不是四角孔编。","basis":{"documentId":"WEAVE-SPEC-v1.2","rulePath":"squareHole.edge","evidenceLevel":"documented","evidenceRecordIds":[]}}
+  ],
+  "issues": [{"issueId":"ISSUE-001","ruleId":"EDGE_FINISH_EVIDENCE","status":"pending","severity":"review","location":{"carrierSpace":"A4_MM_210X297","pointMm":null,"region":"edgeFinishZone","boundaryRef":"boundary","stripId":null,"segmentId":null,"crossingId":null},"reason":"缺少圆周收边和柄口加固的实物记录。","suggestion":"补充实物照片、材料规格、收边方式和尺寸偏差后重新检查。","basis":{"documentId":"CARRIER-SPEC-v1.2","rulePath":"round.edgeFinish","evidenceLevel":"physical-validated","evidenceRecordIds":[]},"evidenceStatus":"missing"}],
+  "disabledOutputs": {"materialBom":{"enabled":false,"reason":"材料余量公式未完成实物验证。"},"tutorial":{"enabled":false,"reason":"制作流程转换留待后续开发。"},"formalExport":{"enabled":false,"reason":"未获得制作批准。"},"productionApproval":{"enabled":false,"reason":"未完成实物验证。"},"weavingOrder":{"mode":"structure-preview-only"}}
+}

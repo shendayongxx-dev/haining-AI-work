@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.2",
+  "weaveSpecVersion": "WEAVE-SPEC-v1.2",
+  "matrixConvention": {"row":"weft index from top to bottom","column":"warp index from left to right","W":"weft is top","V":"warp is top"},
+  "unit": "mm",
+  "weaves": [
+    {
+      "weaveId": "CROSS-COURSE-2X2-V1",
+      "name": "十字编（课程版）",
+      "craftRuleVersion": "CRAFT-CROSS-COURSE-v1.1",
+      "gridType": "orthogonal-dense",
+      "cycleRows": [
+        {"row": 1, "offset": 0, "sequence": ["over", "over", "under", "under"]},
+        {"row": 2, "offset": 1, "sequence": ["under", "over", "over", "under"]},
+        {"row": 3, "offset": 2, "sequence": ["under", "under", "over", "over"]},
+        {"row": 4, "offset": 3, "sequence": ["over", "under", "under", "over"]}
+      ],
+      "topLayerMatrix4x4": [["W","W","V","V"],["V","W","W","V"],["V","V","W","W"],["W","V","V","W"]],
+      "repeatFromRow": 5,
+      "imageDirectory": "01_核心编法/01_十字编/步骤图片",
+      "source": "03_来源原件/十字编_课程教案.docx",
+      "validationStatus": "步骤与图示已核对；材料量待实物复核"
+    },
+    {
+      "weaveId": "HERRING-3X3-V1",
+      "name": "人字编（压三挑三）",
+      "craftRuleVersion": "CRAFT-HERRING-3X3-v1.0",
+      "gridType": "orthogonal-dense-shifted",
+      "repeatLength": 6,
+      "overCount": 3,
+      "underCount": 3,
+      "rowShift": 1,
+      "shiftDirection": "Each next weft row shifts the W-window one warp position to the left in the left-to-right matrix convention.",
+      "topLayerMatrix6x6": [["W","W","W","V","V","V"],["W","W","V","V","V","W"],["W","V","V","V","W","W"],["V","V","V","W","W","W"],["V","V","W","W","W","V"],["V","W","W","W","V","V"]],
+      "boundaryRule": "不足3根时按6根周期从另一侧递补",
+      "imageDirectory": "01_核心编法/02_人字编/步骤图片",
+      "source": "03_来源原件/人字编_完整图解.pdf",
+      "validationStatus": "步骤与图示已核对；材料量待实物复核"
+    },
+    {
+      "weaveId": "SQUARE-HOLE-1X1-V1",
+      "name": "四角孔编",
+      "craftRuleVersion": "CRAFT-SQUARE-HOLE-1X1-v1.0",
+      "gridType": "orthogonal-open",
+      "sequence": ["over", "under"],
+      "stripWidthMm": 9,
+      "clearHoleMm": 6,
+      "pitchMm": 15,
+      "parameterStatus": "pending physical validation",
+      "imageDirectory": "01_核心编法/03_四角孔编/步骤图片",
+      "source": "03_来源原件/四角孔编_完整图解.pdf",
+      "validationStatus": "步骤与图示已核对；9/6/15 mm参数待实物复核"
+    }
+  ],
+  "carrierApplicability": [
+    {"carrierId":"FAN-ROUND-170-V1","CROSS-COURSE-2X2-V1":"recommended","HERRING-3X3-V1":"supported","SQUARE-HOLE-1X1-V1":"supported-with-edge-check"},
+    {"carrierId":"FAN-OVAL-150X180-V1","CROSS-COURSE-2X2-V1":"recommended","HERRING-3X3-V1":"recommended","SQUARE-HOLE-1X1-V1":"supported-with-edge-check"},
+    {"carrierId":"FAN-OCTAGON-170-V1","CROSS-COURSE-2X2-V1":"supported","HERRING-3X3-V1":"supported","SQUARE-HOLE-1X1-V1":"recommended-with-corner-check"},
+    {"carrierId":"FAN-BANANA-160X180-V1","CROSS-COURSE-2X2-V1":"supported","HERRING-3X3-V1":"supported-with-short-strip-check","SQUARE-HOLE-1X1-V1":"conditional"},
+    {"carrierId":"FAN-FIVE-LOBED-170-V1","CROSS-COURSE-2X2-V1":"supported-with-valley-reinforcement","HERRING-3X3-V1":"conditional","SQUARE-HOLE-1X1-V1":"conditional"},
+    {"carrierId":"FAN-PALACE-WAIST-SQUARE-160X180-V1","CROSS-COURSE-2X2-V1":"supported","HERRING-3X3-V1":"supported-with-waist-check","SQUARE-HOLE-1X1-V1":"conditional"}
+  ],
+  "edgeAcceptanceRules": {
+    "shortStrip":"Any trimmed visible strip segment shorter than 2*pitchMm must be flagged for manual reinforcement review.",
+    "squareHole":"No open half-hole may terminate unsecured at the final edge; edge cells must be captured by the edge finish.",
+    "corner":"At polygon or lobe valleys, strips intersecting the edge within one strip width of the corner require reinforcement flagging.",
+    "status":"engineering checks only; thresholds remain pending physical validation"
+  },
+  "stripFields": ["stripId", "direction", "order", "widthMm", "thicknessMm", "color", "lengthMm", "crossings"],
+  "generationPipeline": {
+    "stage1": "rawBlank",
+    "stage2": "trimmedProduct",
+    "patternScope": "effectivePatternBoundary",
+    "outerBaseWeaveRule": "Continue the same base weave from the effective pattern boundary to the formal carrier boundary; preserve strip IDs, pitch and crossing phase."
+  },
+  "resultFields": ["designVersion", "craftRuleVersion", "carrierId", "boundaryId", "rawBlank", "trimmedProduct", "outerBaseWeaveZone"]
+}

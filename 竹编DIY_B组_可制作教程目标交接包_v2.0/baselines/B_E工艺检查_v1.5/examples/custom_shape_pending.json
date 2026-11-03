@@ -1,0 +1,21 @@
+{
+  "exampleOnly": true,
+  "checkId": "EXAMPLE-CHK-CUSTOM-HERRING-001",
+  "status": "pending",
+  "assessmentScope": "structural-and-craft-screening",
+  "productionReady": false,
+  "physicalValidation": "not-completed",
+  "sourceKey": {"schemaVersion":"0.2","designId":"DESIGN-CUSTOM-001","designRevision":1,"generatedFromRevision":1,"patternPlacementKey":"P-CUSTOM-001"},
+  "assessmentKey": {"resultSchemaVersion":"1.5","craftRuleSetVersion":"B-CRAFT-CHECK-v1.5","evidenceSetVersion":"B-EVIDENCE-v1.5","craftCheckEngineVersion":"E-CHECK-v1.0","carrierType":"custom","carrierId":null,"carrierContextHash":"sha256:2222222222222222222222222222222222222222222222222222222222222222","carrierSpecVersion":null,"weaveId":"HERRING-3X3-V1","weaveSpecVersion":"WEAVE-SPEC-v1.2"},
+  "summary": {"passedCount":1,"failedCount":0,"pendingCount":2,"notApplicableCount":0},
+  "ruleResults": [
+    {"ruleId":"CUSTOM_BOUNDARY_CLOSED","status":"passed","participatesInAggregate":true,"reason":"示例轮廓闭合。","basis":{"documentId":"B-CRAFT-CHECK-v1.5","rulePath":"CUSTOM_BOUNDARY_CLOSED","evidenceLevel":"structure-tested","evidenceRecordIds":[]}},
+    {"ruleId":"CUSTOM_CONTEXT_COMPLETE","status":"pending","participatesInAggregate":true,"reason":"子检查 CUSTOM_HANDLE_CONTEXT 发现：声明含手柄但缺少三类柄区。","basis":{"documentId":"B-CRAFT-CHECK-v1.5","rulePath":"CUSTOM_CONTEXT_COMPLETE.children.CUSTOM_HANDLE_CONTEXT","evidenceLevel":"documented","evidenceRecordIds":[]}},
+    {"ruleId":"CUSTOM_EDGE_FINISH_EVIDENCE","status":"pending","participatesInAggregate":true,"reason":"凹角没有已验证收边方案。","basis":{"documentId":"B-CRAFT-CHECK-v1.5","rulePath":"CUSTOM_EDGE_FINISH_EVIDENCE","evidenceLevel":"physical-validated","evidenceRecordIds":[]}}
+  ],
+  "issues": [
+    {"issueId":"ISSUE-001","ruleId":"CUSTOM_CONTEXT_COMPLETE","status":"pending","severity":"review","location":{"carrierSpace":"A4_MM_210X297","pointMm":null,"region":"handleContext","boundaryRef":null,"stripId":null,"segmentId":null,"crossingId":null},"reason":"子检查 CUSTOM_HANDLE_CONTEXT 发现：声明含手柄，但未提供柄口、图案禁入区和加固区域。","suggestion":"补充三类区域的毫米坐标，或明确声明无手柄。","basis":{"documentId":"B-CRAFT-CHECK-v1.5","rulePath":"CUSTOM_CONTEXT_COMPLETE.children.CUSTOM_HANDLE_CONTEXT","evidenceLevel":"documented","evidenceRecordIds":[]},"evidenceStatus":"missing"},
+    {"issueId":"ISSUE-002","ruleId":"CUSTOM_EDGE_FINISH_EVIDENCE","status":"pending","severity":"review","location":{"carrierSpace":"A4_MM_210X297","pointMm":{"x":42.5,"y":88.2},"region":"concaveCorner","boundaryRef":"boundary","stripId":null,"segmentId":null,"crossingId":null},"reason":"凹角处没有已验证的收边方案。","suggestion":"提供凹角收边试编记录，或修改轮廓减少尖锐凹角。","basis":{"documentId":"B-CRAFT-CHECK-v1.5","rulePath":"CUSTOM_EDGE_FINISH_EVIDENCE","evidenceLevel":"physical-validated","evidenceRecordIds":[]},"evidenceStatus":"missing"}
+  ],
+  "disabledOutputs": {"materialBom":{"enabled":false,"reason":"材料余量公式未完成实物验证。"},"tutorial":{"enabled":false,"reason":"制作流程转换留待后续开发。"},"formalExport":{"enabled":false,"reason":"未获得制作批准。"},"productionApproval":{"enabled":false,"reason":"未完成实物验证。"},"weavingOrder":{"mode":"structure-preview-only"}}
+}

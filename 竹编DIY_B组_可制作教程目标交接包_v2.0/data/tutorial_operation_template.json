@@ -1,0 +1,29 @@
+{
+  "tutorialId": "TUTORIAL-TBD",
+  "designId": "TBD",
+  "designRevision": "TBD",
+  "sourceKey": "TBD",
+  "assessmentKey": "TBD",
+  "ruleVersion": "TBD",
+  "evidenceIds": [],
+  "status": "draft",
+  "steps": [
+    {
+      "operationId": "OP-001",
+      "order": 1,
+      "phase": "material-preparation",
+      "instruction": "待 B 审定",
+      "relatedStripIds": [],
+      "relatedCrossingIds": [],
+      "entrySide": null,
+      "movementDirection": null,
+      "completionCriteria": [],
+      "selfChecks": [],
+      "commonErrors": [],
+      "diagram": null,
+      "approvedPhoto": null,
+      "evidenceId": null
+    }
+  ]
+}
+

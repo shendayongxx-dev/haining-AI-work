@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "craft_check_result.schema.json",
+  "title": "B-E Craft Check Result v1.5",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["checkId","status","assessmentScope","productionReady","sourceKey","assessmentKey","summary","ruleResults","issues","disabledOutputs"],
+  "$defs": {
+    "nullableString": {"type":["string","null"]},
+    "pointMm": {"type":["object","null"],"additionalProperties":false,"required":["x","y"],"properties":{"x":{"type":"number"},"y":{"type":"number"}}},
+    "location": {
+      "type":"object","additionalProperties":false,
+      "required":["carrierSpace","pointMm","region","boundaryRef","stripId","segmentId","crossingId"],
+      "properties":{"carrierSpace":{"$ref":"#/$defs/nullableString"},"pointMm":{"$ref":"#/$defs/pointMm"},"region":{"$ref":"#/$defs/nullableString"},"boundaryRef":{"$ref":"#/$defs/nullableString"},"stripId":{"$ref":"#/$defs/nullableString"},"segmentId":{"$ref":"#/$defs/nullableString"},"crossingId":{"$ref":"#/$defs/nullableString"}}
+    },
+    "basis": {
+      "type":"object","additionalProperties":false,
+      "required":["documentId","rulePath","evidenceLevel","evidenceRecordIds"],
+      "properties":{"documentId":{"type":"string","minLength":1},"rulePath":{"type":"string","minLength":1},"evidenceLevel":{"enum":["documented","structure-tested","physical-validated"]},"evidenceRecordIds":{"type":"array","items":{"type":"string"},"uniqueItems":true}}
+    },
+    "outputDisabled": {"type":"object","additionalProperties":false,"required":["enabled","reason"],"properties":{"enabled":{"const":false},"reason":{"type":"string","minLength":1}}}
+  },
+  "properties": {
+    "exampleOnly": {"type":"boolean"},
+    "checkId": {"type":"string","minLength":1},
+    "status": {"enum":["passed","failed","pending","stale"]},
+    "assessmentScope": {"const":"structural-and-craft-screening"},
+    "productionReady": {"const":false},
+    "physicalValidation": {"enum":["not-completed","partial","completed"]},
+    "sourceKey": {"type":"object","minProperties":1,"properties":{"schemaVersion":{"type":"string"},"designId":{"type":"string"},"designRevision":{"type":"integer","minimum":0},"generatedFromRevision":{"type":"integer","minimum":0},"patternPlacementKey":{"type":["string","null"]}},"additionalProperties":true},
+    "assessmentKey": {
+      "type":"object","additionalProperties":false,
+      "required":["resultSchemaVersion","craftRuleSetVersion","evidenceSetVersion","craftCheckEngineVersion","carrierType","carrierContextHash","weaveId","weaveSpecVersion"],
+      "properties":{"resultSchemaVersion":{"const":"1.5"},"craftRuleSetVersion":{"const":"B-CRAFT-CHECK-v1.5"},"evidenceSetVersion":{"const":"B-EVIDENCE-v1.5"},"craftCheckEngineVersion":{"type":"string","minLength":1},"carrierType":{"enum":["fixed","custom"]},"carrierId":{"type":["string","null"]},"carrierContextHash":{"type":"string","pattern":"^sha256:[a-f0-9]{64}$"},"carrierSpecVersion":{"type":["string","null"]},"weaveId":{"enum":["CROSS-COURSE-2X2-V1","HERRING-3X3-V1","SQUARE-HOLE-1X1-V1","CROSS-1X1-V1"]},"weaveSpecVersion":{"type":"string","minLength":1}}
+    },
+    "summary": {"type":"object","additionalProperties":false,"required":["passedCount","failedCount","pendingCount","notApplicableCount"],"properties":{"passedCount":{"type":"integer","minimum":0},"failedCount":{"type":"integer","minimum":0},"pendingCount":{"type":"integer","minimum":0},"notApplicableCount":{"type":"integer","minimum":0}}},
+    "ruleResults": {"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["ruleId","status","participatesInAggregate","reason","basis"],"properties":{"ruleId":{"type":"string","minLength":1},"status":{"enum":["passed","failed","pending","notApplicable"]},"participatesInAggregate":{"type":"boolean"},"reason":{"type":"string","minLength":1},"basis":{"$ref":"#/$defs/basis"}}}},
+    "issues": {"type":"array","items":{"type":"object","additionalProperties":false,"required":["issueId","ruleId","status","severity","location","reason","suggestion","basis","evidenceStatus"],"properties":{"issueId":{"type":"string","minLength":1},"ruleId":{"type":"string","minLength":1},"status":{"enum":["failed","pending"]},"severity":{"enum":["error","review","info"]},"location":{"$ref":"#/$defs/location"},"reason":{"type":"string","minLength":1},"suggestion":{"type":"string","minLength":1},"basis":{"$ref":"#/$defs/basis"},"evidenceStatus":{"enum":["documented","structure-tested","physical-validated","missing"]}}}},
+    "disabledOutputs": {"type":"object","additionalProperties":false,"required":["materialBom","tutorial","formalExport","productionApproval","weavingOrder"],"properties":{"materialBom":{"$ref":"#/$defs/outputDisabled"},"tutorial":{"$ref":"#/$defs/outputDisabled"},"formalExport":{"$ref":"#/$defs/outputDisabled"},"productionApproval":{"$ref":"#/$defs/outputDisabled"},"weavingOrder":{"type":"object","additionalProperties":false,"required":["mode"],"properties":{"mode":{"const":"structure-preview-only"}}}}}
+  }
+}

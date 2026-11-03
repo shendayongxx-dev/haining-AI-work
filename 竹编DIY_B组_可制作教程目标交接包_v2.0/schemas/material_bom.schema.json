@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Formal material BOM",
+  "type": "object",
+  "required": ["designId", "designRevision", "sourceKey", "assessmentKey", "status", "strips"],
+  "properties": {
+    "designId": {"type": "string"},
+    "designRevision": {"type": "string"},
+    "sourceKey": {"type": "string"},
+    "assessmentKey": {"type": "string"},
+    "status": {"const": "passed"},
+    "ruleVersion": {"type": "string"},
+    "evidenceIds": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "strips": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stripId", "finishedVisibleLengthMm", "setupAllowanceMm", "trimWasteLengthMm", "stockLengthMm"],
+        "properties": {
+          "stripId": {"type": "string"},
+          "finishedVisibleLengthMm": {"type": "number", "minimum": 0},
+          "setupAllowanceMm": {"type": "number", "minimum": 0},
+          "trimWasteLengthMm": {"type": "number", "minimum": 0},
+          "ruleRequiredReserveMm": {"type": "number", "minimum": 0},
+          "stockLengthMm": {"type": "number", "exclusiveMinimum": 0},
+          "basisRuleId": {"type": "string"},
+          "evidenceId": {"type": "string"}
+        }
+      }
+    },
+    "otherMaterials": {"type": "array"},
+    "tools": {"type": "array"}
+  }
+}
+

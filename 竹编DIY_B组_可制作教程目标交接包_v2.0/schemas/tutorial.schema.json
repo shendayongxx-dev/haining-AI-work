@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Formal illustrated tutorial",
+  "type": "object",
+  "required": ["tutorialId", "designId", "designRevision", "sourceKey", "assessmentKey", "steps"],
+  "properties": {
+    "tutorialId": {"type": "string"},
+    "designId": {"type": "string"},
+    "designRevision": {"type": "string"},
+    "sourceKey": {"type": "string"},
+    "assessmentKey": {"type": "string"},
+    "ruleVersion": {"type": "string"},
+    "evidenceIds": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["operationId", "order", "phase", "instruction", "relatedStripIds", "completionCriteria"],
+        "properties": {
+          "operationId": {"type": "string"},
+          "order": {"type": "integer", "minimum": 1},
+          "phase": {"type": "string"},
+          "instruction": {"type": "string", "minLength": 1},
+          "relatedStripIds": {"type": "array", "items": {"type": "string"}},
+          "relatedCrossingIds": {"type": "array", "items": {"type": "string"}},
+          "entrySide": {"type": ["string", "null"]},
+          "movementDirection": {"type": ["string", "null"]},
+          "completionCriteria": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "selfChecks": {"type": "array", "items": {"type": "string"}},
+          "commonErrors": {"type": "array", "items": {"type": "string"}},
+          "diagram": {"type": ["string", "null"]},
+          "approvedPhoto": {"type": ["string", "null"]},
+          "evidenceId": {"type": "string"}
+        }
+      }
+    }
+  }
+}

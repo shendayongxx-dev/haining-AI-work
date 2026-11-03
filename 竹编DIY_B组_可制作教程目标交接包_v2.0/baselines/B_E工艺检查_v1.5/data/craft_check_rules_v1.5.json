@@ -1,0 +1,39 @@
+{
+  "resultSchemaVersion": "1.5",
+  "ruleSetVersion": "B-CRAFT-CHECK-v1.5",
+  "evidenceSetVersion": "B-EVIDENCE-v1.5",
+  "scope": {
+    "carrierTypes": ["fixed", "custom"],
+    "weaveIds": ["CROSS-COURSE-2X2-V1", "HERRING-3X3-V1", "SQUARE-HOLE-1X1-V1"]
+  },
+  "unsupportedPreviewOnlyWeaveIds": ["CROSS-1X1-V1"],
+  "statusEnum": ["passed", "failed", "pending", "notApplicable"],
+  "rules": [
+    {"ruleId":"INPUT_REQUIRED_FIELDS","execution":"required","appliesTo":["fixed","custom"],"basis":"B-CRAFT-CHECK-v1.5","evidenceLevel":"documented","missing":"pending"},
+    {"ruleId":"FIXED_CARRIER_ID_MATCH","execution":"required","appliesTo":["fixed"],"basis":"CARRIER-SPEC-v1.2","evidenceLevel":"documented","violation":"failed"},
+    {"ruleId":"BOUNDARY_GEOMETRY_MATCH","execution":"required","appliesTo":["fixed"],"basis":"carriers.json","evidenceLevel":"documented","violation":"failed"},
+    {"ruleId":"CUSTOM_CONTEXT_COMPLETE","execution":"required","aliases":["CUSTOM_HANDLE_CONTEXT"],"children":{"CUSTOM_HANDLE_CONTEXT":{"requiredWhen":"carrierType=custom","requiredFields":["handleContext.hasHandle"],"requiredWhenHasHandle":["handleContext.jointBoundaryPointsMm","handleContext.motifExclusionBoundaryPointsMm","handleContext.reinforcementBoundaryPointsMm"],"counting":"parent-only"}},"appliesTo":["custom"],"basis":"B-CRAFT-CHECK-v1.5","evidenceLevel":"documented","missing":"pending","requiredContext":["coordinateSpace","boundaryPointsMm","effectivePatternBoundaryPointsMm","rawBlankBoundaryPointsMm","handleContext.hasHandle","carrierContextHash"]},
+    {"ruleId":"CUSTOM_BOUNDARY_CLOSED","execution":"required","appliesTo":["custom"],"basis":"deterministic-geometry","evidenceLevel":"structure-tested","violation":"failed"},
+    {"ruleId":"CUSTOM_BOUNDARY_SIMPLE","execution":"required","appliesTo":["custom"],"basis":"deterministic-geometry","evidenceLevel":"structure-tested","violation":"failed"},
+    {"ruleId":"EFFECTIVE_BOUNDARY_INSIDE","execution":"required","aliases":["CUSTOM_EFFECTIVE_INSIDE"],"appliesTo":["fixed","custom"],"basis":"CARRIER-SPEC-v1.2","evidenceLevel":"structure-tested","violation":"failed"},
+    {"ruleId":"RAW_BLANK_COVERS_BOUNDARY","execution":"required","aliases":["CUSTOM_RAW_BLANK_COVERS"],"appliesTo":["fixed","custom"],"basis":"raw-blank-then-trim","evidenceLevel":"structure-tested","violation":"failed"},
+    {"ruleId":"OUTER_BASE_WEAVE_CONTINUITY","execution":"required","aliases":["CUSTOM_OUTER_BASE_CONTINUITY"],"appliesTo":["fixed","custom"],"basis":"B-OUTER-BASE-WEAVE-v1.1","evidenceLevel":"structure-tested","violation":"failed"},
+    {"ruleId":"WEAVE_MATRIX_MATCH","execution":"required","childrenByWeaveId":{"CROSS-COURSE-2X2-V1":"CROSS_4X4_PHASE","HERRING-3X3-V1":"HERRING_6X6_PHASE","SQUARE-HOLE-1X1-V1":"SQUARE_HOLE_1X1_PHASE"},"appliesTo":["fixed","custom"],"basis":"WEAVE-SPEC-v1.2","evidenceLevel":"structure-tested","violation":"failed"},
+    {"ruleId":"STRIP_ID_TRACEABLE","execution":"required","appliesTo":["fixed","custom"],"basis":"D-E-SNAPSHOT-v0.3","evidenceLevel":"structure-tested","violation":"failed","missing":"pending"},
+    {"ruleId":"COLOR_SEGMENT_COVERAGE","execution":"required","appliesTo":["fixed","custom"],"basis":"D-E-SNAPSHOT-v0.3","evidenceLevel":"structure-tested","violation":"failed"},
+    {"ruleId":"HANDLE_MOTIF_EXCLUSION","execution":"conditional","appliesTo":["fixed","custom-with-handle"],"basis":"carrier-handle-context","evidenceLevel":"documented","condition":"priorityMotif declared and handle context present","violation":"failed","missing":"pending","notApplicable":"explicitly no handle or explicitly no priority motif"},
+    {"ruleId":"SHORT_VISIBLE_SEGMENT","execution":"review","appliesTo":["fixed","custom"],"basis":"pending-physical-validation","evidenceLevel":"documented","detected":"pending","severity":"review"},
+    {"ruleId":"OPEN_HALF_HOLE_AT_EDGE","execution":"conditional-review","appliesTo":["fixed","custom"],"weaveIds":["SQUARE-HOLE-1X1-V1"],"basis":"pending-physical-validation","evidenceLevel":"documented","detected":"pending","severity":"review"},
+    {"ruleId":"CORNER_OR_VALLEY_REINFORCEMENT","execution":"conditional-review","aliases":["CORNER_REINFORCEMENT_REQUIRED","LOBE_VALLEY_REINFORCEMENT_REQUIRED"],"appliesTo":["fixed","custom"],"basis":"pending-physical-validation","evidenceLevel":"documented","detected":"pending","severity":"review"},
+    {"ruleId":"HANDLE_REINFORCEMENT_REQUIRED","execution":"conditional-review","appliesTo":["fixed","custom-with-handle"],"basis":"pending-physical-validation","evidenceLevel":"documented","detected":"pending","severity":"review"},
+    {"ruleId":"EDGE_FINISH_EVIDENCE","execution":"review","aliases":["CUSTOM_EDGE_FINISH_EVIDENCE"],"appliesTo":["fixed","custom"],"basis":"physical-record-required","evidenceLevel":"physical-validated","missing":"pending"},
+    {"ruleId":"SQUARE_HOLE_PARAMETER_EVIDENCE","execution":"conditional-review","appliesTo":["fixed","custom"],"weaveIds":["SQUARE-HOLE-1X1-V1"],"basis":"physical-record-required","evidenceLevel":"physical-validated","missing":"pending"}
+  ],
+  "disabledOutputs": {
+    "materialBomEnabled": false,
+    "tutorialEnabled": false,
+    "formalExportEnabled": false,
+    "productionApprovalEnabled": false,
+    "weavingOrderMode": "structure-preview-only"
+  }
+}
