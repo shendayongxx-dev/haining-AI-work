@@ -6,7 +6,7 @@ import './craft.css';
 import {issuePresentation,categoryNames} from './checkPresentation';
 import type {IssueCategory} from './checkPresentation';
 
-const weaveNames:Record<string,string>={'CROSS-1X1-V1':'平编演示','CROSS-COURSE-2X2-V1':'课程版十字编','HERRING-3X3-V1':'人字编','SQUARE-HOLE-1X1-V1':'四角孔编'};
+const weaveNames:Record<string,string>={'CROSS-1X1-V1':'平编','CROSS-COURSE-2X2-V1':'十字编','HERRING-3X3-V1':'人字编','SQUARE-HOLE-1X1-V1':'四角孔编'};
 const carrierNames:Record<string,string>={'FAN-ROUND-170-V1':'圆形扇面','FAN-OVAL-150X180-V1':'长圆扇面','FAN-OCTAGON-170-V1':'八角扇面'};
 const labels={passed:'通过',failed:'需修改',pending:'待确认',notApplicable:'不适用'};
 
@@ -52,14 +52,14 @@ export default function CraftCheckPanel({input,preview,onBack,onPreview,onUseSup
   const canContinue=!!result&&result.structuralStatus==='passed'&&result.status!=='failed'&&!!onPreview;
   const verdict=error||!input?'unavailable':!result?'checking':failed.length||result.status==='failed'?'blocked':result.structuralStatus==='passed'?'clear':'unavailable';
   const title=error?'检查未完成':!input?'缺少当前设计':!result?'正在检查当前搭配':verdict==='blocked'?'当前搭配未通过检查':verdict==='clear'?'结构检查通过':'暂时无法判断能否制作';
-  const explanation=error?'请返回编辑页重新提交。':!input?'请先确认创意结果并选择编法。':!result?'正在核对竹条、交点和工艺规则。':verdict==='blocked'&&unsupported?'你选的平编演示只用于屏幕预览，当前没有对应的正式制作检查规则。':verdict==='blocked'?'检查发现了明确的结构或编法问题。请按下方原因修改后重新提交。':verdict==='clear'?'当前竹条和交点的结构关系没有发现阻断问题，可以继续查看结构拆解。':'当前结构资料不足，暂时不能给出可靠结论。';
+  const explanation=error?'请返回编辑页重新提交。':!input?'请先确认创意结果并选择编法。':!result?'正在核对竹条、交点和工艺规则。':verdict==='blocked'&&unsupported?'平编目前仅供预览，尚无对应的制作检查规则。':verdict==='blocked'?'检查发现了明确的结构或编法问题。请按下方原因修改后重新提交。':verdict==='clear'?'当前竹条和交点的结构关系没有发现阻断问题，可以继续查看结构拆解。':'当前结构资料不足，暂时不能给出可靠结论。';
   const boundary=input?.kind==='fixed-fan'?input.snapshot.carrierGeometry.boundary as {type:string;cx?:number;cy?:number;r?:number;rx?:number;ry?:number;pointsMm?:number[][]}:null;
   const custom=input?.kind==='custom'&&input.result.status==='ok'?input.result.snapshot:null;
   const fixedStrip=input?.kind==='fixed-fan'?input.snapshot.strips.find(s=>s.stripId===focus?.location.stripId):null;
   const customStrip=custom?.strips.list.find(s=>s.id===focus?.location.stripId);
   const position=focus?.location.positionMm;
   return <div className="craft-check" data-testid="craft-check" ref={panelRef}>
-    <p className="kicker">05 / 工艺检查</p>
+    <p className="kicker">06 / 工艺检查</p>
     <section className={`craft-verdict craft-verdict-${verdict}`} aria-live="polite">
       <div className="craft-verdict-mark" aria-hidden="true">{verdict==='clear'?'✓':verdict==='blocked'?'!':'?'}</div>
       <div className="craft-verdict-copy">
@@ -72,12 +72,12 @@ export default function CraftCheckPanel({input,preview,onBack,onPreview,onUseSup
     </section>
     {verdict==='blocked'&&<section className="craft-decision" aria-label="问题与解决方案">
       <span className="craft-section-label">发现的问题</span><h2>{unsupported?'当前编法不在制作检查范围':firstFailure?.title??'当前结构需要修改'}</h2>
-      <p>{unsupported?'平编演示缺少 B 组确认的制作规则；这个搭配不能作为已通过检查的方案。':firstFailure?.reason}</p>
+      <p>{unsupported?'平编缺少已确认的制作规则，目前不能通过工艺检查。':firstFailure?.reason}</p>
       {!unsupported&&firstFailure&&<p className="craft-suggestion">建议：{firstFailure.suggestion}</p>}
       {!unsupported&&failed[0]&&(failed[0].location.positionMm||failed[0].location.stripId)&&<button type="button" className="craft-pending-more" onClick={()=>locateIssue(failed[0])}>定位首要问题</button>}
       {failed.length>1&&<p className="craft-more-count">另有 {failed.length-1} 项问题，可在下方查看完整记录。</p>}
       {unsupported&&onUseSupportedWeave&&<div className="craft-recommendation" data-testid="craft-recommendation">
-        <span>可尝试的结构方案</span><strong>改用课程版十字编</strong>
+        <span>可尝试的结构方案</span><strong>改用十字编</strong>
         <p>保留当前图样，切换后重新计算和检查。结构复核通过后进入拆解预览，工艺状态仍可能待验证。</p>
         <p>这是已接入的结构起点，尚未获得实物制作批准。</p>
         <button className="primary" type="button" onClick={()=>{advanceAfterRecommendation.current=true;onUseSupportedWeave();}}>切换编法并重新检查 →</button>

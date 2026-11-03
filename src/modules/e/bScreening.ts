@@ -11,10 +11,10 @@ function geometryEqual(a:unknown,b:unknown):boolean{
 export function screenBContext(input:CraftInput):CraftIssue[]{
   const issues:CraftIssue[]=[];
   const add=(ruleId:string,reason:string,suggestion:string,status:'failed'|'pending',path:string)=>issues.push({
-    id:`B13-${ruleId}-${path}`,ruleId,domain:ruleId==='UNSUPPORTED_WEAVE'?'craft':status==='failed'?'structure':'evidence',status,title:status==='failed'?'B v1.5 规则需要修正':'B v1.5 必要上下文待补齐',reason,suggestion,
+    id:`B13-${ruleId}-${path}`,ruleId,domain:ruleId==='UNSUPPORTED_WEAVE'?'craft':status==='failed'?'structure':'evidence',status,title:status==='failed'?'当前设计需要修改':'还需补充制作依据',reason,suggestion,
     location:{path},evidence:{reference:`data/b-craft-v1.5/01_工艺检查规则与适用范围.md#${ruleId}`,verification:status==='failed'?'engineering-only':'missing'}});
   const weaveId=input.kind==='fixed-fan'?input.snapshot.weaveId:input.input.weaveId;
-  if(weaveId&&!B_RULES.scope.weaveIds.includes(weaveId))add('UNSUPPORTED_WEAVE',`${weaveId} 不在 B v1.5 三种正式检查编法范围内。`,'返回编辑选择课程十字编、人字编或四角孔编；平编演示仍可预览，但不能作为本版正式检查对象。','failed','weaveId');
+  if(weaveId&&!B_RULES.scope.weaveIds.includes(weaveId))add('UNSUPPORTED_WEAVE','当前编法尚无制作检查规则。','返回编辑选择十字编、人字编或四角孔编；平编目前仅供预览。','failed','weaveId');
   if(input.kind==='custom'){
     // Do not invent an effective area, raw blank or handle declaration absent from D v0.2.
     add('CUSTOM_CONTEXT_COMPLETE','当前自定义 D v0.2 快照未提供正式有效图样区、毛坯边界和连接结构声明。','请 A/D 对齐这些上下文字段；不要把外轮廓直接当有效区或毛坯。','pending','customContext');
@@ -24,7 +24,7 @@ export function screenBContext(input:CraftInput):CraftIssue[]{
   const d=input.snapshot,authority=carriers.carriers.find(c=>c.carrierId===d.carrierId);
   if(!d.carrierId||!d.carrierSpecVersion){add('INPUT_REQUIRED_FIELDS','缺少载体 ID 或规范版本。','请补齐载体来源字段。','pending','carrierId');return issues;}
   if(!authority||d.carrierSpecVersion!==carriers.carrierSpecVersion){
-    add('FIXED_CARRIER_ID_MATCH','载体 ID 或规范版本与当前 B v1.2 权威数据不一致。','使用当前 D 已接入且版本一致的载体；B 的六种载体不表示 D 已实现全部。','failed','carrierId');return issues;
+    add('FIXED_CARRIER_ID_MATCH','当前载体与设计记录不一致。','请返回载体选择页，重新选择已开放的扇面。','failed','carrierId');return issues;
   }
   for(const [field,reference] of [['boundary',authority.boundary],['effectivePatternBoundary',authority.effectivePatternBoundary],['handleExclusion',authority.handleExclusion]] as const){
     const value=d.carrierGeometry?.[field];

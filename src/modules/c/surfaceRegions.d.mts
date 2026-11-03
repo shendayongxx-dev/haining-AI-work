@@ -1,0 +1,1 @@
+export function extractSurfaceRegions(image: { data: Uint8ClampedArray; width: number; height: number }): { regions: { points: { x: number; y: number }[]; holes: { x: number; y: number }[][]; color: string; pixels: number }[]; backgroundColor: string };

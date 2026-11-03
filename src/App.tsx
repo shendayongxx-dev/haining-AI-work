@@ -11,6 +11,9 @@ import type { GenerationInput } from './modules/c/generateCandidate';
 import CraftCheckPanel from './modules/e/CraftCheckPanel';
 import './check-page.css';
 import type { CraftInput, CraftResult } from './modules/e/craftTypes';
+import { generateImageTextPreview } from './modules/c/imageTextApi';
+import type { GeneratedImagePreview } from './modules/c/imageTextApi';
+import { candidateFromGeneratedImage } from './modules/c/candidateFromGeneratedImage';
 import { fixedFanRef, resolveFixedFan, sameFixedFanRef } from './data/fixedFanRegistry';
 import type { FixedFanCarrierId } from './data/fixedFanRegistry';
 import { isFanWeaveAllowed, weaveForFanPreview } from './data/fanPreviewSelection';
@@ -23,20 +26,22 @@ const steps: { id: Step; label: string }[] = [
   { id: 'confirm', label: '结果确认' }, { id: 'weave', label: '选择编法' }, { id: 'edit', label: '编辑预览' },
   { id: 'check', label: '工艺检查' }, { id: 'materials', label: '制作资料' },
 ];
+const flowSteps = steps.filter(step => step.id !== 'generating');
+const flowNumber = (step: Step) => String(flowSteps.findIndex(item => item.id === step) + 1).padStart(2, '0');
 type Stroke = Point[];
 type InputMode = 'drawing' | 'imageText' | 'gesture';
 
 const fanVariants = [
-  { id: 'FAN-ROUND-170-V1', name: '圆形／月圆式', status: '当前联调' },
-  { id: 'FAN-OVAL-150X180-V1', name: '长圆式', status: '结构联调' },
-  { id: 'FAN-OCTAGON-170-V1', name: '八角式', status: '结构联调' },
-  { id: 'FAN-BANANA-160X180-V1', name: '芭蕉式', status: '待开发' },
-  { id: 'FAN-FIVE-LOBED-170-V1', name: '五角海棠型', status: '待开发' },
-  { id: 'FAN-PALACE-WAIST-SQUARE-160X180-V1', name: '宫腰方形', status: '待开发' },
+  { id: 'FAN-ROUND-170-V1', name: '圆形／月圆式', status: '可选' },
+  { id: 'FAN-OVAL-150X180-V1', name: '长圆式', status: '可选' },
+  { id: 'FAN-OCTAGON-170-V1', name: '八角式', status: '可选' },
+  { id: 'FAN-BANANA-160X180-V1', name: '芭蕉式', status: '即将开放' },
+  { id: 'FAN-FIVE-LOBED-170-V1', name: '五角海棠型', status: '即将开放' },
+  { id: 'FAN-PALACE-WAIST-SQUARE-160X180-V1', name: '宫腰方形', status: '即将开放' },
 ] as const;
 
 const targetWeaves = [
-  { id: 'CROSS-COURSE-2X2-V1', name: '十字编（课程版）' },
+  { id: 'CROSS-COURSE-2X2-V1', name: '十字编' },
   { id: 'HERRING-3X3-V1', name: '人字编' },
   { id: 'SQUARE-HOLE-1X1-V1', name: '四角孔编' },
 ] as const;
@@ -49,7 +54,7 @@ function FanOutline({ id }: { id: string }) {
 
 function FanVariantPicker({ selected, onSelect }: { selected: string; onSelect: (id: string) => void }) {
   return <div className="home-fan-picker" aria-label="选择扇面形态">
-    <strong>选择扇面形态</strong><div>{fanVariants.map(item => <button key={item.id} type="button" disabled={item.status==='待开发'} className={selected===item.id?'selected':''} onClick={()=>onSelect(item.id)} title={`${item.id} · ${item.status}`}>
+    <strong>选择扇面形态</strong><div>{fanVariants.map(item => <button key={item.id} type="button" disabled={item.status==='即将开放'} className={selected===item.id?'selected':''} onClick={()=>onSelect(item.id)} title={item.name}>
       <FanOutline id={item.id}/><span>{item.name}</span><small>{item.status}</small>
     </button>)}</div>
   </div>;
@@ -65,6 +70,8 @@ export default function App() {
   const [inputImageUrl,setInputImageUrl]=useState<string|null>(null);
   const [strokes,setStrokes]=useState<Stroke[]>([]);
   const [candidate,setCandidate]=useState<Candidate|null>(null);
+  const [generatedImage,setGeneratedImage]=useState<GeneratedImagePreview|null>(null);
+  const [structureError,setStructureError]=useState('');
   const [confirmed,setConfirmed]=useState<Candidate|null>(null);
   const [revision,setRevision]=useState(0);
   const [weave,setWeave]=useState('');
@@ -143,7 +150,7 @@ export default function App() {
   const updateGridDensity=(next:number)=>{setDensity(next);setRevision(n=>n+1);};
   const updateGridWidth=(next:number)=>{setWidth(next);setRevision(n=>n+1);};
   const invalidateGeneration=()=>{if(timer.current)clearTimeout(timer.current);generationCounter.current+=1;};
-  const chooseCarrier=(next:Carrier)=>{if(next!==carrier){invalidateGeneration();setCarrier(next);setChannel('drawing');setStrokes([]);setFile(null);setText('');setCandidate(null);setWeave('');}};
+  const chooseCarrier=(next:Carrier)=>{if(next!==carrier){invalidateGeneration();setCarrier(next);setChannel('drawing');setStrokes([]);setFile(null);setText('');setCandidate(null);setGeneratedImage(null);setWeave('');}};
   const chooseFanVariant=(next:string)=>{
     if(next===fanVariantId)return;
     const nextId=next as FixedFanCarrierId;
@@ -154,15 +161,30 @@ export default function App() {
       setRevision(n=>n+1);
       return;
     }
-    invalidateGeneration();setFanVariantId(nextId);setStrokes([]);setCandidate(null);setWeave('');
+    invalidateGeneration();setFanVariantId(nextId);setStrokes([]);setCandidate(null);setGeneratedImage(null);setWeave('');
   };
   function generate(){
-    if(channel==='drawing'&&!strokes.length)return setNotice('请先绘制，或使用绿色三角形联调样例。');
+    if(channel==='drawing'&&!strokes.length)return setNotice('请先绘制图样。');
+    if(channel==='gesture'&&!strokes.length)return setNotice('请先用摄像头手势绘制。');
     if(channel==='imageText'){
       if(!file)return setNotice('请先上传参考图。');
       if(!['image/png','image/jpeg','image/webp'].includes(file.type))return setNotice('参考图仅支持 PNG、JPEG 或 WebP。');
       if(!text.trim())return setNotice('请描述希望从参考图提取、改造或保留的内容。');
-      return setNotice('图文生成模型尚未接入：当前无法生成新的纹样参考图或自定义载体形状。输入已保留，可继续编辑。');
+      const inputId=crypto.randomUUID();
+      go('generating');
+      const generationRevision=++generationCounter.current;
+      void generateImageTextPreview(file,text,carrier,inputId)
+        .then(async result=>{
+          if(generationCounter.current!==generationRevision)return;
+          setGeneratedImage(result);setCandidate(null);setStructureError('');setStep('confirm');
+          try{
+            const structured=await candidateFromGeneratedImage(result,carrier,carrier==='fan'?fixedFanRef(fanVariantId):null,generationRevision);
+            if(generationCounter.current!==generationRevision)return;
+            setCandidate(structured);
+          }catch(error){if(generationCounter.current!==generationRevision)return;setStructureError(error instanceof Error?error.message:'无法提取可编辑轮廓。');}
+        })
+        .catch(error=>{if(generationCounter.current!==generationRevision)return;setNotice(error instanceof Error?error.message:'图片生成失败，请重试。');setStep('input');});
+      return;
     }
     const inputId=crypto.randomUUID();go('generating');
     const generationRevision=++generationCounter.current;
@@ -171,15 +193,23 @@ export default function App() {
       const base={channel:'drawing' as const,inputVersionId:inputId,generationRevision,strokes:requestStrokes,captureMethod:channel==='gesture'?'cameraGesture' as const:'pointer' as const};
       const request:GenerationInput=carrier==='fan'?{...base,carrier:'fan',carrierRef:fixedFanRef(fanVariantId)}:{...base,carrier:'custom',carrierRef:null};
       void generateCandidate(request)
-        .then(result => { if(generationCounter.current!==generationRevision)return;setCandidate(result); setStep('confirm'); })
+        .then(result => { if(generationCounter.current!==generationRevision)return;setGeneratedImage(null);setCandidate(result); setStep('confirm'); })
         .catch(() => { if(generationCounter.current!==generationRevision)return;setNotice('生成失败，请修改输入后重试。当前已确认设计保持不变。'); setStep('input'); });
     },1300);
   }
   function confirm(){if(!candidate||!canConfirmCandidate(candidate))return;if(carrier==='fan'&&!sameFixedFanRef(candidate.carrierRef,fixedFanRef(fanVariantId)))return setNotice('载体已切换，请重新生成候选。');if(carrier==='custom'&&candidate.carrierRef)return setNotice('候选载体不匹配，请重新生成。');setConfirmed(candidate);setPaletteOverrides({});setRevision(n=>n+1);setWeave('');go('weave');}
+  function reextractContour(){
+    if(!generatedImage)return;
+    const currentRevision=generationCounter.current;
+    setCandidate(null);setStructureError('');
+    void candidateFromGeneratedImage(generatedImage,carrier,carrier==='fan'?fixedFanRef(fanVariantId):null,currentRevision)
+      .then(result=>{if(generationCounter.current===currentRevision)setCandidate(result);})
+      .catch(error=>{if(generationCounter.current===currentRevision)setStructureError(error instanceof Error?error.message:'无法重新提取轮廓。');});
+  }
   function update(fn:(v:number)=>void,v:number){fn(v);setRevision(n=>n+1);}
   return <div className={`app ${step==='carrier'?'home':''} ${['edit','check','materials'].includes(step)?'light':''} ${step==='edit'?'edit-page':''} ${step==='check'?'check-page':''} ${step==='input'&&channel==='gesture'?'gesture-page':''}`}>
     <header className="topbar"><button className="logo" onClick={()=>go('carrier')}>竹编 DIY <span>· 创作实验室</span></button><span>以竹为材 · 编织生活的想象</span></header>
-    {step!=='carrier'&&<nav className="flow" aria-label="创作流程">{steps.filter(s=>s.id!=='generating').map((s,i)=><div className={`flow-step ${step===s.id?'on':''} ${steps.findIndex(x=>x.id===step)>steps.findIndex(x=>x.id===s.id)?'done':''}`} key={s.id}><b>{i+1}</b><span>{s.label}</span></div>)}</nav>}
+    {step!=='carrier'&&<nav className="flow" aria-label="创作流程">{flowSteps.map((s,i)=><div className={`flow-step ${(step==='generating'?'input':step)===s.id?'on':''} ${flowSteps.findIndex(x=>x.id===(step==='generating'?'input':step))>i?'done':''}`} key={s.id}><b>{i+1}</b><span>{s.label}</span></div>)}</nav>}
     <main key={step} className="scene">
       {step==='carrier'&&<div className="home-scroll" ref={homeScrollRef}>
         <div className="hero home-slide" data-scene="0" onPointerMove={e=>{if(e.pointerType==='mouse'){const r=e.currentTarget.getBoundingClientRect();setHeroMotion({x:(e.clientX-r.left-r.width/2)/r.width,y:(e.clientY-r.top-r.height/2)/r.height});}}} onPointerLeave={()=>setHeroMotion({x:0,y:0})} style={{'--hero-x':`${heroMotion.x*18}px`,'--hero-y':`${heroMotion.y*12}px`} as React.CSSProperties}>
@@ -199,7 +229,7 @@ export default function App() {
         </section>
       </div>}
       {step==='input'&&<div className={`input-page ${channel==='gesture'?'gesture-input-page':''}`}>
-        <div className="heading"><p className="kicker">01 / 输入创意</p><h1>让灵感有形</h1>
+        <div className="heading"><p className="kicker">{flowNumber('input')} / 输入创意</p><h1>让灵感有形</h1>
           <p>当前载体：{carrier==='fan'?resolveFixedFan(fixedFanRef(fanVariantId)).name+' · 表面图样':'自定义形状 · 几何载体'}</p></div>
         <div className="input-box">
           <div className="channels" role="group" aria-label="创意输入方式">
@@ -207,8 +237,7 @@ export default function App() {
             <button type="button" className={channel==='imageText'?'active':''} aria-pressed={channel==='imageText'} onClick={()=>{setChannel('imageText');setNotice('');}}>▧　图文绘制</button>
             <button type="button" className={channel==='gesture'?'active':''} aria-pressed={channel==='gesture'} onClick={()=>{setChannel('gesture');setNotice('');}}>◌　摄像头手势</button>
           </div>
-          {channel==='drawing'&&<><DrawingCanvas carrier={carrier} fanVariantId={fanVariantId} strokes={strokes} onChange={setStrokes}/>
-            {carrier==='fan'&&<button className="link" onClick={()=>setStrokes([[{x:105,y:65},{x:70,y:145},{x:140,y:145},{x:105,y:65}]])}>使用绿色三角形联调样例</button>}</>}
+          {channel==='drawing'&&<DrawingCanvas carrier={carrier} fanVariantId={fanVariantId} strokes={strokes} onChange={setStrokes}/>}
           {channel==='gesture'&&<GestureDrawingCanvas carrier={carrier} fanVariantId={fanVariantId} strokes={strokes} onChange={setStrokes} onUsePointer={()=>{setChannel('drawing');setNotice('已切换为直接绘制，现有有效笔迹已保留。');}}/>}
           {channel==='imageText'&&<div className="image-text-input">
             <p className="muted">{carrier==='fan'?'上传参考图并描述想提取的物品或纹样；生成结果应是应用于扇面的新图样参考图。':'上传参考图并描述想提取的轮廓；生成结果应是可作为竹编载体的自定义形状。'}</p>
@@ -218,7 +247,7 @@ export default function App() {
             <label className="image-prompt" htmlFor="image-prompt">描述要从参考图提取和调整的内容
               <textarea id="image-prompt" maxLength={500} value={text} onChange={e=>setText(e.target.value)}
                 placeholder={carrier==='fan'?'例如：提取照片中的燕子，简化成适合扇面竹编的纹样':'例如：提取叶片外轮廓，生成可编织的自定义载体形状'}/></label>
-            <p className="muted">{text.length}/500 · 图文生成模型尚未接入，当前不会用演示图形代替生成结果。</p>
+            <p className="muted">{text.length}/500 · 请在结果确认页核对生成图和提取结果。</p>
           </div>}
           {notice&&<p className="notice" role="alert">{notice}</p>}
           <div className="actions"><button onClick={()=>go('carrier')}>← 返回载体</button>
@@ -226,22 +255,23 @@ export default function App() {
         </div>
       </div>}
       {step==='generating'&&<div className="generating"><div className="orbit"><Fan grid/></div><p className="kicker">创意转译</p><h1>正在编织你的 <em>灵感</em></h1><p>正在为你的创意生成候选设计。</p><div className="bar"><i/></div><button className="link" onClick={()=>{invalidateGeneration();go('input');}}>返回修改</button></div>}
-      {step==='confirm'&&candidate&&<div className="confirm"><div className="result-card"><Fan candidate={candidate}/><small>候选结果 · {candidate.resultType}</small></div><section><p className="kicker">02 / 结果确认</p><h1>{carrier==='fan'?'表面图样预览':'候选载体形状'}</h1><p>{candidate.label}</p><div className="detail">坐标单位 <b>mm</b>　生成版本 <b>{candidate.generationRevision}</b>　状态 <b>尚未确认</b></div>{candidate.issues.map(issue=><p key={issue.id} className="notice" role={issue.severity==='blocking'?'alert':'status'}>{issue.message}</p>)}<p className="muted">确认创意结果后选择编法；此确认不代表工艺通过。旧正式设计仅在确认新候选时替换。</p><div className="actions"><button onClick={()=>go('input')}>返回修改</button><button onClick={generate}>重新生成</button><button className="primary" disabled={!canConfirmCandidate(candidate)} onClick={confirm}>确认当前结果 →</button></div></section></div>}
-      {step==='weave'&&confirmed&&<div className="weave-page"><div className="heading"><p className="kicker">03 / 选择编法</p><h1>为图样选择织法</h1><p>三种扇面和自定义形状均可选择四种编法；工艺仍待验证。</p></div><div className="weaves">{<button className={weave==='CROSS-1X1-V1'?'selected':''} onClick={()=>selectWeave('CROSS-1X1-V1')}><b>▦</b><strong>平编演示</strong><small>CROSS-1X1-V1 · 结构联调</small></button>}{targetWeaves.map(item=><button key={item.id} className={weave===item.id?'selected':''} onClick={()=>selectWeave(item.id)}><b>▧</b><strong>{item.name}</strong><small>{item.id} · 结构联调</small></button>)}</div><div className="actions center"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" disabled={!weave} onClick={()=>go('edit')}>进入编辑预览 →</button></div></div>}
+      {step==='confirm'&&candidate&&<div className="confirm"><div className="result-card">{generatedImage&&<><img src={generatedImage.imageUrl} alt="新生成的参考图" style={{width:'100%',height:'auto',display:'block'}}/><small>生成参考图</small></>}<Fan candidate={candidate}/><small>{carrier==='fan'?'扇面图样预览':'形状轮廓预览'}</small></div><section><p className="kicker">{flowNumber('confirm')} / 结果确认</p><h1>{carrier==='fan'?'表面图样预览':'候选载体形状'}</h1><div className="detail">状态 <b>尚未确认</b></div>{candidate.issues.map(issue=><p key={issue.id} className="notice" role={issue.severity==='blocking'?'alert':'status'}>{issue.message}</p>)}{generatedImage&&<p className="notice" role="status">请对照生成图检查下方图样；如有缺失，可返回修改或重新提取。</p>}<p className="muted">确认后可选择编法，工艺检查会在后续进行。</p><div className="actions"><button onClick={()=>go('input')}>返回修改</button>{generatedImage&&<button onClick={reextractContour}>重新提取轮廓（免费）</button>}<button onClick={generate}>重新生成</button><button className="primary" disabled={!canConfirmCandidate(candidate)} onClick={confirm}>确认当前结果 →</button></div></section></div>}
+      {step==='confirm'&&!candidate&&generatedImage&&<div className="confirm"><div className="result-card"><img src={generatedImage.imageUrl} alt={carrier==='fan'?'新生成的扇面纹样参考图':'新生成的自定义形状参考图'} style={{width:'100%',height:'auto',display:'block'}}/><small>生成参考图</small></div><section><p className="kicker">{flowNumber('confirm')} / 结果确认</p><h1>{carrier==='fan'?'新纹样参考图':'新形状参考图'}</h1><div className="detail">状态 <b>等待图样提取</b></div><p className="notice" role="status">{structureError||'正在提取图样，请稍候。'}</p><div className="actions"><button onClick={()=>go('input')}>返回修改</button><button onClick={generate}>重新生成</button><button className="primary" disabled>暂不可确认</button></div></section></div>}
+      {step==='weave'&&confirmed&&<div className="weave-page"><div className="heading"><p className="kicker">{flowNumber('weave')} / 选择编法</p><h1>为设计选择编法</h1><p>选择一种编法，查看设计效果。</p></div><div className="weaves"><button className={weave==='CROSS-1X1-V1'?'selected':''} onClick={()=>selectWeave('CROSS-1X1-V1')}><b>▦</b><strong>平编</strong><small>仅供预览</small></button>{targetWeaves.map(item=><button key={item.id} className={weave===item.id?'selected':''} onClick={()=>selectWeave(item.id)}><b>▧</b><strong>{item.name}</strong><small>可进行结构检查</small></button>)}</div><div className="actions center"><button onClick={()=>go('confirm')}>返回结果</button><button className="primary" disabled={!weave} onClick={()=>go('edit')}>进入编辑预览 →</button></div></div>}
       {step==='edit'&&confirmed&&<div className="studio">
         <aside className="design-sidebar">
-          <div className="studio-section"><h2>当前设计</h2><div className="mini"><Fan candidate={confirmed} carrierId={confirmed.resultType==='surface_pattern'?fanVariantId:undefined}/><div><strong>{confirmed.label}</strong><small>已确认 · 版本 {revision}</small></div></div></div>
+          <div className="studio-section"><h2>当前设计</h2><div className="mini"><Fan candidate={confirmed} carrierId={confirmed.resultType==='surface_pattern'?fanVariantId:undefined}/><div><strong>{carrier==='fan'?'扇面图样':'自定义形状'}</strong><small>已确认 · 版本 {revision}</small></div></div></div>
           <div className="studio-section"><h2>载体类型</h2><div className="option-grid"><button className={carrier==='fan'?'chosen':''} onClick={()=>{if(carrier!=='fan'){chooseCarrier('fan');go('input');}}}><span>◉</span>扇面</button><button className={carrier==='custom'?'chosen':''} onClick={()=>{if(carrier!=='custom'){chooseCarrier('custom');go('input');}}}><span>◇</span>自定义形状</button></div><p className="side-note">扇面与自定义形状的创意结果类型不同。切换这两类需重新输入；同类扇面可在下方直接试换。</p></div>
-          {carrier==='fan'&&<div className="studio-section"><h2>扇面形态 <small>直接试换</small></h2><div className="fan-variant-grid">{fanVariants.map(item=><button key={item.id} type="button" className={fanVariantId===item.id?'chosen':''} aria-pressed={fanVariantId===item.id} disabled={item.status==='待开发'} onClick={()=>chooseFanVariant(item.id)} title={`${item.id} · ${item.status}`}><FanOutline id={item.id}/><strong>{item.name}</strong><small>{item.status}</small></button>)}</div><p className="side-note">保留已确认图样并立即重算预览。四种编法均可在已接入扇面直接试换；工艺仍待验证。</p></div>}
-          <div className="studio-section"><h2>基础编法</h2><div className="weave-catalog">{<button type="button" className={weave==='CROSS-1X1-V1'?'chosen':''} onClick={()=>selectWeave('CROSS-1X1-V1')}><strong>平编演示</strong><small>结构联调</small></button>}{targetWeaves.map(item=><button key={item.id} type="button" className={weave===item.id?'chosen':''} onClick={()=>selectWeave(item.id)}><strong>{item.name}</strong><small>结构联调</small></button>)}</div><p className="side-note">三种扇面和自定义形状均可选择四种编法，并支持参数调节；提交后由 E 检查当前设计版本。</p></div>
+          {carrier==='fan'&&<div className="studio-section"><h2>扇面形态 <small>直接试换</small></h2><div className="fan-variant-grid">{fanVariants.map(item=><button key={item.id} type="button" className={fanVariantId===item.id?'chosen':''} aria-pressed={fanVariantId===item.id} disabled={item.status==='即将开放'} onClick={()=>chooseFanVariant(item.id)} title={item.name}><FanOutline id={item.id}/><strong>{item.name}</strong><small>{item.status}</small></button>)}</div><p className="side-note">切换扇面后会保留当前图样并更新预览。</p></div>}
+          <div className="studio-section"><h2>基础编法</h2><div className="weave-catalog"><button type="button" className={weave==='CROSS-1X1-V1'?'chosen':''} onClick={()=>selectWeave('CROSS-1X1-V1')}><strong>平编</strong><small>仅供预览</small></button>{targetWeaves.map(item=><button key={item.id} type="button" className={weave===item.id?'chosen':''} onClick={()=>selectWeave(item.id)}><strong>{item.name}</strong><small>可进行结构检查</small></button>)}</div></div>
         </aside>
-        <section className="studio-main"><div className="studio-title"><h2>实时预览</h2></div><div className="preview">{v03Structure?<div className="v03-svg" dangerouslySetInnerHTML={{__html:renderStructureSvg(v03Structure)}}/>:customStructure?.status==='ok'?<CustomStructurePreview snapshot={customStructure.snapshot}/>:customStructure?.status==='blocked'?<div className="warning" role="alert">{customStructure.message}<br/><small>{customStructure.code}</small></div>:<Fan candidate={confirmed} carrierId={confirmed.resultType==='surface_pattern'?fanVariantId:undefined}/>}</div></section>
-        <aside className="controls">{v03Structure?<><div className="control-head"><h2>扇面结构参数</h2><button onClick={()=>{setDensity(weave==='SQUARE-HOLE-1X1-V1'?13:21);setWidth(9);setSize(100);setBaseColor('#C4A879');setPaletteOverrides({});setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整后同步重算竹条、交点、颜色段与编织顺序；工艺仍待验证。</p><label>经／纬条数 <b>{density}</b><input type="range" min="9" max={maxGridCount} step="2" value={density} onChange={e=>updateGridDensity(Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="2" max={maxStripWidth} step="0.5" value={width} onChange={e=>updateGridWidth(Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" step="1" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><p>自动计算：中心间距 {((189-width)/(density-1)).toFixed(1)} mm · 净孔 {Math.max(0,(189-width)/(density-1)-width).toFixed(1)} mm{previewMinClearHole?`（预览最少保留 ${previewMinClearHole} mm）`:''}</p><MaterialColorControls baseColor={baseColor} patternColors={patternColors} onBaseColorChange={next=>{if(next.toUpperCase()!==baseColor.toUpperCase()){setBaseColor(next);setRevision(n=>n+1);}}} onPatternColorChange={changePatternColor}/></>:<><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(21);setWidth(9);setSize(100);setColor('#315F3A');setBaseColor('#C4A879');setPaletteOverrides({});setRevision(n=>n+1);}}>↻ 重置</button></div><p>默认21经×21纬、9 mm宽，对应B v0.3毛坯规则；调整后仅供结构演示，工艺状态保持待验证。</p><label>竹条数量／方向 <b>{density}</b><input type="range" min="9" max="41" step="1" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="10" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><MaterialColorControls baseColor={baseColor} patternColors={patternColors} onBaseColorChange={next=>{if(next.toUpperCase()!==baseColor.toUpperCase()){setBaseColor(next);setRevision(n=>n+1);}}} onPatternColorChange={changePatternColor}/></>}<div className="actions"><button onClick={()=>go('input')}>重新输入创意</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
+        <section className="studio-main"><div className="studio-title"><div><p className="kicker">{flowNumber('edit')} / 编辑预览</p><h2>实时预览</h2></div></div><div className="preview">{v03Structure?<div className="v03-svg" dangerouslySetInnerHTML={{__html:renderStructureSvg(v03Structure)}}/>:customStructure?.status==='ok'?<CustomStructurePreview snapshot={customStructure.snapshot}/>:customStructure?.status==='blocked'?<div className="warning" role="alert">{customStructure.message}</div>:<Fan candidate={confirmed} carrierId={confirmed.resultType==='surface_pattern'?fanVariantId:undefined}/>}</div></section>
+        <aside className="controls">{v03Structure?<><div className="control-head"><h2>扇面结构参数</h2><button onClick={()=>{setDensity(weave==='SQUARE-HOLE-1X1-V1'?13:21);setWidth(9);setSize(100);setBaseColor('#C4A879');setPaletteOverrides({});setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整后，预览会同步更新。</p><label>经／纬条数 <b>{density}</b><input type="range" min="9" max={maxGridCount} step="2" value={density} onChange={e=>updateGridDensity(Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="2" max={maxStripWidth} step="0.5" value={width} onChange={e=>updateGridWidth(Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" step="1" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><p>自动计算：中心间距 {((189-width)/(density-1)).toFixed(1)} mm · 净孔 {Math.max(0,(189-width)/(density-1)-width).toFixed(1)} mm{previewMinClearHole?`（预览最少保留 ${previewMinClearHole} mm）`:''}</p><MaterialColorControls baseColor={baseColor} patternColors={patternColors} onBaseColorChange={next=>{if(next.toUpperCase()!==baseColor.toUpperCase()){setBaseColor(next);setRevision(n=>n+1);}}} onPatternColorChange={changePatternColor}/></>:<><div className="control-head"><h2>参数调节</h2><button onClick={()=>{setDensity(21);setWidth(9);setSize(100);setColor('#315F3A');setBaseColor('#C4A879');setPaletteOverrides({});setRevision(n=>n+1);}}>↻ 重置</button></div><p>调整参数后可查看预览效果，制作可行性以工艺检查为准。</p><label>竹条数量／方向 <b>{density}</b><input type="range" min="9" max="41" step="1" value={density} onChange={e=>update(setDensity,Number(e.target.value))}/></label><label>竹条宽度 <b>{width.toFixed(1)} mm</b><input type="range" min="1" max="10" step="0.5" value={width} onChange={e=>update(setWidth,Number(e.target.value))}/></label><label>图样大小 <b>{size}%</b><input type="range" min="60" max="140" value={size} onChange={e=>update(setSize,Number(e.target.value))}/></label><MaterialColorControls baseColor={baseColor} patternColors={patternColors} onBaseColorChange={next=>{if(next.toUpperCase()!==baseColor.toUpperCase()){setBaseColor(next);setRevision(n=>n+1);}}} onPatternColorChange={changePatternColor}/></>}<div className="actions"><button onClick={()=>go('input')}>重新输入创意</button><button className="primary" onClick={()=>go('check')}>提交工艺检查 →</button></div></aside>
       </div>}
       {step==='check'&&<CraftCheckPanel input={craftInput} preview={v03Structure?<div className="craft-preview-image v03-svg" dangerouslySetInnerHTML={{__html:renderStructureSvg(v03Structure)}}/>:customStructure?.status==='ok'?<CustomStructurePreview snapshot={customStructure.snapshot}/>:null} onBack={()=>go('edit')} onUseSupportedWeave={()=>{selectWeave('CROSS-COURSE-2X2-V1');setCheckedResult(null);}} onPreview={result=>{setCheckedResult(result);go('materials');}}/>}
-      {step==='materials'&&<div className="end craft-review"><p className="kicker">06 / 结构拆解预览 · 设计版本 {revision}</p><div className="end-icon">▤</div><h1>结构拆解预览</h1><p>以下顺序由当前 D 结构快照生成，只供核对竹条与交点，不是经过实物验证的制作教程。</p>
-        {checkedResult?.structuralStatus==='passed'&&checkedResult.status!=='failed'&&checkedResult.designRevision===revision&&v03Structure?<><p className="craft-facts">E 检查状态：{checkedResult.status==='pending'?'待验证':'通过'}。竹条编号：{v03Structure.strips.map(strip=>strip.stripId).join('、')}。备料长度仍未知。</p><div className="craft-steps">{[...new Set(v03Structure.stages.rawBlank.weavingOrder.map(operation=>operation.step))].map(stepNumber=>{const operations=v03Structure.stages.rawBlank.weavingOrder.filter(operation=>operation.step===stepNumber);return <article key={stepNumber}><strong>第 {stepNumber} 组 · {operations[0]?.workingStripId}</strong><p>依次经过 {operations.length} 个交点；{operations.slice(0,5).map(operation=>`${operation.referenceStripId} ${operation.action==='over'?'在上':'在下'}`).join(' → ')}{operations.length>5?' …':''}</p></article>;})}</div></>
-        :checkedResult?.structuralStatus==='passed'&&checkedResult.status!=='failed'&&checkedResult.designRevision===revision&&customStructure?.status==='ok'?<><p className="craft-facts">E 检查状态：{checkedResult.status==='pending'?'待验证':'通过'}。当前形状有 {customStructure.snapshot.strips.list.length} 段竹条、{customStructure.snapshot.interlace.crossings.length} 个交点；下方仅为结构段清单，备料长度和真实穿织顺序仍未知。</p><div className="craft-steps">{customStructure.snapshot.strips.list.map(strip=><article key={strip.id}><strong>{strip.id} · {strip.direction==='warp'?'经向':'纬向'}</strong><p>可见几何段 {strip.geometryLengthMm.toFixed(1)} mm · 与 {customStructure.snapshot.interlace.crossings.filter(crossing=>crossing.warpStripId===strip.id||crossing.weftStripId===strip.id).length} 个交点关联</p></article>)}</div></>
+      {step==='materials'&&<div className="end craft-review"><p className="kicker">{flowNumber('materials')} / 制作资料</p><div className="end-icon">▤</div><h1>结构拆解预览</h1><p>以下内容可用于核对竹条与交点，尚不是经过实物验证的制作教程。</p>
+        {checkedResult?.structuralStatus==='passed'&&checkedResult.status!=='failed'&&checkedResult.designRevision===revision&&v03Structure?<><p className="craft-facts">工艺检查状态：{checkedResult.status==='pending'?'待验证':'通过'}。竹条编号：{v03Structure.strips.map(strip=>strip.stripId).join('、')}。备料长度仍未知。</p><div className="craft-steps">{[...new Set(v03Structure.stages.rawBlank.weavingOrder.map(operation=>operation.step))].map(stepNumber=>{const operations=v03Structure.stages.rawBlank.weavingOrder.filter(operation=>operation.step===stepNumber);return <article key={stepNumber}><strong>第 {stepNumber} 组 · {operations[0]?.workingStripId}</strong><p>依次经过 {operations.length} 个交点；{operations.slice(0,5).map(operation=>`${operation.referenceStripId} ${operation.action==='over'?'在上':'在下'}`).join(' → ')}{operations.length>5?' …':''}</p></article>;})}</div></>
+        :checkedResult?.structuralStatus==='passed'&&checkedResult.status!=='failed'&&checkedResult.designRevision===revision&&customStructure?.status==='ok'?<><p className="craft-facts">工艺检查状态：{checkedResult.status==='pending'?'待验证':'通过'}。当前形状有 {customStructure.snapshot.strips.list.length} 段竹条、{customStructure.snapshot.interlace.crossings.length} 个交点；下方仅为结构段清单，备料长度和真实穿织顺序仍未知。</p><div className="craft-steps">{customStructure.snapshot.strips.list.map(strip=><article key={strip.id}><strong>{strip.id} · {strip.direction==='warp'?'经向':'纬向'}</strong><p>可见几何段 {strip.geometryLengthMm.toFixed(1)} mm · 与 {customStructure.snapshot.interlace.crossings.filter(crossing=>crossing.warpStripId===strip.id||crossing.weftStripId===strip.id).length} 个交点关联</p></article>)}</div></>
         :<div className="warning">没有与当前版本对应且通过 E 结构复核的拆解预览，请返回检查。</div>}
         <div className="warning">工艺与实物验证未完成，正式材料清单、制作教程、导出和制作批准暂不可用。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button onClick={()=>go('check')}>查看检查结果</button></div></div>}
     </main>{step!=='carrier'&&<footer>竹编 DIY · 创作实验室</footer>}

@@ -1,0 +1,1 @@
+export function extractImageContour(image: { data: Uint8ClampedArray; width: number; height: number }, options?: { smoothForCarrier?: boolean }): { points: { x: number; y: number }[]; color: string; imageSize: { width: number; height: number } };

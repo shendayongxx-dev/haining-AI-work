@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:api": "node --env-file-if-exists=.env server/index.mjs",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
   },

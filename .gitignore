@@ -3,3 +3,6 @@ dist/
 .pnpm-store/
 *.tsbuildinfo
 .e-craft-tests/
+.local-assets/
+.env
+.env.*

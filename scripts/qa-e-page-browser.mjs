@@ -38,7 +38,7 @@ try{
       await wait(100);
     }
     await byText('生成候选');await until('[...document.querySelectorAll("button")].some(x=>x.textContent.includes("确认当前结果")&&!x.disabled)');
-    await byText('确认当前结果');await byText('十字编（课程版）');await byText('进入编辑预览');
+    await byText('确认当前结果');await byText('十字编');await byText('进入编辑预览');
   }
   async function inspect(){await byText('提交工艺检查');await until('!!document.querySelector("[data-testid=craft-status]")');}
   await generate('绿色三角形');await wait(650);
@@ -63,7 +63,7 @@ try{
   await send('Input.dispatchKeyEvent',{type:'keyDown',key:'ArrowLeft',code:'ArrowLeft',windowsVirtualKeyCode:37});await send('Input.dispatchKeyEvent',{type:'keyUp',key:'ArrowLeft',code:'ArrowLeft',windowsVirtualKeyCode:37});await wait(150);
   await inspect();
   await check('edited parameters trigger a new revision check',async()=>before!==await evaluate('document.querySelector("[data-testid=craft-status]").dataset.revision'));
-  await byText('返回编辑');await byText('平编演示');await inspect();
+  await byText('返回编辑');await byText('平编');await inspect();
   await check('unsupported weave has a plain-language reason and recommendation',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.status==="failed"&&document.querySelector(".craft-decision h2").textContent.includes("当前编法不在制作检查范围")&&!!document.querySelector("[data-testid=craft-recommendation]")'));
   await wait(650);const blockedShot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});writeFileSync(path.join(out,'blocked-decision.png'),Buffer.from(blockedShot.data,'base64'));
   const rejectedRevision=await evaluate('Number(document.querySelector("[data-testid=craft-status]").dataset.revision)');
