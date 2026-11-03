@@ -61,7 +61,7 @@ try{
   await check('unsupported weave has a plain-language reason and recommendation',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.status==="failed"&&document.querySelector(".craft-decision h2").textContent.includes("当前编法不在制作检查范围")&&!!document.querySelector("[data-testid=craft-recommendation]")'));
   await wait(650);const blockedShot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});writeFileSync(path.join(out,'blocked-decision.png'),Buffer.from(blockedShot.data,'base64'));
   const rejectedRevision=await evaluate('Number(document.querySelector("[data-testid=craft-status]").dataset.revision)');
-  await byText('采纳推荐并继续');await until('!!document.querySelector(".craft-review")');
+  await byText('切换编法并重新检查');await until('!!document.querySelector(".craft-review")');
   await check('adopting recommendation rechecks a new revision before next step',()=>evaluate('document.querySelector(".craft-review .kicker").textContent.includes("版本 "+'+(rejectedRevision+1)+')&&document.querySelector(".craft-facts").textContent.includes("E 检查状态：待验证")'));
   await click('.logo');await byText('自定义形状');await generate('叶片');await inspect();
   await check('custom leaf has independent structural checks and pending craft',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.structure==="passed"&&document.querySelector("[data-testid=craft-status]").dataset.status==="pending"'));

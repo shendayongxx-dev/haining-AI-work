@@ -1,0 +1,18 @@
+✔ page acceptance: normal (41.1958ms)
+✔ page acceptance: color-gap (30.4546ms)
+✔ page acceptance: crossing-reference (16.4377ms)
+✔ page acceptance: weave-matrix (15.6155ms)
+✔ page acceptance: missing-source (13.7394ms)
+✔ page acceptance: stale-snapshot (17.1063ms)
+✔ page acceptance: custom-context (5.7487ms)
+✔ page acceptance: custom-self-intersection (2.2781ms)
+✔ copy preserves raw evidence while making missing context readable (2.9289ms)
+✔ dependent pending rules after a structure failure are not presented as missing design data (15.4401ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 379.8182

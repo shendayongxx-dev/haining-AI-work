@@ -1,0 +1,95 @@
+{
+  "date": "2026-11-03",
+  "baseCommit": "4aba2d8",
+  "branch": "codex/e-check-page-qa",
+  "cases": [
+    {
+      "id": "normal",
+      "title": "正常结构，工艺仍待验证",
+      "expectedStatus": "pending",
+      "expectedStructure": "passed",
+      "ruleId": null,
+      "injected": false,
+      "resultFile": "normal.json",
+      "observedStatus": "pending"
+    },
+    {
+      "id": "color-gap",
+      "title": "颜色分段出现缺口",
+      "expectedStatus": "failed",
+      "expectedStructure": "failed",
+      "ruleId": "COLOR_SEGMENT_COVERAGE",
+      "injected": true,
+      "resultFile": "color-gap.json",
+      "observedStatus": "failed"
+    },
+    {
+      "id": "crossing-reference",
+      "title": "交点引用不存在的竹条段",
+      "expectedStatus": "failed",
+      "expectedStructure": "failed",
+      "ruleId": "STRIP_ID_TRACEABLE",
+      "injected": true,
+      "resultFile": "crossing-reference.json",
+      "observedStatus": "failed"
+    },
+    {
+      "id": "weave-matrix",
+      "title": "交点挑压关系与编法不一致",
+      "expectedStatus": "failed",
+      "expectedStructure": "failed",
+      "ruleId": "WEAVE_MATRIX_MATCH",
+      "injected": true,
+      "resultFile": "weave-matrix.json",
+      "observedStatus": "failed"
+    },
+    {
+      "id": "missing-source",
+      "title": "缺少来源字段，等待补齐",
+      "expectedStatus": "pending",
+      "expectedStructure": "pending",
+      "ruleId": "INPUT_REQUIRED_FIELDS",
+      "injected": true,
+      "resultFile": "missing-source.json",
+      "observedStatus": "pending"
+    },
+    {
+      "id": "stale-snapshot",
+      "title": "旧快照与当前设计版本不一致",
+      "expectedStatus": "failed",
+      "expectedStructure": "failed",
+      "ruleId": "INPUT_REQUIRED_FIELDS",
+      "injected": true,
+      "resultFile": "stale-snapshot.json",
+      "observedStatus": "failed"
+    },
+    {
+      "id": "custom-context",
+      "title": "自定义形状缺少完整上下文",
+      "expectedStatus": "pending",
+      "expectedStructure": "passed",
+      "ruleId": "CUSTOM_CONTEXT_COMPLETE",
+      "injected": false,
+      "resultFile": "custom-context.json",
+      "observedStatus": "pending"
+    },
+    {
+      "id": "custom-self-intersection",
+      "title": "自定义轮廓自交或退化",
+      "expectedStatus": "failed",
+      "expectedStructure": "failed",
+      "ruleId": null,
+      "injected": true,
+      "resultFile": "custom-self-intersection.json",
+      "observedStatus": "failed"
+    }
+  ],
+  "verification": {
+    "coreTests": 54,
+    "pageTests": 10,
+    "browserChecks": 36,
+    "buildPassed": true
+  },
+  "productionOutputsEnabled": false,
+  "scope": "Presentation and acceptance only; no craft thresholds or public contracts changed."
+}

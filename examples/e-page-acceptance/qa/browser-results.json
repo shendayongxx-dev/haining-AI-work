@@ -1,0 +1,149 @@
+{
+  "results": [
+    {
+      "name": "fixed fan enters actual E checks and remains pending",
+      "pass": true
+    },
+    {
+      "name": "pending craft state is visible without opening technical records",
+      "pass": true
+    },
+    {
+      "name": "pending design data can be filtered separately",
+      "pass": true
+    },
+    {
+      "name": "physical evidence requests can be filtered separately",
+      "pass": true
+    },
+    {
+      "name": "clear decision and next step are prominent",
+      "pass": true
+    },
+    {
+      "name": "19-rule records are available behind one disclosure",
+      "pass": true
+    },
+    {
+      "name": "issues include reasons recommendations and rule references",
+      "pass": true
+    },
+    {
+      "name": "formal output entry stays closed",
+      "pass": true
+    },
+    {
+      "name": "leaving check discards previous visible result",
+      "pass": true
+    },
+    {
+      "name": "edited parameters trigger a new revision check",
+      "pass": true
+    },
+    {
+      "name": "unsupported weave has a plain-language reason and recommendation",
+      "pass": true
+    },
+    {
+      "name": "adopting recommendation rechecks a new revision before next step",
+      "pass": true
+    },
+    {
+      "name": "custom leaf has independent structural checks and pending craft",
+      "pass": true
+    },
+    {
+      "name": "B v1.5 custom effective area and handle context are requested",
+      "pass": true
+    },
+    {
+      "name": "custom handle child is counted only once through parent",
+      "pass": true
+    },
+    {
+      "name": "custom issues retain available location context",
+      "pass": true
+    },
+    {
+      "name": "mobile page has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "custom shape continues to a current-version structural preview",
+      "pass": true
+    },
+    {
+      "name": "fixture UI normal",
+      "pass": true
+    },
+    {
+      "name": "fixture UI color-gap",
+      "pass": true
+    },
+    {
+      "name": "failed fixture blocks structure preview color-gap",
+      "pass": true
+    },
+    {
+      "name": "failed color segment can be located from the main problem card",
+      "pass": true
+    },
+    {
+      "name": "dependent checks say fix structure first instead of claiming missing carrier data",
+      "pass": true
+    },
+    {
+      "name": "fixture UI crossing-reference",
+      "pass": true
+    },
+    {
+      "name": "failed fixture blocks structure preview crossing-reference",
+      "pass": true
+    },
+    {
+      "name": "fixture UI weave-matrix",
+      "pass": true
+    },
+    {
+      "name": "failed fixture blocks structure preview weave-matrix",
+      "pass": true
+    },
+    {
+      "name": "fixture UI missing-source",
+      "pass": true
+    },
+    {
+      "name": "fixture UI stale-snapshot",
+      "pass": true
+    },
+    {
+      "name": "failed fixture blocks structure preview stale-snapshot",
+      "pass": true
+    },
+    {
+      "name": "fixture UI custom-context",
+      "pass": true
+    },
+    {
+      "name": "fixture UI custom-self-intersection",
+      "pass": true
+    },
+    {
+      "name": "failed fixture blocks structure preview custom-self-intersection",
+      "pass": true
+    },
+    {
+      "name": "empty input explains missing design without fabricating a result",
+      "pass": true
+    },
+    {
+      "name": "late failed result cannot overwrite a newer design in check component",
+      "pass": true
+    },
+    {
+      "name": "no browser runtime exceptions",
+      "pass": true
+    }
+  ],
+  "errors": []
+}
