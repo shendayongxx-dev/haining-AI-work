@@ -6,6 +6,8 @@ import FixedFanShape from './FixedFanShape';
 import { prepareCustomShapeStroke } from './modules/c/shapeProcessing';
 
 type Stroke = Point[];
+// Custom drawing is presented as a landscape 4:3 workspace; values are design-space units, not a physical size.
+const CUSTOM_CANVAS_HEIGHT = 157.5;
 
 export default function DrawingCanvas({ carrier, fanVariantId, strokes, onChange }: { carrier: Carrier; fanVariantId: FixedFanCarrierId; strokes: Stroke[]; onChange: (s: Stroke[]) => void }) {
   const active = useRef<Stroke | null>(null);
@@ -28,12 +30,12 @@ export default function DrawingCanvas({ carrier, fanVariantId, strokes, onChange
       <button onClick={() => { if (redo.length) { onChange([...strokes, redo.at(-1)!]); setRedo(redo.slice(0, -1)); } }}>重做</button>
       <button onClick={() => { onChange([]); setRedo([]); }}>清空</button>
     </div>
-    <svg className={`drawing-pad ${isFan ? 'drawing-pad-fan' : 'drawing-pad-custom'}`} viewBox={isFan ? '0 0 210 220' : '0 0 210 297'}
+    <svg className={`drawing-pad ${isFan ? 'drawing-pad-fan' : 'drawing-pad-custom'}`} viewBox={isFan ? '0 0 210 220' : `0 0 210 ${CUSTOM_CANVAS_HEIGHT}`} preserveAspectRatio="xMidYMid meet"
       onPointerDown={e => { e.currentTarget.setPointerCapture(e.pointerId); active.current = [xy(e)]; setLive(active.current); }}
       onPointerMove={e => { if (active.current) { active.current = [...active.current, xy(e)]; setLive(active.current); } }}
       onPointerUp={() => { if (active.current && active.current.length > 1) onChange([...strokes, active.current]); active.current = null; setLive([]); }}
       onPointerCancel={() => { active.current = null; setLive([]); }}>
-      <rect width="210" height={isFan ? '220' : '297'} fill="#f4ead9" />
+      <rect width="210" height={isFan ? 220 : CUSTOM_CANVAS_HEIGHT} fill="#f4ead9" />
       {isFan && <><FixedFanShape id={fanVariantId} field="boundary" fill="#ead9b9" stroke="#7f6848" strokeWidth={1.2} />
         <FixedFanShape id={fanVariantId} field="effectivePatternBoundary" fill="#fffaf0" stroke="#2f7d68" strokeWidth={0.8} strokeDasharray="3 2" />
         <rect x={fan.handleExclusion.xMin} y={fan.handleExclusion.yMin} width={fan.handleExclusion.xMax-fan.handleExclusion.xMin} height={fan.handleExclusion.yMax-fan.handleExclusion.yMin} fill="#c85c5c" fillOpacity="0.25" stroke="#a43c3c" strokeWidth="0.6" /></>}

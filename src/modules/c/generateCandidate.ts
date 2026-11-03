@@ -5,6 +5,7 @@ import { resolveFixedFan } from '../../data/fixedFanRegistry';
 import { geometryContainedByBoundary, geometryIntersectsBoundary, rectangleBoundary } from '../../data/fixedFanGeometry';
 import type { Boundary } from '../../data/fixedFanGeometry';
 import { prepareCustomShapeStroke } from './shapeProcessing';
+import { closeGestureLoop } from '../creative-input/camera-interaction.mjs';
 
 type GenerationInputBase = {
   channel: InputChannel;
@@ -13,6 +14,7 @@ type GenerationInputBase = {
   text?: string;
   file?: File | null;
   strokes?: Point[][];
+  captureMethod?: 'pointer' | 'cameraGesture';
 };
 export type GenerationInput = GenerationInputBase & (
   | { carrier: 'fan'; carrierRef: CarrierRef }
@@ -40,14 +42,20 @@ export function canConfirmCandidate(candidate: Candidate): boolean {
 
 function sourceGeometry(input: GenerationInput) {
   if (input.channel === 'drawing') {
-    const stroke = input.strokes?.at(-1) ?? [];
+    const capturedStroke = input.strokes?.at(-1) ?? [];
+    const stroke = input.captureMethod === 'cameraGesture' && input.carrier === 'fan' ? closeGestureLoop(capturedStroke) : capturedStroke;
     const prepared = input.carrier === 'custom' ? prepareCustomShapeStroke(stroke) : null;
+    const refinementIssues: GenerationIssue[] = [];
+    if (prepared?.autoClosed || prepared?.smoothed) {
+      refinementIssues.push(issue('OUTLINE_AUTO_REFINED', 'info', 'geometry', '已根据绘制内容自动闭合并平滑轮廓。'));
+    }
+    if (prepared?.selfIntersectionRepaired) {
+      refinementIssues.push(issue('SELF_INTERSECTION_AUTO_REPAIRED', 'info', 'geometry', '已自动消除手势抖动产生的局部自交。'));
+    }
     return {
       pointsMm: (prepared?.points ?? stroke).map(point => ({ x: round(point.x), y: round(point.y) })),
-      sourceInputId: `drawing-${input.inputVersionId}`,
-      issues: prepared?.autoClosed || prepared?.smoothed
-        ? [issue('OUTLINE_AUTO_REFINED', 'info', 'geometry', '已根据绘制内容自动闭合并平滑轮廓。')]
-        : [] as GenerationIssue[],
+      sourceInputId: `${input.captureMethod === 'cameraGesture' ? 'camera-gesture' : 'drawing'}-${input.inputVersionId}`,
+      issues: refinementIssues,
     };
   }
   if (input.channel === 'text') {

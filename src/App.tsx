@@ -3,6 +3,7 @@ import { Candidate, Carrier, Point, Step, SurfacePattern } from './model';
 import Fan from './modules/d/FanPreview';
 import CustomStructurePreview from './modules/d/CustomStructurePreview';
 import DrawingCanvas from './DrawingCanvas';
+import GestureDrawingCanvas from './GestureDrawingCanvas';
 import MaterialColorControls from './MaterialColorControls';
 import { adaptConfirmedCandidate, adaptConfirmedCustomCandidate, calculateCustomStructure, calculateFanStructure, StructurePreview } from './modules/d';
 import { canConfirmCandidate, generateCandidate } from './modules/c/generateCandidate';
@@ -15,6 +16,7 @@ import type { FixedFanCarrierId } from './data/fixedFanRegistry';
 import { isFanWeaveAllowed, weaveForFanPreview } from './data/fanPreviewSelection';
 import { calculateStructureV03, renderStructureSvg } from './modules/d/v03';
 import type { WeaveId } from './modules/d/v03/types';
+import { closeGestureLoop } from './modules/creative-input/camera-interaction.mjs';
 
 const steps: { id: Step; label: string }[] = [
   { id: 'carrier', label: '选择载体' }, { id: 'input', label: '输入创意' }, { id: 'generating', label: '生成中' },
@@ -156,7 +158,6 @@ export default function App() {
   };
   function generate(){
     if(channel==='drawing'&&!strokes.length)return setNotice('请先绘制，或使用绿色三角形联调样例。');
-    if(channel==='gesture')return setNotice('手势控制尚未接入，当前请选择鼠标绘制或图文绘制。');
     if(channel==='imageText'){
       if(!file)return setNotice('请先上传参考图。');
       if(!['image/png','image/jpeg','image/webp'].includes(file.type))return setNotice('参考图仅支持 PNG、JPEG 或 WebP。');
@@ -166,7 +167,8 @@ export default function App() {
     const inputId=crypto.randomUUID();go('generating');
     const generationRevision=++generationCounter.current;
     timer.current=setTimeout(()=>{
-      const base={channel:'drawing' as const,inputVersionId:inputId,generationRevision,strokes};
+      const requestStrokes=channel==='gesture'&&carrier==='fan'?strokes.map(stroke=>closeGestureLoop(stroke)):strokes;
+      const base={channel:'drawing' as const,inputVersionId:inputId,generationRevision,strokes:requestStrokes,captureMethod:channel==='gesture'?'cameraGesture' as const:'pointer' as const};
       const request:GenerationInput=carrier==='fan'?{...base,carrier:'fan',carrierRef:fixedFanRef(fanVariantId)}:{...base,carrier:'custom',carrierRef:null};
       void generateCandidate(request)
         .then(result => { if(generationCounter.current!==generationRevision)return;setCandidate(result); setStep('confirm'); })
@@ -175,7 +177,7 @@ export default function App() {
   }
   function confirm(){if(!candidate||!canConfirmCandidate(candidate))return;if(carrier==='fan'&&!sameFixedFanRef(candidate.carrierRef,fixedFanRef(fanVariantId)))return setNotice('载体已切换，请重新生成候选。');if(carrier==='custom'&&candidate.carrierRef)return setNotice('候选载体不匹配，请重新生成。');setConfirmed(candidate);setPaletteOverrides({});setRevision(n=>n+1);setWeave('');go('weave');}
   function update(fn:(v:number)=>void,v:number){fn(v);setRevision(n=>n+1);}
-  return <div className={`app ${step==='carrier'?'home':''} ${['edit','check','materials'].includes(step)?'light':''} ${step==='edit'?'edit-page':''} ${step==='check'?'check-page':''}`}>
+  return <div className={`app ${step==='carrier'?'home':''} ${['edit','check','materials'].includes(step)?'light':''} ${step==='edit'?'edit-page':''} ${step==='check'?'check-page':''} ${step==='input'&&channel==='gesture'?'gesture-page':''}`}>
     <header className="topbar"><button className="logo" onClick={()=>go('carrier')}>竹编 DIY <span>· 创作实验室</span></button><span>以竹为材 · 编织生活的想象</span></header>
     {step!=='carrier'&&<nav className="flow" aria-label="创作流程">{steps.filter(s=>s.id!=='generating').map((s,i)=><div className={`flow-step ${step===s.id?'on':''} ${steps.findIndex(x=>x.id===step)>steps.findIndex(x=>x.id===s.id)?'done':''}`} key={s.id}><b>{i+1}</b><span>{s.label}</span></div>)}</nav>}
     <main key={step} className="scene">
@@ -196,17 +198,18 @@ export default function App() {
           <span className="story-side-label" aria-hidden="true">竹 · 人 · 生 活</span><span className="story-index">03 / 03</span>
         </section>
       </div>}
-      {step==='input'&&<div className="input-page">
+      {step==='input'&&<div className={`input-page ${channel==='gesture'?'gesture-input-page':''}`}>
         <div className="heading"><p className="kicker">01 / 输入创意</p><h1>让灵感有形</h1>
           <p>当前载体：{carrier==='fan'?resolveFixedFan(fixedFanRef(fanVariantId)).name+' · 表面图样':'自定义形状 · 几何载体'}</p></div>
         <div className="input-box">
           <div className="channels" role="group" aria-label="创意输入方式">
             <button type="button" className={channel==='drawing'?'active':''} aria-pressed={channel==='drawing'} onClick={()=>{setChannel('drawing');setNotice('');}}>✎　鼠标绘制</button>
             <button type="button" className={channel==='imageText'?'active':''} aria-pressed={channel==='imageText'} onClick={()=>{setChannel('imageText');setNotice('');}}>▧　图文绘制</button>
-            {carrier==='custom'&&<button type="button" disabled title="后续接入" aria-label="手势控制，后续接入">◌　手势控制 · 待接入</button>}
+            <button type="button" className={channel==='gesture'?'active':''} aria-pressed={channel==='gesture'} onClick={()=>{setChannel('gesture');setNotice('');}}>◌　摄像头手势</button>
           </div>
           {channel==='drawing'&&<><DrawingCanvas carrier={carrier} fanVariantId={fanVariantId} strokes={strokes} onChange={setStrokes}/>
             {carrier==='fan'&&<button className="link" onClick={()=>setStrokes([[{x:105,y:65},{x:70,y:145},{x:140,y:145},{x:105,y:65}]])}>使用绿色三角形联调样例</button>}</>}
+          {channel==='gesture'&&<GestureDrawingCanvas carrier={carrier} fanVariantId={fanVariantId} strokes={strokes} onChange={setStrokes} onUsePointer={()=>{setChannel('drawing');setNotice('已切换为直接绘制，现有有效笔迹已保留。');}}/>}
           {channel==='imageText'&&<div className="image-text-input">
             <p className="muted">{carrier==='fan'?'上传参考图并描述想提取的物品或纹样；生成结果应是应用于扇面的新图样参考图。':'上传参考图并描述想提取的轮廓；生成结果应是可作为竹编载体的自定义形状。'}</p>
             <label className="upload"><strong>{file?file.name:'选择参考图'}</strong><small>PNG / JPEG / WebP</small>

@@ -136,6 +136,28 @@ export function normalizeCameraError(cause) {
   return error;
 }
 
+export function mapNormalizedPointToDesignSpace(point, width, height) {
+  if (!(width > 0) || !(height > 0)) throw new RangeError("Design space must have positive width and height");
+  return {
+    x: Math.round(clamp(point.x, 0, 1) * width * 1000) / 1000,
+    y: Math.round(clamp(point.y, 0, 1) * height * 1000) / 1000,
+  };
+}
+
+export function closeGestureLoop(points, options = {}) {
+  const copy = points.map(point => ({ ...point }));
+  if (copy.length < 4) return copy;
+  const first = copy[0];
+  const last = copy.at(-1);
+  const gap = distance(first, last);
+  if (gap <= 0.001) return copy;
+  const xs = copy.map(point => point.x);
+  const ys = copy.map(point => point.y);
+  const diagonal = Math.hypot(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+  const threshold = Math.min(options.maximumGap ?? 24, Math.max(options.minimumGap ?? 6, diagonal * (options.relativeGap ?? 0.25)));
+  return gap <= threshold ? [...copy, { ...first }] : copy;
+}
+
 function distance(a, b) {
   return Math.hypot(a.x - b.x, a.y - b.y);
 }

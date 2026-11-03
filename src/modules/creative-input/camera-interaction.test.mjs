@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { createCameraSession, createPinchDrawingController, normalizeCameraError } from "./camera-interaction.mjs";
+import { closeGestureLoop, createCameraSession, createPinchDrawingController, mapNormalizedPointToDesignSpace, normalizeCameraError } from "./camera-interaction.mjs";
 
 test("camera session starts, attaches, and stops every media track", async () => {
   let stopped = 0;
@@ -44,6 +44,20 @@ test("pinch controller completes active stroke after repeated tracking loss", ()
   const completed = controller.update({ landmarks: [] });
   assert.equal(completed.type, "stroke-complete");
   assert.equal(completed.reason, "tracking_lost");
+});
+
+test("camera points map into the public design space and clamp at its boundary", () => {
+  assert.deepEqual(mapNormalizedPointToDesignSpace({ x: 0.5, y: 0.25 }, 210, 220), { x: 105, y: 55 });
+  assert.deepEqual(mapNormalizedPointToDesignSpace({ x: 1.2, y: -0.1 }, 210, 297), { x: 210, y: 0 });
+});
+
+test("near-complete gesture outlines close for motif filling while open paths stay open", () => {
+  const loop = [{ x: 20, y: 20 }, { x: 80, y: 20 }, { x: 80, y: 80 }, { x: 28, y: 25 }];
+  const open = [{ x: 20, y: 20 }, { x: 80, y: 20 }, { x: 80, y: 80 }, { x: 50, y: 90 }];
+  const closed = closeGestureLoop(loop);
+  assert.deepEqual(closed.at(-1), closed[0]);
+  assert.equal(closed.length, loop.length + 1);
+  assert.equal(closeGestureLoop(open).length, open.length);
 });
 
 function frame({ index, thumb }) {
