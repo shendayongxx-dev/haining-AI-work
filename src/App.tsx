@@ -9,6 +9,7 @@ import { adaptConfirmedCandidate, adaptConfirmedCustomCandidate, calculateCustom
 import { canConfirmCandidate, generateCandidate } from './modules/c/generateCandidate';
 import type { GenerationInput } from './modules/c/generateCandidate';
 import CraftCheckPanel from './modules/e/CraftCheckPanel';
+import ProductionReadiness from './modules/e/ProductionReadiness';
 import './check-page.css';
 import type { CraftInput, CraftResult } from './modules/e/craftTypes';
 import { generateImageTextPreview } from './modules/c/imageTextApi';
@@ -273,7 +274,8 @@ export default function App() {
         {checkedResult?.structuralStatus==='passed'&&checkedResult.status!=='failed'&&checkedResult.designRevision===revision&&v03Structure?<><p className="craft-facts">工艺检查状态：{checkedResult.status==='pending'?'待验证':'通过'}。竹条编号：{v03Structure.strips.map(strip=>strip.stripId).join('、')}。备料长度仍未知。</p><div className="craft-steps">{[...new Set(v03Structure.stages.rawBlank.weavingOrder.map(operation=>operation.step))].map(stepNumber=>{const operations=v03Structure.stages.rawBlank.weavingOrder.filter(operation=>operation.step===stepNumber);return <article key={stepNumber}><strong>第 {stepNumber} 组 · {operations[0]?.workingStripId}</strong><p>依次经过 {operations.length} 个交点；{operations.slice(0,5).map(operation=>`${operation.referenceStripId} ${operation.action==='over'?'在上':'在下'}`).join(' → ')}{operations.length>5?' …':''}</p></article>;})}</div></>
         :checkedResult?.structuralStatus==='passed'&&checkedResult.status!=='failed'&&checkedResult.designRevision===revision&&customStructure?.status==='ok'?<><p className="craft-facts">工艺检查状态：{checkedResult.status==='pending'?'待验证':'通过'}。当前形状有 {customStructure.snapshot.strips.list.length} 段竹条、{customStructure.snapshot.interlace.crossings.length} 个交点；下方仅为结构段清单，备料长度和真实穿织顺序仍未知。</p><div className="craft-steps">{customStructure.snapshot.strips.list.map(strip=><article key={strip.id}><strong>{strip.id} · {strip.direction==='warp'?'经向':'纬向'}</strong><p>可见几何段 {strip.geometryLengthMm.toFixed(1)} mm · 与 {customStructure.snapshot.interlace.crossings.filter(crossing=>crossing.warpStripId===strip.id||crossing.weftStripId===strip.id).length} 个交点关联</p></article>)}</div></>
         :<div className="warning">没有与当前版本对应且通过 E 结构复核的拆解预览，请返回检查。</div>}
-        <div className="warning">工艺与实物验证未完成，正式材料清单、制作教程、导出和制作批准暂不可用。</div><div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button onClick={()=>go('check')}>查看检查结果</button></div></div>}
+        {checkedResult?.structuralStatus==='passed'&&checkedResult.status!=='failed'&&checkedResult.designRevision===revision&&checkedResult.designId===designId.current&&<ProductionReadiness result={checkedResult} showCourseReference={v03Structure?.carrierId==='FAN-ROUND-170-V1'&&v03Structure.weaveId==='CROSS-COURSE-2X2-V1'}/>}
+        <div className="actions center"><button onClick={()=>go('edit')}>返回编辑</button><button onClick={()=>go('check')}>查看检查结果</button></div></div>}
     </main>{step!=='carrier'&&<footer>竹编 DIY · 创作实验室</footer>}
   </div>;
 }

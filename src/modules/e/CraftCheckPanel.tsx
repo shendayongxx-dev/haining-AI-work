@@ -53,9 +53,9 @@ export default function CraftCheckPanel({input,preview,onBack,onPreview,onUseSup
   const verdict=error||!input?'unavailable':!result?'checking':failed.length||result.status==='failed'?'blocked':result.structuralStatus==='passed'?'clear':'unavailable';
   const title=error?'检查未完成':!input?'缺少当前设计':!result?'正在检查当前搭配':verdict==='blocked'?'当前搭配未通过检查':verdict==='clear'?'结构检查通过':'暂时无法判断能否制作';
   const explanation=error?'请返回编辑页重新提交。':!input?'请先确认创意结果并选择编法。':!result?'正在核对竹条、交点和工艺规则。':verdict==='blocked'&&unsupported?'平编目前仅供预览，尚无对应的制作检查规则。':verdict==='blocked'?'检查发现了明确的结构或编法问题。请按下方原因修改后重新提交。':verdict==='clear'?'当前竹条和交点的结构关系没有发现阻断问题，可以继续查看结构拆解。':'当前结构资料不足，暂时不能给出可靠结论。';
-  const boundary=input?.kind==='fixed-fan'?input.snapshot.carrierGeometry.boundary as {type:string;cx?:number;cy?:number;r?:number;rx?:number;ry?:number;pointsMm?:number[][]}:null;
+  const boundary=input?.kind==='fixed-fan'?input.snapshot.carrierGeometry?.boundary as {type:string;cx?:number;cy?:number;r?:number;rx?:number;ry?:number;pointsMm?:number[][]}:null;
   const custom=input?.kind==='custom'&&input.result.status==='ok'?input.result.snapshot:null;
-  const fixedStrip=input?.kind==='fixed-fan'?input.snapshot.strips.find(s=>s.stripId===focus?.location.stripId):null;
+  const fixedStrip=input?.kind==='fixed-fan'?input.snapshot.strips?.find(s=>s.stripId===focus?.location.stripId):null;
   const customStrip=custom?.strips.list.find(s=>s.id===focus?.location.stripId);
   const position=focus?.location.positionMm;
   return <div className="craft-check" data-testid="craft-check" ref={panelRef}>

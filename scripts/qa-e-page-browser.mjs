@@ -29,9 +29,10 @@ try{
   await until('!!document.querySelector(".logo")');
   async function generate(label){
     await byText('开始设计');
-    if(label==='绿色三角形')await byText('使用绿色三角形联调样例');
-    else {
-      const screen=await evaluate('(()=>{const s=document.querySelector(".drawing-pad-custom");s.scrollIntoView({block:"center"});return '+JSON.stringify([[24,148.5],[66,62],[144,66],[186,148.5],[144,231],[66,235],[24,148.5]])+'.map(([x,y])=>{const p=s.createSVGPoint();p.x=x;p.y=y;const q=p.matrixTransform(s.getScreenCTM());return{x:q.x,y:q.y};});})()');
+    {
+      const selector=label==='绿色三角形'?'.drawing-pad-fan':'.drawing-pad-custom';
+      const points=label==='绿色三角形'?[[67,141],[105,74],[144,141],[67,141]]:[[24,148.5],[66,62],[144,66],[186,148.5],[144,231],[66,235],[24,148.5]];
+      const screen=await evaluate('(()=>{const s=document.querySelector('+JSON.stringify(selector)+');s.scrollIntoView({block:"center"});return '+JSON.stringify(points)+'.map(([x,y])=>{const p=s.createSVGPoint();p.x=x;p.y=y;const q=p.matrixTransform(s.getScreenCTM());return{x:q.x,y:q.y};});})()');
       await send('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',buttons:1,clickCount:1,...screen[0]});
       for(const p of screen.slice(1))await send('Input.dispatchMouseEvent',{type:'mouseMoved',button:'left',buttons:1,...p});
       await send('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',buttons:0,clickCount:1,...screen.at(-1)});
@@ -68,7 +69,8 @@ try{
   await wait(650);const blockedShot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});writeFileSync(path.join(out,'blocked-decision.png'),Buffer.from(blockedShot.data,'base64'));
   const rejectedRevision=await evaluate('Number(document.querySelector("[data-testid=craft-status]").dataset.revision)');
   await byText('切换编法并重新检查');await until('!!document.querySelector(".craft-review")');
-  await check('adopting recommendation rechecks a new revision before next step',()=>evaluate('document.querySelector(".craft-review .kicker").textContent.includes("版本 "+'+(rejectedRevision+1)+')&&document.querySelector(".craft-facts").textContent.includes("E 检查状态：待验证")'));
+  await check('adopting recommendation rechecks a new revision before next step',()=>evaluate('document.querySelector(".craft-production-readiness>p").textContent.includes("版本 "+'+(rejectedRevision+1)+')&&document.querySelector(".craft-facts").textContent.includes("工艺检查状态：待验证")'));
+  await check('round cross weave offers course reference and identifies missing formal outputs',()=>evaluate('document.querySelector(".craft-production-readiness summary").textContent.includes("十字编")&&document.querySelector(".craft-production-readiness").textContent.includes("正式图文教程 · 待验证")'));
   await click('.logo');await byText('自定义形状');await generate('叶片');await inspect();
   await check('custom leaf has independent structural checks and pending craft',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.structure==="passed"&&document.querySelector("[data-testid=craft-status]").dataset.status==="pending"'));
   await check('B v1.5 custom effective area and handle context are requested',()=>evaluate('document.querySelector(".craft-check").textContent.includes("有效图样区")'));
@@ -79,7 +81,7 @@ try{
   await check('mobile page has no horizontal overflow',()=>evaluate('document.documentElement.scrollWidth<=window.innerWidth'));
   const mobile=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});writeFileSync(path.join(out,'mobile.png'),Buffer.from(mobile.data,'base64'));
   await byText('进入下一步：结构拆解预览');await until('!!document.querySelector(".craft-review .craft-steps article")');
-  await check('custom shape continues to a current-version structural preview',()=>evaluate('document.querySelector(".craft-review .craft-facts").textContent.includes("段竹条")&&document.querySelector(".craft-review .warning").textContent.includes("正式材料清单")'));
+  await check('custom shape continues to a current-version structural preview',()=>evaluate('document.querySelector(".craft-review .craft-facts").textContent.includes("段竹条")&&document.querySelector(".craft-production-readiness").textContent.includes("正式备料单 · 待验证")&&!document.querySelector(".craft-production-readiness summary")'));
 
   await send('Emulation.setDeviceMetricsOverride',{width:1365,height:1000,deviceScaleFactor:1,mobile:false});
   await evaluate('(async()=>{const React=(await import("/node_modules/.vite/deps/react.js")).default;const domModule=await import("/node_modules/.vite/deps/react-dom_client.js");const createRoot=domModule.createRoot??domModule.default?.createRoot;const Panel=(await import("/src/modules/e/CraftCheckPanel.tsx")).default;const fixtures=await import("/tests/e-check/fixtures.ts");document.getElementById("root").style.display="none";let root,container;window.__qaBack=0;window.__qaPreview=0;window.__qaRenderCase=async(id)=>{root?.unmount();container?.remove();container=document.createElement("div");container.className="qa-component-root";document.body.append(container);root=createRoot(container);root.render(React.createElement(Panel,{input:id==="no-input"?null:fixtures.makePageCase(id),onBack:()=>{window.__qaBack++},onPreview:()=>{window.__qaPreview++}}));};return true;})()');
