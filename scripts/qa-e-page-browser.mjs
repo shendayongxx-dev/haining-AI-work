@@ -71,6 +71,12 @@ try{
   await byText('切换编法并重新检查');await until('!!document.querySelector(".craft-review")');
   await check('adopting recommendation rechecks a new revision before next step',()=>evaluate('document.querySelector(".craft-production-readiness>p").textContent.includes("版本 "+'+(rejectedRevision+1)+')&&document.querySelector(".craft-facts").textContent.includes("工艺检查状态：待验证")'));
   await check('round cross weave offers course reference and identifies missing formal outputs',()=>evaluate('document.querySelector(".craft-production-readiness summary").textContent.includes("十字编")&&document.querySelector(".craft-production-readiness").textContent.includes("正式图文教程 · 待验证")'));
+  await click('.course-tutorial summary');
+  await check('course tutorial opens with first diagram and previous disabled',()=>evaluate('document.querySelector(".course-tutorial").open&&document.querySelector(".course-tutorial-diagram").getAttribute("aria-label").includes("排经")&&document.querySelector(".course-tutorial-actions button").disabled'));
+  await click('.course-tutorial-actions button:last-child');
+  await check('next step renders the weaving diagram and check instructions',()=>evaluate('document.querySelector(".course-tutorial-diagram").getAttribute("aria-label").includes("挑压")&&document.querySelector(".course-tutorial-content").textContent.includes("逐行对照")'));
+  await click('.course-tutorial nav button:last-child');
+  await check('last step disables next and shows handle diagram',()=>evaluate('document.querySelector(".course-tutorial-actions button:last-child").disabled&&document.querySelector(".course-tutorial-diagram").getAttribute("aria-label").includes("柄口")'));
   await click('.logo');await byText('自定义形状');await generate('叶片');await inspect();
   await check('custom leaf has independent structural checks and pending craft',()=>evaluate('document.querySelector("[data-testid=craft-status]").dataset.structure==="passed"&&document.querySelector("[data-testid=craft-status]").dataset.status==="pending"'));
   await check('B v1.5 custom effective area and handle context are requested',()=>evaluate('document.querySelector(".craft-check").textContent.includes("有效图样区")'));
